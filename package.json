@@ -60,7 +60,7 @@
     "reinstall": "pnpm clean --del-lock && pnpm install",
     "test:unit": "vitest run --dom",
     "test:e2e": "turbo run test:e2e",
-    "update:deps": "npx taze -r -w",
+    "update:deps": "npx taze -r -w --request-timeout 30000",
     "update:workspace": "pnpm vsh code-workspace",
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "catalog": "pnpx codemod pnpm/catalog"
