@@ -22,22 +22,22 @@ catalog:
   'ant-design-vue': ^4.2.6
   'archiver': ^7.0.1
   'array-move': ^4.0.0
-  'autoprefixer': ^10.5.4
+  'autoprefixer': ^10.6.1
   'axe-core': ^4.13.0
-  'axios': ^1.19.0
+  'axios': ^1.20.0
   'babel-eslint': ^10.1.0
   'babel-plugin-inferno': ^6.9.0
   'babel-plugin-inline-react-svg': ^2.0.2
   'babel-plugin-module-resolver': ^5.0.3
-  'bpmn-js': ^18.24.0
+  'bpmn-js': ^18.28.0
   'bpmn-js-bpmnlint': "^0.23.0"
   'bpmn-js-color-picker': ^0.7.2
   'bpmn-js-create-append-anything': ^1.3.1
   'bpmn-js-differ': ^2.0.2
   'bpmn-js-i18n': ^2.4.0
-  'bpmn-moddle': ^10.1.0
-  'camunda-bpmn-moddle': ^7.0.1
-  'bpmnlint': ^11.12.1
+  'bpmn-moddle': ^10.2.0
+  'camunda-bpmn-moddle': ^7.0.2
+  'bpmnlint': ^11.14.0
   'bpmnlint-loader': ^0.1.6
   'bpmnlint-utils': ^1.1.1
   'cac': ^6.7.14
@@ -50,44 +50,44 @@ catalog:
   'codemirror': ^6.0.2
   'commitlint-plugin-function-rules': ^4.3.2
   'consola': ^3.4.2
-  'cpy': ^13.2.2
+  'cpy': ^13.2.3
   'cross-env': ^7.0.3
   'cspell': ^8.19.4
   'css.escape': ^1.5.1
   'cssnano': ^7.1.9
-  'cz-git': ^1.13.2
-  'czg': ^1.13.2
-  'dayjs': ^1.11.21
+  'cz-git': ^1.14.0
+  'czg': ^1.14.0
+  'dayjs': ^1.11.23
   'del': ^8.0.1
   'depcheck': ^1.4.7
-  'diagram-js': ^15.24.0
+  'diagram-js': ^15.26.0
   'diagram-js-direct-editing': ^3.5.1
-  'diagram-js-grid': ^2.0.1
+  'diagram-js-grid': ^2.1.0
   'diagram-js-minimap': ^5.4.1
   'didi': ^11.0.0
   'dmn-font': ^0.6.2
   'dmn-js-dmnlint': ^0.1.1
-  'dmn-moddle': ^12.0.1
+  'dmn-moddle': ^12.1.0
   'dmnlint': ^0.2.0
   'dmnlint-loader': ^0.1.0
   'dmnlint-pack-config': ^0.1.0
   'dotenv': ^16.6.1
   'downloadjs': ^1.4.7
-  'element-plus': ^2.14.4
+  'element-plus': ^2.14.5
   'esbuild': ^0.25.12
   'escape-html': ^1.0.3
   'eslint': ^9.39.5
   'eslint-config-airbnb-base': ^15.0.0
   'eslint-config-prettier': ^10.1.8
-  'eslint-config-turbo': ^2.10.9
+  'eslint-config-turbo': ^2.10.13
   'eslint-define-config': ^2.1.0
   'eslint-import-resolver-typescript': ^4.4.5
-  'eslint-plugin-bpmn-io': ^2.3.1
+  'eslint-plugin-bpmn-io': ^2.4.0
   'eslint-plugin-command': ^3.5.3
   'eslint-plugin-eslint-comments': ^3.2.0
   'eslint-plugin-import': ^2.32.0
   'eslint-plugin-import-x': ^4.17.1
-  'eslint-plugin-jest': ^29.16.1
+  'eslint-plugin-jest': ^29.16.6
   'eslint-plugin-jsdoc': ^61.7.1
   'eslint-plugin-jsonc': ^2.21.1
   'eslint-plugin-n': ^17.24.0
@@ -100,7 +100,7 @@ catalog:
   'eslint-plugin-unicorn': ^62.0.0
   'eslint-plugin-unused-imports': ^4.4.1
   'eslint-plugin-vitest': ^0.5.4
-  'eslint-plugin-vue': ^10.10.0
+  'eslint-plugin-vue': ^10.11.0
   'execa': ^9.6.1
   'feelers': ^1.5.1
   'file-drops': ^0.6.2
@@ -118,17 +118,17 @@ catalog:
   'inherits-browser': ^0.1.0
   'is-ci': ^4.1.0
   'jiti': ^2.7.0
-  'js-base64': ^3.9.2
+  'js-base64': ^3.9.3
   'json-source-map': ^0.6.1
   'jsonc-eslint-parser': ^2.4.2
   'lefthook': ^1.13.6
-  'less': ^4.9.0
+  'less': ^4.9.1
   'lint-staged': ^16.4.0
   'lodash': ^4.18.1
   'lodash-es': ^4.18.1
   'lodash.pick': ^4.4.0
   'lucide-vue-next': ^0.553.0
-  'marked': ^18.0.9
+  'marked': ^18.0.13
   'medium-zoom': ^1.1.0
   'min-dash': ^5.1.0
   'min-dom': ^5.3.0
@@ -138,7 +138,7 @@ catalog:
   'mockjs': ^1.1.0
   'modeler-moddle': ^0.2.0
   'mvdir': ^1.0.22
-  'naive-ui': ^2.44.1
+  'naive-ui': ^2.45.3
   'nitropack': ^2.13.4
   'npm-run-all': ^4.1.5
   'npm-run-all2': ^9.0.3
@@ -146,9 +146,9 @@ catalog:
   'object-refs': ^0.4.0
   'ora': ^8.2.0
   'pinia': ^3.0.4
-  'pkg-types': ^2.3.1
-  'playwright': ^1.62.1
-  'postcss': ^8.5.26
+  'pkg-types': ^2.3.3
+  'playwright': ^1.63.0
+  'postcss': ^8.5.28
   'postcss-antd-fixes': ^0.2.0
   'postcss-html': ^1.8.1
   'postcss-import': ^16.2.0
@@ -157,20 +157,20 @@ catalog:
   'postcss-scss': ^4.0.9
   'preact': ^10.29.8
   'preact-markup': ^2.1.1
-  'prettier': ^3.9.6
+  'prettier': ^3.9.8
   'prettier-plugin-tailwindcss': ^0.7.4
   'primeflex': ^4.0.0
   'primeicons': ^7.0.0
   'primevue': ^4.5.5
-  'publint': ^0.3.23
-  'query-string': ^9.5.0
-  'reka-ui': ^2.10.3
+  'publint': ^0.3.24
+  'query-string': ^9.5.1
+  'reka-ui': ^2.10.4
   'replace-in-file': ^7.2.0
   'resolve.exports': ^2.0.3
   'rimraf': ^6.1.3
-  'rollup': ^4.62.4
+  'rollup': ^4.63.3
   'rollup-plugin-visualizer': ^5.14.0
-  'sass': ^1.102.0
+  'sass': ^1.104.1
   'selection-ranges': ^4.1.1
   'selection-update': ^1.1.1
   'semver': ^7.8.5
@@ -189,7 +189,7 @@ catalog:
   'stylelint-config-recommended-vue': ^1.6.1
   'stylelint-config-standard': ^38.0.0
   'stylelint-order': ^7.0.1
-  '@tauri-apps/plugin-fs': ^2.5.1
+  '@tauri-apps/plugin-fs': ^2.5.2
 
   'stylelint-prettier': ^5.0.3
   'stylelint-scss': ^6.14.0
@@ -199,10 +199,10 @@ catalog:
   'tiny-svg': ^4.1.4
   'ts-jest': ^29.4.12
   'ts-node': ^10.9.2
-  'turbo': ^2.10.9
+  'turbo': ^2.10.13
   'typescript': ^5.9.3
   'unbuild': ^3.6.1
-  'unocss': ^66.7.5
+  'unocss': ^66.10.5
   'unplugin-auto-import': ^20.3.0
   'unplugin-element-plus': ^0.11.2
   'unplugin-vue-components': ^30.0.0
@@ -219,19 +219,19 @@ catalog:
   'vite-plugin-svg-icons': ^2.0.1
   'vite-plugin-top-level-await': ^1.6.0
   'vite-plugin-vue-devtools': ^8.2.1
-  'vite-svg-loader': ^5.1.1
+  'vite-svg-loader': ^5.1.3
   'vitepress': ^1.6.4
   'vitepress-plugin-group-icons': ^1.7.6
   'vitest': ^3.2.7
-  'vue': ^3.5.41
+  'vue': ^3.5.43
   'vue-codemirror': ^6.1.1
   'vue-cropper': ^1.1.4
   'vue-eslint-parser': ^10.4.1
-  'vue-i18n': ^11.4.8
+  'vue-i18n': ^11.4.12
   'vue-router': ^4.6.4
-  'vue-tsc': ^3.3.9
+  'vue-tsc': ^3.3.11
   'xsd-schema-validator': ^0.7.0
-  'zeebe-bpmn-moddle': ^1.17.0
+  'zeebe-bpmn-moddle': ^1.18.0
   '@ant-design/icons-vue': ^7.0.1
   '@anyilanxin/anyi-bpmn-js-embedded-comments': ^0.7.5
   '@arco-plugins/vite-vue': ^1.4.6
@@ -240,31 +240,31 @@ catalog:
   '@babel/plugin-transform-react-jsx': ^7.29.7
   '@bpmn-io/add-exporter': ^0.2.0
   '@bpmn-io/cm-theme': ^0.2.2
-  '@bpmn-io/dmn-variable-resolver': ^0.7.0
+  '@bpmn-io/dmn-variable-resolver': ^0.7.1
   '@bpmn-io/element-template-chooser': ^3.0.0
   '@bpmn-io/element-template-icon-renderer': ^1.0.0
   '@bpmn-io/json-schema-validator': ^0.2.1
   '@camunda/linting': 3.52.0
-  '@carbon/icons': ^11.86.0
+  '@carbon/icons': ^11.88.0
   '@vite-pwa/vitepress': ^1.1.0
   '@changesets/changelog-github': ^0.5.2
   '@changesets/cli': ^2.31.1
   '@changesets/git': ^3.0.4f
   '@clack/prompts': ^0.11.0
   '@codemirror/autocomplete': ^6.20.3
-  '@codemirror/commands': ^6.10.4
+  '@codemirror/commands': ^6.11.1
   '@codemirror/lang-json': ^6.0.2
   '@codemirror/lang-xml': ^6.1.0
   '@codemirror/language': ^6.12.4
   '@codemirror/lint': ^6.9.7
-  '@codemirror/state': ^6.7.1
+  '@codemirror/state': ^6.7.5
   '@codemirror/theme-one-dark': ^6.1.3
-  '@codemirror/view': ^6.43.8
+  '@codemirror/view': ^6.43.12
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
-  '@ctrl/tinycolor': ^4.2.0
+  '@ctrl/tinycolor': ^4.2.1
   '@eslint/js': ^9.39.5
-  '@iconify/json': ^2.2.516
+  '@iconify/json': ^2.2.530
   '@iconify/tailwind': ^1.2.0
   '@intlify/unplugin-vue-i18n': ^6.0.8
   '@jspm/generator': ^2.16.3
@@ -275,7 +275,7 @@ catalog:
   '@manypkg/get-packages': ^3.1.0
   '@mars3d/heatmap.js': ^2.0.7
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
-  '@playwright/test': ^1.62.1
+  '@playwright/test': ^1.63.0
   '@pnpm/workspace.read-manifest': ^1000.3.1
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-json': ^6.1.0
@@ -289,16 +289,16 @@ catalog:
   '@tauri-apps/cli': ^2.11.4
   '@tauri-apps/plugin-autostart': ^2.5.1
   '@tauri-apps/plugin-dialog': 2.4.2
-  '@tauri-apps/plugin-notification': ^2.3.3
-  '@tauri-apps/plugin-opener': ^2.5.4
+  '@tauri-apps/plugin-notification': ^2.4.0
+  '@tauri-apps/plugin-opener': ^2.5.5
   '@tauri-apps/plugin-os': ^2.3.2
-  '@tauri-apps/plugin-shell': ^2.3.5
-  '@tauri-apps/plugin-store': ^2.4.4
+  '@tauri-apps/plugin-shell': ^2.3.6
+  '@tauri-apps/plugin-store': ^2.4.5
   '@tauri-apps/plugin-window-state': ^2.4.1
-  '@testing-library/dom': ^10.4.1
+  '@testing-library/dom': ^10.4.2
   '@testing-library/preact': ^3.2.4
   '@testing-library/preact-hooks': ^1.1.0
-  '@testing-library/user-event': ^14.6.4
+  '@testing-library/user-event': ^14.6.7
   '@types/archiver': ^6.0.4
   '@types/chai': ^5.2.3
   '@types/crypto-js': ^4.2.2
@@ -311,7 +311,7 @@ catalog:
   '@types/lodash-es': ^4.17.12
   '@types/mocha': ^10.0.10
   '@types/mockjs': ^1.0.10
-  '@types/node': ^24.13.3
+  '@types/node': ^24.13.5
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.6
@@ -320,12 +320,12 @@ catalog:
   '@types/sinon': ^21.0.1
   '@types/sinon-chai': ^4.0.0
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/eslint-plugin': ^8.67.0
-  '@typescript-eslint/parser': ^8.67.0
-  'typescript-eslint': ^8.67.0
-  '@vitejs/plugin-vue': ^6.0.8
+  '@typescript-eslint/eslint-plugin': ^8.70.0
+  '@typescript-eslint/parser': ^8.70.0
+  'typescript-eslint': ^8.70.0
+  '@vitejs/plugin-vue': ^6.0.9
   '@vitejs/plugin-vue-jsx': ^5.1.6
   '@vue/devtools': ^8.2.1
-  '@vue/test-utils': ^2.4.11
+  '@vue/test-utils': ^2.5.1
   '@vue/tsconfig': ^0.8.1
   '@vueuse/core': ^13.9.0

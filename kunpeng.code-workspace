@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "kunpeng-modeler",
+      "path": "dist",
+    },
+    {
       "name": "@kunpeng/commitlint-config",
       "path": "internal/lint-configs/commitlint-config",
     },
