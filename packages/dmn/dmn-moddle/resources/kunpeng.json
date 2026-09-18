@@ -1,0 +1,39 @@
+{
+  "name": "kunpeng",
+  "prefix": "kunpeng",
+  "uri": "http://anyilanxin.com/schema/kunpeng/1.0",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "VersionTag",
+      "superClass": ["Element"],
+      "meta": {
+        "allowedIn": ["dmn:Decision"]
+      },
+      "properties": [
+        {
+          "name": "value",
+          "type": "String",
+          "isAttr": true
+        }
+      ]
+    },
+    {
+      "name": "HistoryTimeToLive",
+      "superClass": ["Element"],
+      "meta": {
+        "allowedIn": ["dmn:Decision"]
+      },
+      "properties": [
+        {
+          "name": "value",
+          "type": "String",
+          "isAttr": true
+        }
+      ]
+    }
+  ]
+}

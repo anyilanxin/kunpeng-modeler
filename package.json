@@ -1,0 +1,130 @@
+{
+  "name": "kunpeng-monorepo",
+  "version": "2026.0.0-alpha1",
+  "private": true,
+  "keywords": [
+    "monorepo",
+    "turbo",
+    "vben",
+    "vben admin",
+    "vben pro",
+    "vue",
+    "vue admin",
+    "vue vben admin",
+    "vue vben admin pro",
+    "vue3"
+  ],
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": "vbenjs/vue-vben-admin.git",
+  "license": "MIT",
+  "author": {
+    "name": "vben",
+    "email": "ann.vben@gmail.com",
+    "url": "https://github.com/anncwb"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "lib": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo lib",
+    "build:analyze": "turbo build:analyze",
+    "build:docker": "./scripts/deploy/build-local-docker-image.sh",
+    "build:docs": "pnpm run build --filter=@kunpeng/docs",
+    "build:modeler": "pnpm run build --filter=kunpeng-modeler",
+    "build:modeler:test": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:test",
+    "build:modeler:dmg": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:dmg",
+    "build:modeler:dmg-arm": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:dmg-arm",
+    "build:modeler:dmg-intel": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:dmg-intel",
+    "build:modeler:exe": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:exe",
+    "changeset": "pnpm exec changeset",
+    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
+    "check:circular": "vsh check-circular",
+    "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
+    "check:dep": "vsh check-dep",
+    "check:type": "turbo run typecheck",
+    "clean": "node ./scripts/clean.mjs",
+    "commit": "czg",
+    "dev": "turbo-run dev",
+    "dev:demo": "pnpm -F process-demo run dev",
+    "dev:modeler": "pnpm -F kunpeng-modeler run dev",
+    "preview:modeler": "pnpm -F kunpeng-modeler run preview",
+    "tauri:modeler": "pnpm -F kunpeng-modeler run tauri",
+    "dev:docs": "pnpm -F @kunpeng/docs run dev",
+    "format": "vsh lint --format",
+    "lint": "vsh lint",
+    "postinstall": "pnpm -r run stub --if-present",
+    "preinstall": "npx only-allow pnpm",
+    "preview": "turbo-run preview",
+    "publint": "vsh publint",
+    "reinstall": "pnpm clean --del-lock && pnpm install",
+    "test:unit": "vitest run --dom",
+    "test:e2e": "turbo run test:e2e",
+    "update:deps": "npx taze -r -w",
+    "update:workspace": "pnpm vsh code-workspace",
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
+    "catalog": "pnpx codemod pnpm/catalog"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "catalog:",
+    "@changesets/cli": "catalog:",
+    "@kunpeng/commitlint-config": "workspace:*",
+    "@kunpeng/eslint-config": "workspace:*",
+    "@kunpeng/prettier-config": "workspace:*",
+    "@kunpeng/stylelint-config": "workspace:*",
+    "@kunpeng/tailwind-config": "workspace:*",
+    "@kunpeng/tsconfig": "workspace:*",
+    "@kunpeng/turbo-run": "workspace:*",
+    "@kunpeng/vite-config": "workspace:*",
+    "@kunpeng/vsh": "workspace:*",
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "autoprefixer": "catalog:",
+    "cross-env": "catalog:",
+    "cspell": "catalog:",
+    "happy-dom": "catalog:",
+    "is-ci": "catalog:",
+    "lefthook": "catalog:",
+    "playwright": "catalog:",
+    "rimraf": "catalog:",
+    "tailwindcss": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "engines": {
+    "node": ">=20.12.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "eslint": "*"
+      }
+    },
+    "overrides": {
+      "@ast-grep/napi": "catalog:",
+      "@babel/core": "7.29.7",
+      "@ctrl/tinycolor": "catalog:",
+      "clsx": "catalog:",
+      "esbuild": "0.25.3",
+      "jiti": "catalog:",
+      "pinia": "catalog:",
+      "vue": "catalog:"
+    },
+    "neverBuiltDependencies": [
+      "canvas",
+      "node-gyp"
+    ],
+    "patchedDependencies": {
+      "inferno@5.6.3": "patches/inferno@5.6.3.patch"
+    }
+  }
+}

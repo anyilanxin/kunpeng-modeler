@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_08adx7k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.41.0">
+  <bpmn:process id="Process_1" isExecutable="true" kunpeng:modelerTemplate="process-template" kunpeng:modelerTemplateVersion="1">
+    <bpmn:task id="Task_1" name="foo" kunpeng:modelerTemplate="foo">
+      <bpmn:documentation>bar</bpmn:documentation>
+    </bpmn:task>
+    <bpmn:task id="Task_2" name="icon" kunpeng:modelerTemplate="foo" kunpeng:modelerTemplateVersion="1" kunpeng:modelerTemplateIcon="data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; height=&#39;100&#39; width=&#39;100&#39;%3E%3Ccircle cx=&#39;50&#39; cy=&#39;50&#39; r=&#39;40&#39; stroke=&#39;black&#39; stroke-width=&#39;3&#39; fill=&#39;red&#39; /%3E%3C/svg%3E" />
+    <bpmn:task id="Task_3" />
+    <bpmn:task id="Task_5" kunpeng:modelerTemplate="default" kunpeng:modelerTemplateVersion="1">
+      <bpmn:extensionElements>
+        <kunpeng:executionListeners>
+          <kunpeng:executionListener eventType="start" retries="bar" type="foo" />
+          <kunpeng:executionListener eventType="end" retries="foo" type="bar" />
+        </kunpeng:executionListeners>
+      </bpmn:extensionElements>
+    </bpmn:task>
+    <bpmn:task id="UnknownTemplateTask" kunpeng:modelerTemplate="unknown" />
+    <bpmn:serviceTask id="ServiceTask" kunpeng:modelerTemplate="default" kunpeng:modelerTemplateVersion="1" />
+    <bpmn:serviceTask id="ConfiguredTask">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="taskType" retries="5" />
+        <kunpeng:ioMapping>
+          <kunpeng:input source="= source" target="InputVariable" />
+          <kunpeng:output source="= source" target="OutputVariable" />
+        </kunpeng:ioMapping>
+        <kunpeng:additionDynamics>
+          <kunpeng:header key="headerKey" value="headerValue" />
+        </kunpeng:additionDynamics>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:intermediateThrowEvent id="IntermediateThrow" />
+    <bpmn:intermediateCatchEvent id="IntermediateCatchMessage">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hexnlk" messageRef="Message" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:startEvent id="ConditionalEvent" kunpeng:modelerTemplate="foo" kunpeng:modelerTemplateVersion="1">
+      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0jsqwvo">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">myExpression == true</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent id="MessageEvent" kunpeng:modelerTemplate="updateTemplate" kunpeng:modelerTemplateVersion="1">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0ki3umf" messageRef="Message_0zwscdd" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="SignalEvent" kunpeng:modelerTemplate="updateSignalTemplate" kunpeng:modelerTemplateVersion="1">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0ki3umf" signalRef="Signal_0zwscdd" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:subProcess id="SubProcess_1" kunpeng:modelerTemplate="processFefaults-c8" kunpeng:modelerTemplateVersion="1">
+      <bpmn:extensionElements />
+      <bpmn:startEvent id="Event_0zbvlz6" />
+    </bpmn:subProcess>
+    <bpmn:exclusiveGateway id="Gateway_1" />
+    <bpmn:startEvent id="MessageStartEvent">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1jjph4o" messageRef="Message" />
+    </bpmn:startEvent>
+    <bpmn:startEvent id="TimerStartEvent">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1" />
+    </bpmn:startEvent>
+    <bpmn:task id="TaskWithBoundary" />
+    <bpmn:boundaryEvent id="InterruptingBoundaryEvent" attachedToRef="TaskWithBoundary">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_2" />
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="NonInterruptingBoundaryEvent" cancelActivity="false" attachedToRef="TaskWithBoundary">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_3" />
+    </bpmn:boundaryEvent>
+    <bpmn:subProcess id="EventSubProcess_1" triggeredByEvent="true">
+      <bpmn:startEvent id="EventSubProcessStart" isInterrupting="false">
+        <bpmn:timerEventDefinition id="TimerEventDefinition_4" />
+      </bpmn:startEvent>
+    </bpmn:subProcess>
+    <bpmn:userTask id="UserTask_1">
+      <bpmn:extensionElements>
+        <kunpeng:userTask />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:subProcess id="SubProcess_2" kunpeng:modelerTemplate="unknown" kunpeng:modelerTemplateVersion="1" />
+    <bpmn:group id="Group_1" categoryValueRef="CategoryValue_025ggwq" />
+    <bpmn:textAnnotation id="TextAnnotation_1">
+      <bpmn:text>Text Annotation</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1sxgene" sourceRef="Group_1" targetRef="TextAnnotation_1" />
+  </bpmn:process>
+  <bpmn:message id="Message" />
+  <bpmn:category id="Category_1lnucyu">
+    <bpmn:categoryValue id="CategoryValue_025ggwq" value="Group Name" />
+  </bpmn:category>
+  <bpmn:message id="Message_0zwscdd" name="version_1" kunpeng:modelerTemplate="updateTemplate">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="=correlationKey" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:signal id="Signal_0zwscdd" name="signal_version_1" kunpeng:modelerTemplate="updateSignalTemplate" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_1srimyz_di" bpmnElement="Task_1">
+        <dc:Bounds x="160" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z29dre_di" bpmnElement="Task_2">
+        <dc:Bounds x="280" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m5rz19_di" bpmnElement="Task_3">
+        <dc:Bounds x="400" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_05tjg7w" bpmnElement="Task_5">
+        <dc:Bounds x="160" y="520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UnknownTemplateTask_di" bpmnElement="UnknownTemplateTask">
+        <dc:Bounds x="400" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_di" bpmnElement="ServiceTask">
+        <dc:Bounds x="160" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1f9tp9t_di" bpmnElement="ConfiguredTask">
+        <dc:Bounds x="280" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07znust_di" bpmnElement="IntermediateThrow">
+        <dc:Bounds x="192" y="422" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12vn43k_di" bpmnElement="IntermediateCatchMessage">
+        <dc:Bounds x="332" y="422" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1688xoq_di" bpmnElement="ConditionalEvent">
+        <dc:Bounds x="402" y="422" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="193" y="275" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rxdmt7_di" bpmnElement="MessageEvent">
+        <dc:Bounds x="262" y="422" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0signal1_di" bpmnElement="SignalEvent">
+        <dc:Bounds x="472" y="422" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iahht4_di" bpmnElement="UserTask_1">
+        <dc:Bounds x="160" y="620" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sitnpj_di" bpmnElement="SubProcess_1" isExpanded="false">
+        <dc:Bounds x="400" y="520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_04x2ssk_di" bpmnElement="Gateway_1" isMarkerVisible="true">
+        <dc:Bounds x="185" y="70" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0nu49eb_di" bpmnElement="MessageStartEvent">
+        <dc:Bounds x="262" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q778dg_di" bpmnElement="SubProcess_2" isExpanded="true">
+        <dc:Bounds x="560" y="520" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TimerStartEvent_di" bpmnElement="TimerStartEvent">
+        <dc:Bounds x="332" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TaskWithBoundary_di" bpmnElement="TaskWithBoundary">
+        <dc:Bounds x="160" y="720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="InterruptingBoundaryEvent_di" bpmnElement="InterruptingBoundaryEvent">
+        <dc:Bounds x="192" y="782" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="NonInterruptingBoundaryEvent_di" bpmnElement="NonInterruptingBoundaryEvent">
+        <dc:Bounds x="232" y="782" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EventSubProcess_1_di" bpmnElement="EventSubProcess_1" isExpanded="true">
+        <dc:Bounds x="300" y="700" width="200" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EventSubProcessStart_di" bpmnElement="EventSubProcessStart">
+        <dc:Bounds x="340" y="742" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_1_di" bpmnElement="Group_1">
+        <dc:Bounds x="520" y="160" width="300" height="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="639" y="167" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1_di" bpmnElement="TextAnnotation_1">
+        <dc:Bounds x="860" y="80" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1sxgene_di" bpmnElement="Association_1sxgene">
+        <di:waypoint x="850" y="160" />
+        <di:waypoint x="896" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_0h3d15h">
+    <bpmndi:BPMNPlane id="BPMNPlane_125hxtj" bpmnElement="SubProcess_1">
+      <bpmndi:BPMNShape id="Event_0zbvlz6_di" bpmnElement="Event_0zbvlz6">
+        <dc:Bounds x="180" y="160" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

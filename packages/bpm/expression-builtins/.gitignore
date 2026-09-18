@@ -1,0 +1,4 @@
+node_modules
+camunda-docs/
+dist/
+!dist/index.d.ts

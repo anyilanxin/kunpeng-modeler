@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_00cqa19" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.37.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:serviceTask id="RestTask" name="REST Task" kunpeng:modelerTemplate="com.example.rest">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="task-type" />
+        <kunpeng:ioMapping>
+          <kunpeng:input source="input-1-source" target="input-1-target" />
+          <kunpeng:output source="output-1-source" target="output-1-target" />
+        </kunpeng:ioMapping>
+        <kunpeng:additionDynamics>
+          <kunpeng:header key="header-1-key" value="header-1-value" />
+        </kunpeng:additionDynamics>
+        <kunpeng:properties>
+          <kunpeng:property name="property-1-name" value="property-1-value" />
+        </kunpeng:properties>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:task id="Task_1" name="My task" kunpeng:modelerTemplate="my.example.template" />
+    <bpmn:userTask id="DropdownTask" name="low" kunpeng:modelerTemplate="my.example.dropdown" />
+    <bpmn:task id="ValidateTask" kunpeng:modelerTemplate="com.validated-inputs.Task" />
+    <bpmn:serviceTask id="RestTask_noData" name="REST Task no data" kunpeng:modelerTemplate="com.example.rest" />
+    <bpmn:serviceTask id="RestTask_hidden" name="Hidden Task Type" kunpeng:modelerTemplate="com.example.rest-hidden">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="task-type" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="RestTask_optional" name="optional" kunpeng:modelerTemplate="com.example.rest-optional">
+      <bpmn:extensionElements>
+        <kunpeng:ioMapping>
+          <kunpeng:input source="input-1-source" target="input-1-target" />
+          <kunpeng:input source="input-2-source" target="input-2-target" />
+          <kunpeng:output source="output-1-source" target="output-1-target" />
+          <kunpeng:output source="output-2-source" target="output-2-target" />
+        </kunpeng:ioMapping>
+        <kunpeng:properties>
+          <kunpeng:property name="property-1" value="property-1-value" />
+          <kunpeng:property name="property-2" value="property-2-value" />
+          <kunpeng:property name="property-3" value="property-3-value" />
+        </kunpeng:properties>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="DropdownNoSelection" name="DropdownNoSelection" kunpeng:modelerTemplate="my.example.dropdown-1" />
+    <bpmn:serviceTask id="OptionalDropdownTask" name="OptionalDropdownTask" kunpeng:modelerTemplate="my.example.dropdown-2">
+      <bpmn:extensionElements>
+        <kunpeng:ioMapping>
+          <kunpeng:input source="low" target="valueInput" />
+        </kunpeng:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="MessageEvent" name="Displayed" kunpeng:modelerTemplate="messageEventTemplate">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0mxf9ma" messageRef="Message" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="MessageEvent_hidden" name="Hidden" kunpeng:modelerTemplate="messageEventTemplateHidden">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0migon0" messageRef="Message_hidden" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="MessageEvent_noData" name="No data" kunpeng:modelerTemplate="messageEventTemplate">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1hzq0o7" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="SignalEvent" name="Displayed" kunpeng:modelerTemplate="signalEventTemplate">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1" signalRef="Signal_1" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="SignalEvent_hidden" name="Hidden" kunpeng:modelerTemplate="signalEventTemplate_hidden">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_2" signalRef="Signal_2" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="SignalEvent_noData" name="No data" kunpeng:modelerTemplate="signalEventTemplate">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="ValidatedConditionalTask" name="Validated Conditional Task" />
+    <bpmn:serviceTask id="TaskDefinition" name="Task Definition" kunpeng:modelerTemplate="taskDefinitionTemplate">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="http" retries="5" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:callActivity id="CalledElement" name="Called Element" kunpeng:modelerTemplate="calledElement">
+      <bpmn:extensionElements>
+        <kunpeng:calledElement processId="paymentProcess" propagateAllChildVariables="false" propagateAllParentVariables="false" />
+      </bpmn:extensionElements>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="CalledElement_empty" name="Called Element empty" kunpeng:modelerTemplate="calledElement" />
+    <bpmn:userTask id="CamundaUserTask" name="Camunda User Task" kunpeng:modelerTemplate="form-definition-template">
+      <bpmn:extensionElements>
+        <kunpeng:userTask />
+        <kunpeng:formDefinition formId="aFormId" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="BusinessRuleTask_called_decision" name="Business Rule Task Called Decision" kunpeng:modelerTemplate="calledDecision">
+      <bpmn:extensionElements>
+        <kunpeng:calledDecision decisionId="aReusableRule" resultVariable="aResultVariableName" />
+      </bpmn:extensionElements>
+    </bpmn:businessRuleTask>
+    <bpmn:businessRuleTask id="BusinessRuleTask_empty" name="Business Rule Task empty" />
+    <bpmn:businessRuleTask id="BusinessRuleTask_task_definition" name="Business Rule Task Task Definition">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="decision-job" retries="1" />
+      </bpmn:extensionElements>
+    </bpmn:businessRuleTask>
+    <bpmn:scriptTask id="ScriptTask_script" name="Script Task" kunpeng:modelerTemplate="script-task-script">
+      <bpmn:extensionElements>
+        <kunpeng:script expression="= 1 + 1" resultVariable="aResultVariable" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="ScriptTask_taskDefinition" name="Script Task" kunpeng:modelerTemplate="script-task-task-definition">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="aType" retries="1" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:task id="nonexisting" name="non-existing propert" kunpeng:modelerTemplate="my.example.non-existing-property" test="value" />
+    <bpmn:userTask id="UserTask_assignment" name="assignment" kunpeng:modelerTemplate="com.camunda.example.AssignmentDefinition">
+      <bpmn:extensionElements>
+        <kunpeng:userTask />
+        <kunpeng:formDefinition formId="" />
+        <kunpeng:assignmentDefinition assignee="anAssignee" candidateGroups="aCandidateGroup, anotherCandidateGroup" candidateUsers="aCandidateUser" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_priority" name="priority" kunpeng:modelerTemplate="com.camunda.example.PriorityDefinition">
+      <bpmn:extensionElements>
+        <kunpeng:userTask />
+        <kunpeng:priorityDefinition priority="10" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:adHocSubProcess id="AdHocSubProcess_1" name="kunpeng:adHoc" kunpeng:modelerTemplate="com.camunda.example.AdHoc">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="ad-hoc-job-worker" />
+        <kunpeng:adHoc outputCollection="toolCallResults" outputElement="=element.result" />
+      </bpmn:extensionElements>
+    </bpmn:adHocSubProcess>
+    <bpmn:adHocSubProcess id="AdHocSubProcess_empty" name="AdHocSubProcess" />
+    <bpmn:userTask id="UserTask_schedule" name="schedule" kunpeng:modelerTemplate="com.camunda.example.TaskSchedule">
+      <bpmn:extensionElements>
+        <kunpeng:userTask />
+        <kunpeng:taskSchedule dueDate="=someDate" followUpDate="2023-02-05T12:00:00Z" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:message id="Message" name="name">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="correlationKey" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_hidden" name="hiddenName">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="correlationKey" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:signal id="Signal_1" name="name" kunpeng:modelerTemplate="signalEventTemplate"/>
+  <bpmn:signal id="Signal_2" name="hiddenName" kunpeng:modelerTemplate="signalEventTemplate_hidden" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_1d5ac68_di" bpmnElement="RestTask">
+        <dc:Bounds x="290" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tip4qx_di" bpmnElement="Task_1">
+        <dc:Bounds x="290" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sxtp96_di" bpmnElement="DropdownTask">
+        <dc:Bounds x="350" y="480" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p6pet6_di" bpmnElement="ValidateTask">
+        <dc:Bounds x="440" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hbryo1_di" bpmnElement="RestTask_noData">
+        <dc:Bounds x="430" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sz43pp_di" bpmnElement="RestTask_hidden">
+        <dc:Bounds x="600" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RestTask_optional_di" bpmnElement="RestTask_optional">
+        <dc:Bounds x="600" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0c7o61d_di" bpmnElement="DropdownNoSelection">
+        <dc:Bounds x="490" y="480" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0v9dgs2" bpmnElement="OptionalDropdownTask">
+        <dc:Bounds x="630" y="480" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0s72lq5_di" bpmnElement="MessageEvent">
+        <dc:Bounds x="262" y="652" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="256" y="695" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0kkwpp4" bpmnElement="MessageEvent_hidden">
+        <dc:Bounds x="322" y="652" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="323" y="695" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1upeqbd" bpmnElement="MessageEvent_noData">
+        <dc:Bounds x="262" y="722" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="261" y="765" width="39" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_Signal_1_di" bpmnElement="SignalEvent">
+        <dc:Bounds x="382" y="652" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="376" y="695" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_Signal_2_di" bpmnElement="SignalEvent_hidden">
+        <dc:Bounds x="442" y="652" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="443" y="695" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_Signal_3_di" bpmnElement="SignalEvent_noData">
+        <dc:Bounds x="382" y="722" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="381" y="765" width="39" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0c7o61daaa_di" bpmnElement="ValidatedConditionalTask">
+        <dc:Bounds x="890" y="480" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tg2czn_di" bpmnElement="TaskDefinition">
+        <dc:Bounds x="750" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nfgyhn_di" bpmnElement="CalledElement">
+        <dc:Bounds x="490" y="630" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_di" bpmnElement="CalledElement_empty">
+        <dc:Bounds x="610" y="630" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kv4zcr_di" bpmnElement="CamundaUserTask">
+        <dc:Bounds x="290" y="830" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02u8j70_di" bpmnElement="BusinessRuleTask_called_decision">
+        <dc:Bounds x="490" y="760" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_03sg3f9" bpmnElement="BusinessRuleTask_empty">
+        <dc:Bounds x="610" y="760" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1nwo7tk" bpmnElement="BusinessRuleTask_task_definition">
+        <dc:Bounds x="730" y="760" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mey0xd_di" bpmnElement="ScriptTask_script">
+        <dc:Bounds x="490" y="1020" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_02sbchp" bpmnElement="ScriptTask_taskDefinition">
+        <dc:Bounds x="610" y="1020" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="nonexisting_di" bpmnElement="nonexisting">
+        <dc:Bounds x="160" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ga4eg7_di" bpmnElement="UserTask_assignment">
+        <dc:Bounds x="290" y="930" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_priority_di" bpmnElement="UserTask_priority">
+        <dc:Bounds x="290" y="1030" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kj2zmg_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
+        <dc:Bounds x="290" y="1190" width="350" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q9rek1_di" bpmnElement="AdHocSubProcess_empty">
+        <dc:Bounds x="415" y="1490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13u3ox2_di" bpmnElement="UserTask_schedule">
+        <dc:Bounds x="290" y="1130" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1b44hfv">
+    <bpmndi:BPMNPlane id="BPMNPlane_0xregwg" bpmnElement="AdHocSubProcess_empty" />
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

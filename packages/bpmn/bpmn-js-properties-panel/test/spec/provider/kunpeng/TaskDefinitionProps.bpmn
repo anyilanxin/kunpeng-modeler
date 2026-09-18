@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_0k89tne" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0-alpha.1">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:serviceTask id="ServiceTask_1" name="service task">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="type" retries="retries" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_empty" name="empty" />
+    <bpmn:serviceTask id="ServiceTask_noTaskDefinition" name="no task definition">
+      <bpmn:extensionElements />
+    </bpmn:serviceTask>
+    <bpmn:receiveTask id="ReceiveTask_1" name="receive task" />
+    <bpmn:businessRuleTask id="BusinessRuleTask_1" name="BusinessRuleTask_1" />
+    <bpmn:businessRuleTask id="BusinessRuleTask_2" name="BusinessRuleTask_2">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="foobar" />
+      </bpmn:extensionElements>
+    </bpmn:businessRuleTask>
+    <bpmn:scriptTask id="ScriptTask_1" name="ScriptTask_1" />
+    <bpmn:scriptTask id="ScriptTask_2" name="ScriptTask_2">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="foobar" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:sendTask id="SendTask_1" name="SendTask_1" />
+    <bpmn:serviceTask id="ServiceTask_noTaskDefinitionType" name="service task no task definition type">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition retries="foo" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_noTaskDefinitionRetries" name="service task no task definition retries">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="foo" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_0gqfbmi_di" bpmnElement="ServiceTask_1">
+        <dc:Bounds x="160" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17esweh_di" bpmnElement="ServiceTask_empty">
+        <dc:Bounds x="160" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11y3cvt_di" bpmnElement="ServiceTask_noTaskDefinition">
+        <dc:Bounds x="350" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1syrz9e_di" bpmnElement="ReceiveTask_1">
+        <dc:Bounds x="390" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wr9zfv_di" bpmnElement="BusinessRuleTask_1">
+        <dc:Bounds x="590" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01ge5q8_di" bpmnElement="BusinessRuleTask_2">
+        <dc:Bounds x="740" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u7x1id_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="810" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_2_di" bpmnElement="ScriptTask_2">
+        <dc:Bounds x="810" y="480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sypdy6_di" bpmnElement="SendTask_1">
+        <dc:Bounds x="660" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ik5i2e_di" bpmnElement="ServiceTask_noTaskDefinitionType">
+        <dc:Bounds x="160" y="360" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1pgh9t4" bpmnElement="ServiceTask_noTaskDefinitionRetries">
+        <dc:Bounds x="160" y="470" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

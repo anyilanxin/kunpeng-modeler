@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-dmn">
+    <comment>DMN 模型</comment>
+    <comment xml:lang="en">DMN Model</comment>
+    <glob pattern="*.dmn"/>
+    <sub-class-of type="application/xml"/>
+    <generic-icon name="application-x-dmn"/>
+  </mime-type>
+</mime-info>

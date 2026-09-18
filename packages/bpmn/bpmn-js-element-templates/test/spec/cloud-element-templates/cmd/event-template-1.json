@@ -1,0 +1,24 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Message Event Template",
+  "id": "event-template",
+  "version": 1,
+  "appliesTo": [
+    "bpmn:IntermediateCatchEvent",
+    "bpmn:IntermediateThrowEvent"
+  ],
+  "elementType": {
+    "value": "bpmn:IntermediateCatchEvent",
+    "eventDefinition": "bpmn:MessageEventDefinition"
+  },
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "name",
+      "binding": {
+        "type": "bpmn:Message#property",
+        "name": "name"
+      }
+    }
+  ]
+}

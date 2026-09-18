@@ -1,0 +1,992 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Template A (version 1)",
+    "id": "templateA",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "label": "Normal Value",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "normalValue"
+        }
+      },
+      {
+        "label": "Default Value",
+        "value": "A1",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "defaultValue"
+        }
+      },
+      {
+        "label": "Changed Default Value",
+        "value": "A1",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "changedDefaultValue"
+        }
+      },
+      {
+        "label": "Hidden Value",
+        "value": "A1",
+        "type": "Hidden",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "hiddenValue"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Template A (version 2)",
+    "id": "templateA",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "label": "Normal Value",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "normalValue"
+        }
+      },
+      {
+        "label": "Default Value",
+        "value": "A2",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "defaultValue"
+        }
+      },
+      {
+        "label": "Changed Default Value",
+        "value": "A2",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "changedDefaultValue"
+        }
+      },
+      {
+        "label": "Hidden Value",
+        "value": "A2",
+        "type": "Hidden",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "hiddenValue"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Template B",
+    "id": "templateB",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "label": "Normal Value",
+        "value": "B",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "normalValue"
+        }
+      },
+      {
+        "label": "Default Value",
+        "value": "B",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "defaultValue"
+        }
+      },
+      {
+        "label": "Changed Default Value",
+        "value": "B",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "changedDefaultValue"
+        }
+      },
+      {
+        "label": "Hidden Value",
+        "value": "B",
+        "type": "Hidden",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "hiddenValue"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Template B (Dropdown)",
+    "id": "TemplateBDropdown",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "label": "Normal Value",
+        "value": "B",
+        "type": "String",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "normalValue"
+        }
+      },
+      {
+        "label": "Default Value",
+        "value": "B",
+        "type": "Dropdown",
+        "choices": [
+          {
+            "label": "A1",
+            "value": "A1"
+          },
+          {
+            "label": "B",
+            "value": "B"
+          }
+        ],
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "defaultValue"
+        }
+      },
+      {
+        "label": "Changed Default Value",
+        "value": "B",
+        "type": "Dropdown",
+        "choices": [
+          {
+            "label": "A1",
+            "value": "A1"
+          },
+          {
+            "label": "B",
+            "value": "B"
+          }
+        ],
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "changedDefaultValue"
+        }
+      },
+      {
+        "label": "Hidden Value (now dropdown)",
+        "value": "B",
+        "type": "Dropdown",
+        "choices": [
+          {
+            "label": "A1",
+            "value": "A1"
+          },
+          {
+            "label": "B",
+            "value": "B"
+          }
+        ],
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "hiddenValue"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "REST Connector",
+    "id": "io.camunda.connectors.HttpJson.v2",
+    "icon": {
+      "contents": "data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M17.0335%208.99997C17.0335%2013.4475%2013.4281%2017.0529%208.98065%2017.0529C4.53316%2017.0529%200.927765%2013.4475%200.927765%208.99997C0.927765%204.55248%204.53316%200.947083%208.98065%200.947083C13.4281%200.947083%2017.0335%204.55248%2017.0335%208.99997Z%22%20fill%3D%22%23505562%22%2F%3E%0A%3Cpath%20d%3D%22M4.93126%2014.1571L6.78106%203.71471H10.1375C11.1917%203.71471%2011.9824%203.98323%2012.5095%204.52027C13.0465%205.04736%2013.315%205.73358%2013.315%206.57892C13.315%207.44414%2013.0714%208.15522%2012.5841%208.71215C12.1067%209.25913%2011.4553%209.63705%2010.6298%209.8459L12.0619%2014.1571H10.3315L9.03364%2010.0249H7.24351L6.51254%2014.1571H4.93126ZM7.49711%208.59281H9.24248C9.99832%208.59281%2010.5901%208.42374%2011.0177%208.08561C11.4553%207.73753%2011.6741%207.26513%2011.6741%206.66842C11.6741%206.19106%2011.5249%205.81811%2011.2265%205.54959C10.9282%205.27113%2010.4558%205.1319%209.80936%205.1319H8.10874L7.49711%208.59281Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E%0A"
+    },
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "io.camunda:http-json:1",
+        "binding": {
+          "type": "kunpeng:taskDefinition:type"
+        }
+      },
+      {
+        "label": "Type",
+        "id": "authenticationType",
+        "value": "noAuth",
+        "type": "Dropdown",
+        "choices": [
+          {
+            "name": "No Auth",
+            "value": "noAuth"
+          },
+          {
+            "name": "Basic Auth",
+            "value": "basic"
+          },
+          {
+            "name": "Bearer Token Auth",
+            "value": "bearer"
+          }
+        ],
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "authentication.type"
+        }
+      },
+      {
+        "label": "URL",
+        "group": "endpoint",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "url"
+        }
+      },
+      {
+        "label": "Bearer Token",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "authentication.token"
+        },
+        "constraints": {
+          "notEmpty": true
+        },
+        "condition": {
+          "property": "authenticationType",
+          "equals": "bearer"
+        }
+      },
+      {
+        "label": "Username",
+        "group": "authentication",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "authentication.username"
+        },
+        "constraints": {
+          "notEmpty": true
+        },
+        "condition": {
+          "property": "authenticationType",
+          "equals": "basic"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "REST Connector (Basic Auth)",
+    "id": "io.camunda.connectors.HttpJson.v1.basicAuth",
+    "icon": {
+      "contents": "data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%221%201%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M17.0335%208.99997C17.0335%2013.4475%2013.4281%2017.0529%208.98065%2017.0529C4.53316%2017.0529%200.927765%2013.4475%200.927765%208.99997C0.927765%204.55248%204.53316%200.947083%208.98065%200.947083C13.4281%200.947083%2017.0335%204.55248%2017.0335%208.99997Z%22%20fill%3D%22%23505562%22%2F%3E%0A%3Cpath%20d%3D%22M4.93126%2014.1571L6.78106%203.71471H10.1375C11.1917%203.71471%2011.9824%203.98323%2012.5095%204.52027C13.0465%205.04736%2013.315%205.73358%2013.315%206.57892C13.315%207.44414%2013.0714%208.15522%2012.5841%208.71215C12.1067%209.25913%2011.4553%209.63705%2010.6298%209.8459L12.0619%2014.1571H10.3315L9.03364%2010.0249H7.24351L6.51254%2014.1571H4.93126ZM7.49711%208.59281H9.24248C9.99832%208.59281%2010.5901%208.42374%2011.0177%208.08561C11.4553%207.73753%2011.6741%207.26513%2011.6741%206.66842C11.6741%206.19106%2011.5249%205.81811%2011.2265%205.54959C10.9282%205.27113%2010.4558%205.1319%209.80936%205.1319H8.10874L7.49711%208.59281Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E%0A"
+    },
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "label": "URL",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "url"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "basic",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "authentication.type"
+        }
+      },
+      {
+        "label": "Username",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "authentication.username"
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "GitHub Webhook Message Start Event Connector",
+    "id": "io.camunda.connectors.webhook.GithubWebhookConnectorMessageStart.v1",
+    "description": "Receive events from GitHub",
+    "documentationRef": "https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/github/?github=inbound",
+    "category": {
+      "id": "connectors",
+      "name": "Connectors"
+    },
+    "appliesTo": [
+      "bpmn:StartEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:StartEvent",
+      "eventDefinition": "bpmn:MessageEventDefinition"
+    },
+    "groups": [
+      {
+        "id": "endpoint",
+        "label": "Webhook configuration"
+      },
+      {
+        "id": "activation",
+        "label": "Activation"
+      },
+      {
+        "id": "correlation",
+        "label": "Subprocess correlation"
+      },
+      {
+        "id": "variable-mapping",
+        "label": "Variable mapping"
+      }
+    ],
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "io.camunda:webhook:1",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.type"
+        }
+      },
+      {
+        "type": "Hidden",
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "bpmn:Message#property",
+          "name": "name"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "GitHubWebhook",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.subtype"
+        }
+      },
+      {
+        "label": "Webhook ID",
+        "type": "String",
+        "group": "endpoint",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.context"
+        },
+        "description": "The webhook ID is a part of the URL",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "enabled",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.shouldValidateHmac"
+        }
+      },
+      {
+        "label": "GitHub secret",
+        "description": "Shared secret key. <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/github/?github=inbound' target='_blank'>See documentation</a> regarding GitHub secret",
+        "type": "String",
+        "group": "endpoint",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.hmacSecret"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "X-Hub-Signature-256",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.hmacHeader"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "sha_256",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.hmacAlgorithm"
+        }
+      },
+      {
+        "label": "Message ID expression",
+        "feel": "required",
+        "type": "String",
+        "optional": true,
+        "group": "activation",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "messageIdExpression"
+        },
+        "description": "Expression to extract unique identifier of a message"
+      },
+      {
+        "label": "Condition",
+        "type": "String",
+        "group": "activation",
+        "feel": "required",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "inbound.activationCondition"
+        },
+        "description": "Condition under which the connector triggers. <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/github/?github=inbound' target='_blank'>See documentation</a>"
+      },
+      {
+        "label": "Correlation required",
+        "description": "Indicates whether correlation is required. This is needed for event-based subprocess message start events",
+        "id": "correlationRequired",
+        "group": "correlation",
+        "type": "Dropdown",
+        "value": "notRequired",
+        "choices": [
+          {
+            "name": "Correlation not required",
+            "value": "notRequired"
+          },
+          {
+            "name": "Correlation required",
+            "value": "required"
+          }
+        ],
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "correlationRequired"
+        }
+      },
+      {
+        "label": "Correlation key (process)",
+        "type": "String",
+        "group": "correlation",
+        "feel": "required",
+        "description": "Sets up the correlation key from process variables",
+        "binding": {
+          "type": "bpmn:Message#kunpeng:subscription#property",
+          "name": "correlationKey"
+        },
+        "constraints": {
+          "notEmpty": true
+        },
+        "condition": {
+          "property": "correlationRequired",
+          "equals": "required"
+        }
+      },
+      {
+        "label": "Correlation key (payload)",
+        "type": "String",
+        "group": "correlation",
+        "feel": "required",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "correlationKeyExpression"
+        },
+        "description": "Extracts the correlation key from the incoming message payload",
+        "constraints": {
+          "notEmpty": true
+        },
+        "condition": {
+          "property": "correlationRequired",
+          "equals": "required"
+        }
+      },
+      {
+        "label": "Result variable",
+        "type": "String",
+        "group": "variable-mapping",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "resultVariable"
+        },
+        "description": "Name of variable to store the result of the connector in"
+      },
+      {
+        "label": "Result expression",
+        "type": "String",
+        "group": "variable-mapping",
+        "feel": "required",
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "resultExpression"
+        },
+        "description": "Expression to map the inbound payload to process variables"
+      }
+    ],
+    "icon": {
+      "contents": "data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 1024 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z' transform='scale(64)' fill='%231B1F23'/%3E%3C/svg%3E"
+    }
+  },
+  {
+    "$schema" : "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name" : "Webhook Start Event Connector",
+    "id" : "io.camunda.connectors.webhook.WebhookConnector.v1",
+    "description" : "Configure webhook to receive callbacks",
+    "documentationRef" : "https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/",
+    "category" : {
+      "id" : "connectors",
+      "name" : "Connectors"
+    },
+    "appliesTo" : [ "bpmn:StartEvent" ],
+    "elementType" : {
+      "value" : "bpmn:StartEvent"
+    },
+    "groups" : [ {
+      "id" : "endpoint",
+      "label" : "Webhook configuration"
+    }, {
+      "id" : "authentication",
+      "label" : "Authentication"
+    }, {
+      "id" : "authorization",
+      "label" : "Authorization"
+    }, {
+      "id" : "webhookResponse",
+      "label" : "Webhook response"
+    }, {
+      "id" : "activation",
+      "label" : "Activation"
+    }, {
+      "id" : "output",
+      "label" : "Output mapping"
+    } ],
+    "properties" : [ {
+      "value" : "io.camunda:webhook:1",
+      "binding" : {
+        "name" : "inbound.type",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Hidden"
+    }, {
+      "id" : "inbound.webhookMethod",
+      "label" : "Webhook method",
+      "description" : "Select HTTP method",
+      "optional" : false,
+      "value" : "any",
+      "group" : "endpoint",
+      "binding" : {
+        "name" : "inbound.method",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Dropdown",
+      "choices" : [ {
+        "name" : "Any",
+        "value" : "any"
+      }, {
+        "name" : "GET",
+        "value" : "get"
+      }, {
+        "name" : "POST",
+        "value" : "post"
+      }, {
+        "name" : "PUT",
+        "value" : "put"
+      }, {
+        "name" : "DELETE",
+        "value" : "delete"
+      } ]
+    }, {
+      "id" : "inbound.webhookId",
+      "label" : "Webhook ID",
+      "description" : "The webhook ID is a part of the URL",
+      "optional" : false,
+      "constraints" : {
+        "notEmpty" : true,
+        "pattern" : {
+          "value" : "^[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*$",
+          "message" : "can only contain letters, numbers, or single underscores/hyphens and cannot begin or end with an underscore/hyphen"
+        }
+      },
+      "feel" : "optional",
+      "group" : "endpoint",
+      "binding" : {
+        "name" : "inbound.context",
+        "type" : "kunpeng:property"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.shouldValidateHmac",
+      "label" : "HMAC authentication",
+      "description" : "Choose whether HMAC verification is enabled. <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/#make-your-http-webhook-connector-for-receiving-messages-executable' target='_blank'>See documentation</a> and <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/#example' target='_blank'>example</a> that explains how to use HMAC-related fields",
+      "optional" : false,
+      "value" : "disabled",
+      "group" : "authentication",
+      "binding" : {
+        "name" : "inbound.shouldValidateHmac",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Dropdown",
+      "choices" : [ {
+        "name" : "Enabled",
+        "value" : "enabled"
+      }, {
+        "name" : "Disabled",
+        "value" : "disabled"
+      } ]
+    }, {
+      "id" : "inbound.hmacSecret",
+      "label" : "HMAC secret key",
+      "description" : "Shared secret key",
+      "optional" : true,
+      "feel" : "optional",
+      "group" : "authentication",
+      "binding" : {
+        "name" : "inbound.hmacSecret",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.shouldValidateHmac",
+        "equals" : "enabled",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.hmacHeader",
+      "label" : "HMAC header",
+      "description" : "Name of header attribute that will contain the HMAC value",
+      "optional" : true,
+      "feel" : "optional",
+      "group" : "authentication",
+      "binding" : {
+        "name" : "inbound.hmacHeader",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.shouldValidateHmac",
+        "equals" : "enabled",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.hmacAlgorithm",
+      "label" : "HMAC algorithm",
+      "description" : "Choose HMAC algorithm",
+      "optional" : false,
+      "value" : "sha_256",
+      "group" : "authentication",
+      "binding" : {
+        "name" : "inbound.hmacAlgorithm",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.shouldValidateHmac",
+        "equals" : "enabled",
+        "type" : "simple"
+      },
+      "type" : "Dropdown",
+      "choices" : [ {
+        "name" : "SHA-1",
+        "value" : "sha_1"
+      }, {
+        "name" : "SHA-256",
+        "value" : "sha_256"
+      }, {
+        "name" : "SHA-512",
+        "value" : "sha_512"
+      } ]
+    }, {
+      "id" : "inbound.hmacScopes",
+      "label" : "HMAC scopes",
+      "description" : "Set HMAC scopes for calculating signature data. See <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/' target='_blank'>documentation</a>",
+      "optional" : true,
+      "feel" : "required",
+      "group" : "authentication",
+      "binding" : {
+        "name" : "inbound.hmacScopes",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.shouldValidateHmac",
+        "equals" : "enabled",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.type",
+      "label" : "Authorization type",
+      "description" : "Choose the authorization type",
+      "value" : "NONE",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.type",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Dropdown",
+      "choices" : [ {
+        "name" : "None",
+        "value" : "NONE"
+      }, {
+        "name" : "Basic",
+        "value" : "BASIC"
+      }, {
+        "name" : "API key",
+        "value" : "APIKEY"
+      }, {
+        "name" : "JWT",
+        "value" : "JWT"
+      } ]
+    }, {
+      "id" : "inbound.auth.username",
+      "label" : "Username",
+      "description" : "Username for basic authentication",
+      "optional" : false,
+      "feel" : "optional",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.username",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "BASIC",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.password",
+      "label" : "Password",
+      "description" : "Password for basic authentication",
+      "optional" : false,
+      "feel" : "optional",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.password",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "BASIC",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.apiKey",
+      "label" : "API key",
+      "description" : "Expected API key",
+      "optional" : false,
+      "feel" : "optional",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.apiKey",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "APIKEY",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.apiKeyLocator",
+      "label" : "API key locator",
+      "description" : "A FEEL expression that extracts API key from the request. <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/#how-to-configure-api-key-authorization'>See documentation</a>",
+      "optional" : false,
+      "value" : "=split(request.headers.authorization, \" \")[2]",
+      "constraints" : {
+        "notEmpty" : true
+      },
+      "feel" : "required",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.apiKeyLocator",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "APIKEY",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.jwt.jwkUrl",
+      "label" : "JWK URL",
+      "description" : "Well-known URL of JWKs",
+      "optional" : false,
+      "feel" : "optional",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.jwt.jwkUrl",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "JWT",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.jwt.permissionsExpression",
+      "label" : "JWT role property expression",
+      "description" : "Expression to extract the roles from the JWT token. <a href='https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/http-webhook/#how-to-extract-roles-from-jwt-data'>See documentation</a>",
+      "optional" : false,
+      "feel" : "required",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.jwt.permissionsExpression",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "JWT",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.auth.jwt.requiredPermissions",
+      "label" : "Required roles",
+      "description" : "List of roles to test JWT roles against",
+      "optional" : false,
+      "feel" : "required",
+      "group" : "authorization",
+      "binding" : {
+        "name" : "inbound.auth.jwt.requiredPermissions",
+        "type" : "kunpeng:property"
+      },
+      "condition" : {
+        "property" : "inbound.auth.type",
+        "equals" : "JWT",
+        "type" : "simple"
+      },
+      "type" : "String"
+    }, {
+      "id" : "inbound.responseBodyExpression",
+      "label" : "Response body expression",
+      "description" : "Specify condition and response",
+      "optional" : true,
+      "feel" : "required",
+      "group" : "webhookResponse",
+      "binding" : {
+        "name" : "inbound.responseBodyExpression",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Text"
+    }, {
+      "id" : "inbound.verificationExpression",
+      "label" : "One time verification response expression",
+      "description" : "Specify condition and response. Learn more in the <a href='https://docs.camunda.io/docs/components/connectors/protocol/http-webhook/#verification-expression' target='_blank'>documentation</a>",
+      "optional" : true,
+      "feel" : "required",
+      "group" : "webhookResponse",
+      "binding" : {
+        "name" : "inbound.verificationExpression",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Text"
+    }, {
+      "id" : "activationCondition",
+      "label" : "Activation condition",
+      "description" : "Condition under which the Connector triggers. Leave empty to catch all events",
+      "optional" : true,
+      "feel" : "required",
+      "group" : "activation",
+      "binding" : {
+        "name" : "activationCondition",
+        "type" : "kunpeng:property"
+      },
+      "type" : "String"
+    }, {
+      "id" : "resultVariable",
+      "label" : "Result variable",
+      "description" : "Name of variable to store the response in",
+      "group" : "output",
+      "binding" : {
+        "name" : "resultVariable",
+        "type" : "kunpeng:property"
+      },
+      "type" : "String"
+    }, {
+      "id" : "resultExpression",
+      "label" : "Result expression",
+      "description" : "Expression to map the response into process variables",
+      "feel" : "required",
+      "group" : "output",
+      "binding" : {
+        "name" : "resultExpression",
+        "type" : "kunpeng:property"
+      },
+      "type" : "Text"
+    } ],
+    "icon" : {
+      "contents" : "data:image/svg+xml;base64,PHN2ZyBpZD0naWNvbicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nMTgnIGhlaWdodD0nMTgnIHZpZXdCb3g9JzAgMCAzMiAzMic+CiAgPGRlZnM+CiAgICA8c3R5bGU+LmNscy0xIHsgZmlsbDogbm9uZTsgfTwvc3R5bGU+CiAgPC9kZWZzPgogIDxwYXRoCiAgICBkPSdNMjQsMjZhMywzLDAsMSwwLTIuODE2NC00SDEzdjFhNSw1LDAsMSwxLTUtNVYxNmE3LDcsMCwxLDAsNi45Mjg3LDhoNi4yNTQ5QTIuOTkxNCwyLjk5MTQsMCwwLDAsMjQsMjZaJy8+CiAgPHBhdGgKICAgIGQ9J00yNCwxNmE3LjAyNCw3LjAyNCwwLDAsMC0yLjU3LjQ4NzNsLTMuMTY1Ni01LjUzOTVhMy4wNDY5LDMuMDQ2OSwwLDEsMC0xLjczMjYuOTk4NWw0LjExODksNy4yMDg1Ljg2ODYtLjQ5NzZhNS4wMDA2LDUuMDAwNiwwLDEsMS0xLjg1MSw2Ljg0MThMMTcuOTM3LDI2LjUwMUE3LjAwMDUsNy4wMDA1LDAsMSwwLDI0LDE2WicvPgogIDxwYXRoCiAgICBkPSdNOC41MzIsMjAuMDUzN2EzLjAzLDMuMDMsMCwxLDAsMS43MzI2Ljk5ODVDMTEuNzQsMTguNDcsMTMuODYsMTQuNzYwNywxMy44OSwxNC43MDhsLjQ5NzYtLjg2ODItLjg2NzctLjQ5N2E1LDUsMCwxLDEsNi44MTItMS44NDM4bDEuNzMxNSwxLjAwMmE3LjAwMDgsNy4wMDA4LDAsMSwwLTEwLjM0NjIsMi4wMzU2Yy0uNDU3Ljc0MjctMS4xMDIxLDEuODcxNi0yLjA3MzcsMy41NzI4WicvPgogIDxyZWN0IGlkPSdfVHJhbnNwYXJlbnRfUmVjdGFuZ2xlXycgZGF0YS1uYW1lPScmbHQ7VHJhbnNwYXJlbnQgUmVjdGFuZ2xlJmd0OycgY2xhc3M9J2Nscy0xJwogICAgd2lkdGg9JzMyJyBoZWlnaHQ9JzMyJy8+Cjwvc3ZnPg=="
+    }
+  }
+]

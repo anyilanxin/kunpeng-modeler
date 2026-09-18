@@ -1,0 +1,7182 @@
+import {
+  bootstrapModeler,
+  getBpmnJS,
+  inject,
+  withBpmnJs
+} from 'test/TestHelper';
+
+import { expect } from 'chai';
+
+import TestContainer from 'mocha-test-container-support';
+
+import CoreModule from 'bpmn-js/lib/core';
+import ElementTemplatesModule from 'src/cloud-element-templates';
+import ModelingModule from 'bpmn-js/lib/features/modeling';
+import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
+import KunpengBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
+
+
+import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+
+import {
+  getBusinessObject, is
+} from 'bpmn-js/lib/util/ModelUtil';
+
+import {
+  findExtension,
+  findInputParameter,
+  findMessage,
+  findOutputParameter,
+  findSignal,
+  findTaskHeader,
+  findTimerEventDefinition,
+  findKunpengProperty,
+  findKunpengSubscription
+} from 'src/cloud-element-templates/Helper';
+
+import {
+  createInputParameter,
+  createOutputParameter,
+  createKunpengProperty
+} from 'src/cloud-element-templates/CreateHelper';
+
+import {
+  find,
+  isArray,
+  isString,
+  isUndefined
+} from 'min-dash';
+
+const modules = [
+  CoreModule,
+  ElementTemplatesModule,
+  ModelingModule,
+  BpmnPropertiesPanelModule,
+  {
+    propertiesPanel: [ 'value', { registerProvider() {} } ]
+  },
+  KunpengBehaviorsModule
+];
+
+const moddleExtensions = {
+  kunpeng: kunpengModdlePackage
+};
+
+
+describe('cloud-element-templates/cmd - ChangeElementTemplateHandler', function() {
+
+  let container;
+
+  beforeEach(function() {
+    container = TestContainer.get(this);
+  });
+
+  function bootstrap(diagramXML) {
+    return bootstrapModeler(diagramXML, {
+      container,
+      modules,
+      moddleExtensions
+    });
+  }
+
+
+  describe('change template (new template specified)', function() {
+
+    describe('update kunpeng:modelerTemplate and kunpeng:modelerTemplateVersion', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      const newTemplate = require('./task-template-1.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'task-template', 1);
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        expectNoElementTemplate(task);
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        expectElementTemplate(task, 'task-template', 1);
+      }));
+
+    });
+
+
+    describe('update kunpeng:modelerTemplateIcon', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      const newTemplate = require('./icon-template-1.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const icon = getBusinessObject(task).get('kunpeng:modelerTemplateIcon');
+
+        expect(icon).to.exist;
+        expect(icon).to.eql("data:image/svg+xml,%3Csvg width='24' height='24'%3C/svg%3E");
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        const icon = getBusinessObject(task).get('kunpeng:modelerTemplateIcon');
+
+        expect(icon).to.not.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        const icon = getBusinessObject(task).get('kunpeng:modelerTemplateIcon');
+
+        expect(icon).to.exist;
+        expect(icon).to.eql("data:image/svg+xml,%3Csvg width='24' height='24'%3C/svg%3E");
+      }));
+
+    });
+
+
+    describe('update name', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      const newTemplate = require('./task-template-1.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1'),
+              businessObject = getBusinessObject(task);
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'task-template', 1);
+
+        const name = businessObject.get('bpmn:name');
+
+        expect(name).to.exist;
+        expect(name).to.equal('task-name');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1'),
+              businessObject = task.businessObject;
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        expectNoElementTemplate(task);
+
+        const name = businessObject.get('bpmn:name');
+
+        expect(name).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1'),
+              businessObject = task.businessObject;
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        expectElementTemplate(task, 'task-template', 1);
+
+        const name = businessObject.get('bpmn:name');
+
+        expect(name).to.exist;
+        expect(name).to.equal('task-name');
+      }));
+
+    });
+
+
+    describe('update kunpeng:taskDefinition', function() {
+
+      describe('kunpeng:taskDefinition:type specified', function() {
+
+        beforeEach(bootstrap(require('./task-definition.bpmn').default));
+
+        const newTemplate = require('./task-template-1.json');
+
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_2');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-type');
+
+          expect(taskDefinition.$parent).to.equal(getBusinessObject(task).get('extensionElements'));
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_2');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          expectNoElementTemplate(task);
+
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).not.to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_2');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-type');
+
+          expect(taskDefinition.$parent).to.equal(getBusinessObject(task).get('extensionElements'));
+        }));
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-type-old');
+
+          expect(taskDefinition.$parent).to.equal(getBusinessObject(task).get('extensionElements'));
+        }));
+
+
+        it('should handle `kunpeng:taskDefinition:type` to `kunpeng:taskDefinition` change', inject(function(elementRegistry) {
+
+          // given
+          const oldTemplate = createTemplate({
+            type: 'Hidden',
+            value: 'task-def-without-type',
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'type'
+            }
+          });
+
+          const newTemplate = createTemplate({
+            type: 'Hidden',
+            value: 'task-def-with-type',
+            binding: {
+              type: 'kunpeng:taskDefinition:type',
+            }
+          });
+
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, oldTemplate);
+
+          task = changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-def-with-type');
+        }));
+
+
+        it('should remove kunpeng:taskDefinition:type', inject(function(elementRegistry) {
+
+          // given
+          const oldTemplate = createTemplate({
+            type: 'Hidden',
+            value: 'task-def-with-type',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          });
+
+          const newTemplate = createTemplate([]);
+
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, oldTemplate);
+
+          task = changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).not.to.exist;
+        }));
+
+
+        it('should remove unused properties', inject(function(elementRegistry) {
+
+          // given
+          const oldTemplate = createTemplate([
+            {
+              type: 'Hidden',
+              value: 5,
+              binding: {
+                type: 'kunpeng:taskDefinition',
+                property: 'retries'
+              }
+            },
+            {
+              type: 'Hidden',
+              value: 'a-task-type',
+              binding: {
+                type: 'kunpeng:taskDefinition',
+                property: 'taskType'
+              }
+            }
+          ]);
+
+          const newTemplate = createTemplate(
+            {
+              type: 'Hidden',
+              value: 'a-new-task-type',
+              binding: {
+                type: 'kunpeng:taskDefinition',
+                property: 'taskType'
+              }
+            });
+
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, oldTemplate);
+
+          task = changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('retries')).to.not.exist;
+          expect(taskDefinition.get('taskType')).to.equal('a-new-task-type');
+        }));
+      });
+
+
+      describe('kunpeng:taskDefinition:type not specified', function() {
+
+        beforeEach(bootstrap(require('./task-definition.bpmn').default));
+
+        const newTemplate = require('./task-template-no-properties.json');
+
+
+        it('should remove task definition', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-no-properties');
+
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).not.to.exist;
+        }));
+
+      });
+
+
+      describe('hidden', function() {
+
+        beforeEach(bootstrap(require('./task-definition.bpmn').default));
+
+        const newTemplate = require('./task-template-1-hidden.json');
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // assume
+          let taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-type-old');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-type');
+        }));
+
+      });
+
+
+      describe('dropdown', function() {
+
+        beforeEach(bootstrap(require('./task-input-output.bpmn').default));
+
+        const newTemplate = require('./task-template-1-dropdown.json');
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_existing_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              target: 'input-1-target',
+              source: 'input-1-source-old',
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              target: 'output-1-target-old',
+              source: 'output-1-source'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+      });
+
+      describe('kunpeng:taskDefinition:type and kunpeng:taskDefinition', function() {
+
+        beforeEach(bootstrap(require('./task.bpmn').default));
+
+        it('should handle kunpeng:taskDefinition:type and kunpeng:taskDefinition', inject(function(elementRegistry) {
+          const oldTemplate = createTemplate({
+            type: 'String',
+            value: 'task-def-with-type',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          });
+
+          const newTemplate = createTemplate({
+            type: 'String',
+            value: 'task-def-without-type',
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'type'
+            }
+          });
+
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, oldTemplate);
+
+          task = changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+          expect(taskDefinition).to.exist;
+          expect(taskDefinition.get('type')).to.equal('task-def-without-type');
+
+
+        }));
+
+      });
+
+    });
+
+
+    describe('update kunpeng:ioMapping', function() {
+
+      describe('kunpeng:Input and kunpeng:Output specified', function() {
+
+        beforeEach(bootstrap(require('./task-input-output.bpmn').default));
+
+        const newTemplate = require('./task-template-1.json');
+
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          ioMapping.get('kunpeng:inputParameters').forEach((inputParameter) => {
+            expect(inputParameter.$parent).to.equal(ioMapping);
+          });
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-1-source',
+              target: 'input-1-target'
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-1-source',
+              target: 'output-1-target'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_mapping');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          expectNoElementTemplate(task);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).not.to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_mapping');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          ioMapping.get('kunpeng:inputParameters').forEach((inputParameter) => {
+            expect(inputParameter.$parent).to.equal(ioMapping);
+          });
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-1-source',
+              target: 'input-1-target'
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-1-source',
+              target: 'output-1-target'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_existing_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          ioMapping.get('kunpeng:inputParameters').forEach((inputParameter) => {
+            expect(inputParameter.$parent).to.equal(ioMapping);
+          });
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              target: 'input-1-target',
+              source: 'input-1-source-old'
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              target: 'output-1-target-old',
+              source: 'output-1-source'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('optional', function() {
+
+        beforeEach(bootstrap(require('./task.bpmn').default));
+
+        const newTemplate = require('./task-template-optional.json');
+
+        it('should create (non empty value)', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-optional', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(getInputParameter(task, 'input-1-target')).to.exist;
+          expect(getOutputParameter(task, 'output-1-source')).to.exist;
+        }));
+
+
+        it('should NOT create (empty value)', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-optional', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(getInputParameter(task, 'input-2-target')).not.to.exist;
+          expect(getOutputParameter(task, 'output-2-source')).not.to.exist;
+        }));
+
+      });
+
+
+      describe('hidden', function() {
+
+        beforeEach(bootstrap(require('./task-input-output.bpmn').default));
+
+        const newTemplate = require('./task-template-1-hidden.json');
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_existing_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              target: 'input-1-target',
+              source: 'input-1-source',
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              target: 'output-1-target',
+              source: 'output-1-source'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('dropdown', function() {
+
+        beforeEach(bootstrap(require('./task-input-output.bpmn').default));
+
+        const newTemplate = require('./task-template-1-dropdown.json');
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_existing_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).to.exist;
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(2);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(2);
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              target: 'input-1-target',
+              source: 'input-1-source-old',
+            },
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-2-source',
+              target: 'input-2-target'
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              target: 'output-1-target-old',
+              source: 'output-1-source'
+            },
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-2-source',
+              target: 'output-2-target'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('kunpeng:Input and kunpeng:Output not specified', function() {
+
+        beforeEach(bootstrap(require('./task-input-output.bpmn').default));
+
+        const newTemplate = require('./task-template-no-properties.json');
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_existing_mapping');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-no-properties');
+
+          const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping).not.to.exist;
+        }));
+
+      });
+
+    });
+
+
+    describe('update kunpeng:additionDynamics', function() {
+
+      describe('kunpeng:Header specified', function() {
+
+        beforeEach(bootstrap(require('./task-headers.bpmn').default));
+
+        const newTemplate = require('./task-template-1.json');
+
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).to.exist;
+          expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+          expect(additionDynamics.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          additionDynamics.get('kunpeng:values').forEach((value) => {
+            expect(value.$parent).to.equal(additionDynamics);
+          });
+
+          expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-1-key',
+              value: 'header-1-value'
+            },
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-2-key',
+              value: 'header-2-value'
+            }
+          ]);
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_values');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          expectNoElementTemplate(task);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).not.to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_values');
+
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).to.exist;
+          expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+          expect(additionDynamics.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          additionDynamics.get('kunpeng:values').forEach((value) => {
+            expect(value.$parent).to.equal(additionDynamics);
+          });
+
+          expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-1-key',
+              value: 'header-1-value'
+            },
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-2-key',
+              value: 'header-2-value'
+            }
+          ]);
+        }));
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_with_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).to.exist;
+          expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+          expect(additionDynamics.$parent)
+            .to.equal(getBusinessObject(task).get('extensionElements'));
+
+          additionDynamics.get('kunpeng:values').forEach((value) => {
+            expect(value.$parent).to.equal(additionDynamics);
+          });
+
+          expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-1-key',
+              value: 'header-1-value-old'
+            },
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-2-key',
+              value: 'header-2-value'
+            }
+          ]);
+
+        }));
+
+      });
+
+
+      describe('hidden', function() {
+
+        beforeEach(bootstrap(require('./task-headers.bpmn').default));
+
+        const newTemplate = require('./task-template-1-hidden.json');
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_with_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).to.exist;
+          expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+          expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-1-key',
+              value: 'header-1-value'
+            },
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-2-key',
+              value: 'header-2-value'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('dropdown', function() {
+
+        beforeEach(bootstrap(require('./task-headers.bpmn').default));
+
+        const newTemplate = require('./task-template-1-dropdown.json');
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_with_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).to.exist;
+          expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+          expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-1-key',
+              value: 'header-1-value-old'
+            },
+            {
+              $type: 'kunpeng:Header',
+              key: 'header-2-key',
+              value: 'header-2-value'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('kunpeng:Header not specified', function() {
+
+        const newTemplate = require('./task-template-no-properties.json');
+
+        beforeEach(bootstrap(require('./task-headers.bpmn').default));
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_with_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-no-properties');
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          expect(additionDynamics).not.to.exist;
+
+        }));
+
+      });
+
+
+      describe('empty value', function() {
+
+        const newTemplate = require('./task-template-header-empty.json');
+
+        beforeEach(bootstrap(require('./task-headers.bpmn').default));
+
+
+        it('should not create kunpeng:Header', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_without_values');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-header-empty');
+
+          const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+          // legacy behavior; if no header values exist there should not
+          // be kunpeng:taskHeader, too
+          expect(additionDynamics).to.exist;
+
+          expect(additionDynamics.values).to.be.empty;
+        }));
+
+      });
+
+    });
+
+
+    describe('update task type', function() {
+
+      const newTemplate = require('./task-template-elementType-1.json');
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        // assume
+        expect(is(task, 'bpmn:ServiceTask')).to.be.true;
+
+        // when
+        task = changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'element-type-template', 1);
+        expect(is(task, 'bpmn:UserTask')).to.be.true;
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        const currentTask = elementRegistry.get('Task_1');
+
+        expect(currentTask).to.eql(task);
+        expectNoElementTemplate(task);
+        expect(is(task, 'bpmn:ServiceTask')).to.be.true;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        task = changeTemplate('Task_1', newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        const currentTask = elementRegistry.get('Task_1');
+
+        expect(currentTask).to.equal(task);
+        expectElementTemplate(currentTask, 'element-type-template', 1);
+        expect(is(currentTask, 'bpmn:UserTask')).to.be.true;
+      }));
+
+
+      it('preserve (no-op)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_1');
+
+        // assume
+        expect(is(task, 'bpmn:UserTask')).to.be.true;
+
+        // when
+        const updatedTask = changeTemplate(task, newTemplate);
+
+        // then
+        // expect identity to be kept (no replace)
+        expect(updatedTask).to.equal(task);
+      }));
+
+    });
+
+
+    describe('update kunpeng:Property', function() {
+
+      describe('kunpeng:Property specified', function() {
+
+        beforeEach(bootstrap(require('./zeebe-properties.bpmn').default));
+
+        const newTemplate = require('./task-template-1.json');
+
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+          // when
+          changeTemplate(serviceTask, newTemplate);
+
+          // then
+          expectElementTemplate(serviceTask, 'task-template', 1);
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(zeebeProperties.get('properties')).to.have.length(2);
+
+          expect(zeebeProperties.$parent)
+            .to.equal(getBusinessObject(serviceTask).get('extensionElements'));
+
+          zeebeProperties.get('properties').forEach((property) => {
+            expect(property.$parent).to.equal(zeebeProperties);
+          });
+
+          expect(zeebeProperties.get('properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-value'
+            },
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-2-name',
+              value: 'property-2-value'
+            }
+          ]);
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+          changeTemplate(serviceTask, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          expectNoElementTemplate(serviceTask);
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).not.to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+          changeTemplate(serviceTask, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          expectElementTemplate(serviceTask, 'task-template', 1);
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(zeebeProperties.get('properties')).to.have.length(2);
+
+          expect(zeebeProperties.$parent)
+            .to.equal(getBusinessObject(serviceTask).get('extensionElements'));
+
+          zeebeProperties.get('properties').forEach((property) => {
+            expect(property.$parent).to.equal(zeebeProperties);
+          });
+
+          expect(zeebeProperties.get('properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-value'
+            },
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-2-name',
+              value: 'property-2-value'
+            }
+          ]);
+        }));
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_Properties');
+
+          // when
+          changeTemplate(serviceTask, newTemplate);
+
+          // then
+          expectElementTemplate(serviceTask, 'task-template', 1);
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(zeebeProperties.get('properties')).to.have.length(2);
+
+          expect(zeebeProperties.$parent)
+            .to.equal(getBusinessObject(serviceTask).get('extensionElements'));
+
+          zeebeProperties.get('properties').forEach((property) => {
+            expect(property.$parent).to.equal(zeebeProperties);
+          });
+
+          expect(zeebeProperties.get('properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-value-old'
+            },
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-2-name',
+              value: 'property-2-value'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('optional', function() {
+
+        beforeEach(bootstrap(require('./task.bpmn').default));
+
+        const newTemplate = require('./task-template-optional.json');
+
+
+        it('should create (non empty value)', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-optional', 1);
+
+          const zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(getKunpengProperty(task, 'property-1-name')).to.exist;
+        }));
+
+
+        it('should NOT create (empty value)', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template-optional', 1);
+
+          const zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(getKunpengProperty(task, 'property-2-name')).not.to.exist;
+        }));
+
+      });
+
+
+      describe('hidden', function() {
+
+        beforeEach(bootstrap(require('./zeebe-properties.bpmn').default));
+
+        const newTemplate = require('./task-template-1-hidden.json');
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_Properties');
+
+          // when
+          changeTemplate(serviceTask, newTemplate);
+
+          // then
+          expectElementTemplate(serviceTask, 'task-template', 1);
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(zeebeProperties.get('properties')).to.have.length(2);
+
+          expect(zeebeProperties.get('properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-value'
+            },
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-2-name',
+              value: 'property-2-value'
+            }
+          ]);
+        }));
+
+      });
+
+
+      describe('dropdown', function() {
+
+        beforeEach(bootstrap(require('./zeebe-properties.bpmn').default));
+
+        const newTemplate = require('./task-template-1-dropdown.json');
+
+
+        it('should not override existing', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('ServiceTask_Properties');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          expectElementTemplate(task, 'task-template', 1);
+
+          const zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+          expect(zeebeProperties).to.exist;
+          expect(zeebeProperties.get('properties')).to.have.length(2);
+
+          expect(zeebeProperties.get('properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-value-old'
+            },
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-2-name',
+              value: 'property-2-value'
+            }
+          ]);
+
+        }));
+
+      });
+
+
+      describe('kunpeng:Property not specified', function() {
+
+        const newTemplate = require('./task-template-no-properties.json');
+
+        beforeEach(bootstrap(require('./zeebe-properties.bpmn').default));
+
+
+        it('should override existing', inject(function(elementRegistry) {
+
+          // given
+          const serviceTask = elementRegistry.get('ServiceTask_Properties');
+
+          // when
+          changeTemplate(serviceTask, newTemplate);
+
+          // then
+          expectElementTemplate(serviceTask, 'task-template-no-properties');
+
+          const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+          expect(zeebeProperties).not.to.exist;
+
+        }));
+
+      });
+
+    });
+
+
+    describe('update bpmn:Message#property', function() {
+
+      beforeEach(bootstrap(require('./event.bpmn').default));
+
+      const newTemplate = require('./event-template-1.json');
+
+      it('execute', inject(function(bpmnjs, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectElementTemplate(event, 'event-template', 1);
+
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message).to.exist;
+        expect(message.get('name')).to.equal('name');
+
+        expect(message.$parent).to.equal(bpmnjs.getDefinitions());
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectNoElementTemplate(event);
+
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(bpmnjs, commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectElementTemplate(event, 'event-template', 1);
+
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message).to.exist;
+        expect(message.get('name')).to.equal('name');
+
+        expect(message.$parent).to.equal(bpmnjs.getDefinitions());
+      }));
+
+
+      it('should remove bpmn:Message if bpmn:Message#property not specified', inject(function(bpmnjs, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+        event = changeTemplate(event, newTemplate);
+
+        // when
+        const emptyTemplate = createTemplate([]);
+        changeTemplate(event, emptyTemplate, newTemplate);
+
+        // then
+        event = elementRegistry.get('Event_1');
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message).not.to.exist;
+      }));
+
+
+      withBpmnJs('>=18.0.0')('should reuse bpmn:Message name property', inject(function(elementRegistry) {
+
+        // given
+        const template = require('./event-template-3.json');
+
+        let event = elementRegistry.get('Event_4');
+
+        // when
+        changeTemplate(event, template);
+
+        // then
+        event = elementRegistry.get('Event_4');
+
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message.get('name')).to.equal('message_1');
+      }));
+
+    });
+
+
+    describe('update bpmn:Message#kunpeng:subscription#property', function() {
+
+      beforeEach(bootstrap(require('./event.bpmn').default));
+
+      const newTemplate = require('./event-template-2.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectElementTemplate(event, 'event-template', 1);
+
+        const message = findMessage(getBusinessObject(event));
+        const subscription = findKunpengSubscription(message);
+
+        expect(subscription).to.exist;
+        expect(subscription.get('correlationKey')).to.equal('correlationKey');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectNoElementTemplate(event);
+
+        const message = findMessage(getBusinessObject(event));
+
+        expect(message).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        event = elementRegistry.get('Event_1');
+        expectElementTemplate(event, 'event-template', 1);
+
+        const message = findMessage(getBusinessObject(event));
+        const subscription = findKunpengSubscription(message);
+
+        expect(subscription).to.exist;
+        expect(subscription.get('correlationKey')).to.equal('correlationKey');
+      }));
+
+
+      it('should remove message if no Message property is set', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        const emptyTemplate = createTemplate([]);
+        event = changeTemplate(event, newTemplate);
+
+        // when
+        changeTemplate(event, emptyTemplate, newTemplate);
+
+        // then
+        event = elementRegistry.get('Event_1');
+
+        const message = findMessage(getBusinessObject(event));
+        expect(message).not.to.exist;
+      }));
+
+
+      it('should remove Subscription if no subscription property is set', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('Event_1');
+
+        const noSubscription = createTemplate({
+          'value': 'foobar',
+          'binding': {
+            'type': 'bpmn:Message#property',
+            'name': 'name'
+          }
+        });
+
+        event = changeTemplate(event, newTemplate);
+
+        // when
+        changeTemplate(event, noSubscription, newTemplate);
+
+        // then
+        event = elementRegistry.get('Event_1');
+
+        const message = findMessage(getBusinessObject(event));
+        const subscription = findKunpengSubscription(message);
+
+        expect(message).to.exist;
+        expect(subscription).not.to.exist;
+      }));
+
+
+      withBpmnJs('>=18.0.0')('should reuse kunpeng:subscription correlationKey property', inject(function(elementRegistry) {
+
+        // given
+        const template = require('./event-template-3.json');
+
+        let event = elementRegistry.get('Event_4');
+
+        // when
+        changeTemplate(event, template);
+
+        // then
+        event = elementRegistry.get('Event_4');
+
+        const message = findMessage(getBusinessObject(event));
+        const subscription = findKunpengSubscription(message);
+
+        expect(subscription.get('correlationKey')).to.equal('=correlationKey');
+      }));
+
+    });
+
+
+    describe('update bpmn:Signal#property', function() {
+
+      beforeEach(bootstrap(require('./signal-event.bpmn').default));
+
+      const newTemplate = require('./signal-event-template-1.json');
+
+      it('execute', inject(function(bpmnjs, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('SignalEvent_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+
+        // then
+        event = elementRegistry.get('SignalEvent_1');
+        expectElementTemplate(event, 'signal-event-template', 1);
+
+        const signal = findSignal(getBusinessObject(event));
+
+        expect(signal).to.exist;
+        expect(signal.get('name')).to.equal('signal_name');
+
+        expect(signal.$parent).to.equal(bpmnjs.getDefinitions());
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('SignalEvent_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+
+        // then
+        event = elementRegistry.get('SignalEvent_1');
+        expectNoElementTemplate(event);
+
+        const signal = findSignal(getBusinessObject(event));
+
+        expect(signal).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(bpmnjs, commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('SignalEvent_1');
+
+        // when
+        changeTemplate(event, newTemplate);
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        event = elementRegistry.get('SignalEvent_1');
+        expectElementTemplate(event, 'signal-event-template', 1);
+
+        const signal = findSignal(getBusinessObject(event));
+
+        expect(signal).to.exist;
+        expect(signal.get('name')).to.equal('signal_name');
+
+        expect(signal.$parent).to.equal(bpmnjs.getDefinitions());
+      }));
+
+
+      it('should remove bpmn:Signal if bpmn:Signal#property not specified', inject(function(bpmnjs, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('SignalEvent_1');
+        event = changeTemplate(event, newTemplate);
+
+        // when
+        const emptyTemplate = createTemplate([]);
+        changeTemplate(event, emptyTemplate, newTemplate);
+
+        // then
+        event = elementRegistry.get('SignalEvent_1');
+        const signal = findSignal(getBusinessObject(event));
+
+        expect(signal).not.to.exist;
+      }));
+
+
+      withBpmnJs('>=18.0.0')('should reuse bpmn:Signal name property', inject(function(elementRegistry) {
+
+        // given
+        const template = require('./signal-event-template-2.json');
+
+        let event = elementRegistry.get('SignalEvent_4');
+
+        // when
+        changeTemplate(event, template);
+
+        // then
+        event = elementRegistry.get('SignalEvent_4');
+
+        const signal = findSignal(getBusinessObject(event));
+
+        expect(signal.get('name')).to.equal('signal_1');
+      }));
+
+    });
+
+
+    describe('update bpmn:TimerEventDefinition#property', function() {
+
+      beforeEach(bootstrap(require('./timer-event.bpmn').default));
+
+      const timeCycleTemplate = require('./timer-event-template-cycle.json');
+      const timeCycleBoundaryTemplate = require('./timer-event-template-cycle-boundary.json');
+      const timeDateTemplate = require('./timer-event-template-date.json');
+      const timeDurationTemplate = require('./timer-event-template-duration.json');
+
+      it('execute and set timeCycle ', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerStartEvent_1');
+
+        // when
+        changeTemplate(event, timeCycleTemplate);
+
+        // then
+        event = elementRegistry.get('TimerStartEvent_1');
+        expectElementTemplate(event, 'timer-cycle-event-template', 1);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition).to.exist;
+
+        const timeCycle = timerEventDefinition.get('timeCycle');
+        expect(timeCycle).to.exist;
+        expect(timeCycle.get('body')).to.equal('0 0 9-17 * * MON-FRI');
+      }));
+
+
+      it('execute and set timeDate', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerStartEvent_1');
+
+        // when
+        changeTemplate(event, timeDateTemplate);
+
+        // then
+        event = elementRegistry.get('TimerStartEvent_1');
+        expectElementTemplate(event, 'timer-date-event-template', 1);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition).to.exist;
+
+        const timeDate = timerEventDefinition.get('timeDate');
+        expect(timeDate).to.exist;
+        expect(timeDate.get('body')).to.equal('2024-12-24T18:00:00Z');
+      }));
+
+
+      it('execute and set timeDuration', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerCatchEvent_1');
+
+        // when
+        changeTemplate(event, timeDurationTemplate);
+
+        // then
+        event = elementRegistry.get('TimerCatchEvent_1');
+        expectElementTemplate(event, 'timer-duration-event-template', 1);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition).to.exist;
+
+        const timeDuration = timerEventDefinition.get('timeDuration');
+        expect(timeDuration).to.exist;
+        expect(timeDuration.get('body')).to.equal('PT1H');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerStartEvent_1');
+
+        // when
+        changeTemplate(event, timeCycleTemplate);
+        commandStack.undo();
+
+        // then
+        event = elementRegistry.get('TimerStartEvent_1');
+        expectNoElementTemplate(event);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        // timer event definition exists but has no timeCycle
+        expect(timerEventDefinition).to.exist;
+        expect(timerEventDefinition.get('timeCycle')).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerStartEvent_1');
+
+        // when
+        changeTemplate(event, timeCycleTemplate);
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        event = elementRegistry.get('TimerStartEvent_1');
+        expectElementTemplate(event, 'timer-cycle-event-template', 1);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition).to.exist;
+
+        const timeCycle = timerEventDefinition.get('timeCycle');
+        expect(timeCycle).to.exist;
+        expect(timeCycle.get('body')).to.equal('0 0 9-17 * * MON-FRI');
+      }));
+
+
+      it('should set timeCycle on interrupting boundary event and convert to non-interrupting', inject(function(elementRegistry, elementTemplates) {
+
+        // given - interrupting boundary event with timer definition
+        let event = elementRegistry.get('TimerBoundaryEvent_1');
+        expect(getBusinessObject(event).get('cancelActivity')).to.equal(true);
+
+        elementTemplates.set([ timeCycleBoundaryTemplate ]);
+
+        // when - apply timeCycle boundary template
+        event = elementTemplates.applyTemplate(event, timeCycleBoundaryTemplate);
+
+        // then - should be non-interrupting now
+        expect(event).to.exist;
+
+        expect(getBusinessObject(event).get('cancelActivity')).to.equal(false);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+        expect(timerEventDefinition).to.exist;
+        const timeCycle = timerEventDefinition.get('timeCycle');
+        expect(timeCycle).to.exist;
+        expect(timeCycle.get('body')).to.equal('R/PT5M');
+      }));
+
+
+      it('should set timeCycle on interrupting event subprocess start and convert to non-interrupting', inject(function(elementRegistry) {
+
+        // given - interrupting start event in event subprocess
+        let event = elementRegistry.get('EventSubProcessStart_1');
+        expect(getBusinessObject(event).get('isInterrupting')).to.equal(true);
+
+        // when
+        event = changeTemplate(event, timeCycleTemplate);
+
+        // then - should be non-interrupting now
+        expect(event).to.exist;
+
+        expect(getBusinessObject(event).get('isInterrupting')).to.equal(false);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+        expect(timerEventDefinition).to.exist;
+        const timeCycle = timerEventDefinition.get('timeCycle');
+        expect(timeCycle).to.exist;
+        expect(timeCycle.get('body')).to.equal('0 0 9-17 * * MON-FRI');
+      }));
+
+      it('should remove existing timeCycle timer when applying template with different value', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerStartEvent_2');
+        const timerEventDefinition = findTimerEventDefinition(event);
+        expect(timerEventDefinition.get('timeCycle')).to.exist;
+
+        // when
+        event = changeTemplate(event, timeDateTemplate);
+
+        // then
+        expectElementTemplate(event, 'timer-date-event-template', 1);
+
+        const updatedTimerEventDefinition = findTimerEventDefinition(event);
+
+        expect(updatedTimerEventDefinition.get('timeCycle')).not.to.exist;
+
+        const timeDate = updatedTimerEventDefinition.get('timeDate');
+
+        expect(timeDate).to.exist;
+        expect(timeDate.get('body')).to.equal('2024-12-24T18:00:00Z');
+      }));
+
+
+      it('should remove existing timeDuration when applying template with different value', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('TimerCatchEvent_2');
+        const timerEventDefinition = findTimerEventDefinition(event);
+        expect(timerEventDefinition.get('timeDuration')).to.exist;
+
+        // when
+        event = changeTemplate(event, timeDateTemplate);
+
+        // then
+        expectElementTemplate(event, 'timer-date-event-template', 1);
+
+        const updatedTimerEventDefinition = findTimerEventDefinition(event);
+
+        expect(updatedTimerEventDefinition.get('timeDuration')).not.to.exist;
+
+        const timeDate = updatedTimerEventDefinition.get('timeDate');
+
+        expect(timeDate).to.exist;
+        expect(timeDate.get('body')).to.equal('2024-12-24T18:00:00Z');
+      }));
+
+
+      it('should remove existing timeDate when applying template with different value', inject(function(elementRegistry) {
+
+        // given
+        let event = elementRegistry.get('EventSubProcessStart_2');
+        event = changeTemplate(event, timeDateTemplate);
+
+        let timerEventDefinition = findTimerEventDefinition(event);
+        expect(timerEventDefinition.get('timeDate')).to.exist;
+
+        // when
+        event = changeTemplate(event, timeDurationTemplate, timeDateTemplate);
+
+        // then
+        expectElementTemplate(event, 'timer-duration-event-template', 1);
+
+        timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition.get('timeDate')).not.to.exist;
+
+        const timeDuration = timerEventDefinition.get('timeDuration');
+
+        expect(timeDuration).to.exist;
+        expect(timeDuration.get('body')).to.equal('PT1H');
+      }));
+
+    });
+
+
+    describe('update kunpeng:calledElement', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      const newTemplate = require('./called-element.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        task = elementRegistry.get('Task_1');
+        expectElementTemplate(task, 'calledElement');
+
+        const calledElement = findExtension(task, 'kunpeng:CalledElement');
+
+        expect(calledElement).to.exist;
+        expect(calledElement).to.have.property('processId', 'paymentProcess');
+        expect(calledElement).to.have.property('propagateAllChildVariables', false);
+        expect(calledElement).to.have.property('propagateAllParentVariables', false);
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('Task_1');
+        expectNoElementTemplate(task);
+
+        const calledElement = findExtension(task, 'kunpeng:CalledElement');
+
+        expect(calledElement).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('Task_1');
+        expectElementTemplate(task, 'calledElement');
+
+        const calledElement = findExtension(task, 'kunpeng:CalledElement');
+
+        expect(calledElement).to.exist;
+        expect(calledElement).to.have.property('processId', 'paymentProcess');
+        expect(calledElement).to.have.property('propagateAllChildVariables', false);
+        expect(calledElement).to.have.property('propagateAllParentVariables', false);
+      }));
+    });
+
+
+    describe('create message with kunpeng:modelerTemplate', function() {
+
+      beforeEach(bootstrap(require('./event.bpmn').default));
+
+
+      it('should apply kunpeng:modelerTemplate if bpmn:Message#property specified', inject(
+        function(elementRegistry) {
+
+          // given
+          const newTemplate = require('./event-template-1.json');
+          let event = elementRegistry.get('Event_1');
+
+          // when
+          changeTemplate(event, newTemplate);
+
+          // then
+          event = elementRegistry.get('Event_1');
+          expectElementTemplate(event, newTemplate.id, 1);
+
+          const message = findMessage(getBusinessObject(event));
+
+          expect(message).to.exist;
+          expect(message.get('kunpeng:modelerTemplate')).to.equal(newTemplate.id);
+        })
+      );
+
+
+      it('should apply kunpeng:modelerTemplate if bpmn:Message#kunpeng:subscription#property specified', inject(
+        function(elementRegistry) {
+
+          // given
+          const newTemplate = require('./event-template-2.json');
+          let event = elementRegistry.get('Event_1');
+
+          // when
+          changeTemplate(event, newTemplate);
+
+          // then
+          event = elementRegistry.get('Event_1');
+          expectElementTemplate(event, newTemplate.id, 1);
+
+          const message = findMessage(getBusinessObject(event));
+
+          expect(message).to.exist;
+          expect(message.get('kunpeng:modelerTemplate')).to.equal(newTemplate.id);
+        })
+      );
+
+
+      it('should create a new message but keep existing one on definitions', inject(
+        function(elementRegistry, bpmnjs) {
+
+          // given
+          const newTemplate = require('./event-template-1.json');
+          let event = elementRegistry.get('Event_2');
+          const originalMessage = findMessage(getBusinessObject(event));
+
+          // when
+          changeTemplate(event, newTemplate);
+
+          // then
+          event = elementRegistry.get('Event_2');
+          expectElementTemplate(event, newTemplate.id, 1);
+
+          const message = findMessage(getBusinessObject(event));
+          expect(message).to.exist;
+
+          const definitions = bpmnjs.getDefinitions(event);
+          const rootElements = definitions.get('rootElements');
+          expect(rootElements.find(e => e === message)).to.exist;
+          expect(rootElements.find(e => e === originalMessage)).to.exist;
+        }));
+    });
+
+
+    describe('create signal with kunpeng:modelerTemplate', function() {
+
+      beforeEach(bootstrap(require('./signal-event.bpmn').default));
+
+
+      it('should apply kunpeng:modelerTemplate if bpmn:Signal#property specified', inject(
+        function(elementRegistry) {
+
+          // given
+          const newTemplate = require('./signal-event-template-1.json');
+          let event = elementRegistry.get('SignalEvent_1');
+
+          // when
+          changeTemplate(event, newTemplate);
+
+          // then
+          event = elementRegistry.get('SignalEvent_1');
+          expectElementTemplate(event, newTemplate.id, 1);
+
+          const signal = findSignal(getBusinessObject(event));
+
+          expect(signal).to.exist;
+          expect(signal.get('kunpeng:modelerTemplate')).to.equal(newTemplate.id);
+        })
+      );
+
+
+      it('should create a new signal but keep existing one in definitions', inject(
+        function(elementRegistry, bpmnjs) {
+
+          // given
+          const newTemplate = require('./signal-event-template-1.json');
+          let event = elementRegistry.get('SignalEvent_2');
+          const originalSignal = findSignal(getBusinessObject(event));
+
+          // when
+          changeTemplate(event, newTemplate);
+
+          // then
+          event = elementRegistry.get('SignalEvent_2');
+          expectElementTemplate(event, newTemplate.id, 1);
+
+          const signal = findSignal(getBusinessObject(event));
+          expect(signal).to.exist;
+
+          const definitions = bpmnjs.getDefinitions(event);
+          const rootElements = definitions.get('rootElements');
+          expect(rootElements.find(e => e === signal)).to.exist;
+          expect(rootElements.find(e => e === originalSignal)).to.exist;
+        }));
+    });
+
+
+    describe('referenced elements', function() {
+
+      beforeEach(bootstrap(require('./shared-referenced-elements.bpmn').default));
+
+
+      withBpmnJs('>=18.0.0')('should create new signal when applying template with string input to element sharing signal', inject(
+        function(elementRegistry, bpmnjs) {
+
+          // given - both events share the same signal
+          const newTemplate = require('./signal-event-template-2.json');
+          const event1 = elementRegistry.get('SharedSignalEvent_1');
+          let event2 = elementRegistry.get('SharedSignalEvent_2');
+
+          const sharedSignal = findSignal(getBusinessObject(event1));
+          const initialRootElementsCount = bpmnjs.getDefinitions().get('rootElements').length;
+
+          expect(findSignal(getBusinessObject(event1))).to.equal(findSignal(getBusinessObject(event2)));
+
+          // when - apply template with string input to event2
+          event2 = changeTemplate(event2, newTemplate);
+
+          // then - new signal should be created with copied name
+          const event2Signal = findSignal(getBusinessObject(event2));
+          expect(event2Signal).to.exist;
+          expect(event2Signal).not.to.equal(sharedSignal);
+          expect(event2Signal.get('name')).to.equal('sharedSignalName'); // name should be copied
+          expect(event2Signal.get('kunpeng:modelerTemplate')).to.equal(newTemplate.id);
+
+          // event1 should still reference the original shared signal
+          expect(findSignal(getBusinessObject(event1))).to.equal(sharedSignal);
+          expect(sharedSignal.get('kunpeng:modelerTemplate')).not.to.exist;
+
+          // both signals should exist in definitions
+          const definitions = bpmnjs.getDefinitions();
+          const rootElements = definitions.get('rootElements');
+          expect(rootElements).to.have.lengthOf(initialRootElementsCount + 1);
+          expect(rootElements.find(e => e === sharedSignal)).to.exist;
+          expect(rootElements.find(e => e === event2Signal)).to.exist;
+        }));
+
+
+      withBpmnJs('>=18.0.0')('should create new message when applying template with string input to element sharing message', inject(
+        function(elementRegistry, bpmnjs) {
+
+          // given - both events share the same message
+          const newTemplate = require('./message-event-template-1.json');
+          const event1 = elementRegistry.get('SharedMessageEvent_1');
+          let event2 = elementRegistry.get('SharedMessageEvent_2');
+
+          const sharedMessage = findMessage(getBusinessObject(event1));
+          const initialRootElementsCount = bpmnjs.getDefinitions().get('rootElements').length;
+
+          expect(findMessage(getBusinessObject(event1))).to.equal(findMessage(getBusinessObject(event2)));
+
+          // when - apply template with string input to event2
+          event2 = changeTemplate(event2, newTemplate);
+
+          // then - new message should be created with copied name
+          const event2Message = findMessage(getBusinessObject(event2));
+          expect(event2Message).to.exist;
+          expect(event2Message).not.to.equal(sharedMessage);
+          expect(event2Message.get('name')).to.equal('sharedMessageName'); // name should be copied
+          expect(event2Message.get('kunpeng:modelerTemplate')).to.equal(newTemplate.id);
+
+          // event1 should still reference the original shared message
+          expect(findMessage(getBusinessObject(event1))).to.equal(sharedMessage);
+          expect(sharedMessage.get('kunpeng:modelerTemplate')).not.to.exist;
+
+          // both messages should exist in definitions
+          const definitions = bpmnjs.getDefinitions();
+          const rootElements = definitions.get('rootElements');
+          expect(rootElements).to.have.lengthOf(initialRootElementsCount + 1);
+          expect(rootElements.find(e => e === sharedMessage)).to.exist;
+          expect(rootElements.find(e => e === event2Message)).to.exist;
+        }));
+    });
+
+
+    describe('generated value', function() {
+
+      beforeEach(bootstrap(require('./generated-values.bpmn').default));
+
+
+      it('should apply generated value (uuid)', inject(function(elementRegistry) {
+
+        // given
+        const uuidRegex = /^[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}$/;
+        let task = elementRegistry.get('Task_1');
+
+        // when
+        task = changeTemplate(task, require('./generated-values.json')[0]);
+
+        // then
+        const bo = getBusinessObject(task);
+        expect(bo.get('name')).to.match(uuidRegex, 'name is not a uuid');
+
+        const zeebeProperties = findExtension(task, 'kunpeng:Properties');
+        const property = findKunpengProperty(zeebeProperties, { name: 'property' });
+        expect(property.get('value')).to.match(uuidRegex, 'zeebe property is not a uuid');
+
+        const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+        const input = findInputParameter(ioMapping, { name: 'input' });
+        expect(input.get('source')).to.match(uuidRegex, 'input parameter is not a uuid');
+
+        const output = findOutputParameter(ioMapping, { source: 'source' });
+        expect(output.get('target')).to.match(uuidRegex, 'output parameter is not a uuid');
+
+        const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+        const taskHeader = findTaskHeader(additionDynamics, { key: 'header' });
+        expect(taskHeader.get('value')).to.match(uuidRegex, 'task header is not a uuid');
+
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+        expect(taskDefinition.get('type')).to.match(uuidRegex, 'task definition type is not a uuid');
+      }));
+
+
+      it('should apply generated value on message (uuid)', inject(function(elementRegistry) {
+
+        // given
+        const uuidRegex = /^[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}$/;
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        event = changeTemplate(event, require('./generated-values.json')[1]);
+
+        // then
+        const bo = getBusinessObject(event);
+
+        const message = findMessage(bo);
+        expect(message.get('name')).to.match(uuidRegex, 'message name is not a uuid');
+
+        const subscription = findKunpengSubscription(message);
+        expect(subscription.get('correlationKey')).to.match(uuidRegex, 'correlation key is not a uuid');
+      }));
+
+
+      it('should apply generated value on signal (uuid)', inject(function(elementRegistry) {
+
+        // given
+        const uuidRegex = /^[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}$/;
+        let event = elementRegistry.get('Event_1');
+
+        // when
+        event = changeTemplate(event, require('./generated-values-signal.json')[0]);
+
+        // then
+        const bo = getBusinessObject(event);
+
+        const signal = findSignal(bo);
+        expect(signal.get('name')).to.match(uuidRegex, 'signal name is not a uuid');
+      }));
+    });
+
+
+    describe('integration', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      it('should NOT create unnecessary message', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, {
+          '$schema': 'https://unpkg.com/browse/@camunda/zeebe-element-templates-json-schema/resources/schema.json',
+          'id': 'com.camunda.example.test',
+          'name': 'TEST',
+          'appliesTo': [
+            'bpmn:FlowNode'
+          ],
+          'properties': []
+        });
+
+        // then
+        const bo = getBusinessObject(task);
+
+        expect(bo.$attrs).not.to.have.property('messageRef');
+      }));
+
+
+      it('should NOT create unnecessary signal', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, {
+          '$schema': 'https://unpkg.com/browse/@camunda/zeebe-element-templates-json-schema/resources/schema.json',
+          'id': 'com.camunda.example.test.signal',
+          'name': 'TEST SIGNAL',
+          'appliesTo': [
+            'bpmn:FlowNode'
+          ],
+          'properties': []
+        });
+
+        // then
+        const bo = getBusinessObject(task);
+
+        expect(bo.$attrs).not.to.have.property('signalRef');
+      }));
+    });
+
+
+    describe('kunpeng:adHoc', function() {
+
+      beforeEach(bootstrap(require('./ad-hoc.bpmn').default));
+
+      const newTemplate = require('./ad-hoc.json');
+
+      it('should execute', inject(function(elementRegistry) {
+
+        // given
+        let subProcess = elementRegistry.get('AdHocSubProcess_1');
+
+        // when
+        changeTemplate(subProcess, newTemplate);
+
+        // then
+        expectElementTemplate(subProcess, 'com.camunda.example.AdHoc');
+
+        const adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+        expect(adHoc).to.exist;
+        expect(adHoc).to.have.property('outputCollection', 'toolCallResults');
+        expect(adHoc).to.have.property('outputElement', '={ id: toolCall._meta.id }');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let subProcess = elementRegistry.get('AdHocSubProcess_1');
+        changeTemplate(subProcess, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        subProcess = elementRegistry.get('AdHocSubProcess_1');
+        expectNoElementTemplate(subProcess);
+        const adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+        expect(adHoc).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let subProcess = elementRegistry.get('AdHocSubProcess_1');
+        changeTemplate(subProcess, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        subProcess = elementRegistry.get('AdHocSubProcess_1');
+        expectElementTemplate(subProcess, 'com.camunda.example.AdHoc');
+        const adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+        expect(adHoc).to.exist;
+        expect(adHoc).to.have.property('outputCollection', 'toolCallResults');
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        let subProcess = elementRegistry.get('AdHocSubProcess_existing');
+
+        // when
+        changeTemplate(subProcess, newTemplate);
+
+        // then
+        const adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+        expect(adHoc).to.exist;
+
+        // existing values should be kept (non Hidden property types)
+        expect(adHoc).to.have.property('outputCollection', 'existingCollection');
+        expect(adHoc).to.have.property('outputElement', '={ existing: true }');
+      }));
+
+    });
+
+
+    describe('update kunpeng:LinkedElement', function() {
+
+      beforeEach(bootstrap(require('./linked-resource.bpmn').default));
+
+
+      describe('kunpeng:LinekedElement specified', function() {
+        const newTemplate = require('./linked-resource.json')[1];
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('noResources');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          task = elementRegistry.get('noResources');
+          expectElementTemplate(task, 'linkedResource');
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).to.exist;
+
+          const linkedResource = linkedResources.get('values')[0];
+          expect(linkedResource).to.exist;
+          expect(linkedResource).to.have.property('linkName', 'persistedLink');
+          expect(linkedResource).to.have.property('resourceType', 'RPA');
+          expect(linkedResource).to.have.property('resourceId', 'changed');
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('noResources');
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          task = elementRegistry.get('noResources');
+          expectNoElementTemplate(task);
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+          expect(linkedResources).not.to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('noResources');
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          task = elementRegistry.get('noResources');
+          expectElementTemplate(task, 'linkedResource');
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).to.exist;
+
+          const linkedResource = linkedResources.get('values')[0];
+          expect(linkedResource).to.exist;
+          expect(linkedResource).to.have.property('linkName', 'persistedLink');
+          expect(linkedResource).to.have.property('resourceType', 'RPA');
+          expect(linkedResource).to.have.property('resourceId', 'changed');
+        }));
+
+
+        it('should keep values', inject(function(elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('withResources');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          task = elementRegistry.get('withResources');
+          expectElementTemplate(task, 'linkedResource');
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).to.exist;
+
+          const linkedResource = linkedResources.get('values')[0];
+          expect(linkedResource).to.exist;
+          expect(linkedResource).to.have.property('linkName', 'persistedLink');
+          expect(linkedResource).to.have.property('resourceType', 'originalType');
+          expect(linkedResource).to.have.property('resourceId', 'originalResource');
+        }));
+
+      });
+
+
+      describe('kunpeng:LinkedElement not specified', function() {
+        const newTemplate = require('./task-template-no-properties.json');
+
+        it('execute', inject(function(elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('withResources');
+
+          // when
+          changeTemplate(task, newTemplate);
+
+          // then
+          task = elementRegistry.get('withResources');
+          expectElementTemplate(task, 'task-template-no-properties');
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).not.to.exist;
+        }));
+
+
+        it('undo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('withResources');
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+
+          // then
+          task = elementRegistry.get('withResources');
+          expectNoElementTemplate(task);
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).to.exist;
+        }));
+
+
+        it('redo', inject(function(commandStack, elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('withResources');
+          changeTemplate(task, newTemplate);
+
+          // when
+          commandStack.undo();
+          commandStack.redo();
+
+          // then
+          task = elementRegistry.get('withResources');
+          expectElementTemplate(task, 'task-template-no-properties');
+
+          const linkedResources = findExtension(task, 'kunpeng:LinkedResources');
+
+          expect(linkedResources).not.to.exist;
+        }));
+
+      });
+
+    });
+
+
+    describe('update kunpeng:calledDecision', function() {
+
+      beforeEach(bootstrap(require('./business-rule-tasks.bpmn').default));
+
+      const newTemplate = require('./called-decision.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('withoutImplementation');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        task = elementRegistry.get('withoutImplementation');
+        expectElementTemplate(task, 'calledDecision');
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+        expect(calledDecision).to.have.property('decisionId', 'aDecisionId');
+        expect(calledDecision).to.have.property('resultVariable', 'aDefaultResultVariable');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('withoutImplementation');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('withoutImplementation');
+        expectNoElementTemplate(task);
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('withoutImplementation');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('withoutImplementation');
+        expectElementTemplate(task, 'calledDecision');
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+        expect(calledDecision).to.have.property('decisionId', 'aDecisionId');
+        expect(calledDecision).to.have.property('resultVariable', 'aDefaultResultVariable');
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('withCalledDecision');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'calledDecision');
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+
+        // Should keep the old values, not override with newTemplate's values
+        expect(calledDecision).to.have.property('decisionId', 'aDecisionId');
+        expect(calledDecision).to.have.property('resultVariable', 'aResultVariable');
+      }));
+
+
+      it('discards `taskDefinition` without template', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('withTaskDefinition');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'calledDecision');
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.not.exist;
+      }));
+
+
+      it('discards `taskDefinition` with template', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('withTaskDefinition');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'unrelated',
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'type'
+            }
+          },
+          {
+            value: 3,
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'retries'
+            }
+          }
+        ]);
+
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        expectElementTemplate(task, 'calledDecision');
+
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.not.exist;
+      }));
+    });
+
+
+    describe('kunpeng:formDefinition', function() {
+      beforeEach(bootstrap(require('./form-definition.bpmn').default));
+
+      const newTemplate = require('./form-definition.json');
+
+      it('should execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        task = elementRegistry.get('Camunda_user_Task_no_implementation');
+        expectElementTemplate(task, 'form-definition-template');
+
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+        expect(formDefinition).to.have.property('formId', 'complexFormId');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('Camunda_user_Task_no_implementation');
+        expectNoElementTemplate(task);
+
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).not.to.exist;
+
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('Camunda_user_Task_no_implementation');
+        expectElementTemplate(task, 'form-definition-template');
+
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+        expect(formDefinition).to.have.property('formId', 'complexFormId');
+      }));
+
+
+      it('should discard', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Job_worker_user_task_form_key');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'form-definition-template');
+
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+
+        expect(formDefinition).to.have.property('formId', 'complexFormId');
+        expect(formDefinition).to.not.have.property('formKey', 'formKey');
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Camunda_user_task_form_id');
+        const newTemplate = createTemplate([
+          {
+            'type': 'String',
+            'value': 'someNewFormId',
+            'binding': {
+              'type': 'kunpeng:formDefinition',
+              'property': 'formId'
+            }
+          }
+        ]);
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+
+        // Should keep the old values, not override with newTemplate's values
+        expect(formDefinition).to.have.property('formId', 'someId');
+
+      }));
+
+    });
+
+
+    describe('update kunpeng:script', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      const newTemplate = require('./script-task.json');
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        task = elementRegistry.get('Task_1');
+
+        expectElementTemplate(task, 'script-task-1');
+
+        const scriptTask = findExtension(task, 'kunpeng:Script');
+
+        expect(scriptTask).to.exist;
+        expect(scriptTask).to.have.property('expression', '=1 + 1');
+        expect(scriptTask).to.have.property('resultVariable', 'aResultVariable');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('Task_1');
+        expectNoElementTemplate(task);
+
+        const scriptTask = findExtension(task, 'kunpeng:Script');
+
+        expect(scriptTask).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('Task_1');
+        expectElementTemplate(task, 'script-task-1');
+
+        const scriptTask = findExtension(task, 'kunpeng:Script');
+
+        expect(scriptTask).to.exist;
+        expect(scriptTask).to.have.property('expression', '=1 + 1');
+        expect(scriptTask).to.have.property('resultVariable', 'aResultVariable');
+      }));
+
+
+      it('discards `taskDefinition`', inject(function(elementRegistry) {
+
+        // given
+        bootstrap(require('./task-definition.bpmn').default);
+        let task = elementRegistry.get('Task_1');
+
+        // when
+        task = changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'script-task-1');
+
+        const script = findExtension(task, 'kunpeng:Script');
+
+        expect(script).to.exist;
+
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.not.exist;
+      }));
+
+    });
+
+
+    describe('kunpeng:assignmentDefinition', function() {
+
+      beforeEach(bootstrap(require('./assignment-definition.bpmn').default));
+
+      const newTemplate = require('./assignment-definition.json');
+
+      it('should execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'com.camunda.example.AssignmentDefinition');
+
+        const assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).to.exist;
+        expect(assignmentDefinition).to.have.property('assignee', 'anAssignee');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectNoElementTemplate(task);
+
+        const assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).not.to.exist;
+
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectElementTemplate(task, 'com.camunda.example.AssignmentDefinition');
+
+        const assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).to.exist;
+        expect(assignmentDefinition).to.have.property('assignee', 'anAssignee');
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_assignmentDefinition');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).to.exist;
+
+        // Should keep the old values, not override with newTemplate's values
+        expect(assignmentDefinition).to.have.property('assignee', 'aCustomAssignee');
+        expect(assignmentDefinition).to.have.property('candidateGroups', 'aCandidateGroup, anotherCandidateGroup');
+
+      }));
+
+    });
+
+
+    describe('kunpeng:priorityDefinition', function() {
+
+      beforeEach(bootstrap(require('./priority-definition.bpmn').default));
+
+      const newTemplate = require('./priority-definition.json');
+
+      it('should execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'com.camunda.example.PriorityDefinition');
+
+        const priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).to.exist;
+        expect(priorityDefinition).to.have.property('priority', 10);
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectNoElementTemplate(task);
+
+        const priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).not.to.exist;
+
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectElementTemplate(task, 'com.camunda.example.PriorityDefinition');
+
+        const priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).to.exist;
+        expect(priorityDefinition).to.have.property('priority', 10);
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_priorityDefinition');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).to.exist;
+
+        // Should keep the old values, not override with newTemplate's values
+        expect(priorityDefinition).to.have.property('priority', '5');
+
+      }));
+    });
+
+
+    describe('kunpeng:taskSchedule', function() {
+
+      beforeEach(bootstrap(require('./task-schedule.bpmn').default));
+
+      const newTemplate = require('./task-schedule.json');
+
+      it('should execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'com.camunda.example.TaskSchedule');
+
+        const taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).to.exist;
+        expect(taskSchedule).to.have.property('dueDate', '2023-02-01T12:00:00Z');
+        expect(taskSchedule).to.have.property('followUpDate', '2023-02-05T12:00:00Z');
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectNoElementTemplate(task);
+
+        const taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).not.to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('UserTask_1');
+
+        changeTemplate(task, newTemplate);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        task = elementRegistry.get('UserTask_1');
+        expectElementTemplate(task, 'com.camunda.example.TaskSchedule');
+
+        const taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).to.exist;
+        expect(taskSchedule).to.have.property('dueDate', '2023-02-01T12:00:00Z');
+        expect(taskSchedule).to.have.property('followUpDate', '2023-02-05T12:00:00Z');
+      }));
+
+
+      it('should not override existing', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_taskSchedule');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).to.exist;
+
+        // Should keep the old values, not override with newTemplate's values
+        expect(taskSchedule).to.have.property('dueDate', '2033-02-01T12:00:00Z');
+        expect(taskSchedule).to.have.property('followUpDate', '2033-02-05T12:00:00Z');
+      }));
+
+    });
+
+
+    describe('FEEL Boolean and Numbers', function() {
+
+      beforeEach(bootstrap(require('./casted-values.bpmn').default));
+
+      describe('Boolean', function() {
+
+        const template = require('./casted-values.json')[0];
+
+        it('should apply generated value (uuid)', inject(function(elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, template);
+
+          // then
+          expect(getKunpengProperty(task, 'StaticBooleanProperty').value).to.eql('=true');
+          expect(getKunpengProperty(task, 'OptionalBooleanProperty').value).to.eql('=true');
+        }));
+
+      });
+
+      describe('Number', function() {
+
+        const template = require('./casted-values.json')[1];
+
+        it('should apply generated value (uuid)', inject(function(elementRegistry) {
+
+          // given
+          let task = elementRegistry.get('Task_1');
+
+          // when
+          task = changeTemplate(task, template);
+
+          // then
+          expect(getKunpengProperty(task, 'StaticNumberProperty').value).to.eql('=123');
+          expect(getKunpengProperty(task, 'OptionalNumberProperty').value).to.eql('=123');
+        }));
+
+      });
+
+    });
+
+  });
+
+
+  describe('change template (new and old template specified)', function() {
+
+    describe('update kunpeng:modelerTemplate and kunpeng:modelerTemplateVersion', function() {
+
+      beforeEach(bootstrap(require('./task-template.bpmn').default));
+
+      const newTemplate = require('./task-template-2.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'task-template', 2);
+      }));
+
+    });
+
+
+    describe('update kunpeng:modelerTemplateIcon', function() {
+
+      beforeEach(bootstrap(require('./icon-template.bpmn').default));
+
+      const newTemplate = require('./icon-template-2.json');
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        // then
+        const icon = getBusinessObject(task).get('kunpeng:modelerTemplateIcon');
+
+        expect(icon).to.exist;
+        expect(icon).to.eql('https://example.com/foo.svg');
+      }));
+
+
+      it('should remove icon when none new', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, require('./icon-template-no-icon.json'));
+
+        // then
+        const icon = getBusinessObject(task).get('kunpeng:modelerTemplateIcon');
+
+        expect(icon).to.not.exist;
+      }));
+
+    });
+
+
+    describe('update properties', function() {
+
+      describe('update name', function() {
+
+        beforeEach(bootstrap(require('./task.bpmn').default));
+
+        it('property changed', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1'),
+                businessObject = getBusinessObject(task);
+
+          const oldTemplate = createTemplate({
+            value: 'task-old-name',
+            binding: {
+              type: 'property',
+              name: 'name'
+            }
+          });
+
+          const newTemplate = createTemplate({
+            value: 'task-new-name',
+            binding: {
+              type: 'property',
+              name: 'name'
+            }
+          });
+
+          changeTemplate('Task_1', oldTemplate);
+
+          let name = businessObject.get('bpmn:name');
+
+          updateBusinessObject('Task_1', businessObject, {
+            'name': 'task-name-changed'
+          });
+
+          // when
+          changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          name = businessObject.get('bpmn:name');
+
+          expect(name).to.exist;
+          expect(name).to.equal('task-name-changed');
+        }));
+
+
+        it('property unchanged', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1'),
+                businessObject = getBusinessObject(task);
+
+          const oldTemplate = createTemplate({
+            value: 'task-old-name',
+            binding: {
+              type: 'property',
+              name: 'name'
+            }
+          });
+
+          const newTemplate = createTemplate({
+            value: 'task-new-name',
+            binding: {
+              type: 'property',
+              name: 'name'
+            }
+          });
+
+          changeTemplate('Task_1', oldTemplate);
+
+          // when
+          changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          const name = businessObject.get('bpmn:name');
+
+          expect(name).to.exist;
+          expect(name).to.equal('task-new-name');
+        }));
+
+
+        it('property removed', inject(function(elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1'),
+                businessObject = getBusinessObject(task);
+
+          const oldTemplate = createTemplate({
+            value: 'task-old-name',
+            binding: {
+              type: 'property',
+              name: 'name'
+            }
+          });
+
+          const newTemplate = createTemplate([]);
+
+          changeTemplate('Task_1', oldTemplate);
+
+          // when
+          changeTemplate('Task_1', newTemplate, oldTemplate);
+
+          // then
+          const name = businessObject.get('bpmn:name');
+
+          expect(name).not.to.exist;
+        }));
+
+      });
+
+    });
+
+
+    describe('update kunpeng:taskDefinition', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'task-type-old',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'task-type-new',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        updateBusinessObject('Task_1', taskDefinition, {
+          type: 'task-type-changed'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.exist;
+        expect(taskDefinition.get('type')).to.equal('task-type-changed');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'task-type-old',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'task-type-new',
+            binding: {
+              type: 'kunpeng:taskDefinition:type'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.exist;
+        expect(taskDefinition.get('type')).to.equal('task-type-new');
+      }));
+
+    });
+
+
+    describe('update kunpeng:Input and kunpeng:Output', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'input-1-old-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-old-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'input-1-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        const input = getInputParameter(task, 'input-1-target');
+
+        updateBusinessObject('Task_1', input, {
+          source: 'input-1-changed-value'
+        });
+
+        const output = getOutputParameter(task, 'output-1-source');
+
+        updateBusinessObject('Task_1', output, {
+          target: 'output-1-changed-value'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping).to.exist;
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-changed-value',
+            target: 'input-1-target',
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-changed-value'
+          }
+        ]);
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'input-1-old-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-old-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'input-1-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping).to.exist;
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-new-value',
+            target: 'input-1-target'
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-new-value'
+          }
+        ]);
+      }));
+
+
+      it('complex', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'input-1-old-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-old-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          },
+          {
+            value: 'input-2-old-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-2-target'
+            }
+          },
+          {
+            value: 'output-2-old-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-2-source'
+            }
+          },
+          {
+            value: 'input-3-old-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-3-target'
+            }
+          },
+          {
+            value: 'output-3-old-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-3-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'input-1-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          },
+          {
+            value: 'input-2-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-2-target'
+            }
+          },
+          {
+            value: 'output-2-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-2-source'
+            }
+          },
+          {
+            value: 'input-4-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-4-target'
+            }
+          },
+          {
+            value: 'output-4-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-4-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        const input1 = getInputParameter(task, 'input-1-target');
+
+        updateBusinessObject('Task_1', input1, {
+          source: 'input-1-changed-value'
+        });
+
+        const output1 = getOutputParameter(task, 'output-1-source');
+
+        updateBusinessObject('Task_1', output1, {
+          target: 'output-1-changed-value'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping).to.exist;
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(3);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(3);
+
+        // Expect 1st input to not have been overridden because it was changed
+        // Expect 2nd input to have been updated
+        // Expect 3rd input to have been removed
+        // Expect 4th input to have been added
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-changed-value',
+            target: 'input-1-target'
+          },
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-2-new-value',
+            target: 'input-2-target'
+          },
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-4-new-value',
+            target: 'input-4-target'
+          }
+        ]);
+
+        // Expect 1st output to not have been overridden because it was changed
+        // Expect 2nd output to have been updated
+        // Expect 3rd output to have been removed
+        // Expect 4th output to have been added
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-changed-value'
+          },
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-2-source',
+            target: 'output-2-new-value'
+          },
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-4-source',
+            target: 'output-4-new-value'
+          }
+        ]);
+      }));
+
+    });
+
+
+    describe('optional - kunpeng:Input and kunpeng:Output', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('should create - optional -> non optional (no value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping).to.exist;
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: undefined,
+            target: 'input-1-target',
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: undefined
+          }
+        ]);
+      }));
+
+
+      it('should create - optional -> non optional (value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'input-1-new-value',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-new-value',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping).to.exist;
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-new-value',
+            target: 'input-1-target'
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-new-value'
+          }
+        ]);
+      }));
+
+
+      it('should remove - non optional (value) -> optional (no value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'input-1-source',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-2-source',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).not.to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).not.to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).to.to.be.empty;
+      }));
+
+
+      it('should remove - non optional (no value)  -> optional (no value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).not.to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).not.to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).to.to.be.empty;
+      }));
+
+
+      it('should update - non optional -> optional (new value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'input-1-source',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'input-2-source',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'input-1-new-source',
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            value: 'output-1-new-target',
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).not.to.be.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).not.to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-new-source',
+            target: 'input-1-target',
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-new-target'
+          }
+        ]);
+      }));
+
+
+      it('should update - optional -> optional', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'input-1-old-source',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            value: 'output-1-old-target',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'input-1-new-source',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            value: 'output-1-new-target',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // assume
+        let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        // assume
+        expect(ioMapping.get('kunpeng:inputParameters')).to.be.not.empty;
+        expect(ioMapping.get('kunpeng:outputParameters')).to.be.not.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-new-source',
+            target: 'input-1-target',
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-new-target'
+          }
+        ]);
+      }));
+
+
+      it('should keep - optional -> optional (changed)',
+        inject(function(elementRegistry, bpmnFactory) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          const oldTemplate = createTemplate([
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:input',
+                name: 'input-1-target'
+              }
+            },
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:output',
+                source: 'output-1-source'
+              }
+            }
+          ]);
+
+          const newTemplate = createTemplate([
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:input',
+                name: 'input-1-target'
+              }
+            },
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:output',
+                source: 'output-1-source'
+              }
+            }
+          ]);
+
+          changeTemplate('Task_1', oldTemplate);
+
+          const input = createInputParameter({
+            name: 'input-1-target'
+          }, 'input-1-changed-source', bpmnFactory);
+
+          const output = createOutputParameter({
+            source: 'output-1-source'
+          }, 'output-1-changed-target', bpmnFactory);
+
+          let ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          updateBusinessObject('Task_1', ioMapping, {
+            inputParameters: [ input ],
+            outputParameters: [ output ]
+          });
+
+          // when
+          changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+          expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+          expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Input',
+              source: 'input-1-changed-source',
+              target: 'input-1-target',
+            }
+          ]);
+
+          expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Output',
+              source: 'output-1-source',
+              target: 'output-1-changed-target'
+            }
+          ]);
+        })
+      );
+
+
+      it('should create - optional -> optional (new value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'input-1-new-source',
+            binding: {
+              type: 'kunpeng:input',
+              name: 'input-1-target'
+            }
+          },
+          {
+            optional: true,
+            value: 'output-1-new-target',
+            binding: {
+              type: 'kunpeng:output',
+              source: 'output-1-source'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const ioMapping = findExtension(task, 'kunpeng:IoMapping');
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.have.length(1);
+        expect(ioMapping.get('kunpeng:outputParameters')).to.have.length(1);
+
+        expect(ioMapping.get('kunpeng:inputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Input',
+            source: 'input-1-new-source',
+            target: 'input-1-target',
+          }
+        ]);
+
+        expect(ioMapping.get('kunpeng:outputParameters')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Output',
+            source: 'output-1-source',
+            target: 'output-1-new-target'
+          }
+        ]);
+      }));
+
+    });
+
+
+    describe('update kunpeng:Header', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'header-1-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'header-1-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        const header = getTaskHeader(task, 'header-1-key');
+
+        updateBusinessObject('Task_1', header, {
+          value: 'header-1-changed-value'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+        expect(additionDynamics).to.exist;
+        expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+        expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-1-key',
+            value: 'header-1-changed-value',
+          },
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-2-key',
+            value: 'header-2-new-value',
+          }
+        ]);
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'header-1-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'header-1-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+        expect(additionDynamics).to.exist;
+        expect(additionDynamics.get('kunpeng:values')).to.have.length(2);
+
+        expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-1-key',
+            value: 'header-1-new-value'
+          },
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-2-key',
+            value: 'header-2-new-value'
+          }
+        ]);
+      }));
+
+
+      it('complex', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'header-1-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          },
+          {
+            value: 'header-3-old-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-3-key'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'header-1-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-1-key'
+            }
+          },
+          {
+            value: 'header-2-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-2-key'
+            }
+          },
+          {
+            value: 'header-4-new-value',
+            binding: {
+              type: 'kunpeng:taskHeader',
+              key: 'header-4-key'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        const header1 = getTaskHeader(task, 'header-1-key');
+
+        updateBusinessObject('Task_1', header1, {
+          value: 'header-1-changed-value'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+        expect(additionDynamics).to.exist;
+        expect(additionDynamics.get('kunpeng:values')).to.have.length(3);
+
+        // Expect 1st header to not have been overridden because it was changed
+        // Expect 2nd header to have been updated
+        // Expect 3rd header to have been removed
+        // Expect 4th header to have been added
+        expect(additionDynamics.get('kunpeng:values')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-1-key',
+            value: 'header-1-changed-value'
+          },
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-2-key',
+            value: 'header-2-new-value'
+          },
+          {
+            $type: 'kunpeng:Header',
+            key: 'header-4-key',
+            value: 'header-4-new-value'
+          },
+        ]);
+      }));
+
+    });
+
+
+    describe('update task type', function() {
+
+      const oldTemplate = require('./task-template-elementType-1.json');
+      const newTemplate = require('./task-template-elementType-2.json');
+
+      beforeEach(bootstrap(require('./task.bpmn').default, [ oldTemplate, newTemplate ]));
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        task = changeTemplate(task, newTemplate);
+
+        // then
+        expectElementTemplate(task, 'element-type-template-new', 1);
+        expect(is(task, 'bpmn:ServiceTask')).to.be.true;
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        changeTemplate('Task_1', newTemplate);
+        commandStack.undo();
+
+        // then
+        const currentTask = elementRegistry.get('Task_1');
+
+        expect(currentTask).to.eql(task);
+        expectElementTemplate(currentTask, 'element-type-template', 1);
+        expect(is(currentTask, 'bpmn:UserTask')).to.be.true;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        task = changeTemplate('Task_1', newTemplate);
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        const currentTask = elementRegistry.get('Task_1');
+
+        expect(currentTask).to.eql(task);
+        expectElementTemplate(currentTask, 'element-type-template-new', 1);
+        expect(is(currentTask, 'bpmn:ServiceTask')).to.be.true;
+      }));
+
+    });
+
+
+    describe('update kunpeng:Property', function() {
+
+      beforeEach(bootstrap(require('./zeebe-properties.bpmn').default));
+
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          }
+        ]);
+
+        changeTemplate('ServiceTask_NoProperties', oldTemplate);
+
+        const zeebeProperty = getKunpengProperty(serviceTask, 'property-1-name');
+
+        updateBusinessObject('ServiceTask_NoProperties', zeebeProperty, {
+          value: 'property-1-changed-value'
+        });
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+        expect(zeebeProperties).to.exist;
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(2);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-changed-value',
+          },
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-2-name',
+            value: 'property-2-new-value',
+          }
+        ]);
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          }
+        ]);
+
+        changeTemplate('ServiceTask_NoProperties', oldTemplate);
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+        expect(zeebeProperties).to.exist;
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(2);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-new-value',
+          },
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-2-name',
+            value: 'property-2-new-value',
+          }
+        ]);
+      }));
+
+
+      it('complex', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('ServiceTask_NoProperties');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          },
+          {
+            value: 'property-3-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-3-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          },
+          {
+            value: 'property-2-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-2-name'
+            }
+          },
+          {
+            value: 'property-4-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-4-name'
+            }
+          }
+        ]);
+
+        changeTemplate('ServiceTask_NoProperties', oldTemplate);
+
+        const zeebeProperty = getKunpengProperty(serviceTask, 'property-1-name');
+
+        updateBusinessObject('ServiceTask_NoProperties', zeebeProperty, {
+          value: 'property-1-changed-value'
+        });
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        const zeebeProperties = findExtension(serviceTask, 'kunpeng:Properties');
+
+        expect(zeebeProperties).to.exist;
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(3);
+
+        // expect 1st kunpeng:Property to not have been overridden because it was changed
+        // expect 2nd kunpeng:Property to have been updated
+        // expect 3rd kunpeng:Property to have been removed
+        // expect 4th kunpeng:Property to have been added
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-changed-value'
+          },
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-2-name',
+            value: 'property-2-new-value'
+          },
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-4-name',
+            value: 'property-4-new-value'
+          },
+        ]);
+      }));
+
+    });
+
+
+    describe('optional - kunpeng:Property', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+
+      it('should create - optional -> non optional (value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        // assume
+        expect(zeebeProperties.get('kunpeng:properties')).to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties).to.exist;
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(1);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-value'
+          }
+        ]);
+      }));
+
+
+      it('should create - optional -> non optional (no value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        // assume
+        expect(zeebeProperties.get('kunpeng:properties')).to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties).to.exist;
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: ''
+          }
+        ]);
+      }));
+
+
+      it('should remove - non optional -> optional (empty value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        // assume
+        expect(zeebeProperties.get('kunpeng:properties')).not.to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.be.empty;
+      }));
+
+
+      it('should keep - non optional -> optional (new value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            optional: true,
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        // assume
+        expect(zeebeProperties.get('kunpeng:properties')).not.to.be.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(1);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-new-value'
+          }
+        ]);
+      }));
+
+
+      it('should update - optional -> optional', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // assume
+        let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        // assume
+        expect(zeebeProperties.get('kunpeng:properties')).to.be.not.empty;
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(1);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-new-value',
+          }
+        ]);
+      }));
+
+
+      it('should keep - optional -> optional (changed)',
+        inject(function(elementRegistry, bpmnFactory) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          const oldTemplate = createTemplate([
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:property',
+                name: 'property-1-name'
+              }
+            }
+          ]);
+
+          const newTemplate = createTemplate([
+            {
+              optional: true,
+              binding: {
+                type: 'kunpeng:property',
+                name: 'property-1-name'
+              }
+            }
+          ]);
+
+          changeTemplate('Task_1', oldTemplate);
+
+          const zeebeProperty = createKunpengProperty({
+            name: 'property-1-name'
+          }, 'property-1-changed-value', bpmnFactory);
+
+          let zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+          updateBusinessObject('Task_1', zeebeProperties, {
+            properties: [ zeebeProperty ]
+          });
+
+          // when
+          changeTemplate(task, newTemplate, oldTemplate);
+
+          // then
+          zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+          expect(zeebeProperties.get('kunpeng:properties')).to.have.length(1);
+
+          expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+            {
+              $type: 'kunpeng:Property',
+              name: 'property-1-name',
+              value: 'property-1-changed-value'
+            }
+          ]);
+        })
+      );
+
+
+      it('should create - optional -> optional (new value)', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            optional: true,
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            optional: true,
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:property',
+              name: 'property-1-name'
+            }
+          }
+        ]);
+
+        changeTemplate('Task_1', oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const zeebeProperties = findExtension(task, 'kunpeng:Properties');
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.have.length(1);
+
+        expect(zeebeProperties.get('kunpeng:properties')).to.jsonEqual([
+          {
+            $type: 'kunpeng:Property',
+            name: 'property-1-name',
+            value: 'property-1-new-value'
+          }
+        ]);
+      }));
+
+    });
+
+
+    describe('update kunpeng:adHoc', function() {
+
+      beforeEach(bootstrap(require('./ad-hoc.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const subProcess = elementRegistry.get('AdHocSubProcess_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'oldCollection',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputCollection'
+            }
+          },
+          {
+            value: '={ id: oldValue }',
+            feel: 'required',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputElement'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'newCollection',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputCollection'
+            }
+          },
+          {
+            value: '={ id: newValue }',
+            feel: 'required',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputElement'
+            }
+          }
+        ]);
+
+        changeTemplate('AdHocSubProcess_1', oldTemplate);
+
+        let adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+
+        updateBusinessObject('AdHocSubProcess_1', adHoc, {
+          outputCollection: 'manuallyChanged'
+        });
+
+        // when
+        changeTemplate(subProcess, newTemplate, oldTemplate);
+
+        // then
+        adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+
+        expect(adHoc).to.exist;
+        expect(adHoc.get('outputCollection')).to.equal('manuallyChanged');
+        expect(adHoc.get('outputElement')).to.equal('={ id: newValue }');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const subProcess = elementRegistry.get('AdHocSubProcess_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'oldCollection',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputCollection'
+            }
+          },
+          {
+            value: '={ id: oldValue }',
+            feel: 'required',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputElement'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'newCollection',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputCollection'
+            }
+          },
+          {
+            value: '={ id: newValue }',
+            binding: {
+              type: 'kunpeng:adHoc',
+              property: 'outputElement'
+            }
+          }
+        ]);
+
+        changeTemplate('AdHocSubProcess_1', oldTemplate);
+
+        // when
+        changeTemplate(subProcess, newTemplate, oldTemplate);
+
+        // then
+        const adHoc = findExtension(subProcess, 'kunpeng:AdHoc');
+
+        expect(adHoc).to.exist;
+        expect(adHoc.get('outputCollection')).to.equal('newCollection');
+        expect(adHoc.get('outputElement')).to.equal('={ id: newValue }');
+      }));
+
+    });
+
+
+    describe('update kunpeng:LinkedResource', function() {
+
+      beforeEach(bootstrap(require('./linked-resource.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('noResources');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceId'
+            }
+          },
+          {
+            value: 'property-2-old-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceType'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceId'
+            }
+          },
+          {
+            value: 'property-2-new-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceType'
+            }
+          }
+        ]);
+
+        changeTemplate('noResources', oldTemplate);
+
+        let linkedResource = getLinkedResource(serviceTask, 'resource1');
+
+        updateBusinessObject('noResources', linkedResource, {
+          resourceId: 'property-1-changed-value'
+        });
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        linkedResource = getLinkedResource(serviceTask, 'resource1');
+
+        expect(linkedResource).to.exist;
+        expect(linkedResource).to.jsonEqual(
+          {
+            $type: 'kunpeng:LinkedResource',
+            linkName: 'resource1',
+            resourceId: 'property-1-changed-value',
+            resourceType: 'property-2-new-value',
+          }
+        );
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('noResources');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'property-1-old-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceId'
+            }
+          },
+          {
+            value: 'property-2-old-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceType'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'property-1-new-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceId'
+            }
+          },
+          {
+            value: 'property-2-new-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'resource1',
+              property: 'resourceType'
+            }
+          }
+        ]);
+
+        changeTemplate(serviceTask, oldTemplate);
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        const linkedResource = getLinkedResource(serviceTask, 'resource1');
+
+        expect(linkedResource).to.exist;
+        expect(linkedResource).to.jsonEqual(
+          {
+            $type: 'kunpeng:LinkedResource',
+            linkName: 'resource1',
+            resourceId: 'property-1-new-value',
+            resourceType: 'property-2-new-value',
+          }
+        );
+      }));
+
+
+      it('complex', inject(function(elementRegistry) {
+
+        // given
+        const serviceTask = elementRegistry.get('noResources');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'unrelated',
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'type'
+            }
+          },
+          {
+            value: 'old-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'changed-resource',
+              property: 'resourceId'
+            }
+          },
+          {
+            value: 'removed-property',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'changed-resource',
+              property: 'resourceType'
+            }
+          },
+          {
+            value: 'removed-resource',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'removed-resource',
+              property: 'resourceType'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'unrelated',
+            binding: {
+              type: 'kunpeng:taskDefinition',
+              property: 'type'
+            }
+          },
+          {
+            value: 'new-value',
+            binding: {
+              type: 'kunpeng:linkedResource',
+              linkName: 'changed-resource',
+              property: 'resourceId'
+            }
+          }
+        ]);
+
+        changeTemplate(serviceTask, oldTemplate);
+
+        // when
+        changeTemplate(serviceTask, newTemplate, oldTemplate);
+
+        // then
+        const linkedResources = findExtension(serviceTask, 'kunpeng:LinkedResources');
+
+        expect(linkedResources).to.exist;
+        expect(linkedResources.get('values')).to.have.length(1);
+
+        const linkedResource = getLinkedResource(serviceTask, 'changed-resource');
+
+        expect(linkedResource).to.exist;
+        expect(linkedResource).to.jsonEqual(
+          {
+            $type: 'kunpeng:LinkedResource',
+            linkName: 'changed-resource',
+            resourceId: 'new-value',
+          }
+        );
+
+        // does not update unrelated properties
+        const taskDefinition = findExtension(serviceTask, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.exist;
+        expect(taskDefinition.get('type')).to.eql('unrelated');
+      }));
+
+    });
+
+
+    describe('update bpmn:Message', function() {
+
+      beforeEach(bootstrap(require('./event.bpmn').default));
+
+
+      it('should update kunpeng:modelerTemplate', inject(function(elementRegistry) {
+
+        // given
+        const oldTemplate = require('./event-template-1.json'),
+              newTemplate = { ...oldTemplate, id: 'newId' };
+        let event = elementRegistry.get('Event_3');
+
+        // when
+        event = changeTemplate(event, newTemplate, oldTemplate);
+
+        // then
+        expectElementTemplate(event, newTemplate.id, 1);
+
+        const message = findMessage(getBusinessObject(event));
+        expect(message).to.exist;
+        expect(message.get('kunpeng:modelerTemplate')).to.eql(newTemplate.id);
+      }));
+    });
+
+
+    describe('update kunpeng:CalledDecision', function() {
+
+      beforeEach(bootstrap(require('./business-rule-tasks.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('withoutImplementation');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'aDecisionID-old',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'decisionId'
+            }
+          },
+          {
+            value: 'aResultVariable-old',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'resultVariable'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'aDecisionID-new',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'decisionId'
+            }
+          },
+          {
+            value: 'aResultVariable-new',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'resultVariable'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('withoutImplementation');
+        let calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        updateBusinessObject('withoutImplementation', calledDecision, {
+          resultVariable: 'aResultVariable-changed'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+        expect(calledDecision.get('decisionId')).to.equal('aDecisionID-new');
+        expect(calledDecision.get('resultVariable')).to.equal('aResultVariable-changed');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('withoutImplementation');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'aDecisionID-old',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'decisionId'
+            }
+          },
+          {
+            value: 'aResultVariable-old',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'resultVariable'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'aDecisionID-new',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'decisionId'
+            }
+          },
+          {
+            value: 'aResultVariable-new',
+            binding: {
+              type: 'kunpeng:calledDecision',
+              property: 'resultVariable'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const calledDecision = findExtension(task, 'kunpeng:CalledDecision');
+
+        expect(calledDecision).to.exist;
+        expect(calledDecision.get('decisionId')).to.equal('aDecisionID-new');
+        expect(calledDecision.get('resultVariable')).to.equal('aResultVariable-new');
+      }));
+    });
+
+
+    describe('update kunpeng:script', function() {
+
+      beforeEach(bootstrap(require('./task.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'aResultVariable-old',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'resultVariable'
+            }
+          },
+          {
+            value: '= get value({oldVal: 123}, "oldVal")',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'expression'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'aResultVariable-new',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'resultVariable'
+            }
+          },
+          {
+            value: '= get value({newVal: 123}, "newVal")',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'expression'
+            }
+          }
+        ]);
+
+        task = changeTemplate(task, oldTemplate);
+
+        let script = findExtension(task, 'kunpeng:Script');
+
+        updateBusinessObject('Task_1', script, {
+          resultVariable: 'aResultVariable-changed'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        script = findExtension(task, 'kunpeng:Script');
+
+        expect(script).to.exist;
+        expect(script.get('expression')).to.equal('= get value({newVal: 123}, "newVal")');
+        expect(script.get('resultVariable')).to.equal('aResultVariable-changed');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'aResultVariable-old',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'resultVariable'
+            }
+          },
+          {
+            value: '= get value({oldVal: 123}, "oldVal")',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'expression'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'aResultVariable-new',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'resultVariable'
+            }
+          },
+          {
+            value: '= get value({newVal: 123}, "newVal")',
+            binding: {
+              type: 'kunpeng:script',
+              property: 'expression'
+            }
+          }
+        ]);
+
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        task = changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const script = findExtension(task, 'kunpeng:Script');
+
+        expect(script).to.exist;
+        expect(script.get('expression')).to.equal('= get value({newVal: 123}, "newVal")');
+        expect(script.get('resultVariable')).to.equal('aResultVariable-new');
+      }));
+
+
+      it('discards `taskDefinition`', inject(function(elementRegistry) {
+
+        // given
+        let task = elementRegistry.get('Task_1');
+
+        const oldTemplate = require('./script-task-task-definition.json');
+        const newTemplate = require('./script-task.json');
+
+        task = changeTemplate(task, oldTemplate);
+
+        // when
+        task = changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        expectElementTemplate(task, 'script-task-1');
+
+        const script = findExtension(task, 'kunpeng:Script');
+
+        expect(script).to.exist;
+
+        const taskDefinition = findExtension(task, 'kunpeng:TaskDefinition');
+
+        expect(taskDefinition).to.not.exist;
+
+        const additionDynamics = findExtension(task, 'kunpeng:additionDynamics');
+
+        expect(additionDynamics).to.not.exist;
+      }));
+    });
+
+
+    describe('update kunpeng:FormDefinition', function() {
+
+      beforeEach(bootstrap(require('./form-definition.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'anExternalFormReference-old',
+            binding: {
+              type: 'kunpeng:formDefinition',
+              property: 'externalReference'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'anExternalFormReference-new',
+            binding: {
+              type: 'kunpeng:formDefinition',
+              property: 'externalReference'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('Camunda_user_Task_no_implementation');
+        let formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        updateBusinessObject('Camunda_user_Task_no_implementation', formDefinition, {
+          externalReference: 'anExternalFormReference-changed'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+        expect(formDefinition.get('externalReference')).to.equal('anExternalFormReference-changed');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given a user applies a template and does not update a property
+        let task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'anExternalFormReference-old',
+            binding: {
+              type: 'kunpeng:formDefinition',
+              property: 'externalReference'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'anExternalFormReference-new',
+            binding: {
+              type: 'kunpeng:formDefinition',
+              property: 'externalReference'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('Camunda_user_Task_no_implementation');
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const formDefinition = findExtension(task, 'kunpeng:FormDefinition');
+
+        expect(formDefinition).to.exist;
+        expect(formDefinition.get('externalReference')).to.equal('anExternalFormReference-new');
+
+      }));
+    });
+
+
+    describe('update kunpeng:AssignmentDefinition', function() {
+
+      beforeEach(bootstrap(require('./assignment-definition.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'anAssignee-old',
+            binding: {
+              type: 'kunpeng:assignmentDefinition',
+              property: 'assignee'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'anAssignee-new',
+            binding: {
+              type: 'kunpeng:assignmentDefinition',
+              property: 'assignee'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+        let assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        updateBusinessObject('UserTask_1', assignmentDefinition, {
+          assignee: 'anAssignee-changed'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).to.exist;
+        expect(assignmentDefinition.get('assignee')).to.equal('anAssignee-changed');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given a user applies a template and does not update a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'anAssignee-old',
+            binding: {
+              type: 'kunpeng:assignmentDefinition',
+              property: 'assignee'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'anAssignee-new',
+            binding: {
+              type: 'kunpeng:assignmentDefinition',
+              property: 'assignee'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const assignmentDefinition = findExtension(task, 'kunpeng:AssignmentDefinition');
+
+        expect(assignmentDefinition).to.exist;
+        expect(assignmentDefinition.get('assignee')).to.equal('anAssignee-new');
+      }));
+    });
+
+
+    describe('update kunpeng:PriorityDefinition', function() {
+
+      beforeEach(bootstrap(require('./priority-definition.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 5,
+            binding: {
+              type: 'kunpeng:priorityDefinition',
+              property: 'priority'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 10,
+            binding: {
+              type: 'kunpeng:priorityDefinition',
+              property: 'priority'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+        let priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        updateBusinessObject('UserTask_1', priorityDefinition, {
+          priority: 7
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).to.exist;
+        expect(priorityDefinition.get('priority')).to.equal(7);
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given a user applies a template and does not update a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 5,
+            binding: {
+              type: 'kunpeng:priorityDefinition',
+              property: 'priority'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 10,
+            binding: {
+              type: 'kunpeng:priorityDefinition',
+              property: 'priority'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const priorityDefinition = findExtension(task, 'kunpeng:PriorityDefinition');
+
+        expect(priorityDefinition).to.exist;
+        expect(priorityDefinition.get('priority')).to.equal(10);
+      }));
+    });
+
+
+    describe('update kunpeng:TaskSchedule', function() {
+
+      beforeEach(bootstrap(require('./task-schedule.bpmn').default));
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given a user applies a template and updates a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: '2023-02-01T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'dueDate'
+            }
+          },
+          {
+            value: '2023-02-05T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'followUpDate'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: '3023-03-01T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'dueDate'
+            }
+          },
+          {
+            value: '3023-03-05T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'followUpDate'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+        let taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        updateBusinessObject('UserTask_1', taskSchedule, {
+          dueDate: '4023-02-15T12:00:00Z'
+        });
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).to.exist;
+        expect(taskSchedule.get('dueDate')).to.equal('4023-02-15T12:00:00Z');
+        expect(taskSchedule.get('followUpDate')).to.equal('3023-03-05T12:00:00Z');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given a user applies a template and does not update a property
+        let task = elementRegistry.get('UserTask_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: '2023-02-01T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'dueDate'
+            }
+          },
+          {
+            value: '2023-02-05T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'followUpDate'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: '3023-03-01T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'dueDate'
+            }
+          },
+          {
+            value: '3023-03-05T12:00:00Z',
+            binding: {
+              type: 'kunpeng:taskSchedule',
+              property: 'followUpDate'
+            }
+          }
+        ]);
+
+        changeTemplate(task, oldTemplate);
+
+        task = elementRegistry.get('UserTask_1');
+
+        // when
+        changeTemplate(task, newTemplate, oldTemplate);
+
+        // then
+        const taskSchedule = findExtension(task, 'kunpeng:TaskSchedule');
+
+        expect(taskSchedule).to.exist;
+        expect(taskSchedule.get('dueDate')).to.equal('3023-03-01T12:00:00Z');
+        expect(taskSchedule.get('followUpDate')).to.equal('3023-03-05T12:00:00Z');
+      }));
+    });
+
+
+    describe('update bpmn:TimerEventDefinition#property', function() {
+
+      beforeEach(bootstrap(require('./timer-event.bpmn').default));
+
+
+      it('property changed', inject(function(elementRegistry) {
+
+        // given
+        const event = elementRegistry.get('TimerCatchEvent_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'PT30M',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDuration'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'PT2H',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDuration'
+            }
+          }
+        ]);
+
+        changeTemplate('TimerCatchEvent_1', oldTemplate);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+        const timeDuration = timerEventDefinition.get('timeDuration');
+
+        updateBusinessObject('TimerCatchEvent_1', timeDuration, {
+          body: 'PT45M'
+        });
+
+        // when
+        changeTemplate(event, newTemplate, oldTemplate);
+
+        // then
+        const updatedTimerEventDefinition = findTimerEventDefinition(event);
+        const updatedTimeDuration = updatedTimerEventDefinition.get('timeDuration');
+
+        expect(updatedTimeDuration).to.exist;
+        expect(updatedTimeDuration.get('body')).to.equal('PT45M');
+      }));
+
+
+      it('property unchanged', inject(function(elementRegistry) {
+
+        // given
+        const event = elementRegistry.get('TimerCatchEvent_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: 'PT30M',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDuration'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'PT2H',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDuration'
+            }
+          }
+        ]);
+
+        changeTemplate('TimerCatchEvent_1', oldTemplate);
+
+        // when
+        changeTemplate(event, newTemplate, oldTemplate);
+
+        // then
+        const timerEventDefinition = findTimerEventDefinition(event);
+        const timeDuration = timerEventDefinition.get('timeDuration');
+
+        expect(timeDuration).to.exist;
+        expect(timeDuration.get('body')).to.equal('PT2H');
+      }));
+
+
+      it('change timer definition type', inject(function(elementRegistry) {
+
+        // given
+        const event = elementRegistry.get('TimerCatchEvent_1');
+
+        const oldTemplate = createTemplate([
+          {
+            value: '2024-12-24T18:00:00Z',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDate'
+            }
+          }
+        ]);
+
+        const newTemplate = createTemplate([
+          {
+            value: 'PT1H',
+            binding: {
+              type: 'bpmn:TimerEventDefinition#property',
+              name: 'timeDuration'
+            }
+          }
+        ]);
+
+        changeTemplate('TimerCatchEvent_1', oldTemplate);
+
+        const timerEventDefinition = findTimerEventDefinition(event);
+
+        expect(timerEventDefinition.get('timeDate')).to.exist;
+        expect(timerEventDefinition.get('timeDate').get('body')).to.equal('2024-12-24T18:00:00Z');
+
+        // when
+        changeTemplate(event, newTemplate, oldTemplate);
+
+        // then
+        const updatedTimerEventDefinition = findTimerEventDefinition(event);
+
+        expect(updatedTimerEventDefinition.get('timeDate')).not.to.exist;
+        expect(updatedTimerEventDefinition.get('timeDuration')).to.exist;
+        expect(updatedTimerEventDefinition.get('timeDuration').get('body')).to.equal('PT1H');
+      }));
+
+    });
+
+  });
+
+
+  describe('change template (no new template specified)', function() {
+
+    describe('should not remove properties', function() {
+
+      beforeEach(bootstrap(require('./task-template.bpmn').default));
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, null);
+
+        // then
+        expectNoElementTemplate(task);
+
+        expect(findExtension(task, 'kunpeng:TaskDefinition')).to.exist;
+        expect(findExtension(task, 'kunpeng:IoMapping')).to.exist;
+        expect(findExtension(task, 'kunpeng:additionDynamics')).to.exist;
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, null);
+
+        // when
+        commandStack.undo();
+
+        // then
+        expectElementTemplate(task, 'task-template', 1);
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, null);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        expectNoElementTemplate(task);
+
+        expect(findExtension(task, 'kunpeng:TaskDefinition')).to.exist;
+        expect(findExtension(task, 'kunpeng:IoMapping')).to.exist;
+        expect(findExtension(task, 'kunpeng:additionDynamics')).to.exist;
+      }));
+
+    });
+
+
+    describe('should remove template icon', function() {
+
+      beforeEach(bootstrap(require('./icon-template.bpmn').default));
+
+
+      it('execute', inject(function(elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // assume
+        expect(getBusinessObject(task).get('kunpeng:modelerTemplateIcon')).to.exist;
+
+        // when
+        changeTemplate(task, null);
+
+        // then
+        expectNoElementTemplate(task);
+
+        expect(getBusinessObject(task).get('kunpeng:modelerTemplateIcon')).not.to.exist;
+      }));
+
+
+      it('undo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, null);
+
+        // when
+        commandStack.undo();
+
+        // then
+        expectElementTemplate(task, 'icon-template', 1);
+        expect(getBusinessObject(task).get('kunpeng:modelerTemplateIcon')).to.exist;
+      }));
+
+
+      it('redo', inject(function(commandStack, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        changeTemplate(task, null);
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        expectNoElementTemplate(task);
+
+        expect(getBusinessObject(task).get('kunpeng:modelerTemplateIcon')).not.to.exist;
+      }));
+
+    });
+
+
+    describe('conditions', function() {
+
+      beforeEach(bootstrap(require('../fixtures/condition.bpmn').default));
+
+
+      it('should apply template, not adding conditional properties', inject(function(elementRegistry) {
+
+        // given
+        const newTemplate = require('../fixtures/condition.json');
+
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        const businessObject = getBusinessObject(task);
+
+        // then
+        // expect properties
+        expect(businessObject.get('customProperty')).to.be.undefined;
+
+        // expect ioMapping
+        const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping');
+        expect(ioMapping).to.be.undefined;
+
+        // expect additionDynamics
+        const additionDynamics = findExtension(businessObject, 'kunpeng:additionDynamics');
+        expect(additionDynamics).to.be.undefined;
+
+        // expect taskDefinition
+        const taskDefinition = findExtension(businessObject, 'kunpeng:TaskDefinition');
+        expect(taskDefinition).to.be.undefined;
+      }));
+
+
+      it('should apply template, adding conditional properties', inject(function(elementRegistry) {
+
+        // given
+        const newTemplate = require('../fixtures/condition.json');
+
+        const task = elementRegistry.get('Task_3');
+
+        // when
+        changeTemplate(task, newTemplate);
+
+        const businessObject = getBusinessObject(task);
+
+        // then
+
+        // expect properties
+        expect(businessObject.get('customProperty')).to.exist;
+
+        // expect ioMapping
+        const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping');
+        const inputs = ioMapping.get('kunpeng:inputParameters');
+        const outputs = ioMapping.get('kunpeng:outputParameters');
+
+        expect(inputs).to.have.lengthOf(1);
+        expect(outputs).to.have.lengthOf(1);
+
+        // expect additionDynamics
+        const additionDynamics = findExtension(businessObject, 'kunpeng:additionDynamics');
+        expect(additionDynamics.get('values')).to.have.lengthOf(1);
+
+        // expect taskDefinition
+        const taskDefinition = findExtension(businessObject, 'kunpeng:TaskDefinition');
+        expect(taskDefinition).to.exist;
+      }));
+
+
+      it('should apply chained updates', inject(function(elementRegistry) {
+
+        // given
+        const newTemplate = require('../fixtures/condition-chained.json');
+
+        const task = elementRegistry.get('Task_3');
+
+        // when
+        const setTemplate = function() {
+          changeTemplate(task, newTemplate);
+        };
+
+        // then
+        expect(setTemplate).not.to.throw();
+      }));
+
+
+      it('should apply chained updates (shared binding / duplicate property#id)', inject(function(elementRegistry) {
+
+        // given
+        const newTemplate = require('../fixtures/condition-chained-shared-binding.json');
+
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        const setTemplate = function() {
+          changeTemplate(task, newTemplate);
+        };
+
+        // then
+        expect(setTemplate).not.to.throw();
+      }));
+
+    });
+
+  });
+
+});
+
+
+
+// helpers //////////
+
+function changeTemplate(element, newTemplate, oldTemplate) {
+  const templates = [];
+
+  newTemplate && templates.push(newTemplate);
+  oldTemplate && templates.push(oldTemplate);
+
+  return getBpmnJS().invoke(function(elementTemplates, elementRegistry) {
+    if (isString(element)) {
+      element = elementRegistry.get(element);
+    }
+
+    expect(element).to.exist;
+
+    elementTemplates.set(templates);
+
+    return elementTemplates.applyTemplate(element, newTemplate);
+  });
+}
+
+function expectElementTemplate(element, id, version) {
+  getBpmnJS().invoke(function(elementRegistry) {
+    if (isString(element)) {
+      element = elementRegistry.get(element);
+    }
+
+    expect(element).to.exist;
+
+    const businessObject = getBusinessObject(element);
+
+    expect(businessObject.get('kunpeng:modelerTemplate')).to.exist;
+    expect(businessObject.get('kunpeng:modelerTemplate')).to.equal(id);
+
+    if (isUndefined(version)) {
+      return;
+    }
+
+    expect(businessObject.get('kunpeng:modelerTemplateVersion')).to.exist;
+    expect(businessObject.get('kunpeng:modelerTemplateVersion')).to.equal(version);
+  });
+}
+
+function expectNoElementTemplate(element) {
+  getBpmnJS().invoke(function(elementRegistry) {
+    if (isString(element)) {
+      element = elementRegistry.get(element);
+    }
+
+    expect(element).to.exist;
+
+    const businessObject = getBusinessObject(element);
+
+    expect(businessObject.get('kunpeng:modelerTemplate')).not.to.exist;
+    expect(businessObject.get('kunpeng:modelerTemplateVersion')).not.to.exist;
+  });
+}
+
+let runningId = 0;
+
+function createTemplate(properties, scope) {
+  if (!isArray(properties)) {
+    properties = [ properties ];
+  }
+
+  const template = {
+    id: '' + runningId++,
+    properties: [],
+    scopes: []
+  };
+
+  if (scope) {
+    template.scopes = [
+      {
+        type: scope,
+        properties: properties
+      }
+    ];
+  } else {
+    template.properties = properties;
+  }
+
+  return template;
+}
+
+function getInputParameter(element, name) {
+  const ioMapping = findExtension(element, 'kunpeng:IoMapping');
+
+  return find(ioMapping.get('kunpeng:inputParameters'), function(inputParameter) {
+    return inputParameter.get('kunpeng:target') === name;
+  });
+}
+
+function getOutputParameter(element, source) {
+  const ioMapping = findExtension(element, 'kunpeng:IoMapping');
+
+  return find(ioMapping.get('kunpeng:outputParameters'), function(outputParameter) {
+    return outputParameter.get('kunpeng:source') === source;
+  });
+}
+
+function getTaskHeader(element, key) {
+  const additionDynamics = findExtension(element, 'kunpeng:additionDynamics');
+
+  return find(additionDynamics.get('kunpeng:values'), function(outputParameter) {
+    return outputParameter.get('kunpeng:key') === key;
+  });
+}
+
+function getKunpengProperty(element, name) {
+  const zeebeProperties = findExtension(element, 'kunpeng:Properties');
+
+  return zeebeProperties.get('properties').find((zeebeProperty) => {
+    return zeebeProperty.get('name') === name;
+  });
+}
+
+function getLinkedResource(element, linkName) {
+  const linkedResources = findExtension(element, 'kunpeng:LinkedResources');
+
+  return linkedResources.get('values').find((resource) => {
+    return resource.get('linkName') === linkName;
+  });
+}
+
+function updateBusinessObject(element, businessObject, properties) {
+  getBpmnJS().invoke(function(commandStack, elementRegistry) {
+    if (isString(element)) {
+      element = elementRegistry.get(element);
+    }
+
+    expect(element).to.exist;
+
+    commandStack.execute('element.updateModdleProperties', {
+      element,
+      moddleElement: businessObject,
+      properties
+    });
+  });
+}

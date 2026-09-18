@@ -1,0 +1,162 @@
+import { expect } from 'chai';
+import { bootstrapModeler, inject } from 'test/helper';
+
+import simpleStringEditXML from '../../literal-expression.dmn';
+
+import CoreModule from 'src/core';
+import Modeling from 'src/features/modeling';
+
+
+describe('Modeling', function() {
+
+  beforeEach(bootstrapModeler(simpleStringEditXML, {
+    modules: [
+      CoreModule,
+      Modeling
+    ],
+  }));
+
+
+  it('should edit decision name', inject(function(modeling, viewer) {
+
+    // given
+    const decision = viewer.getRootElement();
+
+    // when
+    modeling.updateProperties(decision, { name: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().name).to.equal('foo');
+  }));
+
+
+  it('should edit decision id', inject(function(modeling, viewer) {
+
+    // given
+    const decision = viewer.getRootElement();
+
+    // when
+    modeling.updateProperties(decision, { id: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().id).to.equal('foo');
+  }));
+
+
+  it('should edit literal expression text', inject(function(modeling, viewer) {
+
+    // when
+    modeling.updateProperties(viewer.getRootElement().decisionLogic, { text: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().decisionLogic.text).to.equal('foo');
+  }));
+
+
+  it('should edit expression language', inject(function(modeling, viewer) {
+
+    // given
+    const expression = viewer.getRootElement().decisionLogic;
+
+    // when
+    modeling.updateProperties(expression, { expressionLanguage: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().decisionLogic.expressionLanguage)
+      .to.equal('foo');
+  }));
+
+
+  it('should edit variable name', inject(function(modeling, viewer) {
+
+    // given
+    const variable = viewer.getRootElement().variable;
+
+    // when
+    modeling.updateProperties(variable, { name: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().variable.name).to.equal('foo');
+  }));
+
+
+  it('should edit variable type', inject(function(modeling, viewer) {
+
+    // given
+    const variable = viewer.getRootElement().variable;
+
+    // when
+    modeling.updateProperties(variable, { typeRef: 'foo' });
+
+    // then
+    expect(viewer.getRootElement().variable.typeRef).to.equal('foo');
+  }));
+
+
+  describe('moddle element as value', function() {
+
+    it('should set moddle element on previously-empty property',
+      inject(function(modeling, viewer, moddle) {
+
+        // given
+        const decision = viewer.getRootElement();
+
+        decision.variable = undefined;
+
+        const newVariable = moddle.create('dmn:InformationItem', {
+          name: 'foo',
+          typeRef: 'string'
+        });
+
+        // when
+        modeling.updateProperties(decision, { variable: newVariable });
+
+        // then
+        expect(viewer.getRootElement().variable).to.equal(newVariable);
+      })
+    );
+
+
+    it('should replace moddle element value',
+      inject(function(modeling, viewer, moddle) {
+
+        // given
+        const decision = viewer.getRootElement();
+
+        const newVariable = moddle.create('dmn:InformationItem', {
+          name: 'foo',
+          typeRef: 'string'
+        });
+
+        // when
+        modeling.updateProperties(decision, { variable: newVariable });
+
+        // then
+        expect(viewer.getRootElement().variable).to.equal(newVariable);
+      })
+    );
+  });
+
+
+  describe('container property', function() {
+
+    it('should update nested properties', inject(function(modeling, viewer) {
+
+      // given
+      const decision = viewer.getRootElement();
+
+      // when
+      modeling.updateProperties(decision, {
+        variable: {
+          name: 'foo',
+          typeRef: 'string'
+        }
+      });
+
+      // then
+      expect(viewer.getRootElement().variable.name).to.equal('foo');
+      expect(viewer.getRootElement().variable.typeRef).to.equal('string');
+    }));
+  });
+
+});

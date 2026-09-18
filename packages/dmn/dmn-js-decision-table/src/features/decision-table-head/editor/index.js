@@ -1,0 +1,32 @@
+import ContextMenu from 'table-js/lib/features/context-menu';
+import DebounceInput from '@kunpeng/dmn-js-shared/lib/features/debounce-input';
+import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
+import FeelLanguageContextModule from '@kunpeng/dmn-js-shared/lib/features/feel-language-context';
+
+import OutputEditingProvider from './OutputEditingProvider';
+import InputEditingProvider from './InputEditingProvider';
+
+import TypeRefEditing from '../../type-ref';
+import AllowedValuesEditing from '../../allowed-values';
+import AddInputOutput from '../../add-input-output';
+import KeyboardModule from '../../../features/keyboard';
+
+
+export default {
+  __depends__: [
+    AddInputOutput,
+    AllowedValuesEditing,
+    ContextMenu,
+    DebounceInput,
+    ExpressionLanguagesModule,
+    FeelLanguageContextModule,
+    KeyboardModule,
+    TypeRefEditing
+  ],
+  __init__: [
+    'inputEditingProvider',
+    'outputEditingProvider'
+  ],
+  inputEditingProvider: [ 'type', InputEditingProvider ],
+  outputEditingProvider: [ 'type', OutputEditingProvider ]
+};

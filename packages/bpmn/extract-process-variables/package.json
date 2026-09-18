@@ -1,0 +1,51 @@
+{
+  "name": "@kunpeng/extract-process-variables",
+  "version": "2.2.1",
+  "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
+  "main": "dist/index.js",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.js"
+  },
+  "source": "src/index.js",
+  "scripts": {
+    "build": "rimraf dist && vite build",
+    "lib": "rimraf dist && vite build",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "test": "vitest run",
+    "prepare": "run-s build",
+    "all": "run-s lint test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/extract-process-variables.git"
+  },
+  "author": "Niklas Kiefer <niklas.kiefer@camunda.com> (https://github.com/pinussilvestrus)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bpmn-io/extract-process-variables/issues"
+  },
+  "homepage": "https://github.com/bpmn-io/extract-process-variables#readme",
+  "devDependencies": {
+    "@kunpeng/bpmn-moddle": "workspace:*",
+    "bpmn-moddle": "catalog:",
+    "camunda-bpmn-moddle": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "zeebe-bpmn-moddle": "catalog:"
+  },
+  "dependencies": {
+    "min-dash": "catalog:"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts"
+}

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="dish" name="Dish" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.8.0-dev.20200311">
+  <decision id="dish-decision" name="Dish Decision">
+    <informationRequirement id="InformationRequirement_0v56f5d">
+      <requiredDecision href="#season" />
+    </informationRequirement>
+    <decisionTable id="dishDecisionTable">
+      <input id="seasonInput" label="Season">
+        <inputExpression id="seasonInputExpression" typeRef="string">
+          <text>season</text>
+        </inputExpression>
+      </input>
+      <input id="guestCountInput" label="How many guests">
+        <inputExpression id="guestCountInputExpression" typeRef="integer">
+          <text>guestCount</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="Dish" name="desiredDish" typeRef="string" />
+      <rule id="row-495762709-1">
+        <inputEntry id="UnaryTests_1nxcsjr">
+          <text>"Winter"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r9yorj">
+          <text>&lt;= 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mtwzqz">
+          <text>"Spareribs"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-2">
+        <inputEntry id="UnaryTests_1lxjbif">
+          <text>"Winter"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhiedb">
+          <text>&gt; 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h30r12">
+          <text>"Pasta"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-3">
+        <inputEntry id="UnaryTests_0ifgmfm">
+          <text>"Summer"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12cib9m">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wgaegy">
+          <text>"Light salad"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-7">
+        <inputEntry id="UnaryTests_0ozm9s7">
+          <text>"Summer"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sesgov">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dvc5x3">
+          <text>"Beans salad"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-445981423-3">
+        <inputEntry id="UnaryTests_1er0je1">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uzqner">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pxy4g1">
+          <text>"Stew"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-445981423-4">
+        <inputEntry id="UnaryTests_06or48g">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wa71sy">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09ggol9">
+          <text>"Steak"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="season" name="Season decision">
+    <decisionTable id="seasonDecisionTable">
+      <input id="temperatureInput" label="Weather in Celsius">
+        <inputExpression id="temperatureInputExpression" typeRef="integer">
+          <text>temperature</text>
+        </inputExpression>
+      </input>
+      <output id="seasonOutput" label="season" name="season" typeRef="string" />
+      <rule id="row-495762709-5">
+        <inputEntry id="UnaryTests_1fd0eqo">
+          <text>&gt;30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l98klb">
+          <text>"Summer"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-6">
+        <inputEntry id="UnaryTests_1nz6at2">
+          <text>&lt;10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08moy1k">
+          <text>"Winter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-445981423-2">
+        <inputEntry id="UnaryTests_1a0imxy">
+          <text>[10..30]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1poftw4">
+          <text>"Spring"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <textAnnotation id="TextAnnotation" />
+  <association id="Association">
+    <sourceRef href="#dish-decision" />
+    <targetRef href="#TextAnnotation" />
+  </association>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_09ow721">
+      <dmndi:DMNShape id="dish-decision_di" dmnElementRef="dish-decision">
+        <dc:Bounds height="80" width="180" x="290" y="85" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="InformationRequirement_0v56f5d_di" dmnElementRef="InformationRequirement_0v56f5d">
+        <di:waypoint x="230" y="212" />
+        <di:waypoint x="290" y="161" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="season_di" dmnElementRef="season">
+        <dc:Bounds height="80" width="180" x="160" y="212" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1bh4flf" dmnElementRef="TextAnnotation">
+        <dc:Bounds height="80" width="100" x="540" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1jrelfp" dmnElementRef="Association">
+        <di:waypoint x="442" y="165" />
+        <di:waypoint x="540" y="228" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

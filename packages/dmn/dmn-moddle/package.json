@@ -1,0 +1,46 @@
+{
+  "name": "@kunpeng/dmn-moddle",
+  "version": "2026.0.0-alpha1",
+  "description": "Kunpeng moddle extensions for DMN",
+  "keywords": [
+    "dmn",
+    "moddle",
+    "zeebe",
+    "meta-model"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camunda/zeebe-dmn-moddle"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Philipp Fromme",
+    "url": "https://github.com/philippfromme"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "scripts": {
+    "all": "run-s lint test",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "build": "echo \"No build step required\"",
+    "test": "vitest run"
+  },
+  "files": [
+    "resources"
+  ],
+  "devDependencies": {
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "min-dash": "catalog:",
+    "npm-run-all": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "xsd-schema-validator": "catalog:"
+  }
+}

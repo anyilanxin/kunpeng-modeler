@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-rc.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:subProcess id="SubProcess_1" name="SubProcess_1">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="= source" target="variable3" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:serviceTask id="Task_3" name="Task_3">
+        <bpmn:extensionElements>
+          <zeebe:ioMapping>
+            <zeebe:output source="=1" target="variable4" />
+          </zeebe:ioMapping>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="SubProcess_2" name="SubProcess_2">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=variable3" target="variable4" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:subProcess>
+    <bpmn:textAnnotation id="TextAnnotation_1p6n606">
+      <bpmn:text>in: variable3</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_03ylhoz" associationDirection="None" sourceRef="SubProcess_1" targetRef="TextAnnotation_1p6n606" />
+    <bpmn:textAnnotation id="TextAnnotation_1aqy0q6">
+      <bpmn:text>out: variable4</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1c05xl9" associationDirection="None" sourceRef="SubProcess_2" targetRef="TextAnnotation_1aqy0q6" />
+    <bpmn:association id="Association_0liwomt" associationDirection="None" sourceRef="TextAnnotation_1aqy0q6" targetRef="Task_3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_11q7hbr_di" bpmnElement="SubProcess_1" isExpanded="true">
+        <dc:Bounds x="290" y="150" width="220" height="180" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qds50t" bpmnElement="Task_3">
+        <dc:Bounds x="350" y="200" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qxvri7" bpmnElement="SubProcess_2" isExpanded="true">
+        <dc:Bounds x="290" y="410" width="220" height="180" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_03ylhoz_di" bpmnElement="Association_03ylhoz">
+        <di:waypoint x="292" y="154" />
+        <di:waypoint x="231" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0liwomt_di" bpmnElement="Association_0liwomt">
+        <di:waypoint x="570" y="355" />
+        <di:waypoint x="450" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1c05xl9_di" bpmnElement="Association_1c05xl9">
+        <di:waypoint x="510" y="420" />
+        <di:waypoint x="570" y="355" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1p6n606_di" bpmnElement="TextAnnotation_1p6n606">
+        <dc:Bounds x="160" y="80" width="100" height="29.999998092651367" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1aqy0q6_di" bpmnElement="TextAnnotation_1aqy0q6">
+        <dc:Bounds x="570" y="340" width="100" height="29.999998092651367" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

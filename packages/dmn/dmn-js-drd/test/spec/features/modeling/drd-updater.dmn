@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <decision id="Decision_1" name="Decision_1" />
+  <decision id="Decision_2" name="Decision_2">
+    <informationRequirement id="InformationRequirement_1">
+      <requiredDecision href="#Decision_1" />
+    </informationRequirement>
+  </decision>
+  <decision id="Decision_3" name="Decision_3" />
+  <textAnnotation id="TextAnnotation_1" />
+  <textAnnotation id="TextAnnotation_2" />
+  <association id="Association_1">
+    <sourceRef href="#Decision_3" />
+    <targetRef href="#TextAnnotation_2" />
+  </association>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1x1utnd">
+      <dmndi:DMNShape id="Decision_1_di" dmnElementRef="Decision_1">
+        <dc:Bounds height="80" width="180" x="157" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Decision_2_di" dmnElementRef="Decision_2">
+        <dc:Bounds height="80" width="180" x="157" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="InformationRequirement_1_di" dmnElementRef="InformationRequirement_1">
+        <di:waypoint x="247" y="140" />
+        <di:waypoint x="247" y="240" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Decision_3_di" dmnElementRef="Decision_3">
+        <dc:Bounds height="80" width="180" x="157" y="300" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="TextAnnotation_1_di" dmnElementRef="TextAnnotation_1">
+        <dc:Bounds height="80" width="100" x="400" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Association_1_di" dmnElementRef="Association_1">
+        <di:waypoint x="337" y="340" />
+        <di:waypoint x="400" y="450" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="TextAnnotation_2_di" dmnElementRef="TextAnnotation_2">
+        <dc:Bounds height="80" width="100" x="400" y="400" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

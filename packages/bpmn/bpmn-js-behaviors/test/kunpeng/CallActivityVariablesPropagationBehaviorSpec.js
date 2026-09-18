@@ -1,0 +1,97 @@
+import {
+  bootstrapKunpengCloudModeler,
+  inject
+} from 'test/TestHelper';
+
+import {
+  getOutputParameters,
+} from 'lib/camunda-cloud/util/InputOutputUtil';
+
+import {
+  getCalledElement
+} from 'lib/camunda-cloud/util/CalledElementUtil';
+
+import diagramXML from './process-call-activities.bpmn';
+
+
+describe('camunda-cloud/features/modeling - CallActivityVariablesPropagationBehavior', function() {
+
+  beforeEach(bootstrapKunpengCloudModeler(diagramXML));
+
+  [
+    'propagateAllChildVariables',
+    'kunpeng:propagateAllChildVariables'
+  ].forEach((key) => {
+
+    describe(`removing kunpeng:Output elements when kunpeng:propagateAllChildVariables is set to true (${ key })`, function() {
+
+      let element;
+
+      beforeEach(inject(function(elementRegistry, modeling) {
+
+        // given
+        element = elementRegistry.get('CallActivity_3');
+
+        // when
+        modeling.updateModdleProperties(element, getCalledElement(element), { [ key ]: true });
+      }));
+
+
+      it('should execute', function() {
+
+        // then
+        const outputParameters = getOutputParameters(element);
+
+        expect(outputParameters).to.exist;
+        expect(outputParameters).to.be.empty;
+      });
+
+
+      it('should undo', inject(function(commandStack) {
+
+        // when
+        commandStack.undo();
+
+        // then
+        const outputParameters = getOutputParameters(element);
+
+        expect(outputParameters).to.exist;
+        expect(outputParameters).to.have.length(1);
+      }));
+
+
+      it('should undo/redo', inject(function(commandStack) {
+
+        // when
+        commandStack.undo();
+        commandStack.redo();
+
+        // then
+        const outputParameters = getOutputParameters(element);
+
+        expect(outputParameters).to.exist;
+        expect(outputParameters).to.be.empty;
+      }));
+
+    });
+
+
+    describe('integration', function() {
+
+      it('should NOT fail when no outputs are defined', inject(function(elementRegistry, modeling) {
+
+        // given
+        const element = elementRegistry.get('CallActivity_2');
+
+        // when
+        modeling.updateModdleProperties(element, getCalledElement(element), { [ key ]: true });
+
+        // then
+        const outputParameters = getOutputParameters(element);
+
+        expect(outputParameters).to.exist;
+        expect(outputParameters).to.be.empty;
+      }));
+    });
+  });
+});

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="dish" name="Dish" namespace="http://camunda.org/schema/1.0/dmn">
+  <inputData id="inputData_1" name="Input Data 1">
+    <variable id="input1" name="Input 1" typeRef="string" />
+  </inputData>
+  <knowledgeSource id="host_ks" name="Host" />
+  <businessKnowledgeModel id="elMenu" name="El menú" />
+  <decision id="decision_1" name="Decision 1">
+    <variable id="InformationItem_1bbyjr2" name="gCount" typeRef="integer" />
+    <literalExpression id="LiteralExpression_0cmq5tf">
+      <text>guestService.getCount(dinnerEvent)</text>
+    </literalExpression>
+  </decision>
+  <textAnnotation id="annotation_1">
+    <text>foobar</text>
+  </textAnnotation>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1jpkaca">
+      <dmndi:DMNShape id="inputData_1_di" dmnElementRef="inputData_1">
+        <dc:Bounds height="45" width="125" x="240" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="host_ks_di" dmnElementRef="host_ks">
+        <dc:Bounds height="63" width="100" x="495" y="10" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="elMenu_di" dmnElementRef="elMenu">
+        <dc:Bounds height="46" width="135" x="450" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="decision_1_di" dmnElementRef="decision_1">
+        <dc:Bounds height="55" width="100" x="150" y="10" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="annotation_1_di" dmnElementRef="annotation_1">
+        <dc:Bounds height="45" width="125" x="240" y="400" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

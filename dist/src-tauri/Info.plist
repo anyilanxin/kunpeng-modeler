@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- 文件类型关联：为 .bpmn / .dmn 指定专属图标 -->
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>BPMN 2.0 模型</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleTypeIconFile</key>
+      <string>bpmn.icns</string>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>bpmn</string>
+      </array>
+      <key>CFBundleTypeMIMETypes</key>
+      <array>
+        <string>application/x-bpmn</string>
+      </array>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>com.anyilanxin.kunpeng.bpmn</string>
+      </array>
+    </dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>DMN 模型</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleTypeIconFile</key>
+      <string>dmn.icns</string>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>dmn</string>
+      </array>
+      <key>CFBundleTypeMIMETypes</key>
+      <array>
+        <string>application/x-dmn</string>
+      </array>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>com.anyilanxin.kunpeng.dmn</string>
+      </array>
+    </dict>
+  </array>
+
+  <!-- 导出 UTI：让 macOS 识别自定义文件类型并显示专属图标 -->
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>com.anyilanxin.kunpeng.bpmn</string>
+      <key>UTTypeDescription</key>
+      <string>BPMN 2.0 模型</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.xml</string>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>bpmn</string>
+        </array>
+        <key>public.mime-type</key>
+        <array>
+          <string>application/x-bpmn</string>
+        </array>
+      </dict>
+      <key>UTTypeIconFile</key>
+      <string>bpmn.icns</string>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>com.anyilanxin.kunpeng.dmn</string>
+      <key>UTTypeDescription</key>
+      <string>DMN 模型</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.xml</string>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>dmn</string>
+        </array>
+        <key>public.mime-type</key>
+        <array>
+          <string>application/x-dmn</string>
+        </array>
+      </dict>
+      <key>UTTypeIconFile</key>
+      <string>dmn.icns</string>
+    </dict>
+  </array>
+</dict>
+</plist>

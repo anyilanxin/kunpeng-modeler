@@ -1,23 +1,58 @@
-
-### IntelliJ IDEA ###
-*/.idea
-.idea/*
-!.idea/icon.png
-!.idea/codeStyles
-!.idea/copyright
-!.idea/scopes
-!.idea/externalDependencies.xml
-!.idea/google-java-format.xml
-!.idea/saveactions_settings.xml
-!.idea/ay_git_commit_message_storage.xml
-!.idea/ay_git_commit_scope_storage.xml
-*.iws
-*.ipr
-*.iml
-
-### Mac ###
+node_modules
 .DS_Store
+**/.DS_Store
+dist
+!/dist/
+dist-ssr
+dist.zip
+dist.tar
+dist.war
+.nitro
+.output
+*-dist.zip
+*-dist.tar
+*-dist.war
+coverage
+*.local
+**/.vitepress/cache
+.cache
+.turbo
+.temp
+dev-dist
+.stylelintcache
+yarn.lock
+package-lock.json
+.VSCodeCounter
+**/backend-mock/data
 
-### Project ###
-/data
-/logs
+# local env files
+.env.local
+.env.*.local
+.eslintcache
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+vite.config.mts.*
+vite.config.mjs.*
+vite.config.js.*
+vite.config.ts.*
+
+# Editor directories and files
+.idea
+# .vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history
+.cursor
+
+### Local ###
+node_modules/
+.mimosa/

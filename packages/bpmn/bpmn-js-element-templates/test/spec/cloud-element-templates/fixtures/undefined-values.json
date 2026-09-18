@@ -1,0 +1,74 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Undefined values",
+  "id": "undefined-values",
+  "appliesTo": [
+    "bpmn:Task"
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
+  },
+  "properties": [
+    {
+      "label": "Input Test (Dropdown)",
+      "type": "Dropdown",
+      "choices": [
+        {
+          "name": "ONE",
+          "value": "ONE"
+        },
+        {
+          "name": "TWO",
+          "value": "TWO"
+        },
+        {
+          "name": "THREE",
+          "value": "THREE"
+        }
+      ],
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "dropdownTest"
+      }
+    },
+    {
+      "label": "Input Test",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "test"
+      }
+    },
+    {
+      "label": "Property test",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "test"
+      }
+    },
+    {
+      "label": "Output Test",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:output",
+        "source": "test"
+      }
+    },
+    {
+      "label": "Task Header Test",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:taskHeader",
+        "key": "test"
+      }
+    },
+    {
+      "label": "Task Definition Type",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:taskDefinition:type"
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="dish" name="Dish" namespace="http://camunda.org/schema/1.0/dmn">
+  <inputData id="dayType_id" name="Type of day">
+    <variable id="dayType_ii" name="Type of day" typeRef="string" />
+  </inputData>
+  <inputData id="temperature_id" name="Weather in Celsius">
+    <variable id="temperature_ii" name="Weather in Celsius" typeRef="integer" />
+  </inputData>
+  <knowledgeSource id="host_ks" name="Host" />
+  <knowledgeSource id="guest_ks" name="Guest Type">
+    <authorityRequirement id="AuthorityRequirement_0bccg78">
+      <requiredDecision href="#guestCount" />
+    </authorityRequirement>
+  </knowledgeSource>
+  <businessKnowledgeModel id="elMenu" name="El menú" />
+  <decision id="guestCount" name="Guest Count">
+    <informationRequirement id="InformationRequirement_1kpqctb">
+      <requiredInput href="#dayType_id" />
+    </informationRequirement>
+    <knowledgeRequirement id="KnowledgeRequirement_0n8zh37">
+      <requiredKnowledge href="#elMenu" />
+    </knowledgeRequirement>
+    <decisionTable id="guestCountDecisionTable">
+      <input id="typeOfDayInput" label="Type of day">
+        <inputExpression id="typeOfDayInputExpression" typeRef="string">
+          <text>dayType</text>
+        </inputExpression>
+      </input>
+      <output id="guestCountOutput" label="Guest count" name="guestCount" typeRef="integer" />
+      <rule id="row-495762709-8">
+        <inputEntry id="UnaryTests_0l72u8n">
+          <text>"Weekday"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wuwqaz">
+          <text>4</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-9">
+        <inputEntry id="UnaryTests_03a73o9">
+          <text>"Holiday"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1whn119">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-10">
+        <inputEntry id="UnaryTests_12tygwt">
+          <text>"Weekend"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b5k9t8">
+          <text>15</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <textAnnotation id="TextAnnotation_1t4zaz9">
+    <text>foobar</text>
+  </textAnnotation>
+  <association id="Association_1c4jixb">
+    <sourceRef href="#dayType_id" />
+    <targetRef href="#TextAnnotation_1t4zaz9" />
+  </association>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1o05mb8">
+      <dmndi:DMNShape id="dayType_id_di" dmnElementRef="dayType_id">
+        <dc:Bounds height="45" width="125" x="240" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="temperature_id_di" dmnElementRef="temperature_id">
+        <dc:Bounds height="45" width="125" x="5" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="host_ks_di" dmnElementRef="host_ks">
+        <dc:Bounds height="63" width="100" x="495" y="10" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="guest_ks_di" dmnElementRef="guest_ks">
+        <dc:Bounds height="63" width="100" x="495" y="150" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="AuthorityRequirement_0bccg78_di" dmnElementRef="AuthorityRequirement_0bccg78">
+        <di:waypoint x="440" y="175" />
+        <di:waypoint x="495" y="175" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="elMenu_di" dmnElementRef="elMenu">
+        <dc:Bounds height="46" width="135" x="450" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="guestCount_di" dmnElementRef="guestCount">
+        <dc:Bounds height="55" width="210" x="230" y="140" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="InformationRequirement_1kpqctb_di" dmnElementRef="InformationRequirement_1kpqctb">
+        <di:waypoint x="340" y="270" />
+        <di:waypoint x="340" y="195" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="KnowledgeRequirement_0n8zh37_di" dmnElementRef="KnowledgeRequirement_0n8zh37">
+        <di:waypoint x="450" y="275" />
+        <di:waypoint x="400" y="195" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="TextAnnotation_1t4zaz9_di" dmnElementRef="TextAnnotation_1t4zaz9">
+        <dc:Bounds height="45" width="125" x="240" y="400" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Association_1c4jixb_di" dmnElementRef="Association_1c4jixb">
+        <di:waypoint x="275" y="315" />
+        <di:waypoint x="240" y="400" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

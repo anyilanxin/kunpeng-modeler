@@ -1,0 +1,87 @@
+export const template = {
+  'name': 'InvalidZeebeTaskHeaderType',
+  'id': 'com.camunda.example.InvalidZeebeTaskHeaderType',
+  'appliesTo': [
+    'bpmn:Task'
+  ],
+  'properties': [
+    {
+      'label': 'foo',
+      'type': 'Text',
+      'binding': {
+        'type': 'kunpeng:taskDefinition:type'
+      }
+    },
+    {
+      'label': 'bar',
+      'type': 'Toggle',
+      'binding': {
+        'type': 'kunpeng:taskDefinition:type'
+      }
+    },
+    {
+      'label': 'bar',
+      'type': 'Boolean',
+      'binding': {
+        'type': 'kunpeng:taskDefinition:type'
+      }
+    }
+  ]
+};
+
+export const errors = [
+  {
+    keyword: 'errorMessage',
+    dataPath: '/properties/1/type',
+    schemaPath: '#/allOf/1/items/allOf/1/then/properties/type/errorMessage',
+    params: {
+      errors: [
+        {
+          keyword: 'enum',
+          emUsed: true,
+          dataPath: '/properties/1/type',
+          schemaPath: '#/allOf/1/items/allOf/1/then/properties/type/enum',
+          params: {
+            'allowedValues': [
+              'String',
+              'Text',
+              'Hidden',
+              'Dropdown',
+              'Boolean',
+              'Number'
+            ]
+          },
+          message: 'should be equal to one of the allowed values'
+        }
+      ]
+    },
+    message: 'invalid property type "Toggle" for binding type "kunpeng:taskDefinition:type"; must be any of { String, Text, Hidden, Dropdown, Boolean, Number }'
+  },
+  {
+    keyword: 'if',
+    dataPath: '/properties/1',
+    schemaPath: '#/allOf/1/items/allOf/1/if',
+    params: {
+      'failingKeyword': 'then'
+    },
+    message: 'should match "then" schema'
+  },
+  {
+    dataPath: '',
+    keyword: 'type',
+    message: 'should be array',
+    params: {
+      type: 'array',
+    },
+    schemaPath: '#/oneOf/1/type',
+  },
+  {
+    dataPath: '',
+    keyword: 'oneOf',
+    message: 'should match exactly one schema in oneOf',
+    params: {
+      passingSchemas: null
+    },
+    schemaPath: '#/oneOf'
+  }
+];

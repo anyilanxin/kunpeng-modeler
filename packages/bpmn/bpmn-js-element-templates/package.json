@@ -1,0 +1,122 @@
+{
+  "name": "@kunpeng/bpmn-js-element-templates",
+  "version": "2026.0.0-alpha1",
+  "description": "Element templates for bpmn-js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./core": {
+      "import": "./dist/core.esm.js",
+      "require": "./dist/core.js"
+    },
+    "./dist/assets/*.css": "./dist/assets/*.css",
+    "./dist/*.js": "./dist/*.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "all": "run-s lint test distro",
+    "distro": "run-s build test:build",
+    "build": "rimraf dist && vite build",
+    "lib": "rimraf dist && vite build",
+    "bundle": "vite build",
+    "bundle:watch": "vite build --watch",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "test": "vitest run",
+    "test:build": "mocha --reporter=spec --recursive test/distro/*.spec.js",
+    "start": "cross-env SINGLE_START=cloud-templates npm run dev",
+    "start:templates": "cross-env SINGLE_START=templates npm run dev",
+    "prepare": "run-s build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/bpmn-js-element-templates"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "keywords": [
+    "bpmn-io",
+    "bpmn-js",
+    "properties",
+    "properties-panel",
+    "element-templates"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "author": {
+    "name": "Nico Rehwaldt",
+    "url": "https://github.com/nikku"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@kunpeng/element-templates-validator": "workspace:*",
+    "@kunpeng/extract-process-variables": "workspace:*",
+    "bpmnlint": "catalog:",
+    "classnames": "catalog:",
+    "ids": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:",
+    "preact-markup": "catalog:",
+    "semver": "catalog:",
+    "semver-compare": "catalog:",
+    "uuid": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "catalog:",
+    "@bpmn-io/element-template-chooser": "catalog:",
+    "@bpmn-io/element-template-icon-renderer": "catalog:",
+    "@camunda/linting": "catalog:",
+    "@kunpeng/bpmn-js-behaviors": "workspace:*",
+    "@kunpeng/bpmn-js-properties-panel": "workspace:*",
+    "@kunpeng/bpmn-moddle": "workspace:*",
+    "@kunpeng/properties-panel": "workspace:*",
+    "@kunpeng/variable-resolver": "workspace:*",
+    "@rollup/plugin-alias": "catalog:",
+    "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-replace": "catalog:",
+    "@testing-library/preact": "catalog:",
+    "@testing-library/preact-hooks": "catalog:",
+    "bpmn-js": "catalog:",
+    "bpmn-js-create-append-anything": "catalog:",
+    "bpmn-moddle": "catalog:",
+    "chai": "catalog:",
+    "cross-env": "catalog:",
+    "diagram-js": "catalog:",
+    "downloadjs": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "eslint-plugin-import": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "file-drops": "catalog:",
+    "fs-extra": "catalog:",
+    "happy-dom": "catalog:",
+    "mocha": "catalog:",
+    "mocha-test-container-support": "catalog:",
+    "modeler-moddle": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-babel": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "bpmn-js": ">= 11.5",
+    "diagram-js": ">= 11.9"
+  },
+  "types": "./dist/index.d.ts"
+}

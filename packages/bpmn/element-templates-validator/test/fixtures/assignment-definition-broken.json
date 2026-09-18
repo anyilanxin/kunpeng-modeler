@@ -1,0 +1,66 @@
+[
+  {
+    "name": "AssignmentDefinition",
+    "id": "com.camunda.example.AssignmentDefinition",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "label": "Assignee",
+        "type": "Number",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "assignee"
+        }
+      },
+      {
+        "label": "Assignee",
+        "type": "Boolean",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "assignee"
+        }
+      },
+      {
+        "type": "Number",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateUsers"
+        }
+      },
+      {
+        "type": "Boolean",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateUsers"
+        }
+      },
+      {
+        "type": "Number",
+        "value": "someDefaultGroup",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateGroups"
+        }
+      },
+      {
+        "type": "Number",
+        "value": "someDefaultGroup",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateGroups"
+        }
+      }
+    ]
+  }
+]

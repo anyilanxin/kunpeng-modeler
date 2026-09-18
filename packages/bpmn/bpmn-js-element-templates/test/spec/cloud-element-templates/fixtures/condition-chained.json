@@ -1,0 +1,70 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Condition Chained",
+  "id": "example.com.nested.condition.chained",
+  "description": "A conditional chained template.",
+  "appliesTo": ["bpmn:Task"],
+  "properties": [
+    {
+      "id": "prop1",
+      "type": "String",
+      "value": "foo",
+      "binding": {
+        "type": "property",
+        "name": "prop1"
+      }
+    },
+    {
+      "id": "prop2",
+      "type": "String",
+      "value": "prop2:foo",
+      "binding": {
+        "type": "property",
+        "name": "prop2"
+      },
+      "condition": {
+        "property": "prop1",
+        "equals": "foo"
+      }
+    },
+    {
+      "id": "prop2_1",
+      "type": "String",
+      "value": "prop2_1:bar",
+      "binding": {
+        "type": "property",
+        "name": "prop2"
+      },
+      "condition": {
+        "property": "prop1",
+        "equals": "bar"
+      }
+    },
+    {
+      "id": "prop3",
+      "type": "String",
+      "value": "prop3:foo",
+      "binding": {
+        "type": "property",
+        "name": "prop3"
+      },
+      "condition": {
+        "property": "prop2",
+        "equals": "prop2:foo"
+      }
+    },
+    {
+      "id": "prop3_1",
+      "type": "String",
+      "value": "prop3_1:bar",
+      "binding": {
+        "type": "property",
+        "name": "prop3"
+      },
+      "condition": {
+        "property": "prop2_1",
+        "equals": "prop2_1:bar"
+      }
+    }
+  ]
+}

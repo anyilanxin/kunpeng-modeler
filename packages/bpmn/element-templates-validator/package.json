@@ -1,0 +1,63 @@
+{
+  "name": "@kunpeng/element-templates-validator",
+  "version": "2026.0.0-alpha1",
+  "description": "Validate element templates based on JSON Schema",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "source": "src/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && vite build",
+    "lib": "rimraf dist && vite build",
+    "distro": "run-s build test:build",
+    "lint": "eslint .",
+    "prepare": "run-s build",
+    "test": "vitest run",
+    "test:build": "vitest run --dir test/distro",
+    "all": "run-s lint build test distro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/element-templates-validator.git"
+  },
+  "keywords": [
+    "json-schema",
+    "json-schema-validator",
+    "element templates",
+    "validator",
+    "validation"
+  ],
+  "author": {
+    "name": "Maciej Barelkowski",
+    "email": "maciej.barelkowski@camunda.com",
+    "url": "https://github.com/barmac"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bpmn-io/element-templates-validator/issues"
+  },
+  "homepage": "https://github.com/bpmn-io/element-templates-validator#readme",
+  "devDependencies": {
+    "@rollup/plugin-alias": "catalog:",
+    "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-json": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "ajv": "catalog:",
+    "ajv-errors": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@kunpeng/element-templates-json-schema": "workspace:*",
+    "json-source-map": "catalog:",
+    "min-dash": "catalog:"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "@kunpeng/dmn-js-decision-table",
+  "version": "17.8.1",
+  "description": "A decision table view for dmn-js",
+  "keywords": [
+    "dmn",
+    "dmn-js",
+    "dmn-js-view",
+    "decision table"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/dmn-js",
+    "directory": "packages/dmn-js-decision-table"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "all": "run-s build test",
+    "start": "cross-env SINGLE_START=editor npm run dev",
+    "start:viewer": "cross-env SINGLE_START=viewer npm run dev",
+    "test": "vitest run",
+    "build": "rimraf lib && vite build",
+    "prepare": "run-s build",
+    "dev": "vitest --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "assets",
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@bpmn-io/dmn-variable-resolver": "catalog:",
+    "@kunpeng/dmn-js-shared": "workspace:*",
+    "css.escape": "catalog:",
+    "diagram-js": "catalog:",
+    "escape-html": "catalog:",
+    "inferno": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:",
+    "selection-ranges": "catalog:",
+    "table-js": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/core": "catalog:",
+    "babel-plugin-inferno": "catalog:",
+    "chai": "catalog:",
+    "cross-env": "catalog:",
+    "dmn-font": "catalog:",
+    "glob": "catalog:",
+    "happy-dom": "catalog:",
+    "inferno-test-utils": "catalog:",
+    "mocha-test-container-support": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-babel": "catalog:",
+    "vitest": "catalog:"
+  }
+}

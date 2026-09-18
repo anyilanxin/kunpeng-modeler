@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_18jxukq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-dev" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="ai-agent-chat-with-tools" name="AI Agent Chat With Tools" isExecutable="true">
+    <bpmn:adHocSubProcess id="AI_Agent" name="AI Agent">
+      <bpmn:extensionElements>
+        <zeebe:adHoc outputCollection="toolCallResults" outputElement="={&#10;  id: toolCall._meta.id,&#10;  name: toolCall._meta.name,&#10;  content: toolCallResult&#10;}" />
+        <zeebe:taskDefinition type="io.camunda.agenticai:aiagent-job-worker:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="bedrock" target="provider.type" />
+          <zeebe:input target="toolCallResult" />
+          <zeebe:input target="toolCallResults" />
+          <zeebe:input source="eu-central-1" target="provider.bedrock.region" />
+          <zeebe:input source="credentials" target="provider.bedrock.authentication.type" />
+          <zeebe:input source="{{secrets.AWS_BEDROCK_ACCESS_KEY}}" target="provider.bedrock.authentication.accessKey" />
+          <zeebe:input source="{{secrets.AWS_BEDROCK_SECRET_KEY}}" target="provider.bedrock.authentication.secretKey" />
+          <zeebe:input source="eu.anthropic.claude-sonnet-4-5-20250929-v1:0" target="provider.bedrock.model.model" />
+          <zeebe:input source="=&#34;You are a helpful, generic chat agent which can answer a wide amount of questions based on your knowledge and an optional set of available tools.&#10;&#10;If tools are provided, you should prefer them instead of guessing an answer. You can call the same tool multiple times by providing different input values. Don&#39;t guess any tools which were not explicitely configured. If no tool matches the request, try to generate an answer. If you&#39;re not able to find a good answer, return with a message stating why you&#39;re not able to.&#10;&#10;If you are prompted to interact with a person, never guess contact details, but use available user/person lookup tools instead and return with an error if you&#39;re not able to look up appropriate data.&#10;&#10;Thinking, step by step, before you execute your tools, you think using the template `&#60;thinking&#62;&#60;context&#62;&#60;/context&#62;&#60;reflection&#62;&#60;/reflection&#62;&#60;/thinking&#62;`&#34;" target="data.systemPrompt.prompt" />
+          <zeebe:input source="=if (is defined(followUpInput)) then followUpInput else inputText" target="data.userPrompt.prompt" />
+          <zeebe:input source="=if (is defined(followUpInput) or is defined(followUpDocuments)) then followUpDocuments else inputDocuments" target="data.userPrompt.documents" />
+          <zeebe:input source="=agent.context" target="agentContext" />
+          <zeebe:input source="in-process" target="data.memory.storage.type" />
+          <zeebe:input source="=20" target="data.memory.contextWindowSize" />
+          <zeebe:input source="=20" target="data.limits.maxModelCalls" />
+          <zeebe:input source="WAIT_FOR_TOOL_CALL_RESULTS" target="data.events.behavior" />
+          <zeebe:input source="text" target="data.response.format.type" />
+          <zeebe:input source="=false" target="data.response.format.parseJson" />
+          <zeebe:input source="=false" target="data.response.includeAssistantMessage" />
+          <zeebe:input source="=true" target="data.response.includeAgentContext" />
+          <zeebe:output source="=agent" target="agent" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="elementTemplateVersion" value="6" />
+          <zeebe:header key="elementTemplateId" value="io.camunda.connectors.agenticai.aiagent.jobworker.v1" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:scriptTask id="GetDateAndTime" name="Get Date and Time">
+        <bpmn:documentation>Returns the current date and time including the timezone.</bpmn:documentation>
+        <bpmn:extensionElements>
+          <zeebe:script expression="=now()" resultVariable="toolCallResult" />
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+      <bpmn:userTask id="AskHumanToSendEmail" name="Ask human to send email">
+        <bpmn:documentation>Ask a human to send an email for you</bpmn:documentation>
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+          <zeebe:formDefinition formId="ai-agent-chat-human-send-email-request" />
+          <zeebe:ioMapping>
+            <zeebe:input source="=fromAi(toolCall.instructions, &#34;Instructions for the human to follow when sending the email, including background of the email.&#34;)" target="instructions" />
+            <zeebe:input source="=fromAi(toolCall.recipient_name, &#34;The recipient&#39;s full name.&#34;)" target="recipient_name" />
+            <zeebe:input source="=fromAi(toolCall.recipient_email, &#34;The the recipient&#39;s email address.&#34;)" target="recipient_email" />
+            <zeebe:input source="=fromAi(toolCall.email_subject, &#34;The subject of the email.&#34;)" target="email_subject" />
+            <zeebe:input source="=fromAi(toolCall.email_body, &#34;The body of the email.&#34;)" target="email_body" />
+            <zeebe:output source="={&#10;  operatorFeedback: operatorFeedback,&#10;  emailOk: emailOk&#10;}" target="toolCallResult" />
+          </zeebe:ioMapping>
+        </bpmn:extensionElements>
+        <bpmn:outgoing>Flow_0demz1g</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0demz1g" sourceRef="AskHumanToSendEmail" targetRef="Gateway_1lux75t" />
+      <bpmn:exclusiveGateway id="Gateway_1lux75t" name="OK to send email?">
+        <bpmn:incoming>Flow_0demz1g</bpmn:incoming>
+        <bpmn:outgoing>Flow_0uqjclh</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1l2ws6w</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0uqjclh" name="yes" sourceRef="Gateway_1lux75t" targetRef="SendEmail">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolCallResult.emailOk</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1l2ws6w" name="no" sourceRef="Gateway_1lux75t" targetRef="Event_1wxfv4u">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolCallResult.emailOk != true</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:intermediateThrowEvent id="Event_1wxfv4u" name="loop back with feedback">
+        <bpmn:incoming>Flow_1l2ws6w</bpmn:incoming>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:scriptTask id="SendEmail" name="Send email">
+        <bpmn:extensionElements>
+          <zeebe:script expression="=true" resultVariable="emailSent" />
+          <zeebe:ioMapping>
+            <zeebe:output source="=emailSent" target="toolCallResult.emailSent" />
+          </zeebe:ioMapping>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0uqjclh</bpmn:incoming>
+      </bpmn:scriptTask>
+      <bpmn:subProcess id="Event_Sub_Process" triggeredByEvent="true">
+        <bpmn:scriptTask id="Handle_Message" name="Handle message">
+          <bpmn:extensionElements>
+            <zeebe:script expression="=&#34;Updated message from event: &#34; + messageFromEvent" resultVariable="toolCallResult" />
+          </bpmn:extensionElements>
+          <bpmn:incoming>Flow_0kd4go1</bpmn:incoming>
+        </bpmn:scriptTask>
+        <bpmn:sequenceFlow id="Flow_0kd4go1" sourceRef="On_Message" targetRef="Handle_Message" />
+        <bpmn:startEvent id="On_Message" isInterrupting="false">
+          <bpmn:outgoing>Flow_0kd4go1</bpmn:outgoing>
+          <bpmn:messageEventDefinition id="MessageEventDefinition_0l1ft5s" messageRef="Message_3mpc025" />
+        </bpmn:startEvent>
+      </bpmn:subProcess>
+    </bpmn:adHocSubProcess>
+  </bpmn:process>
+  <bpmn:message id="Message_3mpc025" name="ai-agent-message">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=&#34;ai-agent-message&#34;" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ai-agent-chat-with-tools">
+      <bpmndi:BPMNShape id="Activity_03yngb7_di" bpmnElement="AI_Agent" isExpanded="true">
+        <dc:Bounds x="160" y="80" width="400" height="550" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sbkoqq_di" bpmnElement="GetDateAndTime">
+        <dc:Bounds x="190" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16uhg8o_di" bpmnElement="AskHumanToSendEmail">
+        <dc:Bounds x="190" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lux75t_di" bpmnElement="Gateway_1lux75t" isMarkerVisible="true">
+        <dc:Bounds x="335" y="265" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="333" y="236" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ny5xkz_di" bpmnElement="Event_1wxfv4u">
+        <dc:Bounds x="342" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="325" y="395" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sddc2g_di" bpmnElement="SendEmail">
+        <dc:Bounds x="430" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ixs5a4_di" bpmnElement="Event_Sub_Process" isExpanded="true">
+        <dc:Bounds x="185" y="450" width="350" height="130" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bsqv5x_di" bpmnElement="Handle_Message">
+        <dc:Bounds x="410" y="470" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_031hxyb_di" bpmnElement="On_Message">
+        <dc:Bounds x="212" y="492" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0kd4go1_di" bpmnElement="Flow_0kd4go1">
+        <di:waypoint x="248" y="510" />
+        <di:waypoint x="410" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0demz1g_di" bpmnElement="Flow_0demz1g">
+        <di:waypoint x="290" y="290" />
+        <di:waypoint x="335" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uqjclh_di" bpmnElement="Flow_0uqjclh">
+        <di:waypoint x="385" y="290" />
+        <di:waypoint x="430" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="399" y="272" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l2ws6w_di" bpmnElement="Flow_1l2ws6w">
+        <di:waypoint x="360" y="315" />
+        <di:waypoint x="360" y="352" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369" y="323" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

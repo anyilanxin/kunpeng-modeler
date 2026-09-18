@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-bpmn">
+    <comment>BPMN 2.0 模型</comment>
+    <comment xml:lang="en">BPMN 2.0 Model</comment>
+    <glob pattern="*.bpmn"/>
+    <sub-class-of type="application/xml"/>
+    <generic-icon name="application-x-bpmn"/>
+  </mime-type>
+</mime-info>

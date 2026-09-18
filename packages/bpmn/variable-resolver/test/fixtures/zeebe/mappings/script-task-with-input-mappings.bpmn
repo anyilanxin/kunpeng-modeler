@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.42.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:scriptTask id="scriptWithInputs" name="Script with input mappings">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=processVar1" target="localA" />
+          <zeebe:input source="=processVar2 + 1" target="localB" />
+        </zeebe:ioMapping>
+        <zeebe:script expression="=localA + localB" resultVariable="scriptResult" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="scriptWithoutInputs" name="Script without input mappings">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=x + y" resultVariable="scriptResult2" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="chainedInputMappings" name="Chained input mappings">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=processVar3" target="localC" />
+          <zeebe:input source="=localC + 1" target="localD" />
+        </zeebe:ioMapping>
+        <zeebe:script expression="=localC + localD" resultVariable="chainedResult" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="shadowingTask" name="Shadowing a to a">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=a" target="a" />
+        </zeebe:ioMapping>
+        <zeebe:script expression="=a" resultVariable="shadowResult" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="shadowingChainedTask" name="Shadowing then chaining">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=a" target="a" />
+          <zeebe:input source="=a + 1" target="b" />
+        </zeebe:ioMapping>
+        <zeebe:script expression="=a + b" resultVariable="shadowChainResult" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="scriptUsesSecondInput" name="Script uses second input">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=def" target="abc" />
+          <zeebe:input source="=1" target="test" />
+        </zeebe:ioMapping>
+        <zeebe:script expression="=test" resultVariable="abc" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Shape_1" bpmnElement="scriptWithInputs">
+        <dc:Bounds x="150" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_2" bpmnElement="scriptWithoutInputs">
+        <dc:Bounds x="300" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_3" bpmnElement="chainedInputMappings">
+        <dc:Bounds x="450" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_4" bpmnElement="shadowingTask">
+        <dc:Bounds x="600" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_5" bpmnElement="shadowingChainedTask">
+        <dc:Bounds x="750" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_6" bpmnElement="scriptUsesSecondInput">
+        <dc:Bounds x="900" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

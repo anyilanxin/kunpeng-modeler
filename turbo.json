@@ -1,0 +1,75 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "pnpm-lock.yaml",
+    "**/.env.*local",
+    "**/tsconfig*.json",
+    "internal/node-utils/*.json",
+    "internal/node-utils/src/**/*.ts",
+    "internal/tailwind-config/src/**/*.ts",
+    "internal/vite-config/*.json",
+    "internal/vite-config/src/**/*.ts",
+    "scripts/*/src/**/*.ts",
+    "scripts/*/src/**/*.json"
+  ],
+  "globalEnv": ["NODE_ENV"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^lib","^build"],
+      "outputs": [
+        "dist/**",
+        "lib/**",
+        "dist.zip",
+        ".vitepress/dist.zip",
+        ".vitepress/dist/**"
+      ]
+    },
+     "lib": {
+      "dependsOn": ["^lib", "^build"],
+      "outputs": [
+        "dist/**",
+        "lib/**",
+        "dist.zip",
+        ".vitepress/dist.zip",
+        ".vitepress/dist/**"
+      ]
+    },
+    "preview": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:analyze": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "@kunpeng/backend-mock#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".nitro/**", ".output/**"]
+    },
+    "@kunpeng/bpmn-moddle#build": {
+      "outputs": []
+    },
+    "@kunpeng/dmn-moddle#build": {
+      "outputs": []
+    },
+    "@kunpeng/element-templates-json-schema#build": {
+      "outputs": []
+    },
+    "@kunpeng/bpmn-design#build": {
+      "outputs": ["example-dist/**"]
+    },
+    "@kunpeng/dmn-design#build": {
+      "outputs": ["example-dist/**"]
+    },
+    "test:e2e": {},
+    "dev": {
+      "dependsOn": ["^lib"],
+      "outputs": [],
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "outputs": []
+    }
+  }
+}

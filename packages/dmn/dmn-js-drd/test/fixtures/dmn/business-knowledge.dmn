@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="dish" name="Dish" namespace="http://camunda.org/schema/1.0/dmn">
+  <businessKnowledgeModel id="elMenu" name="El menú" />
+  <decision id="dish-decision" name="Dish Decision" />
+  <decision id="foo" name="Foo" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0fx17vy">
+      <dmndi:DMNShape id="elMenu_di" dmnElementRef="elMenu">
+        <dc:Bounds height="45" width="125" x="450" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dish-decision_di" dmnElementRef="dish-decision">
+        <dc:Bounds height="55" width="100" x="150" y="10" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="foo_di" dmnElementRef="foo">
+        <dc:Bounds height="55" width="100" x="500" y="10" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

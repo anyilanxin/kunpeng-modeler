@@ -1,0 +1,10 @@
+/**
+ * modeler 基础样式覆盖（与暗色无关的通用定制）
+ * 在 main.ts 中引入，作用于所有主题。
+ */
+
+/* ===== BPMN replace popup 宽度 ===== */
+/* 控制「扳手」切换元素类型弹窗的宽度，默认 250px 偏窄，加宽到 350px */
+.djs-popup {
+  --bpmn-replace-popup-width: 350px;
+}

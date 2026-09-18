@@ -1,0 +1,85 @@
+{
+  "name": "@kunpeng/dmn-js",
+  "version": "17.8.1",
+  "description": "A dmn toolkit and web modeler",
+  "keywords": [
+    "dmn",
+    "dmn-js",
+    "toolkit",
+    "web modeler",
+    "modeler",
+    "modeling",
+    "decision modeling"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/dmn-js",
+    "directory": "packages/dmn-js"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Sebastian Stamm",
+    "url": "https://github.com/SebastianStamm"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "scripts": {
+    "all": "run-s build test",
+    "start": "cross-env SINGLE_START=modeler npm run dev",
+    "start:viewer": "cross-env SINGLE_START=viewer npm run dev",
+    "start:navigated-viewer": "cross-env SINGLE_START=navigated-viewer npm run dev",
+    "test": "vitest run",
+    "dev": "vitest --watch",
+    "test:distro": "node tasks/test-distro.mjs",
+    "distro": "node tasks/build-distro.mjs",
+    "build": "rimraf lib && vite build",
+    "prepare": "run-s build",
+    "build:distro": "node tasks/build-distro.mjs",
+    "prepublishOnly": "run-s build distro test:distro"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "test/helper"
+  ],
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@kunpeng/dmn-js-boxed-expression": "workspace:*",
+    "@kunpeng/dmn-js-decision-table": "workspace:*",
+    "@kunpeng/dmn-js-drd": "workspace:*",
+    "@kunpeng/dmn-js-literal-expression": "workspace:*",
+    "@kunpeng/dmn-js-shared": "workspace:*",
+    "diagram-js": "catalog:",
+    "inherits-browser": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:",
+    "tiny-svg": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/core": "catalog:",
+    "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-json": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-replace": "catalog:",
+    "axe-core": "catalog:",
+    "chai": "catalog:",
+    "cpy": "catalog:",
+    "del": "catalog:",
+    "diagram-js": "catalog:",
+    "dmn-font": "catalog:",
+    "execa": "catalog:",
+    "glob": "catalog:",
+    "happy-dom": "catalog:",
+    "min-dom": "catalog:",
+    "npm-run-all": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}

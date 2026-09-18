@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0" id="Definitions_0qh9wc7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.30.0-rc.1" modeler:userTaskPlatform="Anyilanxin Cloud" modeler:userTaskPlatformVersion="8.0.0">
+  <bpmn:process id="TaskListenersTest" name="Task Listeners Test" isExecutable="true">
+    <bpmn:userTask id="UserTask" name="UserTask">
+      <bpmn:extensionElements>
+        <kunpeng:taskListeners>
+          <kunpeng:taskListener eventType="assignment" retries="2" type="assign_listener" />
+        </kunpeng:taskListeners>
+        <kunpeng:userTask />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTaskWrongType" name="UserTaskWrongType">
+      <bpmn:extensionElements>
+        <kunpeng:taskListeners>
+          <kunpeng:taskListener eventType="wrong" retries="2" type="wrong_listener" />
+          <kunpeng:taskListener eventType="complete" retries="2" type="complete_listener" />
+        </kunpeng:taskListeners>
+        <kunpeng:userTask />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:userTask id="NonKunpengUserTask" name="NonKunpengUserTask">
+      <bpmn:extensionElements>
+        <kunpeng:taskListeners>
+          <kunpeng:taskListener eventType="complete" retries="2" type="complete_listener" />
+        </kunpeng:taskListeners>
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TaskListenersTest">
+      <bpmndi:BPMNShape id="UserTask_di" bpmnElement="UserTask">
+        <dc:Bounds x="160" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="NonKunpengUserTask_di" bpmnElement="NonKunpengUserTask">
+        <dc:Bounds x="290" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTaskWrongType_di" bpmnElement="UserTaskWrongType">
+        <dc:Bounds x="420" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

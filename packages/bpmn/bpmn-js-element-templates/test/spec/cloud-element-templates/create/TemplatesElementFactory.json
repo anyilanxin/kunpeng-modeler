@@ -1,0 +1,937 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Service worker",
+    "id": "example.camunda.ServiceWorker",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "name",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },
+      {
+        "value": "job-type",
+        "binding": {
+          "type": "kunpeng:taskDefinition:type"
+        }
+      },
+      {
+        "value": "header-1-value",
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header-1"
+        }
+      },
+      {
+        "value": "header-2-value",
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header-2"
+        }
+      },
+      {
+        "value": "input-1-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-1"
+        }
+      },
+      {
+        "value": "input-2-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-2"
+        }
+      },
+      {
+        "value": "output-1-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-1"
+        }
+      },
+      {
+        "value": "output-2-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-2"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Invalid",
+    "id": "example.camunda.Invalid",
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Multiple types",
+    "id": "example.camunda.MultipleTypes",
+    "appliesTo": [
+      "bpmn:ServiceTask",
+      "bpmn:SendTask"
+    ],
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "elementType",
+    "id": "example.camunda.ElementType",
+    "appliesTo": [
+      "bpmn:SendTask",
+      "bpmn:ServiceTask"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Property binding",
+    "id": "example.camunda.PropertyBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "name",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "kunpeng:property binding",
+    "id": "example.camunda.ZeebePropertyBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "propertyValue",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "customPropertyName"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Task definition type binding",
+    "id": "example.camunda.TaskDefinitionTypeBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "job-type",
+        "binding": {
+          "type": "kunpeng:taskDefinition:type"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Task definition type binding",
+    "id": "example.camunda.TaskDefinitionBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "job-type",
+        "binding": {
+          "type": "kunpeng:taskDefinition",
+          "property": "type"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Input binding",
+    "id": "example.camunda.InputBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "input-1-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-1"
+        }
+      },
+      {
+        "value": "input-2-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-2"
+        }
+      },
+      {
+        "value": "input-3-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-3"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Output binding",
+    "id": "example.camunda.OutputBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "output-1-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-1"
+        }
+      },
+      {
+        "value": "output-2-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-2"
+        }
+      },
+      {
+        "value": "output-3-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-3"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Optional input output",
+    "id": "example.camunda.OptionalInputOutput",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-1"
+        }
+      },
+      {
+        "value": "input-2-value",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input-2"
+        }
+      },
+      {
+        "value": "output-1-value",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-1"
+        }
+      },
+      {
+        "optional": true,
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "output-2"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Task header binding",
+    "id": "example.camunda.TaskHeaderBinding",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "value": "header-1-value",
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header-1"
+        }
+      },
+      {
+        "value": "header-2-value",
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header-2"
+        }
+      },
+      {
+        "value": "header-3-value",
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header-3"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Icon Template",
+    "id": "example.camunda.IconTemplate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [],
+    "icon": {
+      "contents": "data:image/svg+xml,%3Csvg width='24' height='24'%3C/svg%3E"
+    }
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Message Template",
+    "id": "example.camunda.MessageTemplate",
+    "appliesTo": [
+      "bpmn:IntermediateCatchEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:MessageEventDefinition"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "hard-coded",
+        "binding": {
+          "type": "bpmn:Message#property",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Subscription Message Template",
+    "id": "example.camunda.SubscriptionMessageTemplate",
+    "appliesTo": [
+      "bpmn:IntermediateCatchEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:MessageEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "correlationKey",
+        "type": "Hidden",
+        "value": "=variable",
+        "binding": {
+          "type": "bpmn:Message#kunpeng:subscription#property",
+          "name": "correlationKey"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "REST Connector",
+    "id": "generatedTask",
+    "description": "A generic REST service.",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },
+      {
+        "type": "Hidden",
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "input"
+        }
+      },
+      {
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "source"
+        }
+      },
+      {
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "property"
+        }
+      },
+      {
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "kunpeng:taskDefinition:type"
+        }
+      },
+      {
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "kunpeng:taskHeader",
+          "key": "header"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Message Property",
+    "id": "generatedEvent",
+    "description": "A template.",
+    "appliesTo": [
+      "bpmn:Event"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:MessageEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "message name",
+        "type": "Hidden",
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "bpmn:Message#property",
+          "name": "name"
+        }
+      },
+      {
+        "label": "correlation key",
+        "type": "Hidden",
+        "generatedValue": {
+          "type": "uuid"
+        },
+        "binding": {
+          "type": "bpmn:Message#kunpeng:subscription#property",
+          "name": "correlationKey"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Message Event Template",
+    "id": "messageEventTemplateReceiveTask",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ReceiveTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "value": "Message Event",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "hard-coded",
+        "binding": {
+          "type": "bpmn:Message#property",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Message Event Template",
+    "id": "messageEventSubscriptionTemplateReceiveTask",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ReceiveTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "value": "Message Event",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "=variable",
+        "binding": {
+          "type": "bpmn:Message#kunpeng:subscription#property",
+          "name": "correlationKey"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "id": "calledElement",
+    "name": "Payment",
+    "description": "Payment process call activity",
+    "appliesTo": [
+      "bpmn:Task",
+      "bpmn:CallActivity"
+    ],
+    "elementType": {
+      "value": "bpmn:CallActivity"
+    },
+    "properties":[
+      {
+        "type": "Hidden",
+        "value": "paymentProcess",
+        "binding": {
+          "type": "kunpeng:calledElement",
+          "property": "processId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "linkedResource",
+    "id": "linkedResource",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "foo",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "Link1",
+          "property": "resourceType"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "bar",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "Link2",
+          "property": "resourceId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Zeebe User Task",
+    "id": "zeebeUserTask",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "http://localhost:8000/@camunda/zeebe-element-templates-json-schema/schema.json",
+    "name": "Called Decision",
+    "id": "calledDecision",
+    "description": "A called decision",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task",
+      "bpmn:BusinessRuleTask"
+    ],
+    "elementType": {
+      "value": "bpmn:BusinessRuleTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "aDecisionId",
+        "binding": {
+          "type": "kunpeng:calledDecision",
+          "property": "decisionId"
+        }
+      },
+      {
+        "value": "aResultVariableName",
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:calledDecision",
+          "property": "resultVariable"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "form-definition-template",
+    "id": "form-definition-template",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "Dropdown",
+        "value": "complexFormId",
+        "choices" : [
+          {
+            "name": "Complex Form",
+            "value": "complexFormId"
+          },
+          {
+            "name": "Simple Form",
+            "value": "simpleFormId"
+          }
+        ],
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "formId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Acme Script Task",
+    "id": "script-task-1",
+    "description": "some description",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ScriptTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "= \"aString\" + \"aSecondString\"",
+        "binding": {
+          "type": "kunpeng:script",
+          "property": "expression"
+        }
+      },
+      {
+        "type": "String",
+        "value": "aResultVariable",
+        "binding": {
+          "type": "kunpeng:script",
+          "property": "resultVariable"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "AssignmentDefinition",
+    "id": "com.camunda.example.AssignmentDefinition",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "label": "Assignee",
+        "description": "Assignee for user task",
+        "type": "String",
+        "value": "anAssignee",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "assignee"
+        }
+      },
+      {
+        "type": "Text",
+        "value": "aCandidateGroup, anotherCandidateGroup",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateGroups"
+        }
+      },
+      {
+        "type": "String",
+        "value": "aCandidateUser",
+        "binding": {
+          "type": "kunpeng:assignmentDefinition",
+          "property": "candidateUsers"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "PriorityDefinition",
+    "id": "com.camunda.example.PriorityDefinition",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "label": "Priority",
+        "description": "Priority for user task",
+        "type": "Number",
+        "value": 10,
+        "binding": {
+          "type": "kunpeng:priorityDefinition",
+          "property": "priority"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "AdHoc Template",
+    "id": "ad-hoc-template",
+    "appliesTo": [
+      "bpmn:AdHocSubProcess"
+    ],
+    "version": 1,
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "toolCallResults",
+        "binding": {
+          "type": "kunpeng:adHoc",
+          "property": "outputCollection"
+        }
+      },
+      {
+        "type": "Text",
+        "value": "={ id: toolCall._meta.id }",
+        "binding": {
+          "type": "kunpeng:adHoc",
+          "property": "outputElement"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "TaskSchedule",
+    "id": "com.camunda.example.TaskSchedule",
+    "appliesTo": [
+      "bpmn:UserTask"
+    ],
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "label": "Due Date",
+        "description": "The due date for the task",
+        "type": "String",
+        "value": "2023-02-01T12:00:00Z",
+        "binding": {
+          "type": "kunpeng:taskSchedule",
+          "property": "dueDate"
+        }
+      },
+      {
+        "label": "Follow-up Date",
+        "description": "The follow-up date for the task",
+        "type": "String",
+        "value": "2023-02-05T12:00:00Z",
+        "binding": {
+          "type": "kunpeng:taskSchedule",
+          "property": "followUpDate"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Signal Template",
+    "id": "example.camunda.SignalTemplate",
+    "appliesTo": [
+      "bpmn:IntermediateCatchEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:SignalEventDefinition"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "hard-coded-signal",
+        "binding": {
+          "type": "bpmn:Signal#property",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Timer Start Event Template",
+    "id": "example.camunda.TimerStartEventTemplate",
+    "appliesTo": [
+      "bpmn:StartEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:StartEvent",
+      "eventDefinition": "bpmn:TimerEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "Cron Expression",
+        "type": "String",
+        "value": "0 0 9-17 * * MON-FRI",
+        "binding": {
+          "type": "bpmn:TimerEventDefinition#property",
+          "name": "timeCycle"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Timer Catch Event Template",
+    "id": "example.camunda.TimerCatchEventTemplate",
+    "appliesTo": [
+      "bpmn:IntermediateCatchEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:TimerEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "Duration",
+        "type": "String",
+        "value": "PT1H",
+        "binding": {
+          "type": "bpmn:TimerEventDefinition#property",
+          "name": "timeDuration"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Timer Date Event Template",
+    "id": "example.camunda.TimerDateEventTemplate",
+    "appliesTo": [
+      "bpmn:IntermediateCatchEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:IntermediateCatchEvent",
+      "eventDefinition": "bpmn:TimerEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "Date",
+        "type": "String",
+        "feel": "required",
+        "value": "=now() + duration(\"PT1H\")",
+        "binding": {
+          "type": "bpmn:TimerEventDefinition#property",
+          "name": "timeDate"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Timer Boundary Event Template",
+    "id": "example.camunda.TimerBoundaryEventTemplate",
+    "appliesTo": [
+      "bpmn:BoundaryEvent"
+    ],
+    "elementType": {
+      "value": "bpmn:BoundaryEvent",
+      "eventDefinition": "bpmn:TimerEventDefinition"
+    },
+    "properties": [
+      {
+        "label": "Cycle Interval",
+        "type": "String",
+        "value": "R/PT5M",
+        "binding": {
+          "type": "bpmn:TimerEventDefinition#property",
+          "name": "timeCycle"
+        }
+      }
+    ]
+  }
+]

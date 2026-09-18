@@ -1,0 +1,61 @@
+{
+  "name": "Task Template (optional)",
+  "version": 1,
+  "id": "task-template-optional",
+  "appliesTo": [
+    "bpmn:ServiceTask"
+  ],
+  "properties": [
+    {
+      "value": "input-1-source",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "input-1-target"
+      }
+    },
+    {
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "input-2-target"
+      }
+    },
+    {
+      "value": "output-1-target",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:output",
+        "source": "output-1-source"
+      }
+    },
+    {
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:output",
+        "source": "output-2-source"
+      }
+    },
+    {
+      "value": "property-1-value",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "property-1-name"
+      }
+    },
+    {
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "property-2-name"
+      }
+    }
+  ]
+}

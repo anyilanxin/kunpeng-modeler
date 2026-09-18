@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_varResolution" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.42.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="Process_varResolution" isExecutable="true">
+    <bpmn:serviceTask id="literalNullTask" name="Literal Null">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=null" target="outNull" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="literalStringTask" name="Literal String">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;hello&#34;" target="outString" />
+          <zeebe:output source="=&#34;&#10;hello&#10;&#34;" target="outCamundaString" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="literalNumberTask" name="Literal Number">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=42" target="outNumber" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="literalBooleanTask" name="Literal Boolean">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=true" target="outBoolean" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="literalContextTask" name="Literal Context">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="={&#34;key&#34;: &#34;value&#34;}" target="outContext" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="emptySourceTask" name="Empty Source">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="" target="outEmpty" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1u936n5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="contextProducerTask" name="Context Producer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="={&#10;  &#34;name&#34;: &#34;alice&#34;,&#10;  &#34;count&#34;: 42, &#10;  &#34;flag&#34;: true, &#10;  &#34;nested&#34;: {&#10;    &#34;deepNull&#34;: null, &#10;    &#34;deepString&#34;: &#34;YES&#34;&#10;  }&#10;}" target="ctxVar" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="pathConsumerTask" name="Path Consumer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=ctxVar.name" target="pathString" />
+          <zeebe:input source="=ctxVar.count" target="pathNumber" />
+          <zeebe:input source="=ctxVar.flag" target="pathBoolean" />
+          <zeebe:input source="=ctxVar.nested.deepNull" target="pathDeepNull" />
+          <zeebe:input source="=ctxVar.nested.deepString" target="pathDeepString" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="passthroughProducerTask" name="Passthrough Producer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;world&#34;" target="strVar" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="passthroughConsumerTask" name="Passthrough Consumer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=strVar" target="passedString" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="unresolvedConsumerTask" name="Unresolved Consumer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=unknownVar" target="unresolvedInput" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_10b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="nestedProducerTask" name="Nested Producer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;hello&#34;" target="nested.deep.leaf" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10b</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="nestedConsumerTask" name="Nested Consumer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=nested.deep.leaf" target="nestedResult" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="literalNullTask" targetRef="literalStringTask" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="literalStringTask" targetRef="literalNumberTask" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="literalNumberTask" targetRef="literalBooleanTask" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="literalBooleanTask" targetRef="literalContextTask" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="literalContextTask" targetRef="emptySourceTask" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="emptySourceTask" targetRef="contextProducerTask" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="contextProducerTask" targetRef="pathConsumerTask" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="pathConsumerTask" targetRef="passthroughProducerTask" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="passthroughProducerTask" targetRef="passthroughConsumerTask" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="passthroughConsumerTask" targetRef="unresolvedConsumerTask" />
+    <bpmn:serviceTask id="useUnknownVariable" name="Use unknown input">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=outEmpty" target="localEmpty" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1u936n5</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1u936n5" sourceRef="emptySourceTask" targetRef="useUnknownVariable" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="nestedProducerTask" targetRef="nestedConsumerTask" />
+    <bpmn:sequenceFlow id="Flow_10b" sourceRef="unresolvedConsumerTask" targetRef="nestedProducerTask" />
+    <bpmn:serviceTask id="hierarchicalNameConsumer" name="Hierarchical Name Consumer">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="10" target="deep.static.property" />
+          <zeebe:input source="=10" target="deep.dynamic.property" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_varResolution">
+      <bpmndi:BPMNShape id="literalNullTask_di" bpmnElement="literalNullTask">
+        <dc:Bounds x="160" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="literalStringTask_di" bpmnElement="literalStringTask">
+        <dc:Bounds x="360" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="literalNumberTask_di" bpmnElement="literalNumberTask">
+        <dc:Bounds x="560" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="literalBooleanTask_di" bpmnElement="literalBooleanTask">
+        <dc:Bounds x="160" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="literalContextTask_di" bpmnElement="literalContextTask">
+        <dc:Bounds x="360" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="emptySourceTask_di" bpmnElement="emptySourceTask">
+        <dc:Bounds x="560" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="contextProducerTask_di" bpmnElement="contextProducerTask">
+        <dc:Bounds x="160" y="400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="pathConsumerTask_di" bpmnElement="pathConsumerTask">
+        <dc:Bounds x="360" y="400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="passthroughProducerTask_di" bpmnElement="passthroughProducerTask">
+        <dc:Bounds x="560" y="400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="passthroughConsumerTask_di" bpmnElement="passthroughConsumerTask">
+        <dc:Bounds x="160" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="unresolvedConsumerTask_di" bpmnElement="unresolvedConsumerTask">
+        <dc:Bounds x="360" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_07drug3" bpmnElement="useUnknownVariable">
+        <dc:Bounds x="760" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="nestedProducerTask_di" bpmnElement="nestedProducerTask">
+        <dc:Bounds x="560" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="nestedConsumerTask_di" bpmnElement="nestedConsumerTask">
+        <dc:Bounds x="160" y="700" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_19pt4v4" bpmnElement="hierarchicalNameConsumer">
+        <dc:Bounds x="160" y="830" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="260" y="140" />
+        <di:waypoint x="360" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="460" y="140" />
+        <di:waypoint x="560" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="610" y="180" />
+        <di:waypoint x="610" y="220" />
+        <di:waypoint x="210" y="220" />
+        <di:waypoint x="210" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="260" y="290" />
+        <di:waypoint x="360" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="460" y="290" />
+        <di:waypoint x="560" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="610" y="330" />
+        <di:waypoint x="610" y="370" />
+        <di:waypoint x="210" y="370" />
+        <di:waypoint x="210" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="260" y="440" />
+        <di:waypoint x="360" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="460" y="440" />
+        <di:waypoint x="560" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="610" y="480" />
+        <di:waypoint x="610" y="520" />
+        <di:waypoint x="210" y="520" />
+        <di:waypoint x="210" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="260" y="590" />
+        <di:waypoint x="360" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u936n5_di" bpmnElement="Flow_1u936n5">
+        <di:waypoint x="660" y="290" />
+        <di:waypoint x="760" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="610" y="630" />
+        <di:waypoint x="610" y="670" />
+        <di:waypoint x="210" y="670" />
+        <di:waypoint x="210" y="700" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10b_di" bpmnElement="Flow_10b">
+        <di:waypoint x="460" y="590" />
+        <di:waypoint x="560" y="590" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,60 @@
+{
+  "name": "@kunpeng/variable-resolver",
+  "version": "3.2.0",
+  "description": "bpmn-js plugin for handling external variable providers",
+  "type": "module",
+  "source": "lib/index.js",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "all": "run-s lint test build",
+    "build": "rimraf dist && vite build",
+    "lib": "rimraf dist && vite build",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "test": "vitest run",
+    "prepare": "run-s build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/variable-resolver"
+  },
+  "author": "bpmn.io contributors",
+  "license": "MIT",
+  "dependencies": {
+    "@kunpeng/expression-analyzer": "workspace:*",
+    "@kunpeng/expression-builtins": "workspace:*",
+    "@kunpeng/extract-process-variables": "workspace:*",
+    "@kunpeng/lezer-expression": "workspace:*",
+    "@lezer/common": "catalog:",
+    "@lezer/lr": "catalog:",
+    "min-dash": "catalog:"
+  },
+  "devDependencies": {
+    "@bpmn-io/element-template-chooser": "catalog:",
+    "bpmn-js": "catalog:",
+    "camunda-bpmn-moddle": "catalog:",
+    "chai": "catalog:",
+    "diagram-js": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "happy-dom": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "zeebe-bpmn-moddle": "catalog:"
+  },
+  "peerDependencies": {
+    "bpmn-js": "*"
+  },
+  "types": "./dist/index.d.ts"
+}

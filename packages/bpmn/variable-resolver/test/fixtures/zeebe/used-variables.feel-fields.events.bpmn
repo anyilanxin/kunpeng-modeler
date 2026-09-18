@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+  id="Definitions_events"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  modeler:executionPlatform="Camunda Cloud">
+  <bpmn:process id="Process_1" isExecutable="true">
+
+    <!-- conditional boundary event -->
+    <bpmn:serviceTask id="Task_base" name="Base Task">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Task_base" targetRef="EndEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" />
+
+    <bpmn:boundaryEvent id="Event_cond" attachedToRef="Task_base">
+      <bpmn:conditionalEventDefinition id="CondDef_1">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">=condVar</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:boundaryEvent>
+
+    <!-- timer intermediate catch event -->
+    <bpmn:intermediateCatchEvent id="Event_timer">
+      <bpmn:timerEventDefinition id="TimerDef_1">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">=timerVar</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+
+    <!-- signal intermediate catch event -->
+    <bpmn:intermediateCatchEvent id="Event_signal">
+      <bpmn:signalEventDefinition id="SignalDef_1" signalRef="Signal_1" />
+    </bpmn:intermediateCatchEvent>
+
+    <!-- error boundary event -->
+    <bpmn:serviceTask id="Task_error_host" name="Error Host">
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_error_host" targetRef="EndEvent_2" />
+    <bpmn:endEvent id="EndEvent_2" />
+
+    <bpmn:boundaryEvent id="Event_error" attachedToRef="Task_error_host">
+      <bpmn:errorEventDefinition id="ErrorDef_1" errorRef="Error_1" />
+    </bpmn:boundaryEvent>
+
+    <!-- escalation boundary event -->
+    <bpmn:serviceTask id="Task_escalation_host" name="Escalation Host">
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_escalation_host" targetRef="EndEvent_3" />
+    <bpmn:endEvent id="EndEvent_3" />
+
+    <bpmn:boundaryEvent id="Event_escalation" attachedToRef="Task_escalation_host">
+      <bpmn:escalationEventDefinition id="EscalationDef_1" escalationRef="Escalation_1" />
+    </bpmn:boundaryEvent>
+
+  </bpmn:process>
+
+  <bpmn:signal id="Signal_1" name="=signalNameVar" />
+  <bpmn:error id="Error_1" name="MyError" errorCode="=errorCodeVar" />
+  <bpmn:escalation id="Escalation_1" name="MyEscalation" escalationCode="=escalCodeVar" />
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Task_base_di" bpmnElement="Task_base">
+        <dc:Bounds x="200" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_cond_di" bpmnElement="Event_cond">
+        <dc:Bounds x="232" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="352" y="117" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_timer_di" bpmnElement="Event_timer">
+        <dc:Bounds x="200" y="250" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_signal_di" bpmnElement="Event_signal">
+        <dc:Bounds x="280" y="250" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_error_host_di" bpmnElement="Task_error_host">
+        <dc:Bounds x="200" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_error_di" bpmnElement="Event_error">
+        <dc:Bounds x="232" y="392" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_2_di" bpmnElement="EndEvent_2">
+        <dc:Bounds x="352" y="347" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_escalation_host_di" bpmnElement="Task_escalation_host">
+        <dc:Bounds x="200" y="460" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_escalation_di" bpmnElement="Event_escalation">
+        <dc:Bounds x="232" y="522" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_3_di" bpmnElement="EndEvent_3">
+        <dc:Bounds x="352" y="477" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

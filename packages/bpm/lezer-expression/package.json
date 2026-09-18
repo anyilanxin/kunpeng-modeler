@@ -1,0 +1,57 @@
+{
+  "name": "@kunpeng/lezer-expression",
+  "version": "3.0.1",
+  "description": "Lezer-based FEEL grammar",
+  "type": "module",
+  "source": "./src/index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "author": "Nico Rehwaldt <https://github.com/nikku>",
+  "license": "MIT",
+  "sideEffects": false,
+  "devDependencies": {
+    "@lezer/generator": "catalog:",
+    "@types/chai": "catalog:",
+    "@types/mocha": "catalog:",
+    "@types/node": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "mocha": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@lezer/common": "catalog:",
+    "@lezer/highlight": "catalog:",
+    "@lezer/lr": "catalog:",
+    "min-dash": "catalog:"
+  },
+  "engines": {
+    "node": ">= 20.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/lezer-feel.git"
+  },
+  "scripts": {
+    "build": "lezer-generator src/feel.grammar -o src/parser && rimraf dist && vite build && tsc --emitDeclarationOnly",
+    "build-debug": "lezer-generator src/feel.grammar --names -o src/parser && rimraf dist && vite build && tsc --emitDeclarationOnly",
+    "test": "vitest run",
+    "dev": "vitest --watch",
+    "all": "run-s lint build check-types test",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit",
+    "prepare": "run-s build"
+  },
+  "files": [
+    "dist"
+  ]
+}

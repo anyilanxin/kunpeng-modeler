@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-rc.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:subProcess id="SubProcess_1" name="SubProcess_1">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="= source" target="variable3" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:serviceTask id="Task_3" name="Task_3">
+        <bpmn:extensionElements>
+          <zeebe:ioMapping>
+            <zeebe:output source="=1" target="variable4" />
+          </zeebe:ioMapping>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
+    <bpmn:textAnnotation id="TextAnnotation_1by30xz">
+      <bpmn:text>out: variable4</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0jo07xw">
+      <bpmn:text>in: variable3</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0arye6b" associationDirection="None" sourceRef="SubProcess_1" targetRef="TextAnnotation_0jo07xw" />
+    <bpmn:association id="Association_1994x7v" associationDirection="None" sourceRef="Task_3" targetRef="TextAnnotation_1by30xz" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_11q7hbr_di" bpmnElement="SubProcess_1" isExpanded="true">
+        <dc:Bounds x="250" y="140" width="270" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qds50t" bpmnElement="Task_3">
+        <dc:Bounds x="340" y="200" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1994x7v_di" bpmnElement="Association_1994x7v">
+        <di:waypoint x="435" y="202" />
+        <di:waypoint x="532" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0arye6b_di" bpmnElement="Association_0arye6b">
+        <di:waypoint x="253" y="143" />
+        <di:waypoint x="224" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1by30xz_di" bpmnElement="TextAnnotation_1by30xz">
+        <dc:Bounds x="500" y="90" width="100" height="29.987951278686523" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0jo07xw_di" bpmnElement="TextAnnotation_0jo07xw">
+        <dc:Bounds x="160" y="80" width="100" height="29.999998092651367" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

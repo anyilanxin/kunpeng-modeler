@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+  id="Definitions_zeebe_ext"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  modeler:executionPlatform="Camunda Cloud">
+  <bpmn:process id="Process_1" isExecutable="true">
+
+    <!-- zeebe:AssignmentDefinition - assignee, candidateGroups, candidateUsers -->
+    <bpmn:userTask id="Task_assign" name="Assignment Task">
+      <bpmn:extensionElements>
+        <zeebe:assignmentDefinition
+          assignee="=assigneeVar"
+          candidateGroups="=candidateGroupsVar"
+          candidateUsers="=candidateUsersVar" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+
+    <!-- zeebe:TaskDefinition - type and retries as FEEL -->
+    <bpmn:serviceTask id="Task_taskdef" name="Task Definition Task">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="=jobTypeVar" retries="=retriesVar" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <!-- zeebe:TaskSchedule - dueDate, followUpDate -->
+    <bpmn:userTask id="Task_schedule" name="Scheduled Task">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:taskSchedule dueDate="=dueDateVar" followUpDate="=followUpDateVar" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+
+    <!-- zeebe:PriorityDefinition - priority -->
+    <bpmn:userTask id="Task_priority" name="Priority Task">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:priorityDefinition priority="=priorityVar" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+
+    <!-- zeebe:CalledElement - processId (Call Activity) -->
+    <bpmn:callActivity id="Task_call" name="Call Activity">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="=processIdVar" />
+      </bpmn:extensionElements>
+    </bpmn:callActivity>
+
+    <!-- zeebe:CalledDecision - decisionId (Business Rule Task) -->
+    <bpmn:businessRuleTask id="Task_decision" name="Business Rule Task">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="=decisionIdVar" />
+      </bpmn:extensionElements>
+    </bpmn:businessRuleTask>
+
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Task_assign_di" bpmnElement="Task_assign">
+        <dc:Bounds x="200" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_taskdef_di" bpmnElement="Task_taskdef">
+        <dc:Bounds x="360" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_schedule_di" bpmnElement="Task_schedule">
+        <dc:Bounds x="520" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_priority_di" bpmnElement="Task_priority">
+        <dc:Bounds x="680" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_call_di" bpmnElement="Task_call">
+        <dc:Bounds x="200" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_decision_di" bpmnElement="Task_decision">
+        <dc:Bounds x="360" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

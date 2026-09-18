@@ -1,0 +1,132 @@
+{
+  "name": "REST Connector",
+  "id": "io.camunda.connectors.RestConnector-s1",
+  "description": "A generic REST service.",
+  "appliesTo": [
+    "bpmn:ServiceTask"
+  ],
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "http",
+      "binding": {
+        "type": "kunpeng:taskDefinition:type"
+      }
+    },
+    {
+      "label": "REST Endpoint URL",
+      "description": "Specify the url of the REST API to talk to.",
+      "tooltip": "Specify the url of the REST API to talk to.",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:taskHeader",
+        "key": "url"
+      },
+      "constraints": {
+        "notEmpty": true,
+        "pattern": {
+          "value": "^https?://.*",
+          "message": "Must be http(s) URL."
+        }
+      }
+    },
+    {
+      "label": "REST Method",
+      "description": "Specify the HTTP method to use.",
+      "type": "Dropdown",
+      "value": "get",
+      "choices": [
+        { "name": "GET", "value": "get" },
+        { "name": "POST", "value": "post" },
+        { "name": "PATCH", "value": "patch" },
+        { "name": "DELETE", "value": "delete" }
+      ],
+      "binding": {
+        "type": "kunpeng:taskHeader",
+        "key": "method"
+      }
+    },
+    {
+      "label": "Request Body",
+      "description": "Data to send to the endpoint.",
+      "value": "",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "body"
+      },
+      "feel": "optional"
+    },
+    {
+      "label": "Result Variable",
+      "description": "Name of variable to store the response data in.",
+      "value": "response",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:output",
+        "source": "= body"
+      }
+    },
+    {
+      "label": "static (string)",
+      "type": "String",
+      "value": "1",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "static"
+      }
+    },
+    {
+      "label": "dynamic (text)",
+      "type": "Text",
+      "value": "1",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "dynamic"
+      },
+      "feel": "required"
+    },
+    {
+      "label": "optional (string)",
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "optional"
+      },
+      "optional": true
+    },
+    {
+      "label": "FEEL (Number)",
+      "type": "Number",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "feelNumber"
+      },
+      "feel": "static"
+    },
+    {
+      "label": "FEEL (Boolean)",
+      "type": "Number",
+      "binding": {
+        "type": "kunpeng:property",
+        "name": "feelNumber"
+      },
+      "feel": "static"
+    }
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
+  },
+  "icon": {
+    "contents": "data:image/svg+xml,%3Csvg width='24' height='24'%3C/svg%3E"
+  },
+  "groups": [
+    {
+      "id": "rest-connector",
+      "label": "REST parameters",
+      "tooltip": "Configure the REST connector."
+    }
+  ]
+}

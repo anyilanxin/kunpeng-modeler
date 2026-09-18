@@ -1,0 +1,91 @@
+{
+  "name": "REST Connector",
+  "id": "io.camunda.connectors.RestConnector-s1",
+  "description": "A generic REST service.",
+  "appliesTo": [
+    "bpmn:ServiceTask"
+  ],
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "http",
+      "binding": {
+        "type": "kunpeng:taskDefinition:foo"
+      }
+    },
+    {
+      "label": "REST Endpoint URL",
+      "description": "Specify the url of the REST API to talk to.",
+      "tooltip": ["This is the URL of the REST API to talk to."],
+      "type": "String",
+      "binding": {
+        "type": "kunpeng:taskHeader"
+      },
+      "constraints": {
+        "notEmpty": true,
+        "pattern": {
+          "value": "^https?://.*",
+          "message": "Must be http(s) URL."
+        }
+      }
+    },
+    {
+      "label": "REST Method",
+      "description": "Specify the HTTP method to use.",
+      "type": "Dropdown",
+      "value": "get",
+      "binding": {
+        "type": "kunpeng:taskHeader",
+        "key": "method"
+      },
+      "feel": "optional"
+    },
+    {
+      "label": "Request Body",
+      "description": "Data to send to the endpoint.",
+      "value": "",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:input",
+        "name": "body"
+      },
+      "feel": "yes"
+    },
+    {
+      "label": "Result Variable",
+      "description": "Name of variable to store the response data in.",
+      "value": "response",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "kunpeng:output",
+        "source": "= body"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "label": "static (string)",
+      "type": "String",
+      "value": "1",
+      "binding": {
+        "type": "kunpeng:property"
+      }
+    }
+  ],
+  "elementType": {
+    "value": "foobar"
+  },
+  "icon": {
+    "contents": "foo"
+  },
+  "groups": [
+    {
+      "id": "rest-connector",
+      "label": "REST parameters",
+      "tooltip": ["Configure the REST connector."]
+    }
+  ]
+}

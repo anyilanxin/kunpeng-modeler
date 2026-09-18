@@ -1,0 +1,122 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL disabled",
+    "id": "numberField.feel.disabled",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "NumberProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL required",
+    "id": "numberField.feel.required",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "feel": "required",
+        "value": "100",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "NumberProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL optional",
+    "id": "numberField.feel.optional",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "NumberProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL static",
+    "id": "numberField.feel.static",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "feel": "static",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "NumberProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL missing - input output",
+    "id": "numberField.feel.no-feel",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "NumberProperty"
+        }
+      },
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "NumberProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "property",
+    "id": "numberField.property",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "NumberProperty",
+        "type": "Number",
+        "binding": {
+          "type": "property",
+          "name": "completionQuantity"
+        }
+      }
+    ]
+  }
+]

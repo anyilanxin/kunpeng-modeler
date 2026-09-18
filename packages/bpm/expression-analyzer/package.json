@@ -1,0 +1,75 @@
+{
+  "name": "@kunpeng/expression-analyzer",
+  "version": "0.5.0",
+  "description": "Static FEEL expression analyzer",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "all": "run-s lint test build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "dev": "vitest --watch",
+    "check-types": "tsc --noEmit",
+    "build": "rimraf dist && vite build && tsc --emitDeclarationOnly",
+    "prepare": "run-s build"
+  },
+  "dependencies": {
+    "@kunpeng/lezer-expression": "workspace:*",
+    "@lezer/common": "catalog:"
+  },
+  "devDependencies": {
+    "@types/chai": "catalog:",
+    "@types/mocha": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "happy-dom": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/feel-analyzer.git"
+  },
+  "homepage": "https://github.com/bpmn-io/feel-analyzer#readme",
+  "bugs": {
+    "url": "https://github.com/bpmn-io/feel-analyzer/issues"
+  },
+  "author": {
+    "name": "Simon Steinrücken",
+    "url": "https://github.com/Buckwich"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "keywords": [
+    "feel",
+    "bpmn-io",
+    "analyzer"
+  ]
+}

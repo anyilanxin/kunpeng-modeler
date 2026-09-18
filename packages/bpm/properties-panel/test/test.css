@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.test-container {
+  height: 800px !important;
+}
+
+.test-content-container {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}

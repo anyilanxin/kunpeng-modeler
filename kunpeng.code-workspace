@@ -1,0 +1,144 @@
+{
+  "folders": [
+    {
+      "name": "@kunpeng/commitlint-config",
+      "path": "internal/lint-configs/commitlint-config",
+    },
+    {
+      "name": "@kunpeng/eslint-config",
+      "path": "internal/lint-configs/eslint-config",
+    },
+    {
+      "name": "@kunpeng/prettier-config",
+      "path": "internal/lint-configs/prettier-config",
+    },
+    {
+      "name": "@kunpeng/stylelint-config",
+      "path": "internal/lint-configs/stylelint-config",
+    },
+    {
+      "name": "@kunpeng/node-utils",
+      "path": "internal/node-utils",
+    },
+    {
+      "name": "@kunpeng/tailwind-config",
+      "path": "internal/tailwind-config",
+    },
+    {
+      "name": "@kunpeng/tsconfig",
+      "path": "internal/tsconfig",
+    },
+    {
+      "name": "@kunpeng/vite-config",
+      "path": "internal/vite-config",
+    },
+    {
+      "name": "@kunpeng/expression-analyzer",
+      "path": "packages/bpm/expression-analyzer",
+    },
+    {
+      "name": "@kunpeng/expression-builtins",
+      "path": "packages/bpm/expression-builtins",
+    },
+    {
+      "name": "@kunpeng/expression-editor",
+      "path": "packages/bpm/expression-editor",
+    },
+    {
+      "name": "@kunpeng/expression-lint",
+      "path": "packages/bpm/expression-lint",
+    },
+    {
+      "name": "@kunpeng/lang-expression",
+      "path": "packages/bpm/lang-expression",
+    },
+    {
+      "name": "@kunpeng/lezer-expression",
+      "path": "packages/bpm/lezer-expression",
+    },
+    {
+      "name": "@kunpeng/properties-panel",
+      "path": "packages/bpm/properties-panel",
+    },
+    {
+      "name": "@kunpeng/bpmn-js-behaviors",
+      "path": "packages/bpmn/bpmn-js-behaviors",
+    },
+    {
+      "name": "@kunpeng/bpmn-js-element-templates",
+      "path": "packages/bpmn/bpmn-js-element-templates",
+    },
+    {
+      "name": "@kunpeng/bpmn-js-properties-panel",
+      "path": "packages/bpmn/bpmn-js-properties-panel",
+    },
+    {
+      "name": "@kunpeng/bpmn-moddle",
+      "path": "packages/bpmn/bpmn-moddle",
+    },
+    {
+      "name": "@kunpeng/bpmnlint-plugin-kunpeng-compat",
+      "path": "packages/bpmn/bpmnlint-plugin-kunpeng-compat",
+    },
+    {
+      "name": "@kunpeng/element-templates-json-schema",
+      "path": "packages/bpmn/element-templates-json-schema",
+    },
+    {
+      "name": "@kunpeng/element-templates-validator",
+      "path": "packages/bpmn/element-templates-validator",
+    },
+    {
+      "name": "@kunpeng/extract-process-variables",
+      "path": "packages/bpmn/extract-process-variables",
+    },
+    {
+      "name": "@kunpeng/linting",
+      "path": "packages/bpmn/linting",
+    },
+    {
+      "name": "@kunpeng/variable-resolver",
+      "path": "packages/bpmn/variable-resolver",
+    },
+    {
+      "name": "@kunpeng/dmn-js",
+      "path": "packages/dmn/dmn-js",
+    },
+    {
+      "name": "@kunpeng/dmn-js-boxed-expression",
+      "path": "packages/dmn/dmn-js-boxed-expression",
+    },
+    {
+      "name": "@kunpeng/dmn-js-decision-table",
+      "path": "packages/dmn/dmn-js-decision-table",
+    },
+    {
+      "name": "@kunpeng/dmn-js-drd",
+      "path": "packages/dmn/dmn-js-drd",
+    },
+    {
+      "name": "@kunpeng/dmn-js-literal-expression",
+      "path": "packages/dmn/dmn-js-literal-expression",
+    },
+    {
+      "name": "@kunpeng/dmn-js-properties-panel",
+      "path": "packages/dmn/dmn-js-properties-panel",
+    },
+    {
+      "name": "@kunpeng/dmn-js-shared",
+      "path": "packages/dmn/dmn-js-shared",
+    },
+    {
+      "name": "@kunpeng/dmn-moddle",
+      "path": "packages/dmn/dmn-moddle",
+    },
+    {
+      "name": "@kunpeng/turbo-run",
+      "path": "scripts/turbo-run",
+    },
+    {
+      "name": "@kunpeng/vsh",
+      "path": "scripts/vsh",
+    },
+  ],
+}

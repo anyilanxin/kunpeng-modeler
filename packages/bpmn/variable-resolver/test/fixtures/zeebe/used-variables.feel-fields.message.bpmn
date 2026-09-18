@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+  id="Definitions_msg"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  modeler:executionPlatform="Camunda Cloud">
+  <bpmn:process id="Process_1" isExecutable="true">
+
+    <!-- message start event (FEEL message name) -->
+    <bpmn:startEvent id="StartEvent_msg">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MsgDef_start" messageRef="Message_start" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_msg" targetRef="EndEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" />
+
+    <!-- message intermediate catch event (FEEL correlation key) -->
+    <bpmn:intermediateCatchEvent id="Event_msg_catch">
+      <bpmn:messageEventDefinition id="MsgDef_catch" messageRef="Message_catch" />
+    </bpmn:intermediateCatchEvent>
+
+    <!-- receive task (FEEL correlation key) -->
+    <bpmn:receiveTask id="Task_receive" messageRef="Message_receive" />
+
+  </bpmn:process>
+
+  <!-- message with FEEL name only (no correlation key) -->
+  <bpmn:message id="Message_start" name="=msgStartNameVar" />
+
+  <!-- message with FEEL correlation key only (no FEEL name) -->
+  <bpmn:message id="Message_catch" name="StaticName">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=corrKeyVar" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+
+  <!-- receive task message with FEEL correlation key -->
+  <bpmn:message id="Message_receive" name="ReceiveMessage">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=receiveTaskCorrKey" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="StartEvent_msg_di" bpmnElement="StartEvent_msg">
+        <dc:Bounds x="152" y="117" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="252" y="117" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_msg_catch_di" bpmnElement="Event_msg_catch">
+        <dc:Bounds x="200" y="250" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_receive_di" bpmnElement="Task_receive">
+        <dc:Bounds x="200" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

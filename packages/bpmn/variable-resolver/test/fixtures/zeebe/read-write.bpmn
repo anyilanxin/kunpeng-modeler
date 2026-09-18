@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1kvhh4n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+  <bpmn:process id="Process_1" name="Write: approved" isExecutable="true">
+    <bpmn:serviceTask id="ValidateApprovedTask" name="Validate Approved">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=approved" target="localApproved" />
+          <zeebe:output source="=localApproved" target="approved" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:textAnnotation id="TextAnnotation_12joy1t">
+      <bpmn:text>Write: approved</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1x9i5o6" associationDirection="None" sourceRef="ValidateApprovedTask" targetRef="TextAnnotation_12joy1t" />
+    <bpmn:textAnnotation id="TextAnnotation_0cyrq9q">
+      <bpmn:text>Read: approved</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1qg1o3f" associationDirection="None" sourceRef="TextAnnotation_0cyrq9q" targetRef="ValidateApprovedTask" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_13wsimk_di" bpmnElement="ValidateApprovedTask">
+        <dc:Bounds x="240" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1x9i5o6_di" bpmnElement="Association_1x9i5o6">
+        <di:waypoint x="328" y="170" />
+        <di:waypoint x="386" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1qg1o3f_di" bpmnElement="Association_1qg1o3f">
+        <di:waypoint x="201" y="110" />
+        <di:waypoint x="244" y="172" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_12joy1t_di" bpmnElement="TextAnnotation_12joy1t">
+        <dc:Bounds x="350" y="80" width="120" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1n8m9kv" bpmnElement="TextAnnotation_0cyrq9q">
+        <dc:Bounds x="160" y="80" width="130" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

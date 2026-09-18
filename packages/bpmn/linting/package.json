@@ -1,0 +1,65 @@
+{
+  "name": "@kunpeng/linting",
+  "version": "3.54.0",
+  "description": "Linting for Camunda",
+  "main": "index.js",
+  "scripts": {
+    "all": "npm run lint && npm test",
+    "dev": "vitest --watch",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "compile-config": "node tasks/compile-config.js",
+    "prepublish": "npm run compile-config"
+  },
+  "keywords": [
+    "bpmnlint",
+    "kunpeng"
+  ],
+  "author": {
+    "name": "Philipp Fromme",
+    "url": "https://github.com/philippfromme"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camunda/linting"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@bpmn-io/diagram-js-ui": "catalog:",
+    "@kunpeng/bpmn-moddle": "workspace:*",
+    "@kunpeng/bpmnlint-plugin-kunpeng-compat": "workspace:*",
+    "bpmn-moddle": "catalog:",
+    "bpmnlint": "catalog:",
+    "bpmnlint-utils": "catalog:",
+    "clsx": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:",
+    "modeler-moddle": "catalog:",
+    "semver-compare": "catalog:"
+  },
+  "devDependencies": {
+    "@bpmn-io/element-template-chooser": "catalog:",
+    "@bpmn-io/element-template-icon-renderer": "catalog:",
+    "@kunpeng/bpmn-js-behaviors": "workspace:*",
+    "@kunpeng/bpmn-js-element-templates": "workspace:*",
+    "@kunpeng/bpmn-js-properties-panel": "workspace:*",
+    "bpmn-js": "catalog:",
+    "chai": "catalog:",
+    "cross-env": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "happy-dom": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vitest": "catalog:"
+  },
+  "files": [
+    "assets",
+    "lib",
+    "index.js",
+    "modeler.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

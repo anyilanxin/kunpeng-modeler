@@ -1,0 +1,56 @@
+{
+  "name": "@kunpeng/dmn-js-shared",
+  "version": "17.8.1",
+  "description": "Shared components used by dmn-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/dmn-js",
+    "directory": "packages/dmn-js-shared"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "all": "run-s build test",
+    "test": "vitest run",
+    "build": "rimraf lib && vite build",
+    "prepare": "run-s build",
+    "dev": "vitest --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "assets",
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@codemirror/view": "catalog:",
+    "@kunpeng/expression-editor": "workspace:*",
+    "diagram-js": "catalog:",
+    "didi": "catalog:",
+    "dmn-moddle": "catalog:",
+    "escape-html": "catalog:",
+    "ids": "catalog:",
+    "inferno": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:",
+    "selection-ranges": "catalog:",
+    "selection-update": "catalog:",
+    "table-js": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/core": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "babel-plugin-inferno": "catalog:",
+    "chai": "catalog:",
+    "glob": "catalog:",
+    "happy-dom": "catalog:",
+    "inferno-test-utils": "catalog:",
+    "mocha-test-container-support": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-babel": "catalog:",
+    "vitest": "catalog:"
+  }
+}

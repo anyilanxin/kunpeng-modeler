@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Kunpeng Modeler",
+  "version": "0.1.0",
+  "identifier": "com.anyilanxin.kunpeng",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Kunpeng Modeler",
+        "width": 1440,
+        "height": 810,
+        "minHeight": 600,
+        "minWidth": 800,
+        "center": true,
+        "titleBarStyle": "Visible"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "icons/filetype/bpmn.icns": "bpmn.icns",
+      "icons/filetype/dmn.icns": "dmn.icns",
+      "icons/filetype/bpmn.ico": "icons/bpmn.ico",
+      "icons/filetype/dmn.ico": "icons/dmn.ico"
+    },
+    "fileAssociations": [
+      {
+        "name": "BPMN 2.0 模型",
+        "ext": ["bpmn"],
+        "role": "Editor",
+        "mimeType": "application/x-bpmn"
+      },
+      {
+        "name": "DMN 模型",
+        "ext": ["dmn"],
+        "role": "Editor",
+        "mimeType": "application/x-dmn"
+      }
+    ],
+    "macOS": {
+      "minimumSystemVersion": "10.15"
+    },
+    "windows": {
+      "nsis": {
+        "template": "./nsis/installer.nsi",
+        "installerIcon": "icons/icon.ico"
+      }
+    },
+    "linux": {
+      "deb": {
+        "files": {
+          "linux/x-bpmn.xml": "usr/share/mime/packages/x-bpmn.xml",
+          "linux/x-dmn.xml": "usr/share/mime/packages/x-dmn.xml",
+          "icons/filetype/bpmn-16.png": "usr/share/icons/hicolor/16x16/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-22.png": "usr/share/icons/hicolor/22x22/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-24.png": "usr/share/icons/hicolor/24x24/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-32.png": "usr/share/icons/hicolor/32x32/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-48.png": "usr/share/icons/hicolor/48x48/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-64.png": "usr/share/icons/hicolor/64x64/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-128.png": "usr/share/icons/hicolor/128x128/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-256.png": "usr/share/icons/hicolor/256x256/mimetypes/application-x-bpmn.png",
+          "icons/filetype/bpmn-512.png": "usr/share/icons/hicolor/512x512/mimetypes/application-x-bpmn.png",
+          "icons/filetype/dmn-16.png": "usr/share/icons/hicolor/16x16/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-22.png": "usr/share/icons/hicolor/22x22/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-24.png": "usr/share/icons/hicolor/24x24/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-32.png": "usr/share/icons/hicolor/32x32/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-48.png": "usr/share/icons/hicolor/48x48/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-64.png": "usr/share/icons/hicolor/64x64/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-128.png": "usr/share/icons/hicolor/128x128/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-256.png": "usr/share/icons/hicolor/256x256/mimetypes/application-x-dmn.png",
+          "icons/filetype/dmn-512.png": "usr/share/icons/hicolor/512x512/mimetypes/application-x-dmn.png"
+        },
+        "postInstallScript": "./linux/postinstall.sh",
+        "postRemoveScript": "./linux/postremove.sh"
+      }
+    }
+  }
+}

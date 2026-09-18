@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:kunpeng="http://anyilanxin.com/schema/kunpeng/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-dev" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:adHocSubProcess id="AdHocSubProcess_1" name="AdHocSubProcess_1">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition />
+        <kunpeng:adHoc outputCollection="toolResults" outputElement="=toolResult" />
+        <kunpeng:ioMapping>
+          <kunpeng:input target="toolResult" />
+          <kunpeng:input target="toolResults" />
+        </kunpeng:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:serviceTask id="Task_1" name="Task_1&#10;&#10;Produce &#39;1&#39;">
+        <bpmn:extensionElements>
+          <kunpeng:ioMapping>
+            <kunpeng:output source="=1" target="toolResult" />
+          </kunpeng:ioMapping>
+        </bpmn:extensionElements>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="ScriptTask_1" name="ScriptTask_1&#10;&#10;Produce &#39;&#34;YES&#34;&#39;">
+        <bpmn:extensionElements>
+          <kunpeng:script expression="=&#34;YES&#34;" resultVariable="toolResult" />
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+      <bpmn:subProcess id="EventSubProcess_1" name="EventSubProcess_1" triggeredByEvent="true">
+        <bpmn:startEvent id="MessageStartEvent_1">
+          <bpmn:outgoing>Flow_1v5xfda</bpmn:outgoing>
+          <bpmn:messageEventDefinition id="MessageEventDefinition_0ctx6uu" />
+        </bpmn:startEvent>
+        <bpmn:sequenceFlow id="Flow_1v5xfda" sourceRef="MessageStartEvent_1" targetRef="RuleTask_1" />
+        <bpmn:businessRuleTask id="RuleTask_1" name="RuleTask_1">
+          <bpmn:extensionElements>
+            <kunpeng:calledDecision resultVariable="toolResult" />
+          </bpmn:extensionElements>
+          <bpmn:incoming>Flow_1v5xfda</bpmn:incoming>
+        </bpmn:businessRuleTask>
+      </bpmn:subProcess>
+      <bpmn:scriptTask id="ScriptTask_2" name="ScriptTask_2&#10;&#10;Produce &#34;my@mail&#34;">
+        <bpmn:extensionElements>
+          <kunpeng:script expression="=&#34;my@mail&#34;" resultVariable="email" />
+          <kunpeng:ioMapping>
+            <kunpeng:output source="=email" target="toolResult.mail" />
+          </kunpeng:ioMapping>
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+    </bpmn:adHocSubProcess>
+    <bpmn:textAnnotation id="TextAnnotation_03j09jg">
+      <bpmn:text>outputElement: toolResult
+outputCollection: toolResults</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0kjh134" associationDirection="None" sourceRef="AdHocSubProcess_1" targetRef="TextAnnotation_03j09jg" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_0282riy_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
+        <dc:Bounds x="160" y="190" width="480" height="370" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11csst4_di" bpmnElement="Task_1">
+        <dc:Bounds x="220" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16tkphp_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="360" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1vg4byr" bpmnElement="ScriptTask_2">
+        <dc:Bounds x="500" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ytgz15_di" bpmnElement="EventSubProcess_1" isExpanded="true">
+        <dc:Bounds x="190" y="360" width="410" height="160" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tadlzf_di" bpmnElement="MessageStartEvent_1">
+        <dc:Bounds x="230" y="432" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205" y="475" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00ao0ar_di" bpmnElement="RuleTask_1">
+        <dc:Bounds x="320" y="410" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1v5xfda_di" bpmnElement="Flow_1v5xfda">
+        <di:waypoint x="266" y="450" />
+        <di:waypoint x="320" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_03j09jg_di" bpmnElement="TextAnnotation_03j09jg">
+        <dc:Bounds x="440" y="80" width="219.98794555664062" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0kjh134_di" bpmnElement="Association_0kjh134">
+        <di:waypoint x="414" y="190" />
+        <di:waypoint x="469" y="121" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

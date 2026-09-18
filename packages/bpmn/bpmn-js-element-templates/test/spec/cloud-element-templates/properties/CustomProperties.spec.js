@@ -1,0 +1,3555 @@
+import TestContainer from 'mocha-test-container-support';
+
+import { expect } from 'chai';
+import { spy, useFakeTimers } from 'sinon';
+
+import {
+  bootstrapPropertiesPanel,
+  changeInput,
+  getBpmnJS,
+  withPropertiesPanel,
+  inject, setEditorValue
+} from 'test/TestHelper';
+
+import {
+  act,
+  cleanup,
+  fireEvent,
+  waitFor
+} from '@testing-library/preact';
+
+import {
+  map
+} from 'min-dash';
+
+import {
+  classes as domClasses,
+  query as domQuery,
+  queryAll as domQueryAll
+} from 'min-dom';
+
+import { is } from 'bpmn-js/lib/util/ModelUtil';
+
+import {
+  findExtension,
+  findInputParameter,
+  findMessage,
+  findOutputParameter,
+  findSignal,
+  findTaskHeader,
+  findZeebeProperty,
+  findZeebeSubscription
+} from 'src/cloud-element-templates/Helper';
+
+import coreModule from 'bpmn-js/lib/core';
+import modelingModule from 'bpmn-js/lib/features/modeling';
+import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+
+import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+
+import { BpmnPropertiesPanelModule as BpmnPropertiesPanel } from 'bpmn-js-properties-panel';
+import elementTemplatesModule from 'src/cloud-element-templates';
+
+import diagramXML from './CustomProperties.bpmn';
+import templates from './CustomProperties.json';
+
+import descriptionDiagramXML from './CustomProperties.description.bpmn';
+import descriptionElementTemplates from './CustomProperties.description.json';
+
+import tooltipDiagramXML from './CustomProperties.tooltip.bpmn';
+import tooltipElementTemplates from './CustomProperties.tooltip.json';
+
+import editableDiagramXML from './CustomProperties.editable.bpmn';
+import editableElementTemplates from './CustomProperties.editable.json';
+
+import feelDiagramXML from './CustomProperties.feel.bpmn';
+import feelElementTemplates from './CustomProperties.feel.json';
+
+import defaultTypesDiagramXML from './CustomProperties.default-types.bpmn';
+import defaultTypesElementTemplates from './CustomProperties.default-types.json';
+
+import defaultValuesDiagramXML from './CustomProperties.default-values.bpmn';
+import defaultValuesElementTemplates from './CustomProperties.default-values.json';
+
+import generatedValuesDiagramXML from './CustomProperties.generated-values.bpmn';
+import generatedValuesElementTemplates from './CustomProperties.generated-values.json';
+
+import groupsDiagramXML from './CustomProperties.groups.bpmn';
+import groupsElementTemplates from './CustomProperties.groups.json';
+
+import textLanguageDiagramXML from './CustomProperties.text-language.bpmn';
+import textLanguageElementTemplates from './CustomProperties.text-language.json';
+
+import placeholderDiagramXML from './CustomProperties.placeholder.bpmn';
+import placeholderElementTemplates from './CustomProperties.placeholder.json';
+
+import bpmnExpressionXML from './CustomProperties.bpmn-expression.bpmn';
+import bpmnExpressionTemplates from '../fixtures/completion-condition.json';
+
+import complexPropertyTemplates from './CustomProperties.complex-property.json';
+
+import timerDiagramXML from './CustomProperties.timer.bpmn';
+import timerElementTemplates from './CustomProperties.timer.json';
+
+
+describe('provider/cloud-element-templates - CustomProperties', function() {
+
+  let container;
+
+  beforeEach(function() {
+    container = TestContainer.get(this);
+  });
+
+  beforeEach(bootstrapPropertiesPanel(diagramXML, {
+    container,
+    debounceInput: false,
+    elementTemplates: templates,
+    moddleExtensions: {
+      kunpeng: kunpengModdlePackage
+    },
+    modules: [
+      BpmnPropertiesPanel,
+      coreModule,
+      elementTemplatesModule,
+      modelingModule
+    ]
+  }));
+
+
+  describe('property', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('Task_1');
+
+      // then
+      const entry = findEntry('custom-entry-my.example.template-0', container);
+
+      expect(entry).to.exist;
+
+      const input = findInput('text', entry);
+
+      expect(input).to.exist;
+      expect(input.value).to.equal('My task');
+    });
+
+
+    it('should change', async function() {
+
+      // given
+      const task = await expectSelected('Task_1'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-my.example.template-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo');
+
+      // then
+      expect(input.value).to.equal('foo');
+      expect(businessObject.get('name')).to.equal('foo');
+    });
+
+
+    it('should change String property to empty string when erased', async function() {
+
+      // given
+      const task = await expectSelected('Task_1'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-my.example.template-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      expect(input.value).to.eql('');
+      expect(businessObject.get('name')).to.be.eql('');
+    });
+
+  });
+
+
+  describe('property (bpmn:Expression)', function() {
+
+    beforeEach(bootstrapPropertiesPanel(bpmnExpressionXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: bpmnExpressionTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should display property of type bpmn:Expression', async function() {
+
+      // when
+      await expectSelected('AdHocSubProcess');
+
+      // then
+      const entry = findEntry('custom-entry-completion-condition-0', container);
+
+      expect(entry).to.exist;
+      expectEditor(entry, 'foo');
+    });
+
+
+    it('should change property of type bpmn:Expression and use bpmn:FormalExpression', async function() {
+
+      // given
+      const task = await expectSelected('AdHocSubProcess'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-completion-condition-0', container),
+            editor = findEditor(entry);
+
+      await act(() => {
+        editor.textContent = 'bar';
+      });
+
+      // then
+      const expression = businessObject.get('completionCondition');
+
+      expect(expression).to.exist;
+      expect(is(expression, 'bpmn:FormalExpression')).to.be.true;
+      expect(expression.get('body')).to.equal('=bar');
+    });
+
+
+    it('should re-use existing bpmn:FormalExpression', async function() {
+
+      // given
+      const task = await expectSelected('AdHocSubProcess'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const initialExpression = businessObject.get('completionCondition');
+      const entry = findEntry('custom-entry-completion-condition-0', container),
+            editor = findEditor(entry);
+
+      await act(() => {
+        editor.textContent = 'bar';
+      });
+
+      // then
+      const expression = businessObject.get('completionCondition');
+
+      expect(expression === initialExpression, 'should reuse expression').to.be.true;
+    });
+
+
+    it('should create bpmn:FormalExpression if non-existing', inject(async function(elementTemplates) {
+
+      // given
+      const task = await expectSelected('AdHocSubProcess_empty'),
+            businessObject = getBusinessObject(task);
+
+      await act(() => {
+        elementTemplates.applyTemplate(task, bpmnExpressionTemplates[0]);
+      });
+
+      // when
+      const entry = findEntry('custom-entry-completion-condition-0', container),
+            editor = findEditor(entry);
+
+      await act(() => {
+        editor.textContent = 'bar';
+      });
+
+      // then
+      const expression = businessObject.get('completionCondition');
+
+      expect(expression).to.exist;
+      expect(is(expression, 'bpmn:FormalExpression')).to.be.true;
+      expect(expression.get('body')).to.equal('=bar');
+    }));
+  });
+
+
+  describe('property (complex)', function() {
+
+    let errorHandler;
+
+    beforeEach(function() {
+      errorHandler = window.onerror;
+    });
+
+    afterEach(function() {
+      window.onerror = errorHandler;
+    });
+
+    it('should fail to change', inject(async function(elementTemplates) {
+
+      // given
+      const task = await expectSelected('Task_1');
+      elementTemplates.set(complexPropertyTemplates);
+      await act(() => {
+        elementTemplates.applyTemplate(task, complexPropertyTemplates[0]);
+      });
+      const initialValue = task.businessObject.get('extensionElements');
+      const entry = findEntry('custom-entry-my.custom.ComplexProperty-0', container),
+            input = findInput('text', entry);
+
+      // input event causes an uncaught error which cannot be caught in try/catch
+      const changeSpy = spy();
+      window.onerror = changeSpy;
+
+      // when
+      changeInput(input, 'foo');
+
+      // then
+      expect(changeSpy).to.have.been.calledOnce;
+      expect(task.businessObject.get('extensionElements')).to.equal(initialValue);
+    }));
+  });
+
+
+  describe('property (non-existing)', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('nonexisting');
+
+      // then
+      const entry = findEntry('custom-entry-my.example.non-existing-property-0', container);
+
+      expect(entry).to.exist;
+
+      const input = findInput('text', entry);
+
+      expect(input).to.exist;
+      expect(input.value).to.equal('value');
+    });
+
+
+    it('should change', async function() {
+
+      // given
+      const task = await expectSelected('nonexisting'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-my.example.non-existing-property-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo');
+
+      // then
+      expect(input.value).to.equal('foo');
+      expect(businessObject.get('test')).to.equal('foo');
+    });
+
+
+    it('should change String property to empty string when erased', async function() {
+
+      // given
+      const task = await expectSelected('nonexisting'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-my.example.non-existing-property-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      expect(input.value).to.eql('');
+      expect(businessObject.get('test')).to.be.eql('');
+    });
+  });
+
+
+  describe('kunpeng:taskDefinition:type', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('RestTask');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-0', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('task-type');
+    });
+
+
+    it('should NOT display (type=hidden)', async function() {
+
+      // when
+      await expectSelected('RestTask_hidden');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-hidden-0', container);
+
+      expect(entry).to.not.exist;
+    });
+
+
+    it('should change, setting kunpeng:TaskDefinition#type (plain)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const taskDefinition = findExtension(businessObject, 'kunpeng:TaskDefinition');
+
+      expect(taskDefinition).to.exist;
+      expect(taskDefinition).to.jsonEqual({
+        $type: 'kunpeng:TaskDefinition',
+        type: 'foo@bar'
+      });
+    }));
+
+
+    it('should change, creating kunpeng:TaskDefinition if non-existing', async function() {
+
+      // given
+      const task = await expectSelected('RestTask_noData'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const taskDefinition = findExtension(businessObject, 'kunpeng:TaskDefinition');
+
+      // then
+      expect(taskDefinition).to.exist;
+      expect(taskDefinition).to.jsonEqual({
+        $type: 'kunpeng:TaskDefinition',
+        type: 'foo@bar'
+      });
+    });
+
+  });
+
+
+  describe('kunpeng:AdHoc', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('AdHocSubProcess_1');
+
+      // then
+      const outputCollectionEntry = findEntry('custom-entry-com.camunda.example.AdHoc-1', container),
+            outputCollectionInput = findInput('text', outputCollectionEntry);
+
+      const outputElementEntry = findEntry('custom-entry-com.camunda.example.AdHoc-2', container),
+            outputElementInput = findEditor(outputElementEntry);
+
+      expect(outputCollectionEntry).to.exist;
+      expect(outputCollectionInput).to.exist;
+      expect(outputCollectionInput.value).to.equal('toolCallResults');
+
+      expect(outputElementEntry).to.exist;
+      expect(outputElementInput).to.exist;
+      expect(outputElementInput.textContent).to.equal('element.result');
+    });
+
+
+    it('should change, setting `outputCollection`', async function() {
+
+      // given
+      const element = await expectSelected('AdHocSubProcess_1'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-com.camunda.example.AdHoc-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'newOutputCollection');
+
+      // then
+      const adHoc = findExtension(businessObject, 'kunpeng:AdHoc');
+      expect(adHoc).to.exist;
+      expect(adHoc).to.have.property('outputCollection', 'newOutputCollection');
+    });
+
+
+    it('should change, setting `outputElement`', async function() {
+
+      // given
+      const element = await expectSelected('AdHocSubProcess_1'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-com.camunda.example.AdHoc-2', container),
+            editor = findEditor(entry);
+
+      await setEditorValue(
+        editor,
+        '{ result: element.result }'
+      );
+
+      // then
+      const adHoc = findExtension(businessObject, 'kunpeng:AdHoc');
+      expect(adHoc).to.exist;
+      expect(adHoc).to.have.property('outputElement', '={ result: element.result }');
+    });
+
+
+    it('should change, creating kunpeng:AdHoc if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const element = await expectSelected('AdHocSubProcess_empty'),
+            businessObject = getBusinessObject(element);
+      const template = templates.find(t => t.id === 'com.camunda.example.AdHoc');
+      const subProcess = elementRegistry.get('AdHocSubProcess_empty');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(subProcess, template);
+      });
+
+      const outputCollectionEntry = findEntry('custom-entry-com.camunda.example.AdHoc-1', container),
+            outputCollectionInput = findInput('text', outputCollectionEntry);
+
+      const outputElementEntry = findEntry('custom-entry-com.camunda.example.AdHoc-2', container),
+            outputElementInput = findEditor(outputElementEntry);
+
+      // then
+      const adHoc = findExtension(businessObject, 'kunpeng:AdHoc');
+
+      expect(outputCollectionEntry).to.exist;
+      expect(outputCollectionInput).to.exist;
+      expect(outputCollectionInput.value).to.equal('toolCallResults');
+
+      expect(outputElementEntry).to.exist;
+      expect(outputElementInput).to.exist;
+      expect(outputElementInput.textContent).to.equal('element.result');
+
+      expect(adHoc).to.exist;
+      expect(adHoc).to.have.property('outputCollection', 'toolCallResults');
+      expect(adHoc).to.have.property('outputElement', '=element.result');
+    }));
+
+  });
+
+
+  describe('kunpeng:taskDefinition', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('TaskDefinition');
+
+      // then
+      const entry = findEntry('custom-entry-taskDefinitionTemplate-0', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('http');
+    });
+
+
+    it('should change value', async function() {
+
+      // given
+      const task = await expectSelected('TaskDefinition'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-taskDefinitionTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const taskDefinition = findExtension(businessObject, 'kunpeng:TaskDefinition');
+
+      // then
+      expect(taskDefinition).to.exist;
+      expect(taskDefinition).to.jsonEqual({
+        $type: 'kunpeng:TaskDefinition',
+        type: 'foo@bar',
+        retries: '5'
+      });
+    });
+
+  });
+
+
+  describe('kunpeng:input', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('RestTask');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-3', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('input-1-source');
+    });
+
+
+    it('should display empty (optional)', async function() {
+
+      // when
+      await expectSelected('RestTask_optional');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-optional-2', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('');
+    });
+
+
+    it('should change, setting kunpeng:Input (plain)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-3', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            inputParameter = findInputParameter(ioMapping, { name: 'input-1-target' });
+
+      expect(inputParameter).to.exist;
+      expect(inputParameter).to.jsonEqual({
+        $type: 'kunpeng:Input',
+        source: 'foo@bar',
+        target: 'input-1-target'
+      });
+    }));
+
+
+    it('should change, creating kunpeng:Input if non-existing', async function() {
+
+      // given
+      const task = await expectSelected('RestTask_noData'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-3', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            inputParameter = findInputParameter(ioMapping, { name: 'input-1-target' });
+
+      // then
+      expect(inputParameter).to.exist;
+      expect(inputParameter).to.jsonEqual({
+        $type: 'kunpeng:Input',
+        source: 'foo@bar',
+        target: 'input-1-target'
+      });
+    });
+
+
+    it('should keep input (non optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask_optional'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-optional-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            inputParameter = findInputParameter(ioMapping, { name: 'input-1-target' });
+
+      expect(inputParameter).to.exist;
+      expect(inputParameter).to.jsonEqual({
+        $type: 'kunpeng:Input',
+        source: undefined,
+        target: 'input-1-target'
+      });
+    }));
+
+
+    it('should not keep input (optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask_optional'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-optional-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            inputParameter = findInputParameter(ioMapping, { name: 'input-2-target' });
+
+      expect(inputParameter).to.not.exist;
+    }));
+
+  });
+
+
+  describe('kunpeng:output', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('RestTask');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-5', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('output-1-target');
+    });
+
+
+    it('should display empty (optional)', async function() {
+
+      // when
+      await expectSelected('RestTask_optional');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-optional-5', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('');
+    });
+
+
+    it('should change, setting kunpeng:Output (plain)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-5', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            outputParameter = findOutputParameter(ioMapping, { source: 'output-1-source' });
+
+      expect(outputParameter).to.exist;
+      expect(outputParameter).to.jsonEqual({
+        $type: 'kunpeng:Output',
+        source: 'output-1-source',
+        target: 'foo@bar'
+      });
+    }));
+
+
+    it('should change, creating kunpeng:Output if non-existing', async function() {
+
+      // given
+      const task = await expectSelected('RestTask_noData'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-5', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            outputParameter = findOutputParameter(ioMapping, { source: 'output-1-source' });
+
+      // then
+      expect(outputParameter).to.exist;
+      expect(outputParameter).to.jsonEqual({
+        $type: 'kunpeng:Output',
+        source: 'output-1-source',
+        target: 'foo@bar'
+      });
+    });
+
+
+    it('should keep output (non optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask_optional'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-optional-3', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            outputParameter = findOutputParameter(ioMapping, { source: 'output-1-source' });
+
+      expect(outputParameter).to.exist;
+      expect(outputParameter).to.jsonEqual({
+        $type: 'kunpeng:Output',
+        source: 'output-1-source',
+        target: undefined
+      });
+    }));
+
+
+    it('should NOT keep output (optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask_optional'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-optional-4', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const ioMapping = findExtension(businessObject, 'kunpeng:IoMapping'),
+            outputParameter = findOutputParameter(ioMapping, { source: 'output-2-source' });
+
+      expect(outputParameter).to.not.exist;
+    }));
+
+  });
+
+
+  describe('kunpeng:taskHeader', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('RestTask');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('header-1-value');
+    });
+
+
+    it('should change, setting kunpeng:Header (plain)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const additionDynamics = findExtension(businessObject, 'kunpeng:additionDynamics'),
+            header = findTaskHeader(additionDynamics, { key: 'header-1-key' });
+
+      expect(header).to.exist;
+      expect(header).to.jsonEqual({
+        $type: 'kunpeng:Header',
+        key: 'header-1-key',
+        value: 'foo@bar'
+      });
+    }));
+
+
+    it('should change, creating kunpeng:Header if non-existing', async function() {
+
+      // given
+      const task = await expectSelected('RestTask_noData'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'foo@bar');
+
+      // then
+      const additionDynamics = findExtension(businessObject, 'kunpeng:additionDynamics'),
+            header = findTaskHeader(additionDynamics, { key: 'header-1-key' });
+
+      // then
+      expect(header).to.exist;
+      expect(header).to.jsonEqual({
+        $type: 'kunpeng:Header',
+        key: 'header-1-key',
+        value: 'foo@bar'
+      });
+    });
+
+
+    it('should remove if empty value', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const additionDynamics = findExtension(businessObject, 'kunpeng:additionDynamics'),
+            header = findTaskHeader(additionDynamics, { key: 'header-1-key' });
+
+      expect(header).not.to.exist;
+    }));
+
+  });
+
+
+  describe('kunpeng:property', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('RestTask');
+
+      // then
+      const entry = findEntry('custom-entry-com.example.rest-7', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('property-1-value');
+    });
+
+
+    it('should change, setting kunpeng:Property (plain)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-7', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'property-1-changed-value');
+
+      // then
+      const zeebeProperties = findExtension(businessObject, 'kunpeng:Properties'),
+            zeebeProperty = findZeebeProperty(zeebeProperties, { name: 'property-1-name' });
+
+      expect(zeebeProperty).to.exist;
+      expect(zeebeProperty).to.jsonEqual({
+        $type: 'kunpeng:Property',
+        name: 'property-1-name',
+        value: 'property-1-changed-value'
+      });
+    }));
+
+
+    it('should change, creating kunpeng:Property if non-existing', async function() {
+
+      // given
+      const task = await expectSelected('RestTask_noData'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-7', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'property-1-changed-value');
+
+      // then
+      const zeebeProperties = findExtension(businessObject, 'kunpeng:Properties'),
+            zeebeProperty = findZeebeProperty(zeebeProperties, { name: 'property-1-name' });
+
+      // then
+      expect(zeebeProperty).to.exist;
+      expect(zeebeProperty).to.jsonEqual({
+        $type: 'kunpeng:Property',
+        name: 'property-1-name',
+        value: 'property-1-changed-value'
+      });
+    });
+
+
+    it('should keep property (non optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-7', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const zeebeProperties = findExtension(businessObject, 'kunpeng:Properties'),
+            zeebeProperty = findZeebeProperty(zeebeProperties, { name: 'property-1-name' });
+
+      expect(zeebeProperty).to.exist;
+      expect(zeebeProperty).to.jsonEqual({
+        $type: 'kunpeng:Property',
+        name: 'property-1-name',
+        value: ''
+      });
+    }));
+
+
+    it('should not keep property (optional)', inject(async function() {
+
+      // given
+      const task = await expectSelected('RestTask_optional'),
+            businessObject = getBusinessObject(task);
+
+      // when
+      const entry = findEntry('custom-entry-com.example.rest-optional-8', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const zeebeProperties = findExtension(businessObject, 'kunpeng:Properties'),
+            zeebeProperty = findZeebeProperty(zeebeProperties, { name: 'property-3-name' });
+
+      // then
+      expect(zeebeProperty).not.to.exist;
+    }));
+
+  });
+
+
+  describe('bpmn:Message#property', function() {
+
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('MessageEvent');
+
+      // then
+      const entry = findEntry('custom-entry-messageEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('name');
+    });
+
+
+    it('should NOT display (type=hidden)', async function() {
+
+      // when
+      await expectSelected('MessageEvent_hidden');
+
+      // then
+      const entry = findEntry('custom-entry-messageEventTemplate_hidden-0', container);
+
+      expect(entry).to.not.exist;
+    });
+
+
+    it('should change, setting bpmn:Message#property (plain)', async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulMessageName');
+
+      // then
+      const message = findMessage(businessObject);
+
+      expect(message).to.exist;
+      expect(message).to.have.property('name', 'meaningfulMessageName');
+    });
+
+
+    it('should change, creating bpmn:Message if non-existing', async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent_noData'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulMessageName');
+
+      // then
+      const message = findMessage(businessObject);
+
+      // then
+      expect(message).to.exist;
+      expect(message).to.have.property('name', 'meaningfulMessageName');
+    });
+
+
+    it('should NOT remove bpmn:Message when changed to empty value', inject(async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const message = findMessage(businessObject);
+
+      expect(message).to.exist;
+      expect(message).to.have.property('name', '');
+    }));
+
+  });
+
+
+  describe('bpmn:Message#kunpeng:subscription#property', function() {
+
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('MessageEvent');
+
+      // then
+      const entry = findEntry('custom-entry-messageEventTemplate-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('correlationKey');
+    });
+
+
+    it('should NOT display (type=hidden)', async function() {
+
+      // when
+      await expectSelected('MessageEvent_hidden');
+
+      // then
+      const entry = findEntry('custom-entry-messageEventTemplate_hidden-1', container);
+
+      expect(entry).to.not.exist;
+    });
+
+
+    it('should change, setting kunpeng:subscription#property (plain)', async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulCorrelationKey');
+
+      // then
+      const message = findMessage(businessObject);
+      const subscription = findZeebeSubscription(message);
+
+      expect(subscription).to.exist;
+      expect(subscription).to.have.property('correlationKey', 'meaningfulCorrelationKey');
+    });
+
+
+    it('should change, creating bpmn:Message if non-existing', async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent_noData'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulCorrelationKey');
+
+      // then
+      const message = findMessage(businessObject);
+      const subscription = findZeebeSubscription(message);
+
+      // then
+      expect(subscription).to.exist;
+      expect(subscription).to.have.property('correlationKey', 'meaningfulCorrelationKey');
+    });
+
+
+    it('should NOT remove kunpeng:subscription when changed to empty value', inject(async function() {
+
+      // given
+      const event = await expectSelected('MessageEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-messageEventTemplate-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const message = findMessage(businessObject);
+      const subscription = findZeebeSubscription(message);
+
+      expect(subscription).to.exist;
+      expect(subscription).to.have.property('correlationKey', '');
+    }));
+
+  });
+
+
+  describe('bpmn:Signal#property', function() {
+
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('SignalEvent');
+
+      // then
+      const entry = findEntry('custom-entry-signalEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('name');
+    });
+
+
+    it('should NOT display (type=hidden)', async function() {
+
+      // when
+      await expectSelected('SignalEvent_hidden');
+
+      // then
+      const entry = findEntry('custom-entry-signalEventTemplate_hidden-0', container);
+
+      expect(entry).to.not.exist;
+    });
+
+
+    it('should change, setting bpmn:Signal#property (plain)', async function() {
+
+      // given
+      const event = await expectSelected('SignalEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-signalEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulSignalName');
+
+      // then
+      const signal = findSignal(businessObject);
+
+      expect(signal).to.exist;
+      expect(signal).to.have.property('name', 'meaningfulSignalName');
+    });
+
+
+    it('should change, creating bpmn:Signal if non-existing', async function() {
+
+      // given
+      const event = await expectSelected('SignalEvent_noData'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-signalEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'meaningfulSignalName');
+
+      // then
+      const signal = findSignal(businessObject);
+
+      // then
+      expect(signal).to.exist;
+      expect(signal).to.have.property('name', 'meaningfulSignalName');
+    });
+
+
+    it('should NOT remove bpmn:Signal when changed to empty value', inject(async function() {
+
+      // given
+      const event = await expectSelected('SignalEvent'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-signalEventTemplate-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const signal = findSignal(businessObject);
+
+      expect(signal).to.exist;
+      expect(signal).to.have.property('name', '');
+    }));
+
+  });
+
+
+  describe('kunpeng:calledElement', function() {
+
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('CalledElement');
+
+      // then
+      const entry = findEntry('custom-entry-calledElement-0', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('paymentProcess');
+    });
+
+
+    it('should change, setting kunpeng:calledElement', async function() {
+
+      // given
+      const element = await expectSelected('CalledElement'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-calledElement-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'anotherProcessId');
+
+      // then
+      const calledElement = findExtension(businessObject, 'kunpeng:CalledElement');
+
+      expect(calledElement).to.exist;
+      expect(calledElement).to.have.property('processId', 'anotherProcessId');
+    });
+
+
+    it('should change, creating kunpeng:calledElement if non-existing', async function() {
+
+      // given
+      const element = await expectSelected('CalledElement_empty'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-calledElement-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'Called Element');
+
+      // then
+      const calledElement = findExtension(businessObject, 'kunpeng:CalledElement');
+
+      expect(calledElement).to.exist;
+      expect(calledElement).to.have.property('processId', 'paymentProcess');
+    });
+
+
+    it('should NOT remove kunpeng:calledElement when changed to empty value', inject(async function() {
+
+      // given
+      const event = await expectSelected('CalledElement'),
+            businessObject = getBusinessObject(event);
+
+      // when
+      const entry = findEntry('custom-entry-calledElement-0', container),
+            input = findInput('text', entry);
+
+      changeInput(input, '');
+
+      // then
+      const calledElement = findExtension(businessObject, 'kunpeng:CalledElement');
+
+      expect(calledElement).to.exist;
+      expect(calledElement).to.have.property('processId', '');
+    }));
+  });
+
+
+  describe('kunpeng:CalledDecision', function() {
+    it('should display', async function() {
+
+      // when
+      await expectSelected('BusinessRuleTask_called_decision');
+
+      // then
+      const entry = findEntry('custom-entry-calledDecision-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aResultVariableName');
+    });
+
+    it('should change, setting `resultVariable`', async function() {
+
+      // given
+      const element = await expectSelected('BusinessRuleTask_called_decision'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-calledDecision-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'aNewResultVariableName');
+
+      // then
+      const calledDecision = findExtension(businessObject, 'kunpeng:CalledDecision');
+      expect(calledDecision).to.exist;
+      expect(calledDecision).to.have.property('resultVariable', 'aNewResultVariableName');
+
+    });
+
+    it('should change, creating kunpeng:CalledDecision if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const element = await expectSelected('BusinessRuleTask_empty'),
+            businessObject = getBusinessObject(element);
+      const template = templates.find(t => t.id === 'calledDecision');
+      const task = elementRegistry.get('BusinessRuleTask_empty');
+
+
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+
+      const entry = findEntry('custom-entry-calledDecision-1', container),
+            input = findInput('text', entry);
+
+      // then
+      const calledDecision = findExtension(businessObject, 'kunpeng:CalledDecision');
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aResultVariableName');
+      expect(calledDecision).to.exist;
+      expect(calledDecision).to.have.property('resultVariable', 'aResultVariableName');
+      expect(calledDecision).to.have.property('decisionId', 'aReusableRule');
+    })
+    );
+
+
+  });
+
+
+  describe('kunpeng:formDefinition', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('CamundaUserTask');
+
+      // then
+      const entry = findEntry('custom-entry-form-definition-template-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aFormId');
+    });
+
+
+    it('should change, setting `formId`', async function() {
+
+      // given
+      const element = await expectSelected('CamundaUserTask'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-form-definition-template-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'aNewFormId');
+
+      // then
+      const formDefinition = findExtension(businessObject, 'kunpeng:FormDefinition');
+      expect(formDefinition).to.exist;
+      expect(formDefinition).to.have.property('formId', 'aNewFormId');
+    });
+
+
+    it('should change, creating kunpeng:FormDefinition if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const template = templates.find(t => t.id === 'form-definition-template');
+      let task = elementRegistry.get('Task_1');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+
+      const entry = findEntry('custom-entry-form-definition-template-1', container),
+            input = findInput('text', entry);
+
+      task = elementRegistry.get('Task_1');
+      const formDefinition = findExtension(getBusinessObject(task), 'kunpeng:FormDefinition');
+
+      // then
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aFormId');
+      expect(formDefinition).to.exist;
+      expect(formDefinition).to.have.property('formId', 'aFormId');
+    }));
+  });
+
+
+  describe('kunpeng:script', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('ScriptTask_script');
+
+      // then
+      const entry = findEntry('custom-entry-script-task-script-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aResultVariable');
+    });
+
+
+    it('should change, setting `resultVariable`', async function() {
+
+      // given
+      const element = await expectSelected('ScriptTask_script'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-script-task-script-1', container),
+            input = findInput('text', entry);
+
+      changeInput(input, 'aNewResultVariable');
+
+      // then
+      const script = findExtension(businessObject, 'kunpeng:Script');
+      expect(script).to.exist;
+      expect(script).to.have.property('resultVariable', 'aNewResultVariable');
+
+    });
+
+
+    it('should change, creating kunpeng:script if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const element = await expectSelected('ScriptTask_taskDefinition'),
+            businessObject = getBusinessObject(element);
+      const template = templates.find(t => t.id === 'script-task-script');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(element, template);
+      });
+
+
+      const entry = findEntry('custom-entry-script-task-script-1', container),
+            input = findInput('text', entry);
+
+
+      // then
+      const script = findExtension(businessObject, 'kunpeng:Script');
+
+      expect(input.value).to.equal('aResultVariable');
+      expect(script).to.exist;
+      expect(script).to.have.property('resultVariable', 'aResultVariable');
+      expect(script).to.have.property('expression', '= 1 + 1');
+    }));
+
+  });
+
+
+  describe('kunpeng:assignmentDefinition', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('UserTask_assignment');
+
+      // then
+      let entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-1', container),
+          input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('anAssignee');
+
+      entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-2', container);
+      input = findTextarea(entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aCandidateGroup, anotherCandidateGroup');
+
+      entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-3', container);
+      input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('aCandidateUser');
+    });
+
+
+    it('should change, setting properties`', async function() {
+
+      // given
+      const element = await expectSelected('UserTask_assignment'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      let entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-1', container),
+          input = findInput('text', entry);
+
+      changeInput(input, 'aNewAssignee');
+
+      entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-2', container);
+      input = findTextarea(entry);
+
+      changeInput(input, 'aNewCandidateGroup');
+
+      entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-3', container);
+      input = findInput('text', entry);
+
+      changeInput(input, 'aNewCandidateUser');
+
+      // then
+      const assignmentDefinition = findExtension(businessObject, 'kunpeng:AssignmentDefinition');
+      expect(assignmentDefinition).to.have.property('assignee', 'aNewAssignee');
+      expect(assignmentDefinition).to.have.property('candidateGroups', 'aNewCandidateGroup');
+      expect(assignmentDefinition).to.have.property('candidateUsers', 'aNewCandidateUser');
+    });
+
+
+    it('should change, creating kunpeng:assignmentDefinition if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const template = templates.find(t => t.id === 'com.camunda.example.AssignmentDefinition');
+      let task = elementRegistry.get('Task_1');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+
+      // then
+      task = elementRegistry.get('Task_1');
+      const assignmentDefinition = findExtension(getBusinessObject(task), 'kunpeng:AssignmentDefinition');
+
+      const entry = findEntry('custom-entry-com.camunda.example.AssignmentDefinition-1', container),
+            input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('anAssignee');
+      expect(assignmentDefinition).to.have.property('assignee', 'anAssignee');
+      expect(assignmentDefinition).to.have.property('candidateGroups', 'aCandidateGroup, anotherCandidateGroup');
+      expect(assignmentDefinition).to.have.property('candidateUsers', 'aCandidateUser');
+    }));
+  });
+
+
+  describe('kunpeng:priorityDefinition', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('UserTask_priority');
+
+      // then
+      const entry = findEntry('custom-entry-com.camunda.example.PriorityDefinition-1', container),
+            input = findInput('number', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('10');
+    });
+
+
+    it('should change, setting priority value', async function() {
+
+      // given
+      const element = await expectSelected('UserTask_priority'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const entry = findEntry('custom-entry-com.camunda.example.PriorityDefinition-1', container),
+            input = findInput('number', entry);
+
+      changeInput(input, '20');
+
+      // then
+      expect(input.value).to.equal('20');
+
+      const priorityDefinition = findExtension(businessObject, 'kunpeng:PriorityDefinition');
+      expect(priorityDefinition).to.exist;
+      expect(priorityDefinition).to.have.property('priority', 20);
+    });
+
+
+    it('should change, creating kunpeng:priorityDefinition if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const template = templates.find(t => t.id === 'com.camunda.example.PriorityDefinition');
+      let task = elementRegistry.get('Task_1');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+
+      // then
+      task = elementRegistry.get('Task_1');
+      const priorityDefinition = findExtension(getBusinessObject(task), 'kunpeng:PriorityDefinition');
+
+      const entry = findEntry('custom-entry-com.camunda.example.PriorityDefinition-1', container),
+            input = findInput('number', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('10');
+      expect(priorityDefinition).to.have.property('priority', 10);
+    }));
+
+  });
+
+
+  describe('kunpeng:taskSchedule', function() {
+
+    it('should display', async function() {
+
+      // when
+      await expectSelected('UserTask_schedule');
+
+      // then
+      const dueEntry = findEntry('custom-entry-com.camunda.example.TaskSchedule-1', container),
+            dueInput = findEditor(dueEntry);
+
+
+      const followUpEntry = findEntry('custom-entry-com.camunda.example.TaskSchedule-2', container),
+            followUpInput = findInput('text', followUpEntry);
+
+      expect(dueEntry).to.exist;
+      expect(dueInput).to.exist;
+      expect(dueInput.textContent).to.equal('someDate');
+
+      expect(followUpEntry).to.exist;
+      expect(followUpInput).to.exist;
+      expect(followUpInput.value).to.equal('2023-02-05T12:00:00Z');
+    });
+
+
+    it('should change, setting followUpDate value', async function() {
+
+      // given
+      const element = await expectSelected('UserTask_schedule'),
+            businessObject = getBusinessObject(element);
+
+      // when
+      const followUpEntry = findEntry('custom-entry-com.camunda.example.TaskSchedule-2', container),
+            followUpInput = findInput('text', followUpEntry);
+
+      changeInput(followUpInput, '2023-03-10T15:00:00Z');
+
+      // then
+      expect(followUpInput.value).to.equal('2023-03-10T15:00:00Z');
+
+      const taskSchedule = findExtension(businessObject, 'kunpeng:TaskSchedule');
+      expect(taskSchedule).to.exist;
+      expect(taskSchedule).to.have.property('followUpDate', '2023-03-10T15:00:00Z');
+    });
+
+
+    it('should change, creating kunpeng:taskSchedule if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const template = templates.find(t => t.id === 'com.camunda.example.TaskSchedule');
+      let task = elementRegistry.get('Task_1');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+
+      // then
+      task = elementRegistry.get('Task_1');
+      const taskSchedule = findExtension(getBusinessObject(task), 'kunpeng:TaskSchedule');
+
+      const dueEntry = findEntry('custom-entry-com.camunda.example.TaskSchedule-1', container),
+            dueInput = findEditor(dueEntry);
+
+      const followUpEntry = findEntry('custom-entry-com.camunda.example.TaskSchedule-2', container),
+            followUpInput = findInput('text', followUpEntry);
+
+      expect(dueEntry).to.exist;
+      expect(dueInput).to.exist;
+      expect(dueInput.textContent).to.equal('someDate');
+
+      expect(followUpEntry).to.exist;
+      expect(followUpInput).to.exist;
+      expect(followUpInput.value).to.equal('2023-02-05T12:00:00Z');
+
+      expect(taskSchedule).to.have.property('dueDate', '=someDate');
+      expect(taskSchedule).to.have.property('followUpDate', '2023-02-05T12:00:00Z');
+    }));
+
+  });
+
+
+  describe('bpmn:timerEventDefinition#property', function() {
+
+    beforeEach(bootstrapPropertiesPanel(timerDiagramXML, {
+      container,
+      debounceInput: false,
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ],
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      elementTemplates: timerElementTemplates
+    }));
+
+
+    it('should apply timer template and change timer date value', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('TimerStartEvent');
+      const template = timerElementTemplates.find(t => t.id === 'timer-start-date');
+      expect(template).to.exist;
+
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      const updatedEvent = elementRegistry.get('TimerStartEvent');
+      const bo = getBusinessObject(updatedEvent);
+      expect(bo.get('kunpeng:modelerTemplate')).to.equal('timer-start-date');
+
+      const entry = findEntry('custom-entry-timer-start-date-0', container);
+      expect(entry).to.exist;
+
+      const editor = findEditor(entry);
+      expect(editor).to.exist;
+      expect(editor.textContent).to.equal('now() + duration("PT1H")');
+
+      // when
+      await setEditorValue(editor, 'now() + duration("PT2H")');
+
+      // then
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+      const timeDate = timerEventDefinition.get('timeDate');
+      expect(timeDate).to.exist;
+      expect(timeDate.get('body')).to.equal('=now() + duration("PT2H")');
+    }));
+
+
+    it('should apply timer template to boundary event and change value', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('TimerBoundaryEvent');
+      const template = timerElementTemplates.find(t => t.id === 'timer-boundary-cycle');
+
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      const updatedEvent = elementRegistry.get('TimerBoundaryEvent');
+      const bo = getBusinessObject(updatedEvent);
+      expect(bo.get('kunpeng:modelerTemplate')).to.equal('timer-boundary-cycle');
+      expect(bo.get('cancelActivity')).to.equal(false);
+
+      const entry = findEntry('custom-entry-timer-boundary-cycle-0', container);
+      const input = findInput('text', entry);
+      expect(input.value).to.equal('R3/PT1H');
+
+      // when
+      changeInput(input, 'R5/PT30M');
+
+      // then - moddle element should be updated
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+      const timeCycle = timerEventDefinition.get('timeCycle');
+      expect(timeCycle.get('body')).to.equal('R5/PT30M');
+    }));
+
+
+    it('should apply timer duration template to event subprocess start', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('EventSubProcessTimerStart');
+      const template = timerElementTemplates.find(t => t.id === 'timer-subprocess-duration');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      // then
+      const updatedEvent = elementRegistry.get('EventSubProcessTimerStart');
+      const bo = getBusinessObject(updatedEvent);
+      expect(bo.get('kunpeng:modelerTemplate')).to.equal('timer-subprocess-duration');
+
+      // find and change the timer input
+      const entry = findEntry('custom-entry-timer-subprocess-duration-0', container);
+      const input = findInput('text', entry);
+      expect(input.value).to.equal('PT10M');
+
+      changeInput(input, 'PT1H');
+
+      // then - moddle element should be updated
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+      const timeDuration = timerEventDefinition.get('timeDuration');
+      expect(timeDuration.get('body')).to.equal('PT1H');
+    }));
+
+
+    it('should change, creating timeDate if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('IntermediateCatchEvent_Blank');
+      const template = timerElementTemplates.find(t => t.id === 'timer-catch-date');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      // then
+      const updatedEvent = elementRegistry.get('IntermediateCatchEvent_Blank');
+      const bo = getBusinessObject(updatedEvent);
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+
+      const entry = findEntry('custom-entry-timer-catch-date-0', container);
+      const input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('2025-12-25T10:00:00Z');
+
+      const timeDate = timerEventDefinition.get('timeDate');
+      expect(timeDate).to.exist;
+      expect(timeDate.get('body')).to.equal('2025-12-25T10:00:00Z');
+    }));
+
+
+    it('should change, creating timeCycle if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('StartEvent_Blank');
+      const template = timerElementTemplates.find(t => t.id === 'timer-start-cycle');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      // then
+      const updatedEvent = elementRegistry.get('StartEvent_Blank');
+      const bo = getBusinessObject(updatedEvent);
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+
+      const entry = findEntry('custom-entry-timer-start-cycle-0', container);
+      const input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('R/PT5M');
+
+      const timeCycle = timerEventDefinition.get('timeCycle');
+      expect(timeCycle).to.exist;
+      expect(timeCycle.get('body')).to.equal('R/PT5M');
+    }));
+
+
+    it('should change, creating timeDuration if non-existing', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('IntermediateCatchEvent_Blank');
+      const template = timerElementTemplates.find(t => t.id === 'timer-catch-duration');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      // then
+      const updatedEvent = elementRegistry.get('IntermediateCatchEvent_Blank');
+      const bo = getBusinessObject(updatedEvent);
+      const timerEventDefinition = bo.get('eventDefinitions')[0];
+
+      const entry = findEntry('custom-entry-timer-catch-duration-0', container);
+      const input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('PT30M');
+
+      const timeDuration = timerEventDefinition.get('timeDuration');
+      expect(timeDuration).to.exist;
+      expect(timeDuration.get('body')).to.equal('PT30M');
+    }));
+
+
+    it('should change, creating timeDate if non-existing and other template is applied', inject(async function(elementTemplates, elementRegistry) {
+
+      // given
+      const event = await expectSelected('Templated_Signal_Event');
+      const template = timerElementTemplates.find(t => t.id === 'timer-catch-date');
+
+      // when
+      await act(() => {
+        elementTemplates.applyTemplate(event, template);
+      });
+
+      // then
+      const updatedEvent = elementRegistry.get('Templated_Signal_Event');
+      const updatedBo = getBusinessObject(updatedEvent);
+
+      // verify timer template is now applied
+      expect(updatedBo.get('kunpeng:modelerTemplate')).to.equal('timer-catch-date');
+
+      // verify event definition changed from signal to timer
+      const timerEventDefinition = updatedBo.get('eventDefinitions')[0];
+      expect(timerEventDefinition.$type).to.equal('bpmn:TimerEventDefinition');
+
+      const entry = findEntry('custom-entry-timer-catch-date-0', container);
+      const input = findInput('text', entry);
+
+      expect(entry).to.exist;
+      expect(input).to.exist;
+      expect(input.value).to.equal('2025-12-25T10:00:00Z');
+
+      const timeDate = timerEventDefinition.get('timeDate');
+      expect(timeDate).to.exist;
+      expect(timeDate.get('body')).to.equal('2025-12-25T10:00:00Z');
+    }));
+  });
+
+
+  describe('types', function() {
+
+    describe('Dropdown', function() {
+
+      beforeEach(bootstrapPropertiesPanel(diagramXML, {
+        container,
+        debounceInput: false,
+        elementTemplates: templates,
+        moddleExtensions: {
+          kunpeng: kunpengModdlePackage
+        },
+        modules: [
+          BpmnPropertiesPanel,
+          coreModule,
+          elementTemplatesModule,
+          modelingModule
+        ]
+      }));
+
+
+      it('should display options', async function() {
+
+        // when
+        await expectSelected('DropdownTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.example.dropdown-0', container),
+              options = domQueryAll('select option', entry);
+
+        expect(Array.from(options).map(({ selected, value }) => {
+          return {
+            selected,
+            value
+          };
+        })).to.eql([
+          { value: 'low', selected: true },
+          { value: 'medium', selected: false },
+          { value: 'high', selected: false }
+        ]);
+      });
+
+
+      it('should display options - optional', async function() {
+
+        // when
+        await expectSelected('OptionalDropdownTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.example.dropdown-2-0', container),
+              options = domQueryAll('select option', entry);
+
+        expect(Array.from(options).map(({ selected, value }) => {
+          return {
+            selected,
+            value
+          };
+        })).to.eql([
+          { value: '', selected: false },
+          { value: 'low', selected: true },
+          { value: 'medium', selected: false },
+          { value: 'high', selected: false }
+        ]);
+      });
+
+
+      it('should display options (no visual selection)', async function() {
+
+        // when
+        await expectSelected('DropdownNoSelection');
+
+        // then
+        const entry = findEntry('custom-entry-my.example.dropdown-1-0', container),
+              options = domQueryAll('select option', entry);
+
+        expect(Array.from(options).map(({ selected, value }) => {
+          return {
+            selected,
+            value
+          };
+        })).to.eql([
+          { value: 'low', selected: false },
+          { value: 'medium', selected: false },
+          { value: 'high', selected: false }
+        ]);
+      });
+
+
+      it('should change, updating binding', async function() {
+
+        // given
+        const task = await expectSelected('DropdownTask'),
+              businessObject = getBusinessObject(task);
+
+        const entry = findEntry('custom-entry-my.example.dropdown-0', container),
+              select = findSelect(entry);
+
+        // when
+        changeInput(select, 'medium');
+
+        // then
+        expect(businessObject.get('name')).to.equal('medium');
+      });
+
+    });
+
+
+    describe('Text', function() {
+
+      beforeEach(bootstrapPropertiesPanel(textLanguageDiagramXML, {
+        container,
+        debounceInput: false,
+        elementTemplates: textLanguageElementTemplates,
+        moddleExtensions: {
+          kunpeng: kunpengModdlePackage
+        },
+        modules: [
+          BpmnPropertiesPanel,
+          coreModule,
+          elementTemplatesModule,
+          modelingModule
+        ]
+      }));
+
+
+      it('should display <language> annotated with monospace font', async function() {
+
+        // when
+        await expectSelected('textTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.example.custom-language-text-0', container);
+        const input = findTextarea(entry);
+
+        expect(input.className).to.include('bio-properties-panel-input-monospace');
+      });
+
+
+      withPropertiesPanel('>=1.3.0')('should be auto-resizable', async function() {
+
+        // when
+        await expectSelected('textTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.example.custom-language-text-0', container);
+        const input = findTextarea(entry);
+
+        expect(input.className).to.include('auto-resize');
+      });
+
+    });
+
+  });
+
+
+  describe('description', function() {
+
+    beforeEach(bootstrapPropertiesPanel(descriptionDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: descriptionElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should display description for string property', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-0', container);
+
+      expect(entry.textContent).to.contain('STRING_DESCRIPTION');
+    });
+
+
+    it('should display description for textarea property', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-1', container);
+
+      expect(entry.textContent).to.contain('TEXT_DESCRIPTION');
+    });
+
+
+    it('should display description for boolean property', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-2', container);
+
+      expect(entry.textContent).to.contain('BOOLEAN_DESCRIPTION');
+    });
+
+
+    it('should display description for dropdown property', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-3', container);
+
+      expect(entry.textContent).to.contain('DROPDOWN_DESCRIPTION');
+    });
+
+
+    it('should display HTML descriptions', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-4', container);
+      const description = domQuery('.bio-properties-panel-description', entry);
+
+      expect(description).to.exist;
+      expect(description.innerHTML).to.eql(
+        '<div class="markup">' +
+          '<div xmlns="http://www.w3.org/1999/xhtml">' +
+            'By the way, you can use ' +
+            '<a href="https://freemarker.apache.org/" target="_blank" rel="noopener">freemarker templates</a> ' +
+            'here' +
+          '</div>' +
+        '</div>'
+      );
+    });
+
+
+    it('should NOT display empty descriptions', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.description-5', container);
+      const description = domQuery('.bio-properties-panel-description', entry);
+
+      expect(description).to.not.exist;
+    });
+  });
+
+
+  describe('tooltip', function() {
+
+    let clock;
+
+    function openTooltip(element) {
+      return act(() => {
+        fireEvent.mouseEnter(element);
+        clock.tick(200);
+      });
+    }
+
+    beforeEach(function() {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function() {
+      cleanup();
+      clock.restore();
+    });
+
+    beforeEach(bootstrapPropertiesPanel(tooltipDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: tooltipElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should display tooltip for string property', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-0', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // when
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.textContent).to.contain('STRING_TOOLTIP');
+    });
+
+
+    it('should display tooltip for textarea property', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-1', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // then
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.textContent).to.contain('TEXT_TOOLTIP');
+    });
+
+
+    it('should display tooltip for boolean property', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-2', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // when
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.textContent).to.contain('BOOLEAN_TOOLTIP');
+    });
+
+
+    it('should display tooltip for dropdown property', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-3', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // when
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.textContent).to.contain('DROPDOWN_TOOLTIP');
+    });
+
+
+    it('should display tooltip for groups', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const group = domQuery('.bio-properties-panel-group-header-title[title="Custom group"]', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', group);
+
+      // when
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip');
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.textContent).to.contain('GROUP_TOOLTIP');
+    });
+
+
+    it('should display HTML tooltips', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-4', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // when
+      await openTooltip(tooltipWrapper);
+      const tooltip = domQuery('.bio-properties-panel-tooltip-content', entry);
+
+      // then
+      expect(tooltip).to.exist;
+      expect(tooltip.innerHTML).to.eql(
+        '<div class="markup">' +
+          '<div xmlns="http://www.w3.org/1999/xhtml">' +
+            'By the way, you can use ' +
+            '<a href="https://freemarker.apache.org/" target="_blank" rel="noopener">freemarker templates</a> ' +
+            'here' +
+          '</div>' +
+        '</div>'
+      );
+    });
+
+
+    it('should NOT display empty descriptions', async function() {
+
+      // given
+      await expectSelected('Task');
+
+      const entry = findEntry('custom-entry-com.zeebe.example.tooltip-group-5', container);
+      const tooltipWrapper = domQuery('.bio-properties-panel-tooltip-wrapper', entry);
+
+      // then
+      expect(tooltipWrapper).to.not.exist;
+    });
+  });
+
+
+  describe('editable', function() {
+
+    beforeEach(bootstrapPropertiesPanel(editableDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: editableElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should NOT disable input when editable is NOT set', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-4', container),
+            input = findInput('text', entry);
+
+      expect(input).not.to.have.property('disabled', true);
+    });
+
+
+    it('should NOT disable input when editable=true', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-5', container),
+            input = findInput('text', entry);
+
+      expect(input).not.to.have.property('disabled', true);
+    });
+
+
+    it('should disable string input when editable=false', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-0', container),
+            input = findInput('text', entry);
+
+      expect(input).to.have.property('disabled', true);
+    });
+
+
+    it('should disable textarea input when editable=false', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-1', container),
+            input = findTextarea(entry);
+
+      expect(input).to.have.property('disabled', true);
+    });
+
+
+    it('should disable boolean input when editable=false', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-2', container),
+            input = findInput('checkbox', entry);
+
+      expect(input).to.have.property('disabled', true);
+    });
+
+
+    it('should disable dropdown input when editable=false', async function() {
+
+      // when
+      await expectSelected('Task');
+
+      // then
+      const entry = findEntry('custom-entry-com.zeebe.example.editable-3', container),
+            input = findSelect(entry);
+
+      expect(input).to.have.property('disabled', true);
+    });
+  });
+
+
+  describe('validation', function() {
+
+    [
+      [ 'String', 'input' ],
+      [ 'Select', 'select' ],
+      [ 'TextArea', 'textarea' ]
+    ].forEach(function([ name, selector ]) {
+
+      describe(name, function() {
+
+        it('should validate nonEmpty', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-0`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectError(entry, `${name} - NotEmpty must not be empty.`);
+
+          // when
+          changeInput(input, 'FOO');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should validate minLength', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-1`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectError(entry, `${name} - MinLength must have min length 5.`);
+
+          // when
+          changeInput(input, 'FOOOOOOO');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should validate maxLength', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-2`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectValid(entry);
+
+          // when
+          changeInput(input, 'FOOOOOOO');
+
+          // then
+          expectError(entry, `${name} - MaxLength must have max length 5.`);
+        });
+
+
+        it('should validate pattern (String)', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-3`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectError(entry, `${name} - Pattern (String) must match pattern A+B.`);
+
+          // when
+          changeInput(input, 'AAAB');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should validate pattern (String + Message)', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-4`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectError(entry, `${name} - Pattern (String + Message) Must start with https://`);
+
+          // when
+          changeInput(input, 'https://');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should validate pattern (Integer)', async function() {
+
+          // given
+          await expectSelected('ValidateTask');
+
+          const entry = findEntry(`custom-entry-com.validated-inputs.Task-${selector}-5`, container),
+                input = domQuery(selector, entry);
+
+          // assume
+          expectError(entry, `${name} - Pattern (Integer) Must be positive integer`);
+
+          // when
+          changeInput(input, '20');
+
+          // then
+          expectValid(entry);
+        });
+
+      });
+
+    });
+
+
+    it('should work with conditional properties', inject(
+      async function(elementTemplates, elementRegistry) {
+
+        // given
+        await expectSelected('ValidatedConditionalTask');
+        const task = elementRegistry.get('ValidatedConditionalTask');
+        const template = templates.find(t => t.id === 'com.validated-inputs-conditional.Task');
+
+        // when
+        await act(() => {
+          elementTemplates.applyTemplate(task, template);
+        });
+
+        // then
+        const entry = findEntry('custom-entry-com.validated-inputs-conditional.Task-authentication-1', container),
+              input = domQuery('input', entry);
+        expectError(entry, 'Bearer token must not be empty.');
+
+        // and when
+        changeInput(input, '123456');
+
+        // then
+        expectValid(entry);
+      })
+    );
+  });
+
+
+  describe('default-types', function() {
+
+    beforeEach(bootstrapPropertiesPanel(defaultTypesDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: defaultTypesElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should display String as default - property', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-0', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+
+    it('should display String as default - kunpeng:taskDefinition:type', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-1', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+
+    it('should display String as default - kunpeng:taskHeader', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-2', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+
+    it('should display String as default - kunpeng:input', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-3', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+
+    it('should display String as default - kunpeng:output', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-4', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+
+    it('should display String as default - kunpeng:property', async function() {
+
+      // given
+      await expectSelected('RestTask');
+
+      const entry = findEntry('custom-entry-com.example.default-types-5', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input).to.exist;
+    });
+
+  });
+
+
+  describe('default values', function() {
+
+    beforeEach(bootstrapPropertiesPanel(defaultValuesDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: defaultValuesElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    beforeEach(inject(async function(elementTemplates) {
+
+      // given
+      const task = await expectSelected('Task');
+      const template = defaultValuesElementTemplates[0];
+
+      await act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+    }));
+
+
+    it('should NOT be marked as edited if property value is same as default value', async function() {
+
+      // when
+      const group = getGroupById('group-ElementTemplates__CustomProperties-default-values');
+
+      // then
+      await waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.not.exist;
+      });
+
+    });
+
+
+    it('should be marked as edited if property value is changed', function() {
+
+      const entry = findEntry('custom-entry-com.example.default-values-default-values-0', container),
+            input = findInput('text', entry),
+            group = getGroupById('group-ElementTemplates__CustomProperties-default-values');
+
+      // when
+      changeInput(input, 'foo');
+
+      // then
+      return waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.exist;
+      });
+    });
+
+
+    it('should NOT be marked as edited if there is no default value', function() {
+
+      // when
+      const group = getGroupById('group-ElementTemplates__CustomProperties-no-default-values');
+
+      // then
+      return waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.not.exist;
+      });
+    });
+
+
+    it('should be marked as edited when property is changed to empty property', function() {
+
+      // given
+      const entry = findEntry('custom-entry-com.example.default-values-default-values-0', container),
+            input = findInput('text', entry);
+
+      // when
+      changeInput(input, '');
+      const group = getGroupById('group-ElementTemplates__CustomProperties-default-values');
+
+      // then
+      return waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.exist;
+      });
+    });
+
+
+    it('should NOT be marked as edited when property is changed back to empty (default="")', async function() {
+
+      // given
+      const entry = findEntry('custom-entry-com.example.default-values-default-values-2', container),
+            input = findInput('text', entry);
+
+      // when
+      changeInput(input, 'some value');
+
+      // assume
+      const group = getGroupById('group-ElementTemplates__CustomProperties-default-values');
+      await waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.exist;
+      });
+
+      // and when
+      changeInput(input, '');
+
+      // then
+      await waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group), 'marker should be removed').not.to.exist;
+      });
+    });
+  });
+
+
+  describe('generated values', function() {
+
+    beforeEach(bootstrapPropertiesPanel(generatedValuesDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: generatedValuesElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    beforeEach(inject(async function(elementTemplates) {
+
+      // given
+      const task = await expectSelected('Task');
+      const template = generatedValuesElementTemplates[0];
+
+      return act(() => {
+        elementTemplates.applyTemplate(task, template);
+      });
+    }));
+
+
+    it('should be marked as edited for generated values', function() {
+
+      // when
+      const group = getGroupById('ElementTemplates__CustomProperties');
+
+      // then
+      return waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.exist;
+      });
+    });
+
+
+
+    it('should be marked as edited for generated values when input is cleared', function() {
+
+      // given
+      const entry = findEntry('custom-entry-com.example.generated-values-0', container),
+            input = findTextarea(entry);
+
+      // when
+      changeInput(input, '');
+      const group = getGroupById('ElementTemplates__CustomProperties');
+
+      // then
+      return waitFor(() => {
+        expect(domQuery('.bio-properties-panel-dot', group)).to.exist;
+      });
+    });
+  });
+
+
+  describe('grouping', function() {
+
+    beforeEach(bootstrapPropertiesPanel(groupsDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: groupsElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should create defined groups', async function() {
+
+      // given
+      await expectSelected('ServiceTask_1');
+
+      // when
+      const groups = getGroupIds(container);
+
+      // then
+      expect(groups).to.contain('ElementTemplates__CustomProperties-headers');
+      expect(groups).to.contain('ElementTemplates__CustomProperties-payload');
+      expect(groups).to.contain('ElementTemplates__CustomProperties-mapping');
+      expect(groups).to.contain('ElementTemplates__CustomProperties');
+    });
+
+
+    it('should not open custom groups by default', async function() {
+
+      // given
+      await expectSelected('ServiceTask_groupsCollapsed');
+
+      // when
+      var customGroups = [
+        [ getGroupById('ElementTemplates__CustomProperties-collapsed', container), false ],
+        [ getGroupById('ElementTemplates__CustomProperties-open', container), true ],
+        [ getGroupById('ElementTemplates__CustomProperties-unspecified', container), false ],
+        [ getGroupById('ElementTemplates__CustomProperties', container), false ]
+      ];
+
+      // then
+      customGroups.forEach(function([ group, open ]) {
+        expectGroupOpen(group, open);
+      });
+
+    });
+
+
+    it('should display in defined properties order', async function() {
+
+      // given
+      await expectSelected('ServiceTask_1');
+
+      // when
+      const groups = getGroupIds(container);
+
+      // then
+      expect(groups).to.eql([
+        'ElementTemplates__Template',
+        'ElementTemplates__CustomProperties-headers',
+        'ElementTemplates__CustomProperties-payload',
+        'ElementTemplates__CustomProperties-mapping',
+        'ElementTemplates__CustomProperties',
+      ]);
+    });
+
+
+    it('should not create defined group (no entries)', async function() {
+
+      // given
+      await expectSelected('ServiceTask_noEntries');
+
+      // when
+      const groups = getGroupIds(container);
+
+      // then
+      expect(groups).to.not.contain('ElementTemplates__CustomProperties-headers');
+    });
+
+
+    it('should only create default group', async function() {
+
+      // given
+      await expectSelected('ServiceTask_noGroups');
+
+      // when
+      const groups = getGroupIds(container);
+
+      // then
+      expect(groups).to.eql([
+        'ElementTemplates__Template',
+        'ElementTemplates__CustomProperties'
+      ]);
+    });
+
+
+    it('should not open default group', async function() {
+
+      // given
+      await expectSelected('ServiceTask_noGroups');
+
+      // when
+      var templateGroup = getGroupById('ElementTemplates__Template', container);
+      var customPropertiesGroup = getGroupById('ElementTemplates__CustomProperties', container);
+
+
+      // then
+      expectGroupOpen(templateGroup, false);
+      expectGroupOpen(customPropertiesGroup, false);
+    });
+
+
+    it('should not create default group', async function() {
+
+      // given
+      await expectSelected('ServiceTask_noDefault');
+
+      // when
+      const groups = getGroupIds(container);
+
+      // then
+      expect(groups).to.not.contain('ElementTemplates__CustomProperties');
+    });
+
+
+    it('should position into defined groups', async function() {
+
+      // given
+      await expectSelected('ServiceTask_1');
+
+      // when
+      const entry1 = findEntry('custom-entry-example.com.grouping-headers-0', container);
+      const entry2 = findEntry('custom-entry-example.com.grouping-payload-0', container);
+      const entry3 = findEntry('custom-entry-example.com.grouping-mapping-0', container);
+
+      // then
+      expect(getGroup(entry1)).to.equal('ElementTemplates__CustomProperties-headers');
+      expect(getGroup(entry2)).to.equal('ElementTemplates__CustomProperties-payload');
+      expect(getGroup(entry3)).to.equal('ElementTemplates__CustomProperties-mapping');
+    });
+
+
+    it('should position into default group (empty group id)', async function() {
+
+      // given
+      await expectSelected('ServiceTask_1');
+
+      // when
+      const entry = findEntry('custom-entry-example.com.grouping-0', container);
+
+      // then
+      expect(getGroup(entry)).to.equal('ElementTemplates__CustomProperties');
+    });
+
+
+    it('should position into default group (non existing group)', async function() {
+
+      // given
+      await expectSelected('ServiceTask_nonExisting');
+
+      // when
+      const entry = findEntry('custom-entry-example.com.grouping-nonExisting-0', container);
+
+      // then
+      expect(getGroup(entry)).to.equal('ElementTemplates__CustomProperties');
+    });
+
+  });
+
+
+  describe('feel', function() {
+
+    beforeEach(bootstrapPropertiesPanel(feelDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: feelElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    describe('TextField', function() {
+
+      it('should not display icon by default', async function() {
+
+        // when
+        await expectSelected('stringTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.custom.FeelTask.String-2', container);
+
+        const feelIcon = domQuery('.bio-properties-panel-feel-icon', entry);
+
+        expect(feelIcon).not.to.exist;
+
+      });
+
+
+      it('should display icons', async function() {
+
+        // when
+        await expectSelected('stringTask');
+
+        // then
+        const requiredEntry = findEntry('custom-entry-my.custom.FeelTask.String-0', container);
+        const optionalEntry = findEntry('custom-entry-my.custom.FeelTask.String-1', container);
+
+        const requiredIcon = domQuery('.bio-properties-panel-feel-icon', requiredEntry);
+        const optionalIcon = domQuery('.bio-properties-panel-feel-icon', optionalEntry);
+
+        expect(requiredIcon).to.exist;
+        expect(optionalIcon).to.exist;
+      });
+
+
+      describe('validation', function() {
+
+        it('should validate minLength', async function() {
+
+          // given
+          await expectSelected('validationTask');
+
+          const entry = findEntry('custom-entry-my.custom.FeelTask.Validation-0', container),
+                input = domQuery('input', entry);
+
+          // assume
+          expectError(entry, 'A FEEL expression with validation (min length) must have min length 5.');
+
+          // when
+          changeInput(input, '=FOO');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should not validate maxLength', async function() {
+
+          // given
+          await expectSelected('validationTask');
+
+          const entry = findEntry('custom-entry-my.custom.FeelTask.Validation-1', container),
+                input = domQuery('input', entry);
+
+          // when
+          changeInput(input, 'FOOBAR');
+
+          // assume
+          expectError(entry, 'A FEEL expression with validation (max length) must have max length 5.');
+
+          // when
+          changeInput(input, '=FOOBAR');
+
+          // then
+          expectValid(entry);
+        });
+
+
+        it('should not validate pattern', async function() {
+
+          // given
+          await expectSelected('validationTask');
+
+          const entry = findEntry('custom-entry-my.custom.FeelTask.Validation-2', container),
+                input = domQuery('input', entry);
+
+          // when
+          changeInput(input, 'FOO');
+
+          // assume
+          expectError(entry, 'A FEEL expression with validation (pattern) must match pattern BAR.');
+
+          // when
+          changeInput(input, '=FOO');
+
+          // then
+          expectValid(entry);
+        });
+
+      });
+
+    });
+
+
+    describe('TextArea', function() {
+
+      it('should not display icon by default', async function() {
+
+        // when
+        await expectSelected('textTask');
+
+        // then
+        const entry = findEntry('custom-entry-my.custom.FeelTask.Text-2', container);
+
+        const feelIcon = domQuery('.bio-properties-panel-feel-icon', entry);
+
+        expect(feelIcon).not.to.exist;
+
+      });
+
+
+      it('should display icons on TextArea', async function() {
+
+        // when
+        await expectSelected('textTask');
+
+        // then
+        const requiredEntry = findEntry('custom-entry-my.custom.FeelTask.Text-0', container);
+        const optionalEntry = findEntry('custom-entry-my.custom.FeelTask.Text-1', container);
+
+        const requiredIcon = domQuery('.bio-properties-panel-feel-icon', requiredEntry);
+        const optionalIcon = domQuery('.bio-properties-panel-feel-icon', optionalEntry);
+
+        expect(requiredIcon).to.exist;
+        expect(optionalIcon).to.exist;
+      });
+
+    });
+
+  });
+
+
+  describe('placeholder', function() {
+
+    beforeEach(bootstrapPropertiesPanel(placeholderDiagramXML, {
+      container,
+      debounceInput: false,
+      elementTemplates: placeholderElementTemplates,
+      moddleExtensions: {
+        kunpeng: kunpengModdlePackage
+      },
+      modules: [
+        BpmnPropertiesPanel,
+        coreModule,
+        elementTemplatesModule,
+        modelingModule
+      ]
+    }));
+
+
+    it('should display placeholder (String)', async function() {
+
+      // given
+      await expectSelected('Task_1');
+
+      // when
+      const entry = findEntry('custom-entry-placeholder-0', container),
+            input = findInput('text', entry);
+
+      // then
+      expect(input.placeholder).to.eql('Placeholder');
+    });
+
+
+    it('should display placeholder (Text)', async function() {
+
+      // given
+      await expectSelected('Task_1');
+
+      // when
+      const entry = findEntry('custom-entry-placeholder-1', container),
+            input = findTextarea(entry);
+
+      // then
+      expect(input.placeholder).to.eql('Placeholder');
+    });
+
+
+    it('should display placeholder (FEEL, String)', async function() {
+
+      // given
+      await expectSelected('Task_1');
+
+      // when
+      const entry = findEntry('custom-entry-placeholder-2', container),
+            input = domQuery('.bio-properties-panel-input', entry);
+
+      // then
+      expect(input.textContent).to.eql('Placeholder');
+    });
+
+
+    it('should display placeholder (FEEL, Text)', async function() {
+
+      // given
+      await expectSelected('Task_1');
+
+      // when
+      const entry = findEntry('custom-entry-placeholder-3', container),
+            input = domQuery('.bio-properties-panel-input', entry);
+
+      // then
+      expect(input.textContent).to.eql('Placeholder');
+    });
+  });
+
+
+});
+
+
+// helpers //////////
+
+function expectSelected(id) {
+  return getBpmnJS().invoke(async function(elementRegistry, selection) {
+    const element = elementRegistry.get(id);
+
+    await act(() => {
+      selection.select(element);
+    });
+
+    return element;
+  });
+}
+
+function expectError(entry, message) {
+  expect(entry).to.not.be.null;
+
+  const errorMessage = domQuery('.bio-properties-panel-error', entry);
+
+  const error = errorMessage && errorMessage.textContent;
+
+  expect(error).to.equal(message);
+}
+
+function expectGroupOpen(group, open) {
+  expect(group).to.not.be.null;
+
+  const entries = domQuery('.bio-properties-panel-group-entries', group);
+
+  expect(domClasses(entries).contains('open')).to.eql(open);
+}
+
+function expectValid(entry) {
+  expectError(entry, null);
+}
+
+function getGroupIds(container) {
+  expect(container).to.not.be.null;
+
+  const groups = domQueryAll('[data-group-id]', container);
+
+  const groupIds = map(groups, group => withoutPrefix(group.dataset.groupId));
+
+  return groupIds;
+}
+
+function getGroup(entry) {
+  const parent = entry.closest('[data-group-id]');
+
+  return parent && withoutPrefix(parent.dataset.groupId);
+}
+
+function getGroupById(id, container) {
+  expect(container).to.not.be.null;
+
+  const group = domQuery(
+    `[data-group-id=group-${id}]`,
+    container
+  );
+
+  return group;
+}
+
+function withoutPrefix(groupId) {
+  return groupId.slice(6);
+}
+
+function findEntry(id, container) {
+  expect(container).to.not.be.null;
+
+  return domQuery(`[data-entry-id='${ id }']`, container);
+}
+
+function findInput(type, container) {
+  expect(container).to.not.be.null;
+
+  return domQuery(`input[type='${ type }']`, container);
+}
+
+function findSelect(container) {
+  expect(container).to.not.be.null;
+
+  return domQuery('select', container);
+}
+
+function findTextarea(container) {
+  expect(container).to.not.be.null;
+
+  return domQuery('textarea', container);
+}
+
+function findEditor(entry) {
+  return domQuery('[role="textbox"]', entry);
+}
+
+function expectEditor(entry, value) {
+  const editor = findEditor(entry);
+
+  expect(editor).to.exist;
+  expect(editor.textContent).to.eql(value);
+}

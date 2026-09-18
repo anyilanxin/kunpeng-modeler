@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0" id="Definitions_165ah7c" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0" modeler:executionPlatform="Anyilanxin Cloud" modeler:executionPlatformVersion="1.3.0">
+  <bpmn:process id="Process_0vvlc66" isExecutable="true">
+    <bpmn:serviceTask id="ServiceTask_1" name="groups" kunpeng:modelerTemplate="example.com.grouping">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="http" />
+        <kunpeng:additionDynamics>
+          <kunpeng:header key="method" value="get" />
+          <kunpeng:header key="url" />
+        </kunpeng:additionDynamics>
+        <kunpeng:ioMapping>
+          <kunpeng:input source="= invoiceDetails" target="body" />
+          <kunpeng:output source="= body" target="response" />
+        </kunpeng:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_noDefault" name="no default" kunpeng:modelerTemplate="example.com.grouping-noDefault" />
+    <bpmn:serviceTask id="ServiceTask_noGroups" name="no groups" kunpeng:modelerTemplate="example.com.grouping-noGroups" />
+    <bpmn:serviceTask id="ServiceTask_nonExisting" name="non existing group" kunpeng:modelerTemplate="example.com.grouping-nonExisting" />
+    <bpmn:serviceTask id="ServiceTask_noEntries" name="no entries" kunpeng:modelerTemplate="example.com.grouping-noEntries" />
+    <bpmn:serviceTask id="ServiceTask_groupsCollapsed" name="groups - collapsed" kunpeng:modelerTemplate="example.com.grouping.collapsed">
+      <bpmn:extensionElements>
+        <kunpeng:taskDefinition type="http" />
+        <kunpeng:additionDynamics>
+          <kunpeng:header key="method" value="get" />
+          <kunpeng:header key="url" />
+        </kunpeng:additionDynamics>
+        <kunpeng:ioMapping>
+          <kunpeng:input source="= invoiceDetails" target="body" />
+          <kunpeng:output source="= body" target="response" />
+        </kunpeng:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0vvlc66">
+      <bpmndi:BPMNShape id="Activity_1328y3k_di" bpmnElement="ServiceTask_1">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_noDefault_di" bpmnElement="ServiceTask_noDefault">
+        <dc:Bounds x="270" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_noGroups_di" bpmnElement="ServiceTask_noGroups">
+        <dc:Bounds x="270" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_nonExisting_di" bpmnElement="ServiceTask_nonExisting">
+        <dc:Bounds x="270" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_noEntries_di" bpmnElement="ServiceTask_noEntries">
+        <dc:Bounds x="270" y="540" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0nnayge" bpmnElement="ServiceTask_groupsCollapsed">
+        <dc:Bounds x="270" y="650" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

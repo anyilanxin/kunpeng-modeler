@@ -1,0 +1,270 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "empty",
+    "id": "constraints.empty",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - Min Length",
+    "id": "constraints.minLength",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "minLength": 5
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - Max Length",
+    "id": "constraints.maxLength",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "maxLength": 5
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - not Empty",
+    "id": "constraints.notEmpty",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - Pattern",
+    "id": "constraints.pattern",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "pattern": "A+B"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - Pattern (custom message)",
+    "id": "constraints.pattern-custom-message",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "pattern": {
+            "value": "A+B",
+            "message": "This is a custom message"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Constraints - Conditional",
+    "id": "constraints.conditional",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "id": "nameProperty",
+        "type": "Hidden",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "pattern": {
+            "value": "A+B"
+          }
+        },
+        "condition": {
+          "property": "nameProperty",
+          "equals": "foo"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL - Min Length",
+    "id": "feel.minLength",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "minLength": 5
+        },
+        "feel": "optional"
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL - Max Length",
+    "id": "feel.maxLength",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "maxLength": 5
+        },
+        "feel": "optional"
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL - Pattern",
+    "id": "feel.pattern",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "properties": [
+      {
+        "label": "Test Property",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        },
+        "constraints": {
+          "pattern": "OOF"
+        },
+        "feel": "optional"
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "compatible",
+    "id": "compatible",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "engines": {
+      "camunda": ">1.0"
+    },
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "incompatible",
+    "id": "incompatible",
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "engines": {
+      "camunda": "0"
+    },
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "incompatible-updatable",
+    "id": "incompatible-updatable",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "engines": {
+      "camunda": "0"
+    },
+    "properties": []
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "incompatible-updatable",
+    "id": "incompatible-updatable",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "engines": {
+      "camunda": "^8.5"
+    },
+    "properties": []
+  }
+]

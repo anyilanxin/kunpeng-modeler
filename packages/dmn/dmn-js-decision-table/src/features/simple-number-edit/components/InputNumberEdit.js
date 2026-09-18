@@ -1,0 +1,350 @@
+import Input from '@kunpeng/dmn-js-shared/lib/components/Input';
+import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+
+import { Component } from 'inferno';
+
+import { getComparisonString, getRangeString, parseString } from '../Utils';
+
+const COMPARISON = 'comparison';
+const RANGE = 'range';
+
+export default class InputNumberEdit extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this._translate = context.injector.get('translate');
+    this._modeling = context.injector.get('modeling');
+
+    const { element } = this.props.context;
+
+    const parsedString = parseString(element.businessObject.text);
+
+    this.state = parsedString
+      ? {
+          type: parsedString.type,
+          comparisonOperator: parsedString.operator || 'equals',
+          comparisonValue: parsedString.value || 0,
+          rangeStartValue: parsedString.values ? parsedString.values[0] : 0,
+          rangeEndValue: parsedString.values ? parsedString.values[1] : 0,
+          rangeStartType: parsedString.start || 'include',
+          rangeEndType: parsedString.end || 'include',
+        }
+      : {
+          type: COMPARISON,
+          comparisonOperator: 'equals',
+          comparisonValue: 0,
+          rangeStartValue: 0,
+          rangeEndValue: 0,
+          rangeStartType: 'include',
+          rangeEndType: 'include',
+        };
+
+    const debounceInput = context.injector.get('debounceInput');
+
+    this.debouncedEditCell = debounceInput(this.editCell.bind(this));
+    this.editCell = this.editCell.bind(this);
+
+    this.onComparisonOperatorChange =
+      this.onComparisonOperatorChange.bind(this);
+    this.onComparisonValueChange = this.onComparisonValueChange.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
+    this.onRangeStartTypeChange = this.onRangeStartTypeChange.bind(this);
+    this.onRangeStartValueChange = this.onRangeStartValueChange.bind(this);
+    this.onRangeEndTypeChange = this.onRangeEndTypeChange.bind(this);
+    this.onRangeEndValueChange = this.onRangeEndValueChange.bind(this);
+  }
+
+  editCell(cell, text) {
+    this._modeling.editCell(cell, text);
+  }
+
+  onComparisonOperatorChange(value) {
+    const { element } = this.props.context;
+
+    const { type, comparisonValue } = this.state;
+
+    if (type === COMPARISON) {
+      this.editCell(
+        element.businessObject,
+        getComparisonString(value, comparisonValue),
+      );
+
+      this.setState({
+        comparisonOperator: value,
+      });
+    }
+  }
+
+  onComparisonValueChange(comparisonValue) {
+    const { element } = this.props.context;
+
+    const { type, comparisonOperator } = this.state;
+
+    if (type === COMPARISON) {
+      this.debouncedEditCell(
+        element.businessObject,
+        getComparisonString(comparisonOperator, comparisonValue),
+      );
+
+      this.setState({
+        comparisonValue,
+      });
+    }
+  }
+
+  onRangeEndTypeChange(value) {
+    const { element } = this.props.context;
+
+    const { type, rangeStartValue, rangeEndValue, rangeStartType } = this.state;
+
+    if (type === RANGE) {
+      this.editCell(
+        element.businessObject,
+        getRangeString(rangeStartValue, rangeEndValue, rangeStartType, value),
+      );
+
+      this.setState({
+        rangeEndType: value,
+      });
+    }
+  }
+
+  onRangeEndValueChange(value) {
+    const { element } = this.props.context;
+
+    const { type, rangeStartValue, rangeStartType, rangeEndType } = this.state;
+
+    if (type === RANGE) {
+      this.editCell(
+        element.businessObject,
+        getRangeString(rangeStartValue, value, rangeStartType, rangeEndType),
+      );
+
+      this.setState({
+        rangeEndValue: value,
+      });
+    }
+  }
+
+  onRangeStartTypeChange(value) {
+    const { element } = this.props.context;
+
+    const { type, rangeStartValue, rangeEndValue, rangeEndType } = this.state;
+
+    if (type === RANGE) {
+      this.editCell(
+        element.businessObject,
+        getRangeString(rangeStartValue, rangeEndValue, value, rangeEndType),
+      );
+
+      this.setState({
+        rangeStartType: value,
+      });
+    }
+  }
+
+  onRangeStartValueChange(value) {
+    const { element } = this.props.context;
+
+    const { type, rangeEndValue, rangeStartType, rangeEndType } = this.state;
+
+    if (type === RANGE) {
+      this.editCell(
+        element.businessObject,
+        getRangeString(value, rangeEndValue, rangeStartType, rangeEndType),
+      );
+
+      this.setState({
+        rangeStartValue: value,
+      });
+    }
+  }
+
+  onTypeChange(value) {
+    const { element } = this.props.context;
+
+    const {
+      comparisonOperator,
+      comparisonValue,
+      rangeStartValue,
+      rangeEndValue,
+      rangeStartType,
+      rangeEndType,
+    } = this.state;
+
+    if (value === COMPARISON) {
+      this.editCell(
+        element.businessObject,
+        getComparisonString(comparisonOperator, comparisonValue),
+      );
+    } else {
+      this.editCell(
+        element.businessObject,
+        getRangeString(
+          rangeStartValue,
+          rangeEndValue,
+          rangeStartType,
+          rangeEndType,
+        ),
+      );
+    }
+
+    this.setState({
+      type: value,
+    });
+  }
+
+  render() {
+    const {
+      type,
+      comparisonOperator,
+      comparisonValue,
+      rangeStartValue,
+      rangeEndValue,
+      rangeStartType,
+      rangeEndType,
+    } = this.state;
+
+    const typeOptions = [
+      {
+        label: this._translate('Comparison'),
+        value: COMPARISON,
+      },
+      {
+        label: this._translate('Range'),
+        value: RANGE,
+      },
+    ];
+
+    return (
+      <div class="context-menu-container simple-number-edit">
+        <h3 class="dms-heading">{this._translate('Edit number')}</h3>
+
+        <div className="dms-fill-row">
+          <InputSelect
+            label={this._translate('Test type')}
+            noInput={true}
+            onChange={this.onTypeChange}
+            options={typeOptions}
+            value={type}
+          />
+        </div>
+
+        {type === COMPARISON &&
+          this.renderComparison(comparisonOperator, comparisonValue)}
+
+        {type === RANGE &&
+          this.renderRange(
+            rangeStartValue,
+            rangeEndValue,
+            rangeStartType,
+            rangeEndType,
+          )}
+      </div>
+    );
+  }
+
+  renderComparison(comparisonOperator, comparisonValue) {
+    const comparisonOperatorOptions = [
+      {
+        label: this._translate('Equals'),
+        value: 'equals',
+      },
+      {
+        label: this._translate('Less'),
+        value: 'less',
+      },
+      {
+        label: this._translate('Less or equals'),
+        value: 'lessEquals',
+      },
+      {
+        label: this._translate('Greater'),
+        value: 'greater',
+      },
+      {
+        label: this._translate('Greater or equals'),
+        value: 'greaterEquals',
+      },
+    ];
+
+    return (
+      <div className="comparison">
+        <h4 className="dms-heading">{this._translate('Value')}</h4>
+
+        <div className="dms-fill-row">
+          <InputSelect
+            label={this._translate('Comparison operator')}
+            noInput={true}
+            onChange={this.onComparisonOperatorChange}
+            options={comparisonOperatorOptions}
+            value={comparisonOperator}
+          />
+          &nbsp;
+          <Input
+            className="comparison-number-input"
+            label={this._translate('Value')}
+            onInput={this.onComparisonValueChange}
+            type="number"
+            value={comparisonValue}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  renderRange(rangeStartValue, rangeEndValue, rangeStartType, rangeEndType) {
+    const rangeTypeOptions = [
+      {
+        label: this._translate('Include'),
+        value: 'include',
+      },
+      {
+        label: this._translate('Exclude'),
+        value: 'exclude',
+      },
+    ];
+
+    return (
+      <div className="range">
+        <h4 className="dms-heading">{this._translate('Start value')}</h4>
+
+        <div className="dms-fill-row">
+          <InputSelect
+            label={this._translate('Start value')}
+            noInput={true}
+            onChange={this.onRangeStartTypeChange}
+            options={rangeTypeOptions}
+            value={rangeStartType}
+          />
+          &nbsp;
+          <Input
+            className="range-start-number-input"
+            onInput={this.onRangeStartValueChange}
+            type="number"
+            value={rangeStartValue}
+          />
+        </div>
+
+        <h4 className="dms-heading">{this._translate('End value')}</h4>
+
+        <div className="dms-fill-row">
+          <InputSelect
+            label={this._translate('End value')}
+            noInput={true}
+            onChange={this.onRangeEndTypeChange}
+            options={rangeTypeOptions}
+            value={rangeEndType}
+          />
+          &nbsp;
+          <Input
+            className="range-end-number-input"
+            onInput={this.onRangeEndValueChange}
+            type="number"
+            value={rangeEndValue}
+          />
+        </div>
+      </div>
+    );
+  }
+}

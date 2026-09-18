@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/util/IdsUtil.js"],
+  "sourcesContent": ["import { Ids } from 'ids';\n\nconst ids = new Ids([ 32, 32, 1 ]);\n\n/**\n * Get ID with prefix.\n */\nexport function getPrefixedId(prefix) {\n  return ids.nextPrefixed(prefix);\n}\n"],
+  "mappings": ";;AAAA,SAAS,WAAW;AAEpB,MAAM,MAAM,IAAI,IAAI,CAAE,IAAI,IAAI,CAAE,CAAC;AAK1B,SAAS,cAAc,QAAQ;AACpC,SAAO,IAAI,aAAa,MAAM;AAChC;AAFgB;",
+  "names": []
+}

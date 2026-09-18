@@ -1,0 +1,63 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Rest Template",
+    "id": "com.example.default-values",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "groups": [
+      {
+        "id": "no-default-values",
+        "label": "No Default Values",
+        "openByDefault": true
+      },
+      {
+        "id": "default-values",
+        "label": "Default Values",
+        "openByDefault": true
+      }
+    ],
+    "properties": [
+      {
+        "label": "property-1",
+        "type": "String",
+        "group": "default-values",
+        "value": "property-1",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "property-1-name-default"
+        }
+      },
+      {
+        "label": "property-2",
+        "type": "String",
+        "group": "default-values",
+        "value": "property-2",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "property-2-name-default"
+        }
+      },
+      {
+        "label": "Empty string as default (input)",
+        "type": "String",
+        "group": "default-values",
+        "value": "",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "zeebeInput",
+          "source": "property-3-name-default"
+        }
+      },
+      {
+        "group": "no-default-values",
+        "label": "No default value",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,126 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "linkedResource missing linkName",
+    "id": "linkedResource-missing-linkName",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "property": "resourceType"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "linkedResource missing linkName",
+    "id": "linkedResource-invalid-binding",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "persistedLink",
+          "property": "invalidProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "linkedResource missing binding type",
+    "id": "linkedResource-invalid-binding",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "value": "RPA",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "persistedLink",
+          "property": "resourceType"
+        }
+      },
+      {
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "persistedLink",
+          "property": "resourceId"
+        }
+      },
+      {
+        "type": "String",
+        "value": "v1",
+        "binding": {
+          "type": "kunpeng:calledElement",
+          "linkName": "persistedLink",
+          "property": "versionTag"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "linkedResource missing linkName for bindingType",
+    "id": "linkedResource-invalid-binding",
+    "version": 3,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+      {
+        "type": "String",
+        "value": "RPA",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "persistedLink",
+          "property": "resourceType"
+        }
+      },
+      {
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:linkedResource",
+          "linkName": "persistedLink",
+          "property": "resourceId"
+        }
+      },
+      {
+        "type": "String",
+        "value": "latest",
+        "binding": {
+          "type": "kunpeng:calledElement",
+          "property": "bindingType"
+        }
+      }
+    ]
+  }
+]

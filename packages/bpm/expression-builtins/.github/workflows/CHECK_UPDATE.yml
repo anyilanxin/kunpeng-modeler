@@ -1,0 +1,41 @@
+name: CHECK_UPDATE
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 2' # Every Tuesday at 9:17 AM (random time to distribute load)
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node-version: [ 24 ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Setup project
+        uses: bpmn-io/actions/setup@latest
+      - name: Checkout camunda-docs
+        uses: actions/checkout@v7
+        with:
+          repository: camunda/camunda-docs
+          path: camunda-docs
+      - name: Update builtins
+        run: npm run compile-builtins
+      - name: Create PRs automatically
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          commit-message: 'chore: update builtins'
+          branch: update-builtins
+          title: 'Update builtins'
+          body: |
+            :robot: Automated PR to update builtin functions

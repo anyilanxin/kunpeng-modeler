@@ -1,0 +1,354 @@
+/**
+ * 暗色主题下的 diagram-js / bpmn-js / dmn-js / properties-panel 颜色覆盖
+ * 参照 packages/design/bpmn-design/src/styles/diagram-js.css 的暗色方案
+ *
+ * 原参考文件基于 Arco Design（body[arco-theme='dark'] + var(--color-xxx)）
+ * 本项目使用 naive-ui，将 Arco 暗色主题的颜色值定义为局部 CSS 变量，
+ * 元素规则统一引用变量，与参考文件结构保持一致。
+ */
+
+/* ===== Arco Design 暗色主题变量定义（挂在 .dark 上）===== */
+.dark {
+  /* 文字颜色 */
+  --color-text-1: rgba(255, 255, 255, 0.9);
+  --color-text-2: rgba(255, 255, 255, 0.7);
+  --color-text-3: rgba(255, 255, 255, 0.5);
+  --color-text-4: rgba(255, 255, 255, 0.3);
+
+  /* 背景颜色 */
+  --color-bg-1: #17171A;
+  --color-bg-2: #232324;
+  --color-bg-3: #2A2A2B;
+  --color-bg-4: #313132;
+  --color-bg-5: #373739;
+  --color-bg-popup: #373739;
+
+  /* 中性色（填充/边框）*/
+  --color-neutral-3: rgba(255, 255, 255, 0.12);
+  --color-neutral-10: rgba(255, 255, 255, 0.9);
+
+  /* 边框颜色 */
+  --color-border-2: rgba(255, 255, 255, 0.12);
+
+  /* 黑色 */
+  --color-black: rgb(0, 0, 0);
+
+  /* 主色（品牌蓝 arcoblue-7）*/
+  --primary-color: #165DFF;
+}
+
+/* ===== diagram-js 画布容器 ===== */
+.dark .djs-container {
+  --color-grey-225-10-15: hsl(225, 10%, 97%) !important;
+  --color-grey-225-10-35: hsl(225, 10%, 95%) !important;
+  --color-grey-225-10-55: hsl(228, 36%, 32%) !important;
+  --color-grey-225-10-75: hsl(225, 10%, 85%) !important;
+  --color-grey-225-10-80: hsl(225, 10%, 80%) !important;
+  --color-grey-225-10-85: hsl(225, 10%, 75%) !important;
+  --color-grey-225-10-90: hsl(225, 10%, 55%) !important;
+  --color-grey-225-10-95: hsl(225, 10%, 35%) !important;
+  --color-grey-225-10-97: hsl(225, 10%, 15%) !important;
+
+  --color-blue-205-100-45: hsl(205, 100%, 45%) !important;
+  --color-blue-205-100-45-opacity-30: hsla(205, 100%, 45%, 30%) !important;
+  --color-blue-205-100-50: hsl(205, 100%, 50%) !important;
+  --color-blue-205-100-50-opacity-15: hsla(205, 100%, 50%, 15%) !important;
+  --color-blue-205-100-70: hsl(205, 100%, 75%) !important;
+  --color-blue-205-100-95: #4e5969 !important;
+
+  --color-green-150-86-44: hsl(150, 86%, 44%) !important;
+
+  --color-red-360-100-40: hsl(360, 100%, 40%) !important;
+  --color-red-360-100-45: hsl(360, 100%, 45%) !important;
+  --color-red-360-100-92: hsl(360, 100%, 92%) !important;
+  --color-red-360-100-97: hsl(360, 100%, 97%) !important;
+
+  --color-white: hsl(0, 0%, 0%) !important;
+  --color-black: hsl(0, 0%, 0%) !important;
+  --color-black-opacity-10: hsla(0, 0%, 0%, 10%) !important;
+  --popup-background-color: var(--color-bg-2) !important;
+}
+
+/* ===== properties-panel 属性面板 ===== */
+.dark .bio-properties-panel {
+  --color-grey-225-10-15: hsl(225, 10%, 97%) !important;
+  --color-grey-225-10-35: hsl(225, 10%, 55%) !important;
+  --color-grey-225-10-55: hsl(225, 10%, 90%) !important;
+  --color-grey-225-10-75: hsl(225, 10%, 85%) !important;
+  --color-grey-225-10-80: hsl(225, 10%, 80%) !important;
+  --color-grey-225-10-85: hsl(225, 10%, 75%) !important;
+  --color-grey-225-10-90: hsl(225, 10%, 55%) !important;
+  --color-grey-225-10-95: hsl(225, 10%, 15%) !important;
+  --color-grey-225-10-97: hsl(225, 10%, 15%) !important;
+  --feel-open-popup-color: hsl(225, 10%, 80%) !important;
+
+  --color-blue-205-100-45: hsl(205, 100%, 45%) !important;
+  --color-blue-205-100-45-opacity-30: hsla(205, 100%, 45%, 30%) !important;
+  --color-blue-205-100-50: hsl(205, 100%, 50%) !important;
+  --color-blue-205-100-50-opacity-15: hsla(205, 100%, 50%, 15%) !important;
+  --color-blue-205-100-70: hsl(205, 100%, 75%) !important;
+  --color-blue-205-100-95: rgba(255, 255, 255, 0.08) !important;
+
+  --color-green-150-86-44: hsl(150, 86%, 44%) !important;
+
+  --color-red-360-100-40: hsl(360, 100%, 40%) !important;
+  --color-red-360-100-45: hsl(360, 100%, 45%) !important;
+  --color-red-360-100-92: hsl(360, 100%, 92%) !important;
+  --color-red-360-100-97: hsl(0, 24%, 20%) !important;
+
+  --color-white: hsl(0, 2%, 12%) !important;
+  --color-black: hsl(0, 0%, 0%) !important;
+  --color-black-opacity-10: hsla(0, 0%, 0%, 10%) !important;
+  --popup-background-color: var(--color-bg-2) !important;
+}
+
+/* ===== popup 弹出层（palette 搜索、context menu 等）===== */
+.dark .djs-parent {
+  --popup-background-color: var(--color-bg-2) !important;
+  --popup-description-color: var(--color-text-3) !important;
+  --popup-entry-title-color: var(--color-text-1) !important;
+  --header-background-color: var(--color-black) !important;
+  --popup-shadow-color: var(--color-black) !important;
+  --popup-entry-hover-color: var(--color-border-2) !important;
+}
+
+.dark .bio-properties-panel-popup {
+  --popup-background-color: hsl(225, 10%, 15%) !important;
+  --popup-header-background-color: hsl(225, 2%, 18%) !important;
+  --popup-font-color: var(--color-text-1) !important;
+  --popup-title-color: var(--color-text-1) !important;
+  --feel-popup-gutters-background-color: hsl(225, 2%, 18%) !important;
+}
+
+.dark .bio-properties-panel-popup .bio-properties-panel-popup__drag-handle svg,
+.dark .bio-properties-panel-popup .bio-properties-panel-popup__close svg {
+  color: rgba(255, 255, 255, 0.9) !important;
+  fill: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ===== CodeMirror gutters ===== */
+.ͼ2 .cm-gutters {
+  color: var(--color-text-2) !important;
+}
+
+/* ===== 搜索框 ===== */
+.djs-popup-search input {
+  background-color: var(--color-bg-1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+/* ===== 搜索图标、palette 图标反色 ===== */
+.dark .djs-popup-search-icon {
+  filter: invert(1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+.dark .entry[data-action='append'] > img {
+  filter: invert(1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+.dark .entry[data-action='create'] > img {
+  filter: invert(1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+/* ===== context-pad 右键菜单 ===== */
+.dark .djs-context-pad .entry {
+  background-color: var(--color-bg-1) !important;
+  box-shadow: 0 0 2px 1px var(--color-bg-1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+.dark .djs-context-pad .entry:hover {
+  color: var(--primary-color) !important;
+  background-color: var(--color-neutral-3) !important;
+}
+
+.dark .djs-palette .entry:hover {
+  color: var(--primary-color) !important;
+}
+
+/* ===== 直接编辑文本背景 ===== */
+.dark .djs-direct-editing-content,
+.dark .djs-direct-editing-parent {
+  background-color: var(--color-bg-1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+/* ===== 弹出层边框 ===== */
+.dark .djs-popup-backdrop {
+  border: none !important;
+}
+
+/* ===== lint issues 提示 ===== */
+.dark .bjsl-issues {
+  color: var(--color-text-1) !important;
+  background: var(--color-bg-popup) !important;
+  border: solid 1px var(--color-neutral-3) !important;
+}
+
+.dark .bjsl-issues a {
+  color: var(--color-text-1) !important;
+}
+
+/* ===== 属性面板 input / select / textarea 暗色适配 ===== */
+/* 直接覆盖派生变量，避免因 properties-panel.css 加载顺序导致 token 覆盖失效 */
+.dark .bio-properties-panel {
+  --input-background-color: var(--color-bg-1) !important;
+  --input-border-color: var(--color-border-2) !important;
+  --input-focus-background-color: var(--color-bg-3) !important;
+  --input-focus-border-color: var(--primary-color) !important;
+  --input-error-background-color: hsl(0, 24%, 16%) !important;
+  --input-error-border-color: hsl(360, 100%, 55%) !important;
+  --input-error-focus-border-color: hsl(360, 100%, 55%) !important;
+  --input-disabled-color: var(--color-text-4) !important;
+  --input-disabled-background-color: var(--color-bg-1) !important;
+  --input-disabled-border-color: var(--color-bg-4) !important;
+}
+
+/* 文字颜色、placeholder、下拉箭头 */
+.dark .bio-properties-panel-input {
+  color: var(--color-text-1) !important;
+}
+
+.dark .bio-properties-panel-input::placeholder {
+  color: var(--color-text-3) !important;
+}
+
+/* select 自带下拉箭头图标反色（properties-panel 用 background svg） */
+.dark select.bio-properties-panel-input {
+  color: var(--color-text-1) !important;
+}
+
+/* 原生 <option> 下拉项默认白底，需显式设暗色（仅部分 webkit 支持） */
+.dark select.bio-properties-panel-input option {
+  background-color: var(--color-bg-2) !important;
+  color: var(--color-text-1) !important;
+}
+
+/* focus 高亮（边框/阴影） */
+.dark .bio-properties-panel-input:focus,
+.dark .bio-properties-panel-input:focus-within {
+  outline: none !important;
+}
+
+/* checkbox / radio 勾选色 */
+.dark .bio-properties-panel-input[type='checkbox']:checked,
+.dark .bio-properties-panel-input[type='radio']:checked {
+  accent-color: var(--primary-color) !important;
+}
+
+
+
+/* ===== FEEL 表达式编辑器（CodeMirror）暗色适配 ===== */
+/* 光标颜色、选区背景、文字颜色 */
+.dark .ͼ2 .cm-content {
+  caret-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .bio-properties-panel-feel-editor .cm-editor {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .bio-properties-panel-feel-editor .cm-cursor {
+  border-left-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .bio-properties-panel-feel-editor .cm-selectionBackground {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 自动补全提示框 */
+.dark .ͼ1 .cm-tooltip.cm-completionInfo {
+  background-color: #17171A !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul {
+  background-color: #17171A !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .ͼ1.cm-focused .cm-matchingBracket {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .bio-properties-panel-feel-editor-container .cm-line {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .bio-properties-panel-open-feel-popup svg {
+  color: rgba(255, 255, 255, 0.9) !important;
+  fill: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .bio-properties-panel-feel-editor__open-popup-placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ===== 关闭点击后自动聚焦根元素样式 ===== */
+.djs-container svg:focus {
+  outline: none;
+}
+
+/* ===== DMN 暗色主题变量（参照 dmn-variable.less 适配） ===== */
+/* DRD 视图 */
+.dark .dmn-drd-container {
+  --dmn-definitions-background-color: #17171A;
+  --drill-down-overlay-color: #17171A;
+}
+
+/* 决策表视图 */
+.dark .dmn-decision-table-container {
+  --context-menu-background-color: #17171A;
+  --action-icon-hover-color: #17171A;
+  --add-column-icon-color: #17171A;
+  --decision-table-background-color: #17171A;
+  --dmn-expression-language-color: #17171A;
+  --powered-by-overlay-content-background-color: #17171A;
+  --view-drd-button-background-color: #17171A;
+  --view-drd-button-color: rgba(255, 255, 255, 0.9);
+  --decision-table-properties-color: rgba(255, 255, 255, 0.9);
+  --table-cell-border-color: rgba(255, 255, 255, 0.2);
+  --table-head-clause-color: rgba(255, 255, 255, 0.9);
+  --table-cell-color: rgba(255, 255, 255, 0.9);
+  --table-head-variable-color: rgba(255, 255, 255, 0.7);
+  --input-color: rgba(255, 255, 255, 0.9);
+  --select-options-border-color: rgba(255, 255, 255, 0.25);
+  --select-options-color: rgba(255, 255, 255, 0.9);
+  --select-options-box-shadow-color: rgba(0, 0, 0, 0.4);
+  --select-options-background-color: #17171A;
+  --select-option-hover-background-color: rgba(255, 255, 255, 0.12);
+  --simple-mode-button-color: rgba(255, 255, 255, 0.9);
+  --simple-mode-button-background-color: #2a2a2e;
+  --simple-mode-button-border-color: rgba(255, 255, 255, 0.25);
+  --table-head-border-color: rgba(255, 255, 255, 0.2);
+  --context-menu-color: rgba(255, 255, 255, 0.9);
+  --table-row-alternative-background-color: rgba(255, 255, 255, 0.04);
+  --view-drd-button-hover-background-color: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ===== 属性面板拖拽时的全局禁选状态 ===== */
+body.panel-resizing {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: col-resize;
+}
+
+/* 拖拽调整宽度期间，禁用 diagram-js 画布交互，避免 mousemove 被画布框选/命中测试吞掉 */
+body.panel-resizing .djs-container {
+  pointer-events: none;
+}
+
+/* ===== Problems 面板拖拽调整高度时的全局禁选状态 ===== */
+body.problems-resizing {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: row-resize;
+}
+
+body.problems-resizing .djs-container {
+  pointer-events: none;
+}

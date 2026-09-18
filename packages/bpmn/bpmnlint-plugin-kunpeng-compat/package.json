@@ -1,0 +1,58 @@
+{
+  "name": "@kunpeng/bpmnlint-plugin-kunpeng-compat",
+  "version": "2.59.0",
+  "description": "A bpmnlint plug-in for Camunda compatibility",
+  "main": "index.js",
+  "scripts": {
+    "all": "npm run lint && npm test",
+    "dev": "vitest --watch",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camunda/bpmnlint-plugin-camunda-compat"
+  },
+  "keywords": [
+    "bpmnlint",
+    "plugin"
+  ],
+  "author": {
+    "name": "Philipp Fromme",
+    "url": "https://github.com/philippfromme"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@kunpeng/bpmn-moddle": "workspace:*",
+    "bpmn-moddle": "catalog:",
+    "bpmnlint": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "happy-dom": "catalog:",
+    "modeler-moddle": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@bpmn-io/moddle-utils": "^0.3.0",
+    "@bpmn-io/semver-compat": "^0.1.0",
+    "@kunpeng/expression-analyzer": "workspace:*",
+    "@kunpeng/expression-builtins": "workspace:*",
+    "@kunpeng/lezer-expression": "workspace:*",
+    "bpmnlint-utils": "catalog:",
+    "min-dash": "catalog:",
+    "semver-compare": "catalog:"
+  },
+  "files": [
+    "rules",
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 20"
+  },
+  "peerDependencies": {
+    "bpmnlint": ">= 11.6.0"
+  }
+}

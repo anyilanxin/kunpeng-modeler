@@ -1,0 +1,77 @@
+export const template = {
+  'name': 'REST Connector',
+  'id': 'io.camunda.connectors.RestConnector-s1',
+  'description': 'A generic REST service.',
+  'appliesTo': [
+    'bpmn:ServiceTask'
+  ],
+  'properties': [
+    {
+      'label': 'Request Body',
+      'type': 'String',
+      'optional': true,
+      'binding': {
+        'type': 'kunpeng:input',
+        'name': 'body'
+      }
+    },
+    {
+      'label': 'Result Variable',
+      'type': 'String',
+      'optional': true,
+      'binding': {
+        'type': 'property',
+        'name': 'name'
+      }
+    }
+  ]
+};
+
+export const errors = [
+  {
+    keyword: 'errorMessage',
+    dataPath: '/properties/1/binding/type',
+    schemaPath: '#/allOf/1/items/allOf/2/then/properties/binding/properties/type/errorMessage',
+    params: {
+      errors: [
+        {
+          keyword: 'enum',
+          dataPath: '/properties/1/binding/type',
+          schemaPath: '#/allOf/1/items/allOf/2/then/properties/binding/properties/type/enum',
+          params: {
+            allowedValues: [
+              'kunpeng:input',
+              'kunpeng:output',
+              'kunpeng:property',
+              'kunpeng:taskHeader'
+            ]
+          },
+          message: 'should be equal to one of the allowed values',
+          emUsed: true
+        }
+      ]
+    },
+    message: 'optional is not supported for binding type "property"; must be any of { kunpeng:input, kunpeng:output, kunpeng:property, kunpeng:taskHeader }'
+  },
+  {
+    keyword: 'if',
+    dataPath: '/properties/1',
+    schemaPath: '#/allOf/1/items/allOf/2/if',
+    params: { failingKeyword: 'then' },
+    message: 'should match "then" schema'
+  },
+  {
+    keyword: 'type',
+    dataPath: '',
+    schemaPath: '#/oneOf/1/type',
+    params: { type: 'array' },
+    message: 'should be array'
+  },
+  {
+    keyword: 'oneOf',
+    dataPath: '',
+    schemaPath: '#/oneOf',
+    params: { passingSchemas: null },
+    message: 'should match exactly one schema in oneOf'
+  }
+];

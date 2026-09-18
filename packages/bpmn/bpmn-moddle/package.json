@@ -1,0 +1,48 @@
+{
+  "name": "@kunpeng/bpmn-moddle",
+  "version": "2026.0.0-alpha1",
+  "description": "Kunpeng moddle extensions for BPMN 2.0",
+  "keywords": [
+    "bpmn",
+    "moddle",
+    "bpmn20",
+    "zeebe",
+    "meta-model"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camunda/@kunpeng/bpmn-moddle"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Maciej Barelkowski",
+    "url": "https://github.com/barmac"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "scripts": {
+    "all": "run-s lint test",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "build": "echo \"No build step required\"",
+    "test": "vitest run"
+  },
+  "files": [
+    "resources"
+  ],
+  "devDependencies": {
+    "bpmn-moddle": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "min-dash": "catalog:",
+    "npm-run-all": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "xsd-schema-validator": "catalog:"
+  }
+}

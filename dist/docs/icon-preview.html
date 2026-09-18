@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文件类型图标预览 · App 徽标明亮对比</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+    background: #f1f5f9;
+    padding: 40px 24px;
+    min-height: 100vh;
+  }
+  h1 { font-size: 22px; margin-bottom: 8px; color: #0f172a; }
+  .subtitle { font-size: 14px; color: #64748b; margin-bottom: 32px; }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 900px;
+  }
+  .compare-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  }
+  .compare-card h2 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .badge-old { background: #f1f5f9; color: #64748b; }
+  .badge-new { background: #dcfce7; color: #16a34a; }
+  .compare-card .desc { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+  .icon-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 16px 0;
+  }
+  .icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .icon-box img {
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  }
+  .icon-box .size-label {
+    font-size: 11px;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+  }
+  .label-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+</style>
+</head>
+<body>
+  <h1>文件类型图标 · App 徽标明亮对比</h1>
+  <p class="subtitle">左下角 App 徽标：左侧 opacity 0.80（原版降低饱和度）→ 右侧 opacity 1.0（完全明亮）</p>
+
+  <div class="compare-grid">
+    <!-- ===== 原版 opacity 0.80 ===== -->
+    <div class="compare-card">
+      <h2>原版 <span class="badge badge-old">opacity 0.80</span></h2>
+      <p class="desc">降低饱和度，不喧宾夺主</p>
+
+      <div class="label-type">BPMN</div>
+      <div class="icon-row" id="old-bpmn"></div>
+
+      <div class="label-type">DMN</div>
+      <div class="icon-row" id="old-dmn"></div>
+    </div>
+
+    <!-- ===== 明亮版 opacity 1.0 ===== -->
+    <div class="compare-card">
+      <h2>明亮版 <span class="badge badge-new">opacity 1.0</span></h2>
+      <p class="desc">完全明亮，紫粉渐变饱和鲜明</p>
+
+      <div class="label-type">BPMN</div>
+      <div class="icon-row" id="new-bpmn"></div>
+
+      <div class="label-type">DMN</div>
+      <div class="icon-row" id="new-dmn"></div>
+    </div>
+  </div>
+
+<script>
+// 内联 SVG 生成函数：opacity 控制左下角 App 徽标准确度
+function makeIcon(type, opacity) {
+  const isBpmn = type === 'bpmn';
+  const docStops = isBpmn
+    ? `<stop offset="0" stop-color="#ffffff"/><stop offset="0.15" stop-color="#f5f9ff"/><stop offset="0.5" stop-color="#e0eafa"/><stop offset="0.85" stop-color="#c4d6f0"/><stop offset="1" stop-color="#a8c0e8"/>`
+    : `<stop offset="0" stop-color="#ffffff"/><stop offset="0.15" stop-color="#faf6ff"/><stop offset="0.5" stop-color="#ece0f8"/><stop offset="0.85" stop-color="#d0bdec"/><stop offset="1" stop-color="#b89ee0"/>`;
+  const foldStops = isBpmn
+    ? `<stop offset="0" stop-color="#eef4fc"/><stop offset="1" stop-color="#aebbdb"/>`
+    : `<stop offset="0" stop-color="#f4edfb"/><stop offset="1" stop-color="#c9b1de"/>`;
+  const foldStroke = isBpmn ? '#dce6f3' : '#e4d9f0';
+
+  // 中心符号
+  const centerSymbol = isBpmn
+    ? `<g transform="translate(312 322) scale(16.5)"><path d="M12.11 2l.086.002c.283.005.563.023.84.05.216.023.387.19.424.405l.273 1.585a.52.52 0 00.38.41 7.816 7.816 0 011.748.711.52.52 0 00.553-.024l1.302-.919a.484.484 0 01.585.015c.537.436 1.028.927 1.465 1.464.137.169.14.408.014.585l-.9 1.274a.52.52 0 00-.019.56c.32.556.575 1.154.753 1.784a.52.52 0 00.408.376l1.522.262a.484.484 0 01.403.425 9.956 9.956 0 01.05 1.29l-.002.071c-.008.239-.024.475-.048.71a.484.484 0 01-.403.424l-1.498.258a.522.522 0 00-.41.381 7.82 7.82 0 01-.75 1.823.52.52 0 00.021.557l.873 1.237a.484.484 0 01-.015.585 10.065 10.065 0 01-1.464 1.465.484.484 0 01-.585.014l-1.244-.878a.52.52 0 00-.55-.016 7.82 7.82 0 01-1.823.75.52.52 0 00-.381.41l-.258 1.497a.485.485 0 01-.425.404 10.06 10.06 0 01-2.07 0 .484.484 0 01-.424-.403l-.265-1.533a.521.521 0 00-.374-.398 7.796 7.796 0 01-.917-.321 7.807 7.807 0 01-.885-.425.52.52 0 00-.55.02l-1.266.893a.485.485 0 01-.585-.015 10.043 10.043 0 01-.77-.694l-.166-.17a10.08 10.08 0 01-.528-.6.484.484 0 01-.015-.585l.876-1.241a.52.52 0 00.02-.56 7.817 7.817 0 01-.758-1.82.52.52 0 00-.41-.378l-1.49-.257a.484.484 0 01-.405-.425 10.061 10.061 0 010-2.07.484.484 0 01.404-.425l1.491-.257a.52.52 0 00.41-.378c.173-.63.426-1.242.758-1.82a.52.52 0 00-.02-.56L4.22 6.284a.484.484 0 01.015-.585c.168-.207.344-.407.528-.6l.166-.17a10.021 10.021 0 01.77-.695.484.484 0 01.585-.014l1.27.896c.162.11.374.114.546.017a7.82 7.82 0 011.793-.73.52.52 0 00.382-.41l.266-1.536a.484.484 0 01.424-.404c.313-.032.627-.05.942-.053h.204zM12 6a6 6 0 100 12 6 6 0 000-12zm-2 3.135a1 1 0 011.64-.768l3.438 2.865a1 1 0 010 1.536l-3.438 2.865a1 1 0 01-1.64-.768z" fill="#165DFF"/></g>`
+    : `<g transform="translate(342 342) scale(16)"><path d="M5 2.996a2 2 0 00-2 2l-.006 14.012a2 2 0 002 2h14a2 2 0 002-1.999L21 4.997a2 2 0 00-2-2.001H5zM11 11l7.994.008v2.996L11 13.996V11zm0-5.996l7.994.01v3.99L11 8.994v-3.99zm-6 0l4 .01v3.99l-4-.01v-3.99zm3.977 8.992L4.994 14v-2.996L8.977 11v2.996zM4.994 16l3.983-.004V19l-3.983.004V16zM11 19.004v-3.012l7.994.008v3.008L11 19.004z" fill="#8b5cf6"/></g>`;
+
+  const kPath = `M26794.02 35103.17c-245.83,92.11 -493.92,177.27 -743.72,255.05 -1346.22,418.42 -2746.1,634.86 -4153.49,634.86 -3862.39,0 -7359.3,-1565.8 -9890.65,-4097.3 -2531.5,-2531.37 -4097.29,-6028.16 -4097.29,-9890.71 0,-3862.4 1565.79,-7359.33 4097.29,-9890.7 2531.35,-2531.51 6028.26,-4097.3 9890.65,-4097.3 3862.39,0 7359.3,1565.79 9890.65,4097.3 1934.39,1934.26 3304.74,4432.69 3843.65,7226.92 246.82,1280.09 184.66,1973 184.66,3227.68l0 12723.82 -6620.55 0 0 -11743.07 -3869.63,-3079.36 5625.18,-268.96c-361.64,-1825.68 -1261.34,-3457.62 -2526.95,-4723.37 -1670.11,-1669.98 -3977.92,-2703.25 -6527.01,-2703.25 -2549.09,0 -4856.9,1033.27 -6527.01,2703.25 -1669.97,1670.12 -2703.24,3977.94 -2703.24,6527.04 0,2549.11 1033.27,4856.93 2703.24,6527.05 1670.11,1669.98 3977.92,2703.25 6527.01,2703.25 943.7,0 1867.54,-140.52 2740.84,-412.03 760.76,-236.32 1486.03,-567.31 2156.37,-985.72l0 5265.55z`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+    <defs>
+      <linearGradient id="gDoc_${type}_${opacity}" x1="0" y1="0" x2="0" y2="1">${docStops}</linearGradient>
+      <linearGradient id="gFold_${type}_${opacity}" x1="0" y1="0" x2="1" y2="1">${foldStops}</linearGradient>
+      <linearGradient id="gApp_${type}_${opacity}" gradientUnits="userSpaceOnUse" x1="180" y1="960" x2="380" y2="760">
+        <stop offset="0" stop-color="#4519C3"/><stop offset="0.7" stop-color="#9C41CD"/><stop offset="1" stop-color="#F369D7"/>
+      </linearGradient>
+    </defs>
+    <path d="M180 90 L660 90 L860 290 L860 930 Q860 960 830 960 L210 960 Q180 960 180 930 Z" fill="#000" opacity="0.08" transform="translate(6 10)"/>
+    <path d="M180 90 L660 90 L860 290 L860 930 Q860 960 830 960 L210 960 Q180 960 180 930 Z" fill="url(#gDoc_${type}_${opacity})"/>
+    <path d="M660 90 L860 290 L710 290 Q660 290 660 240 Z" fill="url(#gFold_${type}_${opacity})" stroke="${foldStroke}" stroke-width="1.5"/>
+    ${centerSymbol}
+    <g opacity="${opacity}">
+      <rect x="180" y="760" width="200" height="200" rx="44" fill="#000" opacity="0.08" transform="translate(3 5)"/>
+      <rect x="180" y="760" width="200" height="200" rx="44" fill="url(#gApp_${type}_${opacity})"/>
+      <path fill="white" fill-rule="nonzero" transform="translate(180 760) scale(0.0045662)" d="${kPath}"/>
+    </g>
+  </svg>`;
+}
+
+// 渲染到页面
+function renderIcons(containerId, opacity) {
+  const container = document.getElementById(containerId);
+  for (const type of ['bpmn', 'dmn']) {
+    if (!containerId.endsWith(type)) continue;
+    const svgStr = makeIcon(type, opacity);
+    for (const size of [128, 64, 32]) {
+      const box = document.createElement('div');
+      box.className = 'icon-box';
+      const img = document.createElement('img');
+      img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
+      img.width = size;
+      img.height = size;
+      box.appendChild(img);
+      const label = document.createElement('span');
+      label.className = 'size-label';
+      label.textContent = size + 'px';
+      box.appendChild(label);
+      container.appendChild(box);
+    }
+  }
+}
+
+renderIcons('old-bpmn', '0.80');
+renderIcons('old-dmn', '0.80');
+renderIcons('new-bpmn', '1');
+renderIcons('new-dmn', '1');
+</script>
+</body>
+</html>

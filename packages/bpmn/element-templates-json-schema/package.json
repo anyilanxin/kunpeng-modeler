@@ -1,0 +1,40 @@
+{
+  "name": "@kunpeng/element-templates-json-schema",
+  "version": "2026.0.0-alpha1",
+  "description": "JSON Schema for (Kunpeng) Element Templates",
+  "keywords": [
+    "json-schema",
+    "element-templates",
+    "camunda"
+  ],
+  "homepage": "https://github.com/camunda/element-templates-json-schema#readme",
+  "bugs": {
+    "url": "https://github.com/camunda/element-templates-json-schema/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camunda/element-templates-json-schema.git"
+  },
+  "license": "MIT",
+  "author": "Niklas Kiefer <niklas.kiefer@camunda.com (https://github.com/pinussilvestrus)",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "echo \"No build step required\"",
+    "test": "vitest run",
+    "dev": "vitest --watch",
+    "all": "run-s lint test"
+  },
+  "files": [
+    "resources"
+  ],
+  "devDependencies": {
+    "ajv": "catalog:",
+    "ajv-errors": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "npm-run-all": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0" id="Definitions_0upqbpl" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0-alpha.1" modeler:executionPlatform="Anyilanxin Cloud" modeler:executionPlatformVersion="1.0.0">
+  <bpmn:process id="Process_17fhhp5" isExecutable="true">
+    <bpmn:subProcess id="EventSubProcess_1" triggeredByEvent="true">
+      <bpmn:startEvent id="StartEvent_1" isInterrupting="false">
+        <bpmn:messageEventDefinition id="MessageEventDefinition_175fj6p" messageRef="Message_1" />
+      </bpmn:startEvent>
+      <bpmn:startEvent id="StartEvent_3">
+        <bpmn:messageEventDefinition id="MessageEventDefinition_1ib4bl4" messageRef="Message_3" />
+      </bpmn:startEvent>
+    </bpmn:subProcess>
+    <bpmn:receiveTask id="ReceiveTask_empty" messageRef="Message_empty" />
+    <bpmn:intermediateCatchEvent id="StartEvent_noSubscription">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1nrsz2p" messageRef="Message_noSubscription" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:startEvent id="StartEvent_2">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_00hnlxy" messageRef="Message_1" />
+    </bpmn:startEvent>
+    <bpmn:startEvent id="MessageEvent_empty">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_14olo4o" />
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateEvent_1">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hjv9w9" messageRef="Message_3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateEvent_empty">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_02zap1w" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:receiveTask id="ReceiveTask_noCorrelationKey" messageRef="Message_noCorrelationKey" />
+  </bpmn:process>
+  <bpmn:message id="Message_1" name="Message_1">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="=key1" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_2" name="Message_2">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="=key_2" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_3" name="Message_3">
+    <bpmn:extensionElements>
+      <kunpeng:subscription correlationKey="=key_3" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_noSubscription" name="Message_noSubscription">
+    <bpmn:extensionElements />
+  </bpmn:message>
+  <bpmn:message id="Message_empty" name="Message_empty" />
+  <bpmn:message id="Message_noCorrelationKey" name="Message_noCorrelationKey">
+    <bpmn:extensionElements>
+      <kunpeng:subscription />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_17fhhp5">
+      <bpmndi:BPMNShape id="Event_0og0a7w_di" bpmnElement="IntermediateEvent_1">
+        <dc:Bounds x="242" y="472" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0eexx4v" bpmnElement="IntermediateEvent_empty">
+        <dc:Bounds x="317" y="472" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01jx65q_di" bpmnElement="ReceiveTask_noCorrelationKey">
+        <dc:Bounds x="520" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ufkvg9_di" bpmnElement="EventSubProcess_1" isExpanded="true">
+        <dc:Bounds x="160" y="220" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1dcu567_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="200" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0s14kwn_di" bpmnElement="StartEvent_3">
+        <dc:Bounds x="200" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16h3qv1_di" bpmnElement="ReceiveTask_empty">
+        <dc:Bounds x="390" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13rfyq9_di" bpmnElement="StartEvent_noSubscription">
+        <dc:Bounds x="242" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0x2250m_di" bpmnElement="StartEvent_2">
+        <dc:Bounds x="112" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_08h08b4" bpmnElement="MessageEvent_empty">
+        <dc:Bounds x="112" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

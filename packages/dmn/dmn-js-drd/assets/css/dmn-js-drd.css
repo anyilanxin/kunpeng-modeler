@@ -1,0 +1,317 @@
+.dmn-drd-container {
+  --dmn-definitions-background-color: var(--color-grey-225-10-97);
+  --dmn-definitions-border-color: var(--color-grey-225-10-75);
+  --dmn-definitions-focus-border-color: var(--color-grey-225-10-75);
+  --dmn-definitions-error-color: var(--color-red-360-100-45);
+  --dmn-definitions-error-border-color: var(--color-red-360-100-45);
+  --dmn-definitions-error-background-color: var(--color-red-360-100-97);
+  --drill-down-overlay-background-color: var(--color-blue-205-100-50);
+  --drill-down-overlay-color: var(--color-white);
+  --drd-font-family-monospace: monospace;
+
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .bjs-powered-by {
+    display: none;
+  }
+  .dmn-definitions {
+    display: none;
+  }
+}
+
+.dmn-drd-container * {
+  box-sizing: border-box;
+}
+
+.djs-overlay .drill-down-overlay {
+  font-size: 16px;
+  text-align: left;
+  padding: 1px;
+}
+
+.djs-overlay .drill-down-overlay > button,
+.djs-overlay .drill-down-overlay > span {
+  display: block;
+  padding: 2px 4px;
+  margin: 0;
+  border: none;
+  border-radius: 1px;
+  background: var(--drill-down-overlay-background-color);
+  color: var(--drill-down-overlay-color);
+  font-size: inherit;
+  outline-offset: 2px;
+}
+
+.dmn-definitions {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: var(--dmn-definitions-background-color);
+  border: solid 1px var(--dmn-definitions-border-color);
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.dmn-definitions .dmn-definitions-name {
+  font-size: 24px;
+  padding: 3px;
+}
+
+.dmn-definitions .dmn-definitions-name:focus {
+  outline: none;
+}
+
+.dmn-definitions .dmn-definitions-id {
+  font-family: var(--drd-font-family-monospace);
+  margin-top: 2px;
+  padding: 3px;
+}
+
+.dmn-definitions .dmn-definitions-id:focus {
+  outline: none;
+}
+
+.dmn-definitions > [contenteditable]:hover,
+.dmn-definitions > [contenteditable]:focus {
+  padding: 2px;
+  background-color: var(--color-white);
+  border-radius: 2px;
+  border: 1px solid var(--dmn-definitions-focus-border-color);
+}
+
+.dmn-definitions .dmn-definitions-error-message {
+  color: var(--dmn-definitions-error-color);
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.dmn-definitions .dmn-definitions-id.dmn-definitions-error {
+  border-color: var(--dmn-definitions-error-border-color);
+  background-color: var(--dmn-definitions-error-background-color);
+}
+
+.djs-container.with-palette .dmn-definitions {
+  left: 80px;
+}
+
+.djs-container.with-palette-two-column .dmn-definitions {
+  left: 130px;
+}
+
+.djs-overlay {
+  & .dms-type-ref-dropdown {
+    display: block;
+  }
+
+  & .dms-type-ref-select {
+    background-color: var(--color-white);
+    border: 1px solid var(--input-border-color);
+    width: 125px;
+    border-radius: 12px;
+  }
+}
+
+/* ============================================================
+ * DMN Overview plugin styles
+ * (toolbar + overview panel)
+ * ============================================================ */
+
+/*
+ * When the toolbar is visible (non-DRD views), the modeler container
+ * becomes a wrapping flexbox:
+ *   row 1: toolbar (full width)
+ *   row 2: overview panel + DMN viewer container (side by side)
+ */
+.dmn-js-parent:has(.dmn-overview-toolbar:not(.hidden)) {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+/* toolbar — sits on the first row, full width */
+.dmn-overview-toolbar {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.dmn-overview-toolbar.hidden {
+  display: none;
+}
+
+/* shared button style for "Edit DRD" + "Overview" */
+.dmn-overview-toolbar button {
+  background: var(--color-white, #fff);
+  padding: 8px;
+  border: solid 1px var(--color-grey-225-10-75, #d9d9d9);
+  border-radius: 2px;
+  font-size: 14px;
+  color: var(--color-grey-225-10-15, #2c2c2c);
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.dmn-overview-toolbar button:hover {
+  background: var(--color-grey-225-10-97, #f5f5f5);
+}
+
+/*
+ * Hide the engine's built-in "View DRD" button since the toolbar provides
+ * its own "Edit DRD" button with the same functionality.
+ */
+.dmn-overview-toolbar ~ .view-drd,
+.dmn-js-parent .view-drd {
+  display: none !important;
+}
+
+/*
+ * DMN sub-viewer containers take the full remaining height on row 2.
+ * When the overview panel is open, the viewer shrinks to make room.
+ */
+.dmn-js-parent:has(.dmn-overview-toolbar:not(.hidden))
+  > div:not(.dmn-overview-toolbar):not(.dmn-overview-panel) {
+  flex: 1;
+  min-width: 0;
+  height: calc(100% - 50px);
+}
+
+/* overview panel — collapsed state takes no space */
+.dmn-overview-panel {
+  width: 0;
+  flex-shrink: 0;
+  visibility: hidden;
+  overflow: hidden;
+  background-color: var(--color-grey-225-10-97, #f5f5f5);
+  border: solid 1px var(--color-grey-225-10-75, #d9d9d9);
+  transition: width 0.2s ease;
+}
+
+/* overview panel — open state */
+.dmn-overview-panel.open {
+  visibility: visible;
+  position: relative;
+  margin: 0 10px 10px 10px;
+  height: calc(100% - 60px);
+  border-radius: 3px;
+}
+
+/* resize handle — drag to change panel width */
+.dmn-overview-panel .dmn-overview-resize-handle {
+  cursor: ew-resize;
+  z-index: 11;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -3px;
+  width: 6px;
+  user-select: none;
+}
+
+/* close button */
+.dmn-overview-panel .dmn-overview-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 11;
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-grey-225-10-15, #666);
+}
+
+.dmn-overview-panel .dmn-overview-close:hover {
+  opacity: 1;
+  color: var(--color-blue-205-100-50, #005df7);
+}
+
+/* highlight right border on hover (via :has) or during resize */
+.dmn-overview-panel:has(.dmn-overview-resize-handle:hover),
+.dmn-overview-panel.resizing {
+  border-right: 3px solid var(--color-blue-205-100-50, #005df7);
+}
+
+/* overview DRD viewer container */
+.dmn-overview-panel .dmn-overview-viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.dmn-overview-panel .dmn-overview-viewer .dmn-drd-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element
+  .djs-outline {
+  display: none;
+}
+
+/* highlight open / hoverable DRG elements */
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.open
+  .djs-visual
+  rect,
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.open
+  .djs-visual
+  path,
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.can-open:hover
+  .djs-visual
+  rect,
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.can-open:hover
+  .djs-visual
+  path {
+  stroke: var(--color-blue-205-100-50, #005df7) !important;
+  fill: rgba(0, 93, 247, 0.08) !important;
+}
+
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.open
+  .djs-visual
+  text,
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-element.can-open:hover
+  .djs-visual
+  text {
+  fill: var(--color-blue-205-100-50, #005df7) !important;
+}
+
+.dmn-overview-panel .dmn-overview-viewer .dmn-drd-container .djs-overlay {
+  pointer-events: none;
+}
+
+.dmn-overview-panel
+  .dmn-overview-viewer
+  .dmn-drd-container
+  .djs-overlay
+  .drill-down-overlay {
+  color: var(--color-grey-225-10-15, #666);
+  background: transparent;
+}

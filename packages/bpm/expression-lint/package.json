@@ -1,0 +1,76 @@
+{
+  "name": "@kunpeng/expression-lint",
+  "version": "3.1.0",
+  "description": "Linter for FEEL expressions.",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "source": "./lib/index.js",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "all": "run-s lint test build",
+    "build": "rimraf dist && vite build",
+    "dev": "vitest --watch",
+    "lint": "eslint .",
+    "prepare": "run-s build",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/feel-lint.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "bpmn-io",
+    "feel",
+    "linter"
+  ],
+  "author": {
+    "name": "Martin Stamm",
+    "url": "https://github.com/marstamm"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "engines": {
+    "node": "*"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@codemirror/lang-json": "catalog:",
+    "@codemirror/lint": "catalog:",
+    "@codemirror/state": "catalog:",
+    "@codemirror/view": "catalog:",
+    "@kunpeng/lang-expression": "workspace:*",
+    "@types/chai": "catalog:",
+    "@types/mocha": "catalog:",
+    "@types/sinon": "catalog:",
+    "@types/sinon-chai": "catalog:",
+    "chai": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "happy-dom": "catalog:",
+    "mocha": "catalog:",
+    "npm-run-all2": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@codemirror/language": "catalog:",
+    "@kunpeng/lezer-expression": "workspace:*"
+  },
+  "types": "./dist/index.d.ts"
+}

@@ -1,0 +1,379 @@
+import { Linter } from 'bpmnlint';
+import RuleTester from 'bpmnlint/lib/testers/rule-tester';
+
+import { ElementTemplateLinterPlugin } from 'src/cloud-element-templates/linting';
+import validateRule from 'src/cloud-element-templates/linting/rules/element-templates-validate';
+import compatibilityRule from 'src/cloud-element-templates/linting/rules/element-templates-compatibility';
+
+import templates from './LinterPlugin.json';
+
+import { BpmnModdle } from 'bpmn-moddle';
+import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+
+
+import { expect } from 'chai';
+const valid = [
+  {
+    name: 'Valid Template',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.empty" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'Conditional Template - property hidden',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.conditional" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'No Template',
+    moddleElement: createProcess('<bpmn:task id="Task_1" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'All Messages',
+    moddleElement: createDefinitions('<bpmn:message id="a" name="a" kunpeng:modelerTemplate="constraints.minLength" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'FEEL (Min Length)',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="=FOO" kunpeng:modelerTemplate="feel.minLength" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'FEEL (Max Length)',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="=FOOBAR" kunpeng:modelerTemplate="feel.maxLength" />'),
+    config: {
+      templates
+    }
+  },
+  {
+    name: 'FEEL (Pattern)',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="=FOO" kunpeng:modelerTemplate="feel.pattern" />'),
+    config: {
+      templates
+    }
+  }
+];
+
+
+const invalid = [
+  {
+    name: 'Template Not Found',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="missing-template" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Linked element template \'missing-template\' not found'
+    }
+  },
+  {
+    name: 'Template Not Found with Version',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="missing-template" kunpeng:modelerTemplateVersion="1" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Linked element template \'missing-template\' (version: 1) not found'
+    }
+  },
+  {
+    name: 'Min Length',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="a" kunpeng:modelerTemplate="constraints.minLength" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property must have min length 5.',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.minLength-0' ] },
+      name: 'a'
+    }
+  },
+  {
+    name: 'Max Length',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="Very Long Name" kunpeng:modelerTemplate="constraints.maxLength" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property must have max length 5.',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.maxLength-0' ] },
+      name: 'Very Long Name'
+    }
+  },
+  {
+    name: 'Not Empty',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.notEmpty" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property must not be empty.',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.notEmpty-0' ] }
+    }
+  },
+  {
+    name: 'Pattern',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.pattern" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property must match pattern A+B.',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.pattern-0' ] }
+    }
+  },
+  {
+    name: 'Pattern (custom message)',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.pattern-custom-message" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property This is a custom message',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.pattern-custom-message-0' ] }
+    }
+  },
+  {
+    name: 'Conditional Template - property shown',
+    moddleElement: createProcess('<bpmn:task id="Task_1" name="foo" kunpeng:modelerTemplate="constraints.conditional" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Test Property must match pattern A+B.',
+      propertiesPanel: { entryIds: [ 'custom-entry-constraints.conditional-1' ] },
+      name: 'foo'
+    }
+  }
+];
+
+const compatible = [
+  {
+    name: 'Template compatible',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="compatible" />'),
+    config: {
+      templates
+    }
+  },
+
+  {
+    name: 'Template compatible (no execution platform)',
+    moddleElement: createProcess(
+      '<bpmn:task id="Task_1" kunpeng:modelerTemplate="compatible" />',
+      '',
+      { executionPlatform: '' }
+    ),
+    config: {
+      templates
+    }
+  },
+
+  {
+    name: 'Template compatible (no execution platform version)',
+    moddleElement: createProcess(
+      '<bpmn:task id="Task_1" kunpeng:modelerTemplate="compatible" />',
+      '',
+      { executionPlatform: '8.5' }),
+    config: {
+      templates
+    }
+  },
+];
+
+const incompatible = [
+  {
+    name: 'Template incompatible',
+    moddleElement: createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="incompatible" />'),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Element template incompatible with current <camunda> environment. Requires \'camunda 0\'; found \'8.5.0\'.'
+    }
+  },
+  {
+    name: 'Template incompatible with update',
+    moddleElement: createProcess(
+      '<bpmn:task id="Task_1" kunpeng:modelerTemplate="incompatible-updatable" kunpeng:modelerTemplateVersion="1" />'
+    ),
+    config: {
+      templates
+    },
+    report: {
+      id: 'Task_1',
+      message: 'Element template incompatible with current <camunda> environment. Requires \'camunda 0\'; found \'8.5.0\'. Update available.'
+    }
+  },
+];
+
+
+describe('cloud-element-templates/linting', function() {
+
+  before(function() {
+
+    // 'assert' needs the process variable to be defined
+    if (!global.process) {
+      global.process = {};
+    }
+  });
+
+  RuleTester.verify('element-templates/validate', validateRule, {
+    valid,
+    invalid,
+  });
+
+  RuleTester.verify('element-templates/compatibility', compatibilityRule, {
+    valid: compatible,
+    invalid: incompatible
+  });
+
+
+  it('should create the plugin within performance constraints', function() {
+
+    // given
+    this.timeout(100);
+
+    let i = 0;
+    while (i < 1000) {
+
+      // when
+      ElementTemplateLinterPlugin(templates);
+      i++;
+    }
+
+    // then
+    // no error (timeout)
+  });
+
+
+  it('should create `validate` rule within performance constraints', function() {
+
+    // given
+    this.timeout(100);
+
+    let i = 0;
+    while (i < 1000) {
+
+      // when
+      validateRule({ templates });
+      i++;
+    }
+
+    // then
+    // no error (timeout)
+  });
+
+
+  it('should create `compatibility` rule within performance constraints', function() {
+
+    // given
+    this.timeout(100);
+
+    let i = 0;
+    while (i < 1000) {
+
+      // when
+      compatibilityRule({ templates });
+      i++;
+    }
+
+    // then
+    // no error (timeout)
+  });
+
+
+  it('should lint correctly when templates configuration changes', async function() {
+
+    // given
+    let linter = new Linter(ElementTemplateLinterPlugin(templates));
+    const moddleElement = (await createProcess('<bpmn:task id="Task_1" kunpeng:modelerTemplate="constraints.empty" />')).root;
+
+    // when
+    const result = await linter.lint(moddleElement);
+
+    // assume
+    expect(Object.keys(result)).to.be.empty;
+
+    // and when
+    linter = new Linter(ElementTemplateLinterPlugin([]));
+    const secondResult = await linter.lint(moddleElement);
+
+    // then
+    const report = secondResult['element-templates/validate'][0];
+    expect(report).to.have.property('id', 'Task_1');
+    expect(report).to.have.property('message', 'Linked element template \'constraints.empty\' not found');
+  });
+});
+
+
+// helpers ///////////
+
+async function createModdle(xml) {
+  const moddle = new BPMNModdle({
+    kunpeng: kunpengModdle
+  });
+
+  const {
+    rootElement: root,
+    warnings = []
+  } = await moddle.fromXML(xml, 'bpmn:Definitions', { lax: true });
+
+  return {
+    root,
+    moddle,
+    context: {
+      warnings
+    },
+    warnings
+  };
+}
+
+function createDefinitions(xml = '', { executionPlatform, executionPlatformVersion } = {
+  executionPlatform: 'Anyilanxin Cloud',
+  executionPlatformVersion: '8.5'
+}) {
+
+  return createModdle(`
+    <bpmn:definitions
+      xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+      xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+      xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+      xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+      xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0"
+      xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+      ${ executionPlatform ? `modeler:executionPlatform="${executionPlatform}"` : '' }
+      ${ executionPlatformVersion ? `modeler:executionPlatformVersion="${executionPlatformVersion}"` : '' }
+      id="Definitions_1">
+      ${ xml }
+    </bpmn:definitions>
+  `);
+}
+
+
+function createProcess(bpmn = '', bpmndi = '', options) {
+  return createDefinitions(`
+    <bpmn:process id="Process_1" isExecutable="true">
+      ${ bpmn }
+    </bpmn:process>
+    ${ bpmndi }
+  `, options);
+}

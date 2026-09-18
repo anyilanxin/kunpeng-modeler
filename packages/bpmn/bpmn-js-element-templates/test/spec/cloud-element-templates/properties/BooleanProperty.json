@@ -1,0 +1,126 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL disabled",
+    "id": "booleanField.feel.disabled",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "BooleanProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL required",
+    "id": "booleanField.feel.required",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "feel": "required",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "BooleanProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL optional",
+    "id": "booleanField.feel.optional",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "BooleanProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL static",
+    "id": "booleanField.feel.static",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "feel": "static",
+        "binding": {
+          "type": "kunpeng:property",
+          "name": "BooleanProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "FEEL missing - input output",
+    "id": "booleanField.feel.no-feel",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "binding": {
+          "type": "kunpeng:input",
+          "name": "BooleanProperty"
+        }
+      },
+      {
+        "label": "BooleanProperty",
+        "type": "Boolean",
+        "binding": {
+          "type": "kunpeng:output",
+          "source": "BooleanProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "booleanField.property",
+    "id": "booleanField.property",
+    "description": "",
+    "appliesTo": [
+      "bpmn:Activity"
+    ],
+    "elementType": {
+      "value": "bpmn:AdHocSubProcess"
+    },
+    "properties": [
+      {
+        "value": false,
+        "type": "Boolean",
+        "binding": {
+          "type": "property",
+          "name": "cancelRemainingInstances"
+        },
+        "label": "cancel remaining instances"
+      }
+    ]
+  }
+]

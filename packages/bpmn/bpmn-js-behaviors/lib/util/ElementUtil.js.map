@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/util/ElementUtil.js"],
+  "sourcesContent": ["/**\n * Creates a new element and set the parent to it\n *\n * @method ElementHelper#createElement\n *\n * @param {String} elementType of the new element\n * @param {Object} properties of the new element in key-value pairs\n * @param {moddle.object} parent of the new element\n * @param {BpmnFactory} factory which creates the new element\n *\n * @returns {djs.model.Base} element which is created\n */\nexport function createElement(elementType, properties, parent, factory) {\n  var element = factory.create(elementType, properties);\n  element.$parent = parent;\n\n  return element;\n}\n"],
+  "mappings": ";;AAYO,SAAS,cAAc,aAAa,YAAY,QAAQ,SAAS;AACtE,MAAI,UAAU,QAAQ,OAAO,aAAa,UAAU;AACpD,UAAQ,UAAU;AAElB,SAAO;AACT;AALgB;",
+  "names": []
+}

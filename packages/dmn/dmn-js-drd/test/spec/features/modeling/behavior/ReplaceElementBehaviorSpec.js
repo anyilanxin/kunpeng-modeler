@@ -1,0 +1,99 @@
+import { expect } from 'chai';
+import {
+  bootstrapModeler,
+  inject
+} from '../../../../TestHelper';
+
+import coreModule from 'src/core';
+import modelingModule from 'src/features/modeling';
+import replaceModule from 'src/features/replace';
+import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+
+import diagramXML from './replace-element-behavior.dmn';
+
+
+describe('features/modeling - replace element', function() {
+
+  var testModules = [
+    coreModule,
+    modelingModule,
+    replaceModule
+  ];
+
+  beforeEach(bootstrapModeler(diagramXML, {
+    modules: testModules
+  }));
+
+
+  it('should keep id in association refs', inject(
+    function(elementRegistry, drdReplace) {
+
+      // given
+      var decision = elementRegistry.get('guestCount');
+
+      // when
+      drdReplace.replaceElement(decision, {
+        type: 'dmn:Decision',
+        table: true
+      });
+
+      // then
+      var newDecision = elementRegistry.get('guestCount'),
+          bo = newDecision.businessObject,
+          associationBo = elementRegistry.get('association').businessObject;
+
+      expect(is(bo, 'dmn:Decision')).to.be.true;
+      expect(is(bo.decisionLogic, 'dmn:DecisionTable')).to.be.true;
+
+      expect(associationBo.sourceRef.href).to.eql('#guestCount');
+      expect(associationBo.targetRef.href).to.eql('#textAnnotation');
+    }
+  ));
+
+
+  it('should keep id in requirement', inject(
+    function(elementRegistry, drdReplace) {
+
+      // given
+      var decision = elementRegistry.get('foobar');
+
+      // when
+      drdReplace.replaceElement(decision, {
+        type: 'dmn:Decision',
+        table: true
+      });
+
+      // then
+      var newDecision = elementRegistry.get('foobar'),
+          bo = newDecision.businessObject,
+          connectionBo = newDecision.outgoing[0].businessObject;
+
+      expect(is(bo, 'dmn:Decision')).to.be.true;
+      expect(is(bo.decisionLogic, 'dmn:DecisionTable')).to.be.true;
+
+      expect(connectionBo.requiredDecision.href).to.eql('#foobar');
+    }
+  ));
+
+
+  it('should select new shape', inject(
+    function(elementRegistry, drdReplace, selection) {
+
+      // given
+      var decision = elementRegistry.get('foobar');
+
+      // when
+      drdReplace.replaceElement(decision, {
+        type: 'dmn:Decision',
+        table: true
+      });
+
+      // then
+      const selected = selection.get();
+
+      expect(selected).to.have.lengthOf(1);
+      expect(selected[0].id).to.eql('foobar');
+    }
+  ));
+
+});

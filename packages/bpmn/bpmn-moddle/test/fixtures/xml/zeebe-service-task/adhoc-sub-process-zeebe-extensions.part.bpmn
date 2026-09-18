@@ -1,0 +1,11 @@
+<bpmn:adHocSubProcess 
+  id="AdHocSubProcess_1" 
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0">
+  <bpmn:extensionElements>
+    <kunpeng:taskDefinition type="payment-service" retries="5" />
+    <kunpeng:additionDynamics>
+      <kunpeng:header key="method" value="VISA" />
+    </kunpeng:additionDynamics>
+  </bpmn:extensionElements>
+</bpmn:adHocSubProcess>

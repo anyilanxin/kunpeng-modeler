@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1noegy9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <bpmn:collaboration id="Collaboration_0e60zir">
+    <bpmn:participant id="Participant_1" name="Participant_1" processRef="Process_1" />
+    <bpmn:participant id="Participant_2" name="Participant_2" processRef="Process_2" />
+    <bpmn:participant id="Participant_3" name="Participant_3" processRef="Process_3" />
+    <bpmn:participant id="Participant_4" name="Participant_4" processRef="Process_4" />
+    <bpmn:participant id="Participant_5" name="Participant_5" processRef="Process_5" />
+    <bpmn:participant id="Participant_6" name="Participant_6" processRef="Process_6" />
+    <bpmn:participant id="Participant_7" name="Participant_7" processRef="Process_7" />
+    <bpmn:participant id="Participant_8" name="Participant_8" processRef="Process_8" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:serviceTask id="ServiceTask_1" name="Input &#38; output in scope">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=globalVariable" target="fooInputVariable" />
+          <zeebe:output source="=fooInputVariable" target="fooOutputVariable" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_2" name="Input out of scope">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=fooInputVariable" target="barOutputVariable" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:process id="Process_2" isExecutable="false">
+    <bpmn:scriptTask id="ScriptTask_1" name="Result variable &#38; input with same name">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=&#34;1&#34;" resultVariable="foo" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;2&#34;" target="foo" />
+          <zeebe:output source="=&#34;3&#34;" target="output" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmn:process id="Process_3" isExecutable="false">
+    <bpmn:scriptTask id="ScriptTask_2" name="Result variable &#38; outputs">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=&#34;1&#34;" resultVariable="resultVariable" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;2&#34;" target="output" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmn:process id="Process_4" isExecutable="false">
+    <bpmn:scriptTask id="ScriptTask_3" name="Result variable &#38; no outputs">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=&#34;1&#34;" resultVariable="resultVariable" />
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmn:process id="Process_5" isExecutable="false">
+    <bpmn:scriptTask id="ScriptTask_4" name="Result variable &#38; output with same name">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=&#34;1&#34;" resultVariable="foo" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;2&#34;" target="foo" />
+          <zeebe:output source="=&#34;3&#34;" target="output" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmn:process id="Process_6" isExecutable="false">
+    <bpmn:serviceTask id="ServiceTask_3" name="Input &#38; output with same name">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;1&#34;" target="foo" />
+          <zeebe:output source="=&#34;2&#34;" target="foo" />
+          <zeebe:output source="=&#34;3&#34;" target="output" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:process id="Process_7" isExecutable="false">
+    <bpmn:serviceTask id="ServiceTask_4" name="Inputs with same name">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;1&#34;" target="foo" />
+          <zeebe:input source="=&#34;2&#34;" target="foo" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:process id="Process_8" isExecutable="false">
+    <bpmn:serviceTask id="ServiceTask_5" name="Outputs with same name">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=&#34;1&#34;" target="foo" />
+          <zeebe:output source="=10" target="foo" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0e60zir">
+      <bpmndi:BPMNShape id="Participant_10jajek_di" bpmnElement="Participant_1" isHorizontal="true">
+        <dc:Bounds x="180" y="60" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n52sm3_di" bpmnElement="ServiceTask_1">
+        <dc:Bounds x="230" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hlau9e_di" bpmnElement="ServiceTask_2">
+        <dc:Bounds x="350" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0o4apj6_di" bpmnElement="Participant_2" isHorizontal="true">
+        <dc:Bounds x="500" y="60" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06g1sod_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="550" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_13eqjzi_di" bpmnElement="Participant_3" isHorizontal="true">
+        <dc:Bounds x="820" y="60" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c85kz4_di" bpmnElement="ScriptTask_2">
+        <dc:Bounds x="870" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0o2k4bk" bpmnElement="Participant_4" isHorizontal="true">
+        <dc:Bounds x="180" y="200" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1wqur3c" bpmnElement="ScriptTask_3">
+        <dc:Bounds x="230" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_08w9t3p_di" bpmnElement="Participant_5" isHorizontal="true">
+        <dc:Bounds x="500" y="200" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jkek8a_di" bpmnElement="ScriptTask_4">
+        <dc:Bounds x="550" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1cpioa5_di" bpmnElement="Participant_6" isHorizontal="true">
+        <dc:Bounds x="820" y="200" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pvyvzm_di" bpmnElement="ServiceTask_3">
+        <dc:Bounds x="870" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0hcijo0_di" bpmnElement="Participant_7" isHorizontal="true">
+        <dc:Bounds x="180" y="340" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1533gjq_di" bpmnElement="ServiceTask_4">
+        <dc:Bounds x="230" y="360" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qg1jk8" bpmnElement="Participant_8" isHorizontal="true">
+        <dc:Bounds x="180" y="480" width="300" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0xkbquk" bpmnElement="ServiceTask_5">
+        <dc:Bounds x="230" y="500" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

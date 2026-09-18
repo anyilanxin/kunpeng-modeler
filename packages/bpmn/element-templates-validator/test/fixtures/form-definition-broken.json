@@ -1,0 +1,216 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "description": "some description",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "someReference",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "invalidProperty"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "description": "some description",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "value": "someReference",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "formId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "description": "some description",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "feel": "required",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "formId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "description": "some description",
+    "version": 1,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "String",
+        "value": "someReference",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "externalReference"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "someReference",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "formId"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "String",
+        "value": "someReference",
+        "feel": "optional",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "externalReference"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "latest",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "bindingType"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "String",
+        "value": "someReference",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "formId"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "versionTag",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "bindingType"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "Reusable Rule Template",
+    "id": "sometemplate",
+    "version": 2,
+    "appliesTo": [
+      "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:UserTask"
+    },
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {
+          "type": "kunpeng:userTask"
+        }
+      },
+      {
+        "type": "Hidden",
+        "value": "deployment",
+        "binding": {
+          "type": "kunpeng:formDefinition",
+          "property": "bindingType"
+        }
+      }
+    ]
+  }
+]

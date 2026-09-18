@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+  id="Definitions_filter"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  modeler:executionPlatform="Camunda Cloud">
+  <bpmn:process id="Process_1" isExecutable="true">
+
+    <!--
+      Task_filter: taskDefinition.type = "=inputMapped"
+        input mapping provides "inputMapped" from "=externalVar"
+
+      Expected: "inputMapped" is NOT in consumed vars (it is locally provided).
+                "externalVar" is consumed by input mapping source (via parseVariables path, not extractConsumedVariablesFromElements).
+    -->
+    <bpmn:serviceTask id="Task_filter" name="Filter Task">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="=externalVar" target="inputMapped" />
+        </zeebe:ioMapping>
+        <zeebe:taskDefinition type="=inputMapped" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <!--
+      Task_no_filter: taskDefinition.type = "=notMappedVar"
+        No input mapping for "notMappedVar"
+
+      Expected: "notMappedVar" IS in consumed vars.
+    -->
+    <bpmn:serviceTask id="Task_no_filter" name="No Filter Task">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="=notMappedVar" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Task_filter_di" bpmnElement="Task_filter">
+        <dc:Bounds x="200" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_no_filter_di" bpmnElement="Task_no_filter">
+        <dc:Bounds x="360" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

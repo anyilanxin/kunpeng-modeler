@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_no-di" name="Dish" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="dish-decision" name="Dish Decision (no DI)">
+    <informationRequirement id="InformationRequirement_0e8oark">
+      <requiredDecision href="#season" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1ken2q3">
+      <requiredDecision href="#guestCount" />
+    </informationRequirement>
+    <authorityRequirement id="AuthorityRequirement_0xl3g91">
+      <requiredAuthority href="#host_ks" />
+    </authorityRequirement>
+    <decisionTable id="dishDecisionTable">
+      <input id="seasonInput" label="Season" camunda:inputVariable="seasonInput">
+        <inputExpression id="seasonInputExpression" typeRef="string" expressionLanguage="javascript">
+          <text>return getSeason();</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0twhp5w">
+          <text>"Winter","Summer","Spring"</text>
+        </inputValues>
+      </input>
+      <input id="guestCountInput" label="How many guests">
+        <inputExpression id="guestCountInputExpression" typeRef="integer">
+          <text>guestCount</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="Dish" name="desiredDish" typeRef="string">
+        <outputValues id="UnaryTests_0y5qdnh">
+          <text>"Spareribs","Pasta","Light salad","Beans salad","Stew","Steak"</text>
+        </outputValues>
+      </output>
+      <rule id="row-495762709-1">
+        <inputEntry id="UnaryTests_1nxcsjr">
+          <text>if
+  foo
+then
+  "Winter"
+else
+  "Summer"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r9yorj">
+          <text>&lt;= 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mtwzqz">
+          <text>"Spareribs"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-2">
+        <inputEntry id="UnaryTests_1lxjbif">
+          <text>"Winter"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhiedb">
+          <text>&gt; 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h30r12" expressionLanguage="feel">
+          <text>"Pasta"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-3">
+        <description></description>
+        <inputEntry id="UnaryTests_0ifgmfm">
+          <text>"Summer"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12cib9m">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wgaegy" expressionLanguage="feel">
+          <description>ASDASD</description>
+          <text>"Light salad"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-495762709-7">
+        <inputEntry id="UnaryTests_0ozm9s7" expressionLanguage="javascript">
+          <description>The "YEA" season</description>
+          <text>seasonInput.endsWith("YEA")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sesgov">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dvc5x3">
+          <text>"Beans salad"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-445981423-3">
+        <description></description>
+        <inputEntry id="UnaryTests_1er0je1">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uzqner">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pxy4g1">
+          <text>"Stew"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-445981423-4">
+        <inputEntry id="UnaryTests_06or48g">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wa71sy" expressionLanguage="javascript">
+          <description>&lt;= 10</description>
+          <text>Math.min(
+  cellInput, 10
+) == 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09ggol9">
+          <text>"Steak"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

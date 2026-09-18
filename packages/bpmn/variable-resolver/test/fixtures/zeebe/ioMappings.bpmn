@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_019tf84" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0-rc.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <bpmn:collaboration id="Collaboration_1x92ovf">
+    <bpmn:participant id="Participant_1cuaup2" processRef="Process_1uplrf7" />
+    <bpmn:participant id="Participant_0qv01ll" processRef="Process_12ky0ww" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1uplrf7" isExecutable="true">
+    <bpmn:serviceTask id="singleOriginTask" name="Single Origin">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="" target="input1" />
+          <zeebe:input source="" target="input2" />
+          <zeebe:input source="" target="input3" />
+          <zeebe:output source="" target="output1" />
+          <zeebe:output source="" target="output2" />
+          <zeebe:output source="" target="output3" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:process id="Process_12ky0ww" isExecutable="true">
+    <bpmn:serviceTask id="Activity_0gi5lbc" name="Create output2">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="" target="output2" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1wkha30</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="multiOriginTask" name="Second">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="" target="input1" />
+          <zeebe:input source="" target="input2" />
+          <zeebe:input source="" target="input3" />
+          <zeebe:output source="" target="output1" />
+          <zeebe:output source="" target="output2" />
+          <zeebe:output source="" target="output3" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wkha30</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1wkha30" sourceRef="Activity_0gi5lbc" targetRef="multiOriginTask" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1x92ovf">
+      <bpmndi:BPMNShape id="Participant_1cuaup2_di" bpmnElement="Participant_1cuaup2" isHorizontal="true">
+        <dc:Bounds x="160" y="50" width="450" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15luc0p_di" bpmnElement="singleOriginTask">
+        <dc:Bounds x="340" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1fbkny8" bpmnElement="Participant_0qv01ll" isHorizontal="true">
+        <dc:Bounds x="160" y="360" width="450" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0zo8tl3" bpmnElement="Activity_0gi5lbc">
+        <dc:Bounds x="260" y="450" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pw87w1_di" bpmnElement="multiOriginTask">
+        <dc:Bounds x="410" y="450" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1wkha30_di" bpmnElement="Flow_1wkha30">
+        <di:waypoint x="360" y="490" />
+        <di:waypoint x="410" y="490" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

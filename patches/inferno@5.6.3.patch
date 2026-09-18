@@ -1,0 +1,65 @@
+diff --git a/dist/index.cjs.js b/dist/index.cjs.js
+index 6c08c0f590672b50daa3c8335289b71e6271dbbd..f9989f46bf726a52056459bfa813001cc0c475f1 100644
+--- a/dist/index.cjs.js
++++ b/dist/index.cjs.js
+@@ -1505,7 +1505,7 @@ function patch(lastVNode, nextVNode, parentDom, context, isSVG) {
+   }
+ }
+ function patchContentEditableChildren(dom, nextVNode) {
+-  if (dom.textContent !== nextVNode.children) {
++  if (nextVNode && dom.textContent !== nextVNode.children) {
+     dom.textContent = nextVNode.children;
+   }
+ }
+diff --git a/dist/index.dev.esm.js b/dist/index.dev.esm.js
+index 0a0305a936256a742737c0848336a7da6a14b2e..4aa9f75821d914edb0845143ec1a5df739eca6a5 100644
+--- a/dist/index.dev.esm.js
++++ b/dist/index.dev.esm.js
+@@ -1503,7 +1503,7 @@ function patch(lastVNode, nextVNode, parentDom, context, isSVG) {
+   }
+ }
+ function patchContentEditableChildren(dom, nextVNode) {
+-  if (dom.textContent !== nextVNode.children) {
++  if (nextVNode && dom.textContent !== nextVNode.children) {
+     dom.textContent = nextVNode.children;
+   }
+ }
+diff --git a/dist/index.esm.js b/dist/index.esm.js
+index 0d4b7b0186d85d78256fe39406d37db82a31f925..f15909e5eae47cfd33c938cef4182275a9382fc6 100644
+--- a/dist/index.esm.js
++++ b/dist/index.esm.js
+@@ -1312,7 +1312,7 @@ function patch(lastVNode, nextVNode, parentDom, context, isSVG) {
+   }
+ }
+ function patchContentEditableChildren(dom, nextVNode) {
+-  if (dom.textContent !== nextVNode.children) {
++  if (nextVNode && dom.textContent !== nextVNode.children) {
+     dom.textContent = nextVNode.children;
+   }
+ }
+diff --git a/dist/index.esnext.js b/dist/index.esnext.js
+index 4de898131647eedca475b6523edad8e2f7907a55..dc63a9312555e04441dfa31664e6798b5d327467 100644
+--- a/dist/index.esnext.js
++++ b/dist/index.esnext.js
+@@ -1308,7 +1308,7 @@ function patch(lastVNode, nextVNode, parentDom, context, isSVG) {
+   }
+ }
+ function patchContentEditableChildren(dom, nextVNode) {
+-  if (dom.textContent !== nextVNode.children) {
++  if (nextVNode && dom.textContent !== nextVNode.children) {
+     dom.textContent = nextVNode.children;
+   }
+ }
+diff --git a/dist/inferno.js b/dist/inferno.js
+index aff633ac6de72282af3672820871317a1adf9c58..d8f121f680893f0f01241e8ec806c62e700e82b8d 100644
+--- a/dist/inferno.js
++++ b/dist/inferno.js
+@@ -1509,7 +1509,7 @@
+       }
+     }
+     function patchContentEditableChildren(dom, nextVNode) {
+-      if (dom.textContent !== nextVNode.children) {
++  if (nextVNode && dom.textContent !== nextVNode.children) {
+         dom.textContent = nextVNode.children;
+       }
+     }

@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunpeng Modeler · 设计原型</title>
+<style>
+/* ============================================================
+   设计令牌（Design Tokens）
+   ============================================================ */
+:root {
+  /* 主色 */
+  --brand: #0d9488;
+  --brand-light: #14b8a6;
+  --brand-dark: #0f766e;
+  --brand-bg: #f0fdfa;
+
+  /* 中性色 - 浅色主题 */
+  --bg-app: #f1f5f9;          /* 应用背景 */
+  --bg-surface: #ffffff;       /* 面板/卡片背景 */
+  --bg-elevated: #ffffff;      /* 浮层背景 */
+  --bg-canvas: #fafafa;        /* 建模画布背景 */
+  --bg-hover: #f1f5f9;         /* hover 态 */
+  --bg-active: #e0f2f1;        /* active/选中态 */
+  --bg-input: #ffffff;
+
+  --text-primary: #0f172a;     /* 主文字 */
+  --text-secondary: #475569;   /* 次要文字 */
+  --text-tertiary: #94a3b8;    /* 占位/辅助 */
+  --text-inverse: #ffffff;     /* 反色文字 */
+
+  --border: #e2e8f0;           /* 边框 */
+  --border-strong: #cbd5e1;    /* 强边框 */
+  --divider: #f1f5f9;          /* 分割线 */
+
+  /* 语义色 */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* 强调色（图表类型） */
+  --bpmn: #0ea5e9;
+  --dmn: #8b5cf6;
+  --template: #10b981;
+
+  /* 尺寸 */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-xl: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+
+  --titlebar-h: 38px;
+  --toolbar-h: 42px;
+  --statusbar-h: 28px;
+  --toolrail-w: 48px;
+  --panel-w: 340px;
+
+  /* 过渡曲线 */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --ease-fast: cubic-bezier(.4, 0, .2, 1);
+}
+
+[data-theme="dark"] {
+  --brand: #2dd4bf;
+  --brand-light: #5eead4;
+  --brand-dark: #14b8a6;
+  --brand-bg: #042f2e;
+
+  --bg-app: #0a0a0b;
+  --bg-surface: #18181b;
+  --bg-elevated: #27272a;
+  --bg-canvas: #131316;
+  --bg-hover: #27272a;
+  --bg-active: #134e4a;
+  --bg-input: #1c1c1f;
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-inverse: #0f172a;
+
+  --border: #2a2a2e;
+  --border-strong: #3f3f46;
+  --divider: #232327;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.6);
+}
+
+/* ============================================================
+   基础重置
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-app);
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input { font-family: inherit; }
+ul { list-style: none; }
+
+/* 滚动条美化 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+/* 全局过渡 */
+button, .doc-tab, .create-card { transition: all .15s var(--ease); }
+
+/* 选中文本 */
+::selection { background: rgba(13,148,136,.2); }
+
+/* ============================================================
+   页面切换机制
+   ============================================================ */
+.page { display: none; height: calc(100vh - 36px); flex-direction: column; }
+.page.active { display: flex; }
+
+/* ============================================================
+   组件：顶部标题栏（设计稿导航，非产品 UI）
+   ============================================================ */
+.proto-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  height: 36px; display: flex; align-items: center; gap: 12px;
+  padding: 0 16px;
+  background: #0f172a; color: #e2e8f0;
+  font-size: 12px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, var(--shadow-md);
+}
+.proto-bar .proto-brand { display: flex; align-items: center; gap: 8px; }
+.proto-bar .proto-logo { font-size: 16px; }
+.proto-bar .title { font-weight: 600; font-size: 13px; letter-spacing: -.2px; }
+.proto-bar .spacer { flex: 1; }
+.proto-add { position: relative; }
+.proto-add-btn {
+  display: flex; align-items: center; gap: 4px;
+  padding: 5px 14px; border-radius: var(--r-md);
+  background: var(--brand); color: #fff; font-size: 12px; font-weight: 600;
+  transition: all .15s var(--ease);
+}
+.proto-add-btn:hover { background: var(--brand-light); transform: translateY(-1px); }
+.proto-add:hover .menu-dropdown { display: block; }
+.proto-bar .theme-toggle {
+  padding: 5px 12px; border-radius: var(--r-md);
+  background: #1e293b; color: #e2e8f0; font-size: 12px;
+  transition: background .15s var(--ease);
+}
+.proto-bar .theme-toggle:hover { background: #334155; }
+
+body { padding-top: 36px; }
+
+/* ============================================================
+   1. 欢迎页
+   ============================================================ */
+.welcome {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 40px 24px; gap: 40px;
+  background: radial-gradient(ellipse at 50% 0%, var(--brand-bg) 0%, transparent 60%);
+}
+.welcome-hero { text-align: center; animation: fadeInUp .4s var(--ease); }
+.welcome-logo {
+  width: 80px; height: 80px; margin: 0 auto 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--brand-light), var(--brand));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; color: #fff;
+  box-shadow: 0 12px 32px rgba(13,148,136,.35), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.welcome-title {
+  font-size: 38px; font-weight: 800; letter-spacing: -1px;
+  background: linear-gradient(90deg, var(--brand), #0ea5e9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+.welcome-subtitle { color: var(--text-tertiary); font-size: 15px; }
+
+.welcome-actions { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 480px; animation: fadeInUp .5s var(--ease); }
+
+.create-card {
+  display: flex; align-items: center; gap: 20px;
+  padding: 22px 24px; border-radius: var(--r-xl);
+  background: var(--bg-surface); border: 1px solid var(--border);
+  cursor: pointer; transition: all .2s var(--ease);
+  text-align: left; width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+.create-card:hover {
+  border-color: var(--brand); box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+.create-card .card-icon {
+  width: 52px; height: 52px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+}
+.create-card.bpmn .card-icon { background: rgba(14,165,233,.1); color: var(--bpmn); }
+.create-card.dmn .card-icon { background: rgba(139,92,246,.1); color: var(--dmn); }
+.create-card .card-body { flex: 1; }
+.create-card .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.create-card .card-desc { font-size: 13px; color: var(--text-tertiary); }
+.create-card .card-arrow { font-size: 20px; color: var(--text-tertiary); transition: all .2s var(--ease); }
+.create-card:hover .card-arrow { color: var(--brand); transform: translateX(6px); }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.open-file-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 24px; border-radius: var(--r-lg);
+  border: 1px dashed var(--border-strong); color: var(--text-secondary);
+  font-size: 14px; transition: all .15s var(--ease);
+}
+.open-file-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-bg); }
+
+/* ============================================================
+   2. 建模器布局（BPMN / DMN 通用框架）
+   ============================================================ */
+.modeler {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* --- 桌面标题栏（应用标识 + 标签页 + 操作）--- */
+.titlebar {
+  height: var(--titlebar-h); display: flex; align-items: center;
+  background: var(--bg-surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0; user-select: none;
+  -webkit-app-region: drag;
+}
+.titlebar-left, .titlebar-right {
+  display: flex; align-items: center; gap: 2px;
+  -webkit-app-region: no-drag;
+}
+.titlebar-right { padding-right: 6px; gap: 4px; }
+
+/* 应用标识 */
+.tb-brand {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 12px 0 10px;
+}
+.tb-brand .brand-dot {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--brand-light), var(--brand));
+  display: flex; align-items: center; justify-content: center; font-size: 13px; color: #fff;
+  box-shadow: 0 2px 6px rgba(13,148,136,.25);
+}
+.tb-brand .brand-name { font-size: 13px; font-weight: 700; letter-spacing: -.2px; }
+
+/* 标题栏中的文档标签页 */
+.titlebar-tabs {
+  display: flex; align-items: center; gap: 3px; flex: 1;
+  height: 100%; padding: 4px 4px 0; overflow: hidden;
+  -webkit-app-region: no-drag;
+}
+.doc-tab {
+  display: flex; align-items: center; gap: 6px;
+  height: 28px; padding: 0 8px 0 12px; border-radius: var(--r-md) var(--r-md) 0 0;
+  font-size: 12px; color: var(--text-secondary); cursor: pointer;
+  transition: all .15s var(--ease); white-space: nowrap; max-width: 200px;
+  border: 1px solid transparent; border-bottom: none;
+}
+.doc-tab:hover { background: var(--bg-hover); color: var(--text-primary); }
+.doc-tab.active {
+  background: var(--bg-canvas); color: var(--text-primary);
+  border-color: var(--border); font-weight: 500;
+  position: relative;
+}
+.doc-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--brand); border-radius: 2px 2px 0 0;
+}
+.doc-tab .dt-icon { font-size: 12px; flex-shrink: 0; }
+.doc-tab .dt-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.doc-tab .dt-mod { width: 6px; height: 6px; border-radius: 50%; background: var(--warning); flex-shrink: 0; }
+.doc-tab .dt-close {
+  width: 18px; height: 18px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-tertiary); flex-shrink: 0;
+  opacity: 0; transition: all .15s var(--ease); margin-left: 2px;
+}
+.doc-tab:hover .dt-close, .doc-tab.active .dt-close { opacity: .6; }
+.doc-tab .dt-close:hover { background: var(--bg-active); color: var(--text-primary); opacity: 1; }
+.doc-tab-add {
+  width: 28px; height: 28px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--text-tertiary); cursor: pointer; transition: all .15s var(--ease);
+  flex-shrink: 0; background: none; border: none; font-family: inherit;
+}
+.doc-tab-add:hover { background: var(--bg-hover); color: var(--brand); }
+
+/* --- 应用菜单栏（标题栏下方，第二层）--- */
+.menubar {
+  height: var(--menubar-h); display: flex; align-items: center;
+  background: var(--bg-surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0; user-select: none;
+}
+.menubar-left, .menubar-right {
+  display: flex; align-items: center; gap: 2px;
+}
+.menubar-left { padding-left: 8px; }
+.menubar-spacer { flex: 1; }
+.menubar-right { padding-right: 8px; gap: 4px; }
+
+/* 菜单项 */
+.menu-item {
+  padding: 4px 10px; border-radius: var(--r-sm); font-size: 13px;
+  color: var(--text-primary); position: relative; transition: background .1s;
+  background: none; border: none; cursor: pointer; font-family: inherit;
+}
+.menu-item:hover { background: var(--bg-hover); }
+.menu-item:hover .menu-dropdown,
+.menu-item.open .menu-dropdown { display: block; }
+
+/* 下拉菜单 */
+.menu-dropdown {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0;
+  min-width: 200px; padding: 6px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-lg); z-index: 1000;
+  animation: dropIn .15s var(--ease);
+}
+@keyframes dropIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+.menu-dropdown dd {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; font-size: 13px; color: var(--text-primary);
+  cursor: pointer; transition: background .1s var(--ease); white-space: nowrap;
+  border-radius: var(--r-sm);
+}
+.menu-dropdown dd:hover { background: var(--bg-active); color: var(--brand); }
+.menu-dropdown dd .shortcut { margin-left: auto; font-size: 11px; color: var(--text-tertiary); }
+.menu-dropdown .dd-sep { height: 1px; background: var(--divider); margin: 4px 0; }
+.menu-dropdown .dd-section {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--text-tertiary); padding: 6px 12px 2px;
+}
+
+/* 菜单栏右侧全局操作 */
+.icon-action {
+  width: 30px; height: 28px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--text-secondary); transition: all .1s;
+  background: none; border: none; cursor: pointer;
+}
+.icon-action:hover { background: var(--bg-hover); color: var(--text-primary); }
+.menu-search {
+  display: flex; align-items: center; gap: 6px;
+  height: 26px; padding: 0 10px; margin-right: 4px;
+  background: var(--bg-canvas); border: 1px solid var(--border);
+  border-radius: var(--r-md); font-size: 12px; color: var(--text-tertiary);
+  min-width: 180px;
+}
+.menu-search input {
+  border: none; background: none; outline: none; flex: 1;
+  font-size: 12px; color: var(--text-primary); font-family: inherit;
+}
+.menu-search kbd {
+  font-size: 10px; padding: 1px 5px; border-radius: 4px;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  color: var(--text-tertiary);
+}
+.tb-divider { width: 1px; height: 18px; background: var(--divider); margin: 0 6px; }
+
+/* 标题栏右侧「添加」下拉按钮（+ → 选择建模类型） */
+.tb-add {
+  position: relative;
+  display: flex; align-items: center; gap: 4px;
+  height: 26px; padding: 0 8px; margin-right: 10px;
+  border-radius: var(--r-md);
+  background: var(--brand); color: #fff;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background .1s; border: none; font-family: inherit;
+}
+.tb-add:hover { background: var(--brand-light); }
+.tb-add .plus { font-size: 16px; line-height: 1; }
+.tb-add:hover .menu-dropdown,
+.tb-add.open .menu-dropdown { display: block; }
+.tb-add .menu-dropdown { top: 100%; right: 0; left: auto; }
+
+/* 标题栏右侧文件操作按钮（新建/打开/保存/导出） */
+.tb-file-actions {
+  display: flex; align-items: center; gap: 2px; margin-right: 8px;
+  -webkit-app-region: no-drag;
+}
+.tb-file-btn {
+  display: flex; align-items: center; gap: 5px;
+  height: 26px; padding: 0 10px; border-radius: var(--r-md);
+  font-size: 12px; color: var(--text-secondary); cursor: pointer;
+  background: none; border: none; font-family: inherit; transition: all .1s;
+}
+.tb-file-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.tb-file-btn.primary { background: var(--brand); color: #fff; position: relative; }
+.tb-file-btn.primary:hover { background: var(--brand-light); color: #fff; }
+.tb-file-btn:hover .menu-dropdown { display: block; }
+.tb-file-btn .fb-icon { font-size: 14px; }
+.tb-file-divider { width: 1px; height: 18px; background: var(--divider); margin: 0 4px; }
+
+/* --- 工具栏 --- */
+.toolbar {
+  height: var(--toolbar-h); display: flex; align-items: center;
+  padding: 0 12px; gap: 6px;
+  background: var(--bg-surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0; overflow-x: auto;
+}
+.tool-group { display: flex; align-items: center; gap: 2px; padding-right: 6px; }
+.tool-group + .tool-group { border-left: 1px solid var(--divider); padding-left: 6px; }
+.tool-btn {
+  height: 30px; min-width: 30px; padding: 0 8px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  font-size: 14px; color: var(--text-secondary); transition: all .1s;
+  white-space: nowrap;
+}
+.tool-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.tool-btn.primary { background: var(--brand); color: #fff; }
+.tool-btn.primary:hover { background: var(--brand-dark); }
+.tool-btn .label { font-size: 12px; }
+.tool-btn[disabled] { opacity: .4; cursor: not-allowed; }
+.zoom-display {
+  min-width: 48px; text-align: center; font-size: 12px;
+  color: var(--text-secondary); font-variant-numeric: tabular-nums;
+}
+.toolbar-spacer { flex: 1; }
+/* 视图切换按钮（状态栏左侧，单按钮 toggle：显示"另一个视图"的名称） */
+.view-toggle {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 10px; border-radius: var(--r-sm);
+  font-size: 12px; color: var(--text-secondary); cursor: pointer;
+  background: var(--bg-canvas); border: 1px solid var(--border);
+  transition: all .1s; font-family: inherit;
+}
+.view-toggle:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--brand); }
+.view-toggle .vt-icon { font-size: 13px; }
+
+/* --- 主体区域 --- */
+.modeler-body {
+  flex: 1; display: flex; overflow: hidden;
+}
+
+/* 左侧窄工具栏（Figma 风格，只有几个工具图标） */
+.toolrail {
+  width: var(--toolrail-w); display: flex; flex-direction: column;
+  align-items: center; gap: 4px; padding: 8px 0;
+  background: var(--bg-surface); border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.toolrail-btn {
+  width: 34px; height: 34px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: var(--text-secondary);
+  background: none; border: none; cursor: pointer; transition: all .1s;
+}
+.toolrail-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.toolrail-btn.active { background: var(--brand-bg); color: var(--brand); }
+.toolrail-sep { width: 24px; height: 1px; background: var(--divider); margin: 4px 0; }
+.toolrail-spacer { flex: 1; }
+
+/* 中间画布区 */
+.canvas-area {
+  flex: 1; position: relative; background: var(--bg-canvas); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+/* 画布点阵网格背景 */
+.canvas-area::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: .5;
+}
+
+/* 画布顶部居中悬浮操作条 */
+.canvas-floating {
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 20; display: flex; align-items: center; gap: 2px;
+  padding: 5px 7px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border); border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.canvas-floating .cf-group { display: flex; align-items: center; gap: 2px; }
+.canvas-floating .cf-sep { width: 1px; height: 20px; background: var(--divider); margin: 0 4px; }
+.canvas-floating .cf-btn {
+  width: 30px; height: 30px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--text-secondary);
+  background: none; border: none; cursor: pointer; transition: all .15s var(--ease);
+}
+.canvas-floating .cf-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.canvas-floating .cf-btn.active { background: var(--brand-bg); color: var(--brand); }
+.canvas-floating .cf-zoom {
+  display: flex; align-items: center; gap: 2px;
+  font-size: 12px; color: var(--text-secondary);
+}
+.canvas-floating .cf-zoom-val { min-width: 38px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* 画布演示节点 */
+.canvas-demo {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 40px;
+}
+.canvas-node {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.canvas-shape {
+  width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-secondary); font-weight: 500;
+}
+.canvas-shape.start {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 2.5px solid var(--success); background: rgba(16,185,129,.08);
+  box-shadow: 0 2px 8px rgba(16,185,129,.12);
+}
+.canvas-shape.task {
+  border-radius: 10px; border: 2px solid var(--bpmn);
+  background: rgba(14,165,233,.06);
+  box-shadow: 0 2px 8px rgba(14,165,233,.1);
+}
+.canvas-shape.gateway {
+  width: 48px; height: 48px; transform: rotate(45deg);
+  border: 2px solid var(--warning); background: rgba(245,158,11,.08);
+}
+.canvas-shape.gateway span { transform: rotate(-45deg); }
+.canvas-shape.end {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid #be185d; background: rgba(190,24,93,.08);
+}
+.canvas-label { font-size: 11px; color: var(--text-tertiary); }
+.canvas-arrow {
+  width: 40px; height: 2px; background: var(--text-tertiary); position: relative;
+}
+.canvas-arrow::after {
+  content: ''; position: absolute; right: -1px; top: -4px;
+  border: 5px solid transparent; border-left-color: var(--text-tertiary);
+}
+
+/* 小地图 */
+.minimap {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 150px; height: 100px; border-radius: var(--r-lg);
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md); overflow: hidden; z-index: 2;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.minimap-header {
+  font-size: 10px; color: var(--text-tertiary); padding: 4px 8px;
+  border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between;
+}
+.minimap-body { position: relative; height: calc(100% - 22px); }
+.minimap-viewport {
+  position: absolute; left: 30%; top: 20%; width: 40%; height: 50%;
+  border: 1.5px solid var(--brand); background: rgba(13,148,136,.1); border-radius: 2px;
+}
+
+/* 右侧属性面板 */
+.properties-panel {
+  width: var(--panel-w); background: var(--bg-surface);
+  border-left: 1px solid var(--border); display: flex; flex-direction: column;
+  flex-shrink: 0;
+}
+.panel-header {
+  padding: 14px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  background: var(--bg-surface);
+}
+.panel-header .el-type {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--text-tertiary); margin-bottom: 4px; font-weight: 600;
+}
+.panel-header .el-name {
+  font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+}
+.panel-header .el-name .badge {
+  width: 22px; height: 22px; border-radius: 6px; background: rgba(14,165,233,.1); color: var(--bpmn);
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+}
+.panel-body { flex: 1; overflow-y: auto; padding: 4px 0; }
+
+.prop-group { border-bottom: 1px solid var(--divider); }
+.prop-group:last-child { border-bottom: none; }
+.prop-group-title {
+  padding: 9px 16px; font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
+  color: var(--text-secondary); transition: background .15s var(--ease);
+}
+.prop-group-title:hover { background: var(--bg-hover); }
+.prop-group-title .chevron { transition: transform .15s var(--ease); font-size: 10px; }
+.prop-group.collapsed .chevron { transform: rotate(-90deg); }
+.prop-group.collapsed .prop-group-body { display: none; }
+.prop-group-body { padding: 2px 16px 12px; }
+
+.prop-row {
+  display: flex; align-items: flex-start; gap: 8px; padding: 5px 0;
+}
+.prop-label {
+  width: 84px; flex-shrink: 0; font-size: 12px; color: var(--text-tertiary);
+  padding-top: 6px;
+}
+.prop-field { flex: 1; }
+.prop-input {
+  width: 100%; height: 30px; padding: 0 10px;
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  background: var(--bg-input); color: var(--text-primary); font-size: 13px;
+  transition: all .15s var(--ease);
+}
+.prop-input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(13,148,136,.12); }
+.prop-input:hover { border-color: var(--border-strong); }
+.prop-textarea { height: auto; padding: 6px 10px; resize: vertical; min-height: 30px; line-height: 1.5; }
+.prop-select {
+  width: 100%; height: 30px; padding: 0 10px;
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  background: var(--bg-input); color: var(--text-primary); font-size: 13px;
+}
+
+/* 状态栏 */
+.statusbar {
+  height: var(--statusbar-h); display: flex; align-items: center;
+  padding: 0 12px; gap: 12px;
+  background: var(--bg-surface); border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-tertiary); flex-shrink: 0;
+}
+.status-item { display: flex; align-items: center; gap: 4px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.status-dot.saved { background: var(--success); }
+.status-dot.unsaved { background: var(--warning); }
+.status-item.clickable { cursor: pointer; border-radius: var(--r-sm); padding: 2px 6px; }
+.status-item.clickable:hover { background: var(--bg-hover); }
+.status-spacer { flex: 1; }
+
+/* 状态栏：校验/报错信息 */
+.status-lint {
+  display: flex; align-items: center; gap: 10px;
+  padding: 2px 8px; border-radius: var(--r-sm); cursor: pointer; transition: background .1s;
+}
+.status-lint:hover { background: var(--bg-hover); }
+.status-lint .lint-item { display: flex; align-items: center; gap: 3px; }
+.status-lint .lint-icon { font-size: 12px; }
+.status-lint .lint-error { color: var(--error); }
+.status-lint .lint-warn { color: var(--warning); }
+.status-lint .lint-ok { color: var(--success); }
+.status-lint .lint-count { font-weight: 600; font-variant-numeric: tabular-nums; }
+.status-sep { width: 1px; height: 14px; background: var(--divider); flex-shrink: 0; }
+
+/* 状态栏右侧版本信息 */
+.status-version {
+  display: flex; align-items: center; gap: 5px;
+  padding: 2px 8px; border-radius: var(--r-sm);
+  background: var(--bg-canvas); color: var(--text-secondary);
+  font-size: 11px; font-weight: 500;
+}
+.status-version .ver-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+
+/* ============================================================
+   DMN 决策表视图
+   ============================================================ */
+.decision-table-view {
+  flex: 1; background: var(--bg-surface); overflow: auto; padding: 16px;
+}
+.dt-breadcrumb {
+  display: flex; align-items: center; gap: 6px; font-size: 12px;
+  color: var(--text-tertiary); margin-bottom: 12px;
+}
+.dt-breadcrumb span.current { color: var(--text-primary); font-weight: 500; }
+.dt-breadcrumb .sep { color: var(--text-tertiary); }
+.dt-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+  border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden;
+}
+.dt-table th, .dt-table td {
+  border: 1px solid var(--border); padding: 8px 12px; text-align: left;
+}
+.dt-table thead th { background: var(--bg-hover); font-weight: 600; font-size: 12px; }
+.dt-table .dt-input-header { background: rgba(59,130,246,.05); color: var(--info); }
+.dt-table .dt-output-header { background: rgba(16,185,129,.05); color: var(--success); }
+.dt-table tbody tr:hover { background: var(--bg-hover); }
+.dt-hit-policy {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: var(--r-sm); background: var(--brand-bg);
+  color: var(--brand); font-size: 11px; font-weight: 600; margin-bottom: 8px;
+}
+
+/* ============================================================
+   图标内联（用 emoji / 字符替代碳图标，便于预览）
+   ============================================================ */
+.icn { display: inline-flex; align-items: center; justify-content: center; }
+
+/* tooltip 模拟 */
+[data-tip] { position: relative; }
+[data-tip]::after {
+  content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(4px); white-space: nowrap;
+  background: #1e293b; color: #fff; font-size: 11px; font-weight: 500;
+  padding: 4px 10px; border-radius: var(--r-sm);
+  opacity: 0; pointer-events: none;
+  transition: all .15s var(--ease); z-index: 1000;
+  box-shadow: var(--shadow-md);
+}
+[data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     原型导航栏（仅用于设计稿预览，非产品 UI）
+     ============================================================ -->
+<div class="proto-bar">
+  <div class="proto-brand">
+    <span class="proto-logo">📊</span>
+    <span class="title">Kunpeng Modeler</span>
+  </div>
+  <div class="spacer"></div>
+  <!-- 添加按钮：下拉选择建模类型 -->
+  <div class="proto-add">
+    <button class="proto-add-btn">＋ 新建</button>
+    <dl class="menu-dropdown" style="top:100%;right:0;left:auto;min-width:180px;">
+      <dd onclick="showPage('bpmn')">🔄 BPMN 流程</dd>
+      <dd onclick="showPage('dmn')">📋 DMN 决策表</dd>
+    </dl>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+</div>
+
+<!-- ============================================================
+     页面 1：欢迎页
+     ============================================================ -->
+<div class="page active" id="page-welcome">
+  <div class="welcome">
+    <div class="welcome-hero">
+      <div class="welcome-logo">📊</div>
+      <h1 class="welcome-title">Kunpeng Modeler</h1>
+      <p class="welcome-subtitle">一站式 BPMN / DMN 建模工作台 · 离线桌面端</p>
+    </div>
+    <div class="welcome-actions">
+      <button class="create-card bpmn" onclick="showPage('bpmn')">
+        <div class="card-icon">🔄</div>
+        <div class="card-body">
+          <div class="card-title">新建 BPMN 流程图</div>
+          <div class="card-desc">使用 BPMN 2.0 规范设计业务流程</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+      <button class="create-card dmn" onclick="showPage('dmn')">
+        <div class="card-icon">📋</div>
+        <div class="card-body">
+          <div class="card-title">新建 DMN 决策表</div>
+          <div class="card-desc">可视化构建业务决策模型</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     页面 2：BPMN 建模器
+     ============================================================ -->
+<div class="page" id="page-bpmn">
+  <div class="modeler">
+
+    <!-- 桌面标题栏（应用标识 + 标签页 + 文件操作） -->
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <!-- 应用标识 -->
+        <div class="tb-brand">
+          <div class="brand-dot">📊</div>
+          <span class="brand-name">Kunpeng Modeler</span>
+        </div>
+      </div>
+      <!-- 文档标签页（支持同时打开多个模型） -->
+      <div class="titlebar-tabs">
+        <div class="doc-tab active">
+          <span class="dt-icon">🔄</span>
+          <span class="dt-name">审批流程.bpmn</span>
+          <span class="dt-mod" data-tip="未保存"></span>
+          <button class="dt-close">✕</button>
+        </div>
+        <div class="doc-tab">
+          <span class="dt-icon">📋</span>
+          <span class="dt-name">贷款审批.dmn</span>
+          <button class="dt-close">✕</button>
+        </div>
+        <button class="doc-tab-add" data-tip="新建标签页">＋</button>
+      </div>
+      <div class="titlebar-right">
+        <button class="icon-action" data-tip="切换主题" onclick="toggleTheme()">🌓</button>
+        <button class="icon-action" data-tip="属性面板" onclick="togglePanel(this)">⚖</button>
+      </div>
+    </div>
+
+    <!-- 主体 -->
+    <div class="modeler-body">
+
+      <!-- 左侧窄工具栏（建模工具） -->
+      <div class="toolrail">
+        <button class="toolrail-btn active" data-tip="选择">⊟</button>
+        <button class="toolrail-btn" data-tip="平移（手型）">✋</button>
+        <div class="toolrail-sep"></div>
+        <button class="toolrail-btn" data-tip="连线">↪</button>
+        <button class="toolrail-btn" data-tip="创建节点">⬚</button>
+        <div class="toolrail-sep"></div>
+        <button class="toolrail-btn" data-tip="空间（分割）">⫼</button>
+        <button class="toolrail-btn" data-tip="对齐分布">⇿</button>
+      </div>
+
+      <!-- 画布 -->
+      <div class="canvas-area">
+        <!-- 悬浮操作条（校验/模拟 · 撤销/重做 · 对齐分布 · 缩放） -->
+        <div class="canvas-floating">
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="校验">✅</button>
+            <button class="cf-btn" data-tip="模拟运行">▶️</button>
+          </div>
+          <div class="cf-sep"></div>
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="撤销">↩️</button>
+            <button class="cf-btn" data-tip="重做">↪️</button>
+          </div>
+          <div class="cf-sep"></div>
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="向左对齐">⬅️</button>
+            <button class="cf-btn" data-tip="水平居中">↔️</button>
+            <button class="cf-btn" data-tip="向右对齐">➡️</button>
+            <button class="cf-btn" data-tip="水平分布">⇄</button>
+            <button class="cf-btn" data-tip="垂直分布">⇅</button>
+          </div>
+          <div class="cf-sep"></div>
+          <div class="cf-group cf-zoom">
+            <button class="cf-btn" data-tip="缩小">−</button>
+            <span class="cf-zoom-val">100%</span>
+            <button class="cf-btn" data-tip="放大">+</button>
+            <button class="cf-btn" data-tip="适应屏幕">🎯</button>
+          </div>
+        </div>
+        <div class="canvas-demo">
+          <div class="canvas-node">
+            <div class="canvas-shape start"></div>
+            <div class="canvas-label">开始</div>
+          </div>
+          <div class="canvas-arrow"></div>
+          <div class="canvas-node">
+            <div class="canvas-shape task"><span>提交申请</span></div>
+            <div class="canvas-label">用户任务</div>
+          </div>
+          <div class="canvas-arrow"></div>
+          <div class="canvas-node">
+            <div class="canvas-shape gateway"><span>✦</span></div>
+            <div class="canvas-label">排他网关</div>
+          </div>
+          <div class="canvas-arrow"></div>
+          <div class="canvas-node">
+            <div class="canvas-shape task"><span>经理审批</span></div>
+            <div class="canvas-label">用户任务</div>
+          </div>
+          <div class="canvas-arrow"></div>
+          <div class="canvas-node">
+            <div class="canvas-shape end"></div>
+            <div class="canvas-label">结束</div>
+          </div>
+        </div>
+
+        <!-- 小地图 -->
+        <div class="minimap">
+          <div class="minimap-header">
+            <span>小地图</span>
+            <span>—</span>
+          </div>
+          <div class="minimap-body">
+            <div class="minimap-viewport"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧属性面板 -->
+      <div class="properties-panel">
+        <div class="panel-header">
+          <div class="el-type">User Task · 用户任务</div>
+          <div class="el-name">
+            <span class="badge">📋</span>
+            <span>提交申请</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="prop-group">
+            <div class="prop-group-title" onclick="toggleGroup(this)">
+              <span class="chevron">▼</span> 常规
+            </div>
+            <div class="prop-group-body">
+              <div class="prop-row">
+                <div class="prop-label">ID</div>
+                <div class="prop-field"><input class="prop-input" value="Activity_Submit"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">名称</div>
+                <div class="prop-field"><input class="prop-input" value="提交申请"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">文档</div>
+                <div class="prop-field"><textarea class="prop-input prop-textarea" placeholder="添加注释...">用户在此节点提交审批申请表单</textarea></div>
+              </div>
+            </div>
+          </div>
+          <div class="prop-group">
+            <div class="prop-group-title" onclick="toggleGroup(this)">
+              <span class="chevron">▼</span> 执行者
+            </div>
+            <div class="prop-group-body">
+              <div class="prop-row">
+                <div class="prop-label">处理人</div>
+                <div class="prop-field"><input class="prop-input" value="${initiator}"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">候选组</div>
+                <div class="prop-field">
+                  <select class="prop-select"><option>申请部门</option><option>财务部</option></select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prop-group collapsed">
+            <div class="prop-group-title" onclick="toggleGroup(this)">
+              <span class="chevron">▼</span> 表单
+            </div>
+            <div class="prop-group-body"></div>
+          </div>
+          <div class="prop-group collapsed">
+            <div class="prop-group-title" onclick="toggleGroup(this)">
+              <span class="chevron">▼</span> 监听器
+            </div>
+            <div class="prop-group-body"></div>
+          </div>
+          <div class="prop-group collapsed">
+            <div class="prop-group-title" onclick="toggleGroup(this)">
+              <span class="chevron">▼</span> 扩展属性
+            </div>
+            <div class="prop-group-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /modeler-body -->
+
+    <!-- 状态栏 -->
+    <div class="statusbar">
+      <!-- 左：视图切换 + 状态 + 规范信息 -->
+      <button class="view-toggle" onclick="toggleView(this)" data-tip="切换到 XML 视图">
+        <span class="vt-icon">⟨⟩</span> XML
+      </button>
+      <div class="status-sep"></div>
+      <div class="status-item"><span class="status-dot unsaved"></span> 未保存</div>
+      <div class="status-sep"></div>
+      <div class="status-item clickable" data-tip="点击重置">🔍 100%</div>
+      <div class="status-item">BPMN 2.0</div>
+      <div class="status-item">元素: 8</div>
+      <div class="status-spacer"></div>
+      <!-- 右：校验报错 + 版本 -->
+      <div class="status-lint" data-tip="点击查看校验详情">
+        <div class="lint-item lint-error"><span class="lint-icon">✕</span><span class="lint-count">2</span></div>
+        <div class="lint-item lint-warn"><span class="lint-icon">⚠</span><span class="lint-count">3</span></div>
+      </div>
+      <div class="status-version"><span class="ver-dot"></span> Kunpeng Engine 2026.0</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     页面 3：DMN 建模器（DRD 视图）
+     ============================================================ -->
+<div class="page" id="page-dmn">
+  <div class="modeler">
+
+    <!-- 桌面标题栏（应用标识 + 标签页 + 文件操作） -->
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <div class="tb-brand">
+          <div class="brand-dot">📊</div>
+          <span class="brand-name">Kunpeng Modeler</span>
+        </div>
+      </div>
+      <!-- 文档标签页（支持同时打开多个模型） -->
+      <div class="titlebar-tabs">
+        <div class="doc-tab">
+          <span class="dt-icon">🔄</span>
+          <span class="dt-name">审批流程.bpmn</span>
+          <span class="dt-mod" data-tip="未保存"></span>
+          <button class="dt-close">✕</button>
+        </div>
+        <div class="doc-tab active">
+          <span class="dt-icon">📋</span>
+          <span class="dt-name">贷款审批.dmn</span>
+          <button class="dt-close">✕</button>
+        </div>
+        <button class="doc-tab-add" data-tip="新建标签页">＋</button>
+      </div>
+      <div class="titlebar-right">
+        <button class="icon-action" data-tip="切换主题" onclick="toggleTheme()">🌓</button>
+        <button class="icon-action" data-tip="属性面板" onclick="togglePanel(this)">⚖</button>
+      </div>
+    </div>
+
+    <div class="modeler-body">
+      <!-- 左侧窄工具栏（建模工具） -->
+      <div class="toolrail">
+        <button class="toolrail-btn active" data-tip="选择">⊟</button>
+        <button class="toolrail-btn" data-tip="平移（手型）">✋</button>
+        <div class="toolrail-sep"></div>
+        <button class="toolrail-btn" data-tip="连线">↪</button>
+        <button class="toolrail-btn" data-tip="创建决策">⬚</button>
+        <div class="toolrail-sep"></div>
+        <button class="toolrail-btn" data-tip="空间（分割）">⫼</button>
+      </div>
+
+      <div class="canvas-area">
+        <!-- 悬浮操作条（校验 · 撤销/重做 · 缩放） -->
+        <div class="canvas-floating">
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="校验">✅</button>
+          </div>
+          <div class="cf-sep"></div>
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="撤销">↩️</button>
+            <button class="cf-btn" data-tip="重做">↪️</button>
+          </div>
+          <div class="cf-sep"></div>
+          <div class="cf-group cf-zoom">
+            <button class="cf-btn" data-tip="缩小">−</button>
+            <span class="cf-zoom-val">100%</span>
+            <button class="cf-btn" data-tip="放大">+</button>
+            <button class="cf-btn" data-tip="适应屏幕">🎯</button>
+          </div>
+        </div>
+        <div class="canvas-demo" style="flex-direction: column; gap: 24px;">
+          <div style="display: flex; align-items: center; gap: 32px;">
+            <div class="canvas-node">
+              <div class="canvas-shape task" style="border-color: var(--info); background: rgba(59,130,246,.08); width: 80px; height: 50px;"><span>月收入</span></div>
+              <div class="canvas-label">输入</div>
+            </div>
+            <div class="canvas-arrow"></div>
+            <div class="canvas-node">
+              <div class="canvas-shape gateway" style="border-color: var(--dmn); background: rgba(139,92,246,.08); width: 70px; height: 46px;"><span>✦</span></div>
+              <div class="canvas-label">信用评级</div>
+            </div>
+          </div>
+          <div class="canvas-arrow" style="transform: rotate(90deg);"></div>
+          <div class="canvas-node">
+            <div class="canvas-shape task" style="border-color: var(--dmn); background: rgba(139,92,246,.08); width: 100px; height: 56px;"><span>贷款审批</span></div>
+            <div class="canvas-label" style="color: var(--brand); font-weight: 600;">双击进入决策表 →</div>
+          </div>
+        </div>
+        <div class="minimap">
+          <div class="minimap-header"><span>小地图</span><span>—</span></div>
+          <div class="minimap-body"><div class="minimap-viewport"></div></div>
+        </div>
+      </div>
+
+      <div class="properties-panel">
+        <div class="panel-header">
+          <div class="el-type">Decision · 决策</div>
+          <div class="el-name">
+            <span class="badge" style="background: rgba(139,92,246,.1); color: var(--dmn);">📋</span>
+            <span>贷款审批决策</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="prop-group">
+            <div class="prop-group-title" onclick="toggleGroup(this)"><span class="chevron">▼</span> 常规</div>
+            <div class="prop-group-body">
+              <div class="prop-row">
+                <div class="prop-label">ID</div>
+                <div class="prop-field"><input class="prop-input" value="Decision_Loan"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">名称</div>
+                <div class="prop-field"><input class="prop-input" value="贷款审批决策"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">决策逻辑</div>
+                <div class="prop-field">
+                  <button class="tool-btn primary" style="width: 100%;" onclick="showPage('dmn-table')">打开决策表 →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prop-group">
+            <div class="prop-group-title" onclick="toggleGroup(this)"><span class="chevron">▼</span> 变量</div>
+            <div class="prop-group-body">
+              <div class="prop-row">
+                <div class="prop-label">输入变量</div>
+                <div class="prop-field"><input class="prop-input" value="credit_rating, income"></div>
+              </div>
+              <div class="prop-row">
+                <div class="prop-label">输出类型</div>
+                <div class="prop-field"><select class="prop-select"><option>string</option><option>boolean</option><option>integer</option></select></div>
+              </div>
+            </div>
+          </div>
+          <div class="prop-group collapsed">
+            <div class="prop-group-title" onclick="toggleGroup(this)"><span class="chevron">▼</span> 扩展属性</div>
+            <div class="prop-group-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="statusbar">
+      <!-- 左：视图切换 + 状态 + 规范信息 -->
+      <button class="view-toggle" onclick="toggleView(this)" data-tip="切换到 XML 视图">
+        <span class="vt-icon">⟨⟩</span> XML
+      </button>
+      <div class="status-sep"></div>
+      <div class="status-item"><span class="status-dot saved"></span> 已保存</div>
+      <div class="status-sep"></div>
+      <div class="status-item clickable">🔍 100%</div>
+      <div class="status-item">DMN 1.3</div>
+      <div class="status-item">DRD 视图</div>
+      <div class="status-spacer"></div>
+      <!-- 右：校验报错 + 版本 -->
+      <div class="status-lint" data-tip="点击查看校验详情">
+        <div class="lint-item lint-ok"><span class="lint-icon">✓</span><span>无错误</span></div>
+      </div>
+      <div class="status-version"><span class="ver-dot"></span> Kunpeng Engine 2026.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     页面 4：DMN 决策表视图
+     ============================================================ -->
+<div class="page" id="page-dmn-table">
+  <div class="modeler">
+
+    <!-- 桌面标题栏（应用标识 + 标签页 + 文件操作） -->
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <div class="tb-brand">
+          <div class="brand-dot">📊</div>
+          <span class="brand-name">Kunpeng Modeler</span>
+        </div>
+      </div>
+      <!-- 文档标签页（支持同时打开多个模型） -->
+      <div class="titlebar-tabs">
+        <div class="doc-tab">
+          <span class="dt-icon">🔄</span>
+          <span class="dt-name">审批流程.bpmn</span>
+          <span class="dt-mod" data-tip="未保存"></span>
+          <button class="dt-close">✕</button>
+        </div>
+        <div class="doc-tab active">
+          <span class="dt-icon">📋</span>
+          <span class="dt-name">贷款审批.dmn › 决策表</span>
+          <span class="dt-mod" data-tip="未保存"></span>
+          <button class="dt-close">✕</button>
+        </div>
+        <button class="doc-tab-add" data-tip="新建标签页">＋</button>
+      </div>
+      <div class="titlebar-right">
+        <button class="icon-action" data-tip="切换主题" onclick="toggleTheme()">🌓</button>
+        <button class="icon-action" data-tip="属性面板" onclick="togglePanel(this)">⚖</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tool-group">
+        <button class="tool-btn" data-tip="添加规则">➕<span class="label">添加规则</span></button>
+        <button class="tool-btn" data-tip="添加输入列">📥 添加输入</button>
+        <button class="tool-btn" data-tip="添加输出列">📤 添加输出</button>
+      </div>
+    </div>
+
+    <div class="modeler-body">
+      <div class="decision-table-view" style="flex: 1; position: relative;">
+        <!-- 悬浮操作条（校验） -->
+        <div class="canvas-floating">
+          <div class="cf-group">
+            <button class="cf-btn" data-tip="校验">✅</button>
+          </div>
+        </div>
+        <div class="dt-breadcrumb">
+          <span>决策模型</span>
+          <span class="sep">›</span>
+          <span class="current">贷款审批决策</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span class="dt-hit-policy">命中策略：唯一 (UNIQUE)</span>
+          <span style="font-size: 13px; color: var(--text-secondary);">输出类型: <strong style="color: var(--success);">string</strong></span>
+        </div>
+
+        <table class="dt-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">#</th>
+              <th class="dt-input-header">月收入 (income)</th>
+              <th class="dt-input-header">信用评级 (credit_rating)</th>
+              <th class="dt-output-header">审批结果 (result)</th>
+              <th class="dt-output-header">描述 (description)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--text-tertiary); text-align: center;">1</td>
+              <td><code>&gt;= 20000</code></td>
+              <td><code>"A"</code></td>
+              <td><strong style="color: var(--success);">"通过"</strong></td>
+              <td>高额自动通过</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-tertiary); text-align: center;">2</td>
+              <td><code>&gt;= 10000</code></td>
+              <td><code>"B"</code></td>
+              <td><strong style="color: var(--success);">"通过"</strong></td>
+              <td>标准通过</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-tertiary); text-align: center;">3</td>
+              <td><code>[5000, 10000)</code></td>
+              <td><code>"B"</code></td>
+              <td><strong style="color: var(--warning);">"人工审核"</strong></td>
+              <td>需人工复核</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-tertiary); text-align: center;">4</td>
+              <td><code>&lt; 5000</code></td>
+              <td><code>"C"</code></td>
+              <td><strong style="color: var(--error);">"拒绝"</strong></td>
+              <td>收入不达标</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-tertiary); text-align: center;">5</td>
+              <td><code>-</code></td>
+              <td><code>"D"</code></td>
+              <td><strong style="color: var(--error);">"拒绝"</strong></td>
+              <td>信用评级过低</td>
+            </tr>
+            <tr style="border-style: dashed;">
+              <td style="color: var(--text-tertiary); text-align: center;">6</td>
+              <td style="color: var(--text-tertiary);">点击添加...</td>
+              <td style="color: var(--text-tertiary);">—</td>
+              <td style="color: var(--text-tertiary);">—</td>
+              <td style="color: var(--text-tertiary);">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 决策表视图下属性面板隐藏 -->
+    </div>
+
+    <div class="statusbar">
+      <!-- 左：视图切换 + 状态 + 规范信息 -->
+      <button class="view-toggle" onclick="toggleView(this)" data-tip="切换到 DRD 图视图">
+        <span class="vt-icon">🗺️</span> DRD 图
+      </button>
+      <div class="status-sep"></div>
+      <div class="status-item"><span class="status-dot unsaved"></span> 未保存</div>
+      <div class="status-sep"></div>
+      <div class="status-item">DMN 1.3</div>
+      <div class="status-item">决策表视图</div>
+      <div class="status-item">规则: 5</div>
+      <div class="status-spacer"></div>
+      <!-- 右：校验报错 + 版本 -->
+      <div class="status-lint" data-tip="点击查看校验详情">
+        <div class="lint-item lint-error"><span class="lint-icon">✕</span><span class="lint-count">1</span></div>
+        <div class="lint-item lint-warn"><span class="lint-icon">⚠</span><span class="lint-count">2</span></div>
+      </div>
+      <div class="status-version"><span class="ver-dot"></span> Kunpeng Engine 2026.0</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+}
+
+// 视图切换：单按钮 toggle，显示"另一个视图"的名称
+// BPMN/DMN-DRD：模型 ↔ XML；DMN 决策表：决策表 ↔ DRD 图
+function toggleView(btn) {
+  const txt = btn.textContent.trim();
+  if (txt.includes('XML')) {
+    // 当前是模型视图，切到 XML
+    btn.innerHTML = '<span class="vt-icon">🔲</span> 模型';
+    btn.setAttribute('data-tip', '切换到模型视图');
+  } else if (txt.includes('模型')) {
+    // 当前是 XML 视图，切回模型
+    btn.innerHTML = '<span class="vt-icon">⟨⟩</span> XML';
+    btn.setAttribute('data-tip', '切换到 XML 视图');
+  } else if (txt.includes('DRD')) {
+    // 当前是决策表视图，切到 DRD 图
+    btn.innerHTML = '<span class="vt-icon">📊</span> 决策表';
+    btn.setAttribute('data-tip', '切换到决策表视图');
+  } else if (txt.includes('决策表')) {
+    // 当前是 DRD 图视图，切回决策表
+    btn.innerHTML = '<span class="vt-icon">🗺️</span> DRD 图';
+    btn.setAttribute('data-tip', '切换到 DRD 图视图');
+  }
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', cur === 'light' ? 'dark' : 'light');
+}
+
+function toggleGroup(el) {
+  el.parentElement.classList.toggle('collapsed');
+}
+
+// 开关右侧属性面板
+function togglePanel(btn) {
+  const modeler = btn.closest('.modeler');
+  const panel = modeler.querySelector('.properties-panel');
+  if (!panel) return;
+  const hidden = panel.style.display === 'none';
+  panel.style.display = hidden ? '' : 'none';
+  btn.style.opacity = hidden ? '1' : '.5';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+{
+  "name": "@kunpeng/properties-panel",
+  "version": "2026.0.0-alpha1",
+  "description": "Library for creating bpmn-io properties panels.",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./assets/*": "./assets/*",
+    "./preact": {
+      "browser": "./preact/dist/preact.module.js",
+      "import": "./preact/dist/preact.mjs",
+      "require": "./preact/dist/preact.js"
+    },
+    "./preact/hooks": {
+      "browser": "./preact/hooks/dist/hooks.module.js",
+      "import": "./preact/hooks/dist/hooks.mjs",
+      "require": "./preact/hooks/dist/hooks.js"
+    },
+    "./preact/compat": {
+      "browser": "./preact/compat/dist/compat.module.js",
+      "import": "./preact/compat/dist/compat.mjs",
+      "require": "./preact/compat/dist/compat.js"
+    },
+    "./preact/jsx-runtime": {
+      "browser": "./preact/jsx-runtime/dist/jsxRuntime.module.js",
+      "import": "./preact/jsx-runtime/dist/jsxRuntime.mjs",
+      "require": "./preact/jsx-runtime/dist/jsxRuntime.js"
+    },
+    "./preact/jsx-dev-runtime": {
+      "browser": "./preact/compat/jsx-dev-runtime.mjs",
+      "import": "./preact/compat/jsx-dev-runtime.mjs",
+      "require": "./preact/compat/jsx-dev-runtime.js"
+    },
+    "./preact/*": "./preact/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "preact"
+  ],
+  "scripts": {
+    "all": "run-s lint clean build test",
+    "clean": "rimraf preact dist",
+    "build": "vite build",
+    "lib": "vite build",
+    "build:watch": "vite build --watch",
+    "lint": "eslint .",
+    "dev": "vitest --watch",
+    "test": "vitest run",
+    "prepare": "run-s build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpmn-io/properties-panel.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "author": "Niklas Kiefer <niklas.kiefer@camunda.com> (https://github.com/pinussilvestrus)",
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@carbon/icons": "catalog:",
+    "@codemirror/autocomplete": "catalog:",
+    "@codemirror/commands": "catalog:",
+    "@codemirror/lang-json": "catalog:",
+    "@codemirror/language": "catalog:",
+    "@codemirror/lint": "catalog:",
+    "@codemirror/state": "catalog:",
+    "@codemirror/view": "catalog:",
+    "@kunpeng/expression-editor": "workspace:*",
+    "classnames": "catalog:",
+    "focus-trap": "catalog:",
+    "min-dash": "catalog:",
+    "min-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "catalog:",
+    "@testing-library/preact": "catalog:",
+    "axe-core": "catalog:",
+    "babel-plugin-inline-react-svg": "catalog:",
+    "babel-plugin-module-resolver": "catalog:",
+    "chai": "catalog:",
+    "cross-env": "catalog:",
+    "diagram-js": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-bpmn-io": "catalog:",
+    "eslint-plugin-import": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "fs-extra": "catalog:",
+    "happy-dom": "catalog:",
+    "mocha-test-container-support": "catalog:",
+    "npm-run-all2": "catalog:",
+    "preact": "catalog:",
+    "replace-in-file": "catalog:",
+    "rimraf": "catalog:",
+    "sinon": "catalog:",
+    "sinon-chai": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-babel": "catalog:",
+    "vitest": "catalog:"
+  },
+  "types": "./dist/index.d.ts"
+}

@@ -1,0 +1,55 @@
+[
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "AdHoc Missing Output Collection",
+    "id": "io.camunda.examples.AdHoc.MissingOutputCollection",
+    "version": 1,
+    "appliesTo": ["bpmn:AdHocSubProcess"],
+    "elementType": {"value": "bpmn:AdHocSubProcess"},
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {"type": "kunpeng:taskDefinition", "property": "type"},
+        "value": "io.camunda.agenticai:aiagent-job-worker:1"
+      },
+      {
+        "type": "String",
+        "binding": {"type": "kunpeng:adHoc", "property": "outputElement"},
+        "feel": "required",
+        "value": "={ id: toolCall._meta.id, name: toolCall._meta.name, content: toolCallResult }"
+      }
+    ]
+  },
+  {
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "AdHoc Task Definition and Active Elements Collection",
+    "id": "io.camunda.examples.AdHoc.Valid.BPMN",
+    "version": 1,
+    "appliesTo": ["bpmn:AdHocSubProcess"],
+    "elementType": {"value": "bpmn:AdHocSubProcess"},
+    "properties": [
+      {
+        "type": "Hidden",
+        "binding": {"type": "kunpeng:taskDefinition", "property": "type"},
+        "value": "io.camunda.agenticai:aiagent-job-worker:1"
+      },
+      {
+        "type": "String",
+        "binding": {"type": "kunpeng:adHoc", "property": "outputCollection"},
+        "value": "toolCallResults"
+      },
+      {
+        "type": "String",
+        "feel": "required",
+        "binding": {"type": "kunpeng:adHoc", "property": "outputElement"},
+        "value": "={ id: toolCall._meta.id, name: toolCall._meta.name, content: toolCallResult }"
+      },
+      {
+        "type": "String",
+        "feel": "required",
+        "binding": {"type": "kunpeng:adHoc", "property": "activeElementsCollection"},
+        "value": "=selectedTools"
+      }
+    ]
+  }
+]
