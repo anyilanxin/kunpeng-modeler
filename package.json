@@ -1,6 +1,6 @@
 {
   "name": "kunpeng-monorepo",
-  "version": "2026.0.0-alpha1",
+  "version": "2026.9.0-alpha1",
   "private": true,
   "keywords": [
     "monorepo",
@@ -36,6 +36,7 @@
     "build:modeler:dmg-arm": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:dmg-arm",
     "build:modeler:dmg-intel": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:dmg-intel",
     "build:modeler:exe": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:exe",
+    "build:modeler:exe-xwin": "pnpm run build --filter=kunpeng-modeler && pnpm -F kunpeng-modeler run build:exe-xwin",
     "changeset": "pnpm exec changeset",
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
     "check:circular": "vsh check-circular",

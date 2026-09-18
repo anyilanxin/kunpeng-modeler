@@ -1,6 +1,6 @@
 {
   "name": "kunpeng-modeler",
-  "version": "0.1.0",
+  "version": "2026.9.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,6 +13,7 @@
     "build:dmg-arm": "tauri build --target aarch64-apple-darwin",
     "build:dmg-intel": "tauri build --target x86_64-apple-darwin",
     "build:exe": "tauri build --target x86_64-pc-windows-msvc --bundles nsis",
+    "build:exe-xwin": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc --bundles nsis",
     "build:all": "tauri build && tauri build --target x86_64-pc-windows-msvc --bundles nsis"
   },
   "dependencies": {
@@ -26,7 +27,6 @@
     "@kunpeng/bpmn-js-element-templates": "workspace:*",
     "@kunpeng/bpmn-js-properties-panel": "workspace:*",
     "@kunpeng/bpmn-moddle": "workspace:*",
-    "@kunpeng/bpmn-template-designer": "workspace:*",
     "@kunpeng/bpmnlint-plugin-kunpeng-compat": "workspace:*",
     "@kunpeng/dmn-js": "workspace:*",
     "@kunpeng/dmn-js-properties-panel": "workspace:*",

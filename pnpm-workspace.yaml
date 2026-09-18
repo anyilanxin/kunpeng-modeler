@@ -4,7 +4,7 @@ packages:
   - packages/bpm/*
   - packages/bpmn/*
   - packages/dmn/*
-  - dist/*
+  - dist
   - scripts/*
   # - docs
 
