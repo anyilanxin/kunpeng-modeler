@@ -1,6 +1,6 @@
 # Kunpeng Modeler（鲲鹏建模器）
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](#版本信息)
+[![Version](https://img.shields.io/badge/version-2026.9.0-blue)](#版本信息)
 [![License](https://img.shields.io/badge/license-MPL--2.0%20%2F%20MIT-green)](./LICENSE)
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
@@ -42,7 +42,7 @@ pnpm tauri build
 
 ## 版本信息
 
-当前版本：**v0.1.0**（早期开发阶段）。版本号在 `package.json`、`src-tauri/Cargo.toml` 与 `src-tauri/tauri.conf.json` 三处保持同步。
+当前版本：**v2026.9.0**。版本号以 `dist/package.json` 为唯一来源：前端界面与模型导出元数据在构建时通过 `__APP_VERSION__` 常量读取；`dist/src-tauri/tauri.conf.json` 通过 `"version": "../package.json"` 指向同一来源。升级版本只需修改 `dist/package.json` 一处。
 
 ## 开源协议
 

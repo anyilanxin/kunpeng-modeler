@@ -1,6 +1,6 @@
 # Kunpeng Modeler
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](#version)
+[![Version](https://img.shields.io/badge/version-2026.9.0-blue)](#version)
 [![License](https://img.shields.io/badge/license-MPL--2.0%20%2F%20MIT-green)](./LICENSE)
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
@@ -42,7 +42,7 @@ pnpm tauri build
 
 ## Version
 
-Current version: **v0.1.0** (early development stage). The version is kept in sync across `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`.
+Current version: **v2026.9.0**. `dist/package.json` is the single source of truth: the UI and model export metadata read it at build time via the `__APP_VERSION__` constant, and `dist/src-tauri/tauri.conf.json` points to the same file (`"version": "../package.json"`) for installer naming and bundle metadata. To release a new version, just bump `dist/package.json`.
 
 ## License
 
