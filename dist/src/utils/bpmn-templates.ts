@@ -14,9 +14,9 @@ export function createEmptyBpmn(): string {
                   targetNamespace="http://bpmn.io/schema/bpmn"
                   xmlns:kunpeng="http://anyilanxin.com/schema/kunpeng/1.0"
                   xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0"
-                  exporter="Kunpeng Modeler" exporterVersion="2026.0.0"
+                  exporter="Kunpeng Modeler" exporterVersion="${__APP_VERSION__}"
                   modeler:executionPlatform="Kunpeng Cloud"
-                  modeler:executionPlatformVersion="2026.0.0-alpha1">
+                  modeler:executionPlatformVersion="${__APP_VERSION__}">
   <bpmn:process id="${processId}" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" />
   </bpmn:process>

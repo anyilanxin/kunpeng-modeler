@@ -1,7 +1,7 @@
 export default {
   app: {
     title: 'Process Modeler',
-    version: '2026.0',
+    version: __APP_VERSION__,
   },
   about: {
     productName: 'Kunpeng Modeler',

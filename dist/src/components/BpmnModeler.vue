@@ -133,7 +133,7 @@ async function initModeler() {
     },
     exporter: {
       name: 'kunpeng-modeler',
-      version: '2026.0.0',
+      version: __APP_VERSION__,
     },
   };
 

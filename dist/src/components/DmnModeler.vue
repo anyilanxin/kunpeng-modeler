@@ -106,7 +106,7 @@ async function initModeler() {
       additionalModules,
       exporter: {
         name: 'kunpeng-modeler',
-        version: '2026.0.0',
+        version: __APP_VERSION__,
       },
     },
     decisionTable: {

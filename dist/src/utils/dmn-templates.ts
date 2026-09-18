@@ -13,9 +13,9 @@ export function createEmptyDmn(): string {
              id="${definitionsId}"
              namespace="https://anyilanxin.com/schema/1.0/dmn"
              xmlns:modeler="http://anyilanxin.com/schema/modeler/1.0"
-             exporter="Kunpeng Modeler" exporterVersion="2026.0.0"
+             exporter="Kunpeng Modeler" exporterVersion="${__APP_VERSION__}"
              modeler:executionPlatform="Kunpeng Cloud"
-             modeler:executionPlatformVersion="2026.0.0">
+             modeler:executionPlatformVersion="${__APP_VERSION__}">
   <decision id="${decisionId}" name="Decision 1">
     <decisionTable id="DecisionTable_1">
       <input id="Input_1">

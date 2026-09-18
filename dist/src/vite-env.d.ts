@@ -1,5 +1,8 @@
 // / <reference types="vite/client" />
 
+// 编译期由 vite.config.ts 的 define 注入，取自 package.json 的 version 字段
+declare const __APP_VERSION__: string;
+
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string;
   readonly VITE_API_TIMEOUT: string;

@@ -76,10 +76,19 @@ function kunpengPatchPlugin() {
 
 // eslint-disable-next-line n/prefer-global/process
 const HOST = process.env.TAURI_DEV_HOST;
+// 应用版本唯一来源：package.json 的 version 字段，编译期注入为 __APP_VERSION__
+const APP_VERSION = (
+  JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8')) as {
+    version: string;
+  }
+).version;
 // https://vitejs.dev/config/
 export default defineConfig(
   async () =>
     ({
+      define: {
+        __APP_VERSION__: JSON.stringify(APP_VERSION),
+      },
       plugins: [
         kunpengPatchPlugin(),
         vue(),
