@@ -40,7 +40,7 @@ describe('integration - inclusive-gateway', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/inclusive-gateway' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/inclusive-gateway' ]).not.to.exist;
         });
 
       });
@@ -57,7 +57,7 @@ describe('integration - inclusive-gateway', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/inclusive-gateway' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/inclusive-gateway' ]).to.exist;
         });
 
       });

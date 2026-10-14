@@ -42,7 +42,7 @@ describe('integration - no-propagate-all-parent-variables', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
         });
 
       });
@@ -59,7 +59,7 @@ describe('integration - no-propagate-all-parent-variables', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-propagate-all-parent-variables' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-propagate-all-parent-variables' ]).to.exist;
         });
 
       });
@@ -98,7 +98,7 @@ describe('integration - no-propagate-all-parent-variables', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
         });
 
 
@@ -111,7 +111,7 @@ describe('integration - no-propagate-all-parent-variables', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-propagate-all-parent-variables' ]).not.to.exist;
         });
 
       });

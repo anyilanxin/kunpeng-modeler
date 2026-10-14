@@ -42,7 +42,7 @@ describe('integration - no-priority-definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-priority-definition' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-priority-definition' ]).not.to.exist;
         });
 
       });
@@ -59,7 +59,7 @@ describe('integration - no-priority-definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-priority-definition' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-priority-definition' ]).to.exist;
         });
 
       });

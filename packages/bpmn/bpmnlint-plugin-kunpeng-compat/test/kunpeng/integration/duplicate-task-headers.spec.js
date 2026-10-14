@@ -45,7 +45,7 @@ describe('integration - duplicate-task-headers', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/duplicate-task-headers' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/duplicate-task-headers' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - duplicate-task-headers', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/duplicate-task-headers' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/duplicate-task-headers' ]).to.exist;
         });
 
       });

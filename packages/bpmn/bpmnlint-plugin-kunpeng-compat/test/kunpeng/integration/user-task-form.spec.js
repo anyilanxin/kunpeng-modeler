@@ -45,7 +45,7 @@ describe('integration - user-task-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/user-task-form' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/user-task-form' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - user-task-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/user-task-form' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/user-task-form' ]).to.exist;
         });
 
       });
@@ -101,7 +101,7 @@ describe('integration - user-task-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/user-task-form' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/user-task-form' ]).not.to.exist;
         });
 
       });
@@ -118,7 +118,7 @@ describe('integration - user-task-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/user-task-form' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/user-task-form' ]).to.exist;
         });
 
       });

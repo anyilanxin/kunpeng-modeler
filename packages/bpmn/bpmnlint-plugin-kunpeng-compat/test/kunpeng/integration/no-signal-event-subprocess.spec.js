@@ -39,7 +39,7 @@ describe('integration - no-signal-event-sub-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-signal-event-sub-process' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-signal-event-sub-process' ]).not.to.exist;
         });
 
       });
@@ -56,7 +56,7 @@ describe('integration - no-signal-event-sub-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-signal-event-sub-process' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-signal-event-sub-process' ]).to.exist;
         });
 
       });

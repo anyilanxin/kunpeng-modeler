@@ -43,7 +43,7 @@ describe('integration - no-zeebe-properties', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-zeebe-properties' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-zeebe-properties' ]).not.to.exist;
         });
 
       });
@@ -60,7 +60,7 @@ describe('integration - no-zeebe-properties', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-zeebe-properties' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-zeebe-properties' ]).to.exist;
         });
 
       });

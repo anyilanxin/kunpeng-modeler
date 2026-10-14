@@ -40,7 +40,7 @@ describe('integration - zeebe-user-task', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/zeebe-user-task' ]).to.be.undefined;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/zeebe-user-task' ]).to.be.undefined;
         });
 
       });
@@ -57,10 +57,10 @@ describe('integration - zeebe-user-task', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/zeebe-user-task' ]).to.exist;
-          expect(reports[ '@kunpeng/kunpeng-compat/zeebe-user-task' ]).to.have.lengthOf(1);
+          expect(reports[ '@kunpeng-js/kunpeng-compat/zeebe-user-task' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/zeebe-user-task' ]).to.have.lengthOf(1);
 
-          const [ error ] = reports[ '@kunpeng/kunpeng-compat/zeebe-user-task' ];
+          const [ error ] = reports[ '@kunpeng-js/kunpeng-compat/zeebe-user-task' ];
 
           expect(error.message).to.equal('Element of type <bpmn:UserTask> must have one extension element of type <kunpeng:UserTask>');
           expect(error.id).to.equal('UserTask_1');

@@ -47,7 +47,7 @@ describe('integration - no-zeebe-user-task', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-zeebe-user-task' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-zeebe-user-task' ]).not.to.exist;
         });
 
       });
@@ -64,7 +64,7 @@ describe('integration - no-zeebe-user-task', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-zeebe-user-task' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-zeebe-user-task' ]).to.exist;
         });
 
       });

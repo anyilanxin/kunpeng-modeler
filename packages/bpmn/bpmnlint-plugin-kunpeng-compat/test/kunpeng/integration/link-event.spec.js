@@ -40,7 +40,7 @@ describe('integration - link-event', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/link-event' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/link-event' ]).not.to.exist;
         });
 
       });
@@ -57,7 +57,7 @@ describe('integration - link-event', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/link-event' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/link-event' ]).to.exist;
         });
 
       });

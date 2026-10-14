@@ -44,7 +44,7 @@ describe('integration - no-multiple-none-start-events', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-multiple-none-start-events' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-multiple-none-start-events' ]).not.to.exist;
         });
 
       });
@@ -61,7 +61,7 @@ describe('integration - no-multiple-none-start-events', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-multiple-none-start-events' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-multiple-none-start-events' ]).to.exist;
         });
 
       });
@@ -100,7 +100,7 @@ describe('integration - no-multiple-none-start-events', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).not.to.exist;
         });
 
 
@@ -113,7 +113,7 @@ describe('integration - no-multiple-none-start-events', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).not.to.exist;
         });
 
       });

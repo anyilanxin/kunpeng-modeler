@@ -48,7 +48,7 @@ describe('integration - no-version-tag', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-version-tag' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-version-tag' ]).not.to.exist;
         });
 
       });
@@ -65,7 +65,7 @@ describe('integration - no-version-tag', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-version-tag' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-version-tag' ]).to.exist;
         });
 
       });

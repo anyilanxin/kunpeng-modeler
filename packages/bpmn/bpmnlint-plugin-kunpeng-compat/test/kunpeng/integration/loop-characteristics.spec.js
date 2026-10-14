@@ -45,7 +45,7 @@ describe('integration - loop-characteristics', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/loop-characteristics' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/loop-characteristics' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - loop-characteristics', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/loop-characteristics' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/loop-characteristics' ]).to.exist;
         });
 
       });

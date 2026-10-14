@@ -37,7 +37,7 @@ describe('integration - signal-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/signal-reference' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/signal-reference' ]).not.to.exist;
         });
 
       });
@@ -54,7 +54,7 @@ describe('integration - signal-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/signal-reference' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/signal-reference' ]).to.exist;
         });
 
       });

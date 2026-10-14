@@ -42,7 +42,7 @@ describe('integration - connector-properties', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/connector-properties' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/connector-properties' ]).not.to.exist;
         });
 
       });
@@ -59,7 +59,7 @@ describe('integration - connector-properties', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/connector-properties' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/connector-properties' ]).to.exist;
         });
 
       });
@@ -98,7 +98,7 @@ describe('integration - connector-properties', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/connector-properties' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/connector-properties' ]).not.to.exist;
         });
 
       });

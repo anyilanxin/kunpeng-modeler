@@ -45,7 +45,7 @@ describe('integration - called-element', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/called-element' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/called-element' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - called-element', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/called-element' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/called-element' ]).to.exist;
         });
 
       });

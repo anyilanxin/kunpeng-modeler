@@ -45,7 +45,7 @@ describe('integration - feel', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/feel' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/feel' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - feel', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/feel' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/feel' ]).to.exist;
         });
 
       });

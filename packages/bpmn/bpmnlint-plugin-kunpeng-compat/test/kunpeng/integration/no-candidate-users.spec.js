@@ -42,7 +42,7 @@ describe('integration - no-candidate-users', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).not.to.exist;
         });
 
       });
@@ -59,7 +59,7 @@ describe('integration - no-candidate-users', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).to.exist;
         });
 
       });
@@ -98,7 +98,7 @@ describe('integration - no-candidate-users', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).not.to.exist;
         });
 
 
@@ -111,7 +111,7 @@ describe('integration - no-candidate-users', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-candidate-users' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-candidate-users' ]).not.to.exist;
         });
 
       });

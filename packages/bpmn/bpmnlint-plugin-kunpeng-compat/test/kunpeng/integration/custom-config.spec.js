@@ -17,7 +17,7 @@ describe('integration - custom config', function() {
         config: {
           extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
-            '@kunpeng/kunpeng-compat/timer': 'warn',
+            '@kunpeng-js/kunpeng-compat/timer': 'warn',
           }
         },
         resolver: new NodeResolver()
@@ -29,8 +29,8 @@ describe('integration - custom config', function() {
       const reports = await linter.lint(root);
 
       // then
-      expect(reports[ '@kunpeng/kunpeng-compat/timer' ][0].category).to.equal('rule-error');
-      expect(reports[ '@kunpeng/kunpeng-compat/timer' ][0].message).to.equal(
+      expect(reports[ '@kunpeng-js/kunpeng-compat/timer' ][0].category).to.equal('rule-error');
+      expect(reports[ '@kunpeng-js/kunpeng-compat/timer' ][0].message).to.equal(
         'Rule requires { version } config, e.g. [ "warn", { "version": "8.0" } ]'
       );
     });
@@ -43,7 +43,7 @@ describe('integration - custom config', function() {
         config: {
           extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
-            '@kunpeng/kunpeng-compat/called-element': 'warn'
+            '@kunpeng-js/kunpeng-compat/called-element': 'warn'
           }
         },
         resolver: new NodeResolver()
@@ -55,7 +55,7 @@ describe('integration - custom config', function() {
       const reports = await linter.lint(root);
 
       // then
-      expect(reports[ '@kunpeng/kunpeng-compat/called-element' ]).not.to.exist;
+      expect(reports[ '@kunpeng-js/kunpeng-compat/called-element' ]).not.to.exist;
     });
 
   });
@@ -70,7 +70,7 @@ describe('integration - custom config', function() {
         config: {
           extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
-            '@kunpeng/kunpeng-compat/timer': [ 'warn', { version: '8.0' } ]
+            '@kunpeng-js/kunpeng-compat/timer': [ 'warn', { version: '8.0' } ]
           }
         },
         resolver: new NodeResolver()
@@ -82,7 +82,7 @@ describe('integration - custom config', function() {
       const reports = await linter.lint(root);
 
       // then
-      expect(reports[ '@kunpeng/kunpeng-compat/timer' ]).not.to.exist;
+      expect(reports[ '@kunpeng-js/kunpeng-compat/timer' ]).not.to.exist;
     });
 
   });

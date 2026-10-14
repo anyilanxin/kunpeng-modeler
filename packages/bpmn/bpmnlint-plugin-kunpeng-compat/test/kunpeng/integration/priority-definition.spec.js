@@ -39,7 +39,7 @@ describe('integration - priority definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/priority-definition' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/priority-definition' ]).not.to.exist;
         });
 
 
@@ -54,7 +54,7 @@ describe('integration - priority definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/priority-definition' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/priority-definition' ]).not.to.exist;
         });
 
       });
@@ -71,7 +71,7 @@ describe('integration - priority definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/priority-definition' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/priority-definition' ]).to.exist;
         });
 
 
@@ -86,7 +86,7 @@ describe('integration - priority definition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/priority-definition' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/priority-definition' ]).to.exist;
         });
 
       });

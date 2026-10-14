@@ -46,7 +46,7 @@ describe('integration - timer', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/timer' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/timer' ]).not.to.exist;
         });
 
       });
@@ -63,7 +63,7 @@ describe('integration - timer', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/timer' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/timer' ]).to.exist;
         });
 
       });

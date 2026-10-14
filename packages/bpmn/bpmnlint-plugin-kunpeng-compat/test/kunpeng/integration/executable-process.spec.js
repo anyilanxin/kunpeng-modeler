@@ -45,7 +45,7 @@ describe('integration - executable-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/executable-process' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/executable-process' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - executable-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/executable-process' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/executable-process' ]).to.exist;
         });
 
       });

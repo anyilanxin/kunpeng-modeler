@@ -45,7 +45,7 @@ describe('integration - implementation', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/implementation' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/implementation' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - implementation', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/implementation' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/implementation' ]).to.exist;
         });
 
       });

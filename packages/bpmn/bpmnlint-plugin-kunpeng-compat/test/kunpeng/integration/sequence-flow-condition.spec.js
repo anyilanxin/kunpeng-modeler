@@ -46,7 +46,7 @@ describe('integration - sequence-flow-condition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/sequence-flow-condition' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/sequence-flow-condition' ]).not.to.exist;
         });
 
       });
@@ -63,7 +63,7 @@ describe('integration - sequence-flow-condition', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/sequence-flow-condition' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/sequence-flow-condition' ]).to.exist;
         });
 
       });
@@ -81,7 +81,7 @@ describe('integration - sequence-flow-condition', function() {
 
           // then
           // Should not throw an error, even though the diagram is broken
-          expect(reports[ '@kunpeng/kunpeng-compat/sequence-flow-condition' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/sequence-flow-condition' ]).not.to.exist;
         });
 
       });

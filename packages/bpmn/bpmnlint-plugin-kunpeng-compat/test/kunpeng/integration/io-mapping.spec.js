@@ -50,7 +50,7 @@ describe('integration - io-mapping', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/io-mapping' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/io-mapping' ]).not.to.exist;
         });
 
       });
@@ -67,7 +67,7 @@ describe('integration - io-mapping', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/io-mapping' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/io-mapping' ]).to.exist;
         });
 
       });

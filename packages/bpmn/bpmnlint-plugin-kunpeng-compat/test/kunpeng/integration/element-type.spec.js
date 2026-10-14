@@ -47,7 +47,7 @@ describe('integration - element-type', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/element-type' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/element-type' ]).not.to.exist;
         });
 
       });
@@ -64,7 +64,7 @@ describe('integration - element-type', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/element-type' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/element-type' ]).to.exist;
         });
 
       });

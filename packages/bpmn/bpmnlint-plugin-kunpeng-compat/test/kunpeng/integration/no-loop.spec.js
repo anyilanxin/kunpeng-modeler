@@ -44,7 +44,7 @@ describe('integration - no-loop', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-loop' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-loop' ]).not.to.exist;
         });
 
       });
@@ -61,7 +61,7 @@ describe('integration - no-loop', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-loop' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-loop' ]).to.exist;
         });
 
 
@@ -74,7 +74,7 @@ describe('integration - no-loop', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-loop' ][0].meta.documentation.url).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-loop' ][0].meta.documentation.url).to.exist;
         });
 
       });

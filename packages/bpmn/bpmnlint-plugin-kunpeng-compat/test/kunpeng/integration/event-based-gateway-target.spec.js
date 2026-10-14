@@ -46,7 +46,7 @@ describe('integration - event-based-gateway-target', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/event-based-gateway-target' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/event-based-gateway-target' ]).not.to.exist;
         });
 
       });
@@ -63,7 +63,7 @@ describe('integration - event-based-gateway-target', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/event-based-gateway-target' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/event-based-gateway-target' ]).to.exist;
         });
 
       });

@@ -40,7 +40,7 @@ describe('integration - escalation-boundary-event-attached-to-ref', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/escalation-boundary-event-attached-to-ref' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/escalation-boundary-event-attached-to-ref' ]).not.to.exist;
         });
 
       });
@@ -57,7 +57,7 @@ describe('integration - escalation-boundary-event-attached-to-ref', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/escalation-boundary-event-attached-to-ref' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/escalation-boundary-event-attached-to-ref' ]).to.exist;
         });
 
       });

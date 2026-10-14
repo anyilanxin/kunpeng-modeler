@@ -45,7 +45,7 @@ describe('integration - subscription', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/subscription' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/subscription' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - subscription', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/subscription' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/subscription' ]).to.exist;
         });
 
       });

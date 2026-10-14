@@ -39,7 +39,7 @@ describe('integration - version-tag', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/version-tag' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/version-tag' ]).not.to.exist;
         });
 
       });
@@ -56,7 +56,7 @@ describe('integration - version-tag', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/version-tag' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/version-tag' ]).to.exist;
         });
 
       });

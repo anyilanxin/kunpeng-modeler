@@ -45,7 +45,7 @@ describe('integration - message-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/message-reference' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/message-reference' ]).not.to.exist;
         });
 
       });
@@ -62,7 +62,7 @@ describe('integration - message-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/message-reference' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/message-reference' ]).to.exist;
         });
 
       });

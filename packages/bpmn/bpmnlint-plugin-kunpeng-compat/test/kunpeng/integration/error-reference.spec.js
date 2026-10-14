@@ -42,7 +42,7 @@ describe('integration - error-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/error-reference' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/error-reference' ]).not.to.exist;
         });
 
       });
@@ -59,7 +59,7 @@ describe('integration - error-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/error-reference' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/error-reference' ]).to.exist;
         });
 
       });
@@ -104,7 +104,7 @@ describe('integration - error-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/error-reference' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/error-reference' ]).not.to.exist;
         });
 
       });
@@ -121,7 +121,7 @@ describe('integration - error-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/error-reference' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/error-reference' ]).to.exist;
         });
 
       });

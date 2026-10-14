@@ -39,7 +39,7 @@ describe('integration - ad-hoc-sub-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/ad-hoc-sub-process' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/ad-hoc-sub-process' ]).not.to.exist;
         });
 
       });
@@ -56,7 +56,7 @@ describe('integration - ad-hoc-sub-process', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/ad-hoc-sub-process' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/ad-hoc-sub-process' ]).to.exist;
         });
 
       });

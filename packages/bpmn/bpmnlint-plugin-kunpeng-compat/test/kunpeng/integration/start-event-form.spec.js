@@ -43,7 +43,7 @@ describe('integration - start-event-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/start-event-form' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/start-event-form' ]).not.to.exist;
         });
 
       });
@@ -60,7 +60,7 @@ describe('integration - start-event-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/start-event-form' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/start-event-form' ]).to.exist;
         });
 
       });
@@ -100,7 +100,7 @@ describe('integration - start-event-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/start-event-form' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/start-event-form' ]).not.to.exist;
         });
 
       });
@@ -117,7 +117,7 @@ describe('integration - start-event-form', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/start-event-form' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/start-event-form' ]).to.exist;
         });
 
       });

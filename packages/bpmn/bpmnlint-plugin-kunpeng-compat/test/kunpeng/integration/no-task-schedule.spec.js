@@ -44,7 +44,7 @@ describe('integration - no-task-schedule', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-task-schedule' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-task-schedule' ]).not.to.exist;
         });
 
       });
@@ -61,7 +61,7 @@ describe('integration - no-task-schedule', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-task-schedule' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-task-schedule' ]).to.exist;
         });
 
       });

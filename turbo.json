@@ -55,12 +55,6 @@
     "@kunpeng-js/element-templates-json-schema#build": {
       "outputs": []
     },
-    "@kunpeng/bpmn-design#build": {
-      "outputs": ["example-dist/**"]
-    },
-    "@kunpeng/dmn-design#build": {
-      "outputs": ["example-dist/**"]
-    },
     "test:e2e": {},
     "dev": {
       "dependsOn": ["^lib"],

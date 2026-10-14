@@ -39,7 +39,7 @@ describe('integration - secrets', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/secrets' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/secrets' ]).not.to.exist;
         });
 
       });
@@ -56,7 +56,7 @@ describe('integration - secrets', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/secrets' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/secrets' ]).to.exist;
         });
 
       });

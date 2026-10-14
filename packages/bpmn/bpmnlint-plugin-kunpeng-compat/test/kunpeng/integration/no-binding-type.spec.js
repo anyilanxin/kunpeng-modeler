@@ -48,7 +48,7 @@ describe('integration - no-binding-type', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-binding-type' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-binding-type' ]).not.to.exist;
         });
 
       });
@@ -65,7 +65,7 @@ describe('integration - no-binding-type', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/no-binding-type' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/no-binding-type' ]).to.exist;
         });
 
       });

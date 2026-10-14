@@ -39,7 +39,7 @@ describe('integration - escalation-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/escalation-reference' ]).not.to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/escalation-reference' ]).not.to.exist;
         });
 
       });
@@ -56,7 +56,7 @@ describe('integration - escalation-reference', function() {
           const reports = await linter.lint(root);
 
           // then
-          expect(reports[ '@kunpeng/kunpeng-compat/escalation-reference' ]).to.exist;
+          expect(reports[ '@kunpeng-js/kunpeng-compat/escalation-reference' ]).to.exist;
         });
 
       });
