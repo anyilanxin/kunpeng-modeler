@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/dmn-js-drd",
-  "version": "17.8.1",
+  "version": "17.8.2",
   "description": "A decision requirements diagram view for dmn-js",
   "keywords": [
     "dmn",

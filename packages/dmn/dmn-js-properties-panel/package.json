@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/dmn-js-properties-panel",
-  "version": "2026.0.0-alpha1",
+  "version": "2026.0.0-alpha2",
   "description": "A properties panel for dmn-js",
   "files": [
     "dist"

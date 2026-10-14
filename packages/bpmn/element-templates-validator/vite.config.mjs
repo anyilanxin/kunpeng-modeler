@@ -17,6 +17,7 @@ export default defineConfig({
     }
   },
   build: {
+    minify: false,
     lib: {
       entry: pkg.source,
       formats: ['es', 'cjs'],

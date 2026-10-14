@@ -90,6 +90,7 @@ function copyAssetsPlugin() {
 export default defineConfig({
   plugins: [copyAssetsPlugin()],
   build: {
+    minify: false,
     emptyOutDir: false,
     outDir: 'lib',
     sourcemap: true,

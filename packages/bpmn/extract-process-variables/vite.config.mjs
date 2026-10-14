@@ -7,6 +7,7 @@ const external = Object.keys({ ...pkg.dependencies, ...pkg.peerDependencies });
 
 export default defineConfig({
   build: {
+    minify: false,
     lib: {
       entry: 'src/index.js',
       formats: [ 'es' ],

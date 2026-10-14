@@ -6,6 +6,7 @@ const nonbundledDependencies = Object.keys({ ...pkg.dependencies, ...pkg.peerDep
 
 export default defineConfig({
   build: {
+    minify: false,
     emptyOutDir: false,
     sourcemap: true,
     lib: {

@@ -130,6 +130,7 @@ export default defineConfig({
     }
   },
   build: {
+    minify: false,
     lib: {
       entry: 'src/index.js',
       formats: ['cjs', 'es'],

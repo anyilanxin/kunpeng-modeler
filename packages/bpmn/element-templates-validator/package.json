@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/element-templates-validator",
-  "version": "2026.0.0-alpha1",
+  "version": "2026.0.0-alpha2",
   "description": "Validate element templates based on JSON Schema",
   "type": "module",
   "main": "dist/index.cjs",

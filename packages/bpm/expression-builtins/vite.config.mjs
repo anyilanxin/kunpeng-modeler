@@ -9,6 +9,7 @@ const externalDeps = [
 
 export default defineConfig({
   build: {
+    minify: false,
     lib: {
       entry: './src/index.js',
       formats: ['es', 'cjs'],

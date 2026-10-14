@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/dmn-js-shared",
-  "version": "17.8.1",
+  "version": "17.8.2",
   "description": "Shared components used by dmn-js",
   "repository": {
     "type": "git",

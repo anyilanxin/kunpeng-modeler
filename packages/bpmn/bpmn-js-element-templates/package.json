@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/bpmn-js-element-templates",
-  "version": "2026.0.0-alpha1",
+  "version": "2026.0.0-alpha2",
   "description": "Element templates for bpmn-js",
   "files": [
     "dist"

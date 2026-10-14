@@ -53,6 +53,7 @@ export default defineConfig({
     }
   },
   build: {
+    minify: false,
     lib: {
       entry: { index: 'src/index.js', core: 'src/core.js' },
       formats: [ 'cjs', 'es' ],

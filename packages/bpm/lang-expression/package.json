@@ -1,6 +1,6 @@
 {
   "name": "@kunpeng-js/lang-expression",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "FEEL language support for the CodeMirror code editor",
   "scripts": {
     "all": "run-s lint build check-types test",

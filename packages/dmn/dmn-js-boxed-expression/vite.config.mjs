@@ -37,6 +37,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    minify: false,
     emptyOutDir: false,
     outDir: 'lib',
     sourcemap: true,
