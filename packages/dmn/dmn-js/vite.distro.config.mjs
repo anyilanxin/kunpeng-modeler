@@ -21,6 +21,8 @@ const distros = [
   }
 ];
 
+export { distros };
+
 /**
  * Build standalone UMD distributions.
  *
@@ -30,7 +32,10 @@ const distros = [
  * Run via `pnpm run build:distro`. NODE_ENV toggles which variant is
  * produced: pass NODE_ENV=development for the unminified build,
  * NODE_ENV=production (default) for the terser-minified build. The
- * build-distro task runs both.
+ * build-distro task runs both. DISTRO selects the entry to build
+ * (e.g. `dmn-modeler`); Rolldown does not support multiple inputs
+ * with UMD output (codeSplitting: false), so every distribution is
+ * built in its own pass.
  */
 export default defineConfig(() => {
   const NODE_ENV = process.env.NODE_ENV || 'production';
@@ -38,6 +43,18 @@ export default defineConfig(() => {
   const isProduction = NODE_ENV === 'production';
 
   const fileNameSuffix = isProduction ? 'production.min' : 'development';
+
+  const distroName = process.env.DISTRO;
+
+  const distro = distros.find((d) => d.output === distroName);
+
+  if (!distro) {
+    throw new Error(
+      `missing or unknown DISTRO environment variable, expected one of ${distros
+        .map((d) => d.output)
+        .join(', ')}`
+    );
+  }
 
   return {
     plugins: [
@@ -68,9 +85,9 @@ export default defineConfig(() => {
         }
       },
       rollupOptions: {
-        input: Object.fromEntries(
-          distros.map((d) => [d.output, d.input])
-        ),
+        input: {
+          [distro.output]: distro.input
+        },
         output: {
           format: 'umd',
           name: 'DmnJS',

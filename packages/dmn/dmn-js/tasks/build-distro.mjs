@@ -8,6 +8,8 @@ import { execa as exec } from 'execa';
 
 import { createRequire } from 'node:module';
 
+import { distros } from '../vite.distro.config.mjs';
+
 var dest = process.env.DISTRO_DIST || 'dist';
 
 function resolve(module, sub) {
@@ -59,9 +61,14 @@ async function run() {
 
       process.env.NODE_ENV = env;
 
-      await exec('vite', [ 'build', '--config', 'vite.distro.config.mjs' ], {
-        stdio: 'inherit'
-      });
+      for (const distro of distros) {
+
+        process.env.DISTRO = distro.output;
+
+        await exec('vite', [ 'build', '--config', 'vite.distro.config.mjs' ], {
+          stdio: 'inherit'
+        });
+      }
     }
   } finally {
     process.env.NODE_ENV = NODE_ENV;

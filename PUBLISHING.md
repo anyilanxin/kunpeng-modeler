@@ -62,7 +62,7 @@ pnpm publish:npm
 - **只发这 25 个包**:命令通过 `-F './packages/bpm/*'` 等三个过滤器精确框定范围。`internal/`、`scripts/`、`dist/`(Tauri 应用)里的包全部是 `private: true`,不会被发布。
 - **`workspace:*` 和 `catalog:` 依赖自动替换**:pnpm publish 打包时会把包内依赖里的 `workspace:*` 换成对应包的实际版本、`catalog:` 换成解析出的 semver 区间(已在本仓库 pnpm 10.34.5 上实测验证)。
 - **按拓扑顺序发布**:依赖包先发、被依赖包后发,`workspace:*` 替换后引用的都是刚发布的新版本。
-- **构建会自动执行**:`pnpm publish` 会运行各包的 `prepare` / `prepublishOnly` 钩子(如 `rimraf dist && vite build`;`@kunpeng/dmn-js` 还会构建 distro 并跑 `test:distro`)。`publish:npm` 里先跑 `build:packages` 是为了把构建失败挡在真正上传之前,避免发到一半中断。
+- **构建会自动执行**:`pnpm publish` 会运行各包的 `prepare` / `prepublishOnly` 钩子(如 `rimraf dist && vite build`;`@kunpeng/dmn-js` 还会构建 distro UMD 产物)。`publish:npm` 里先跑 `build:packages` 是为了把构建失败挡在真正上传之前,避免发到一半中断。发布流程不跑测试;karma 时代的 distro 测试已随 vitest 迁移移除。
 - **`--access public`**:scoped 包默认 restricted(收费),必须显式声明 public。
 - **`--publish-branch main`**:pnpm 默认只允许从 `master` 发布,本仓库主分支是 `main`。
 - **vendored preact 不会单独发布**:`packages/bpm/properties-panel/preact/` 不在 workspace 范围内,它作为 `@kunpeng/properties-panel` 的 `files: ["preact", ...]` 内容随包一起分发。
