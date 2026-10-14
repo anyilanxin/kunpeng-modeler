@@ -56,3 +56,4 @@ vite.config.ts.*
 ### Local ###
 node_modules/
 .mimosa/
+.v2c/
