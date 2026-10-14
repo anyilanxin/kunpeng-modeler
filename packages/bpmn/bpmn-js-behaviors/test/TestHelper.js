@@ -1,5 +1,5 @@
 
-import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 export * from 'bpmn-js/test/helper';
 

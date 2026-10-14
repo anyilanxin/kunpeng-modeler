@@ -6,7 +6,7 @@ import {
   sortBy
 } from 'min-dash';
 
-import { TextFieldEntry, isTextFieldEntryEdited, isSelectEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isTextFieldEntryEdited, isSelectEntryEdited } from '@kunpeng-js/properties-panel';
 import ReferenceSelect from '../../../entries/ReferenceSelect';
 
 import { useService } from '../../../hooks';
@@ -32,7 +32,7 @@ export const CREATE_NEW_OPTION = 'create-new';
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

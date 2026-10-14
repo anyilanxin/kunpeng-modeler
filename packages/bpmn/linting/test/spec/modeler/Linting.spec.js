@@ -8,22 +8,22 @@ import {
 
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
-import kunpengModdleExtension from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtension from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 import modelerModdleExtension from 'modeler-moddle/resources/modeler';
 
 import {
   BpmnPropertiesPanelModule as propertiesPanelModule,
   BpmnPropertiesProviderModule as bpmnPropertiesProviderModule,
   KunpengPropertiesProviderModule as zeebePropertiesProviderModule,
-} from '@kunpeng/bpmn-js-properties-panel';
+} from '@kunpeng-js/bpmn-js-properties-panel';
 
 import {
   CloudElementTemplatesPropertiesProviderModule as cloudElementTemplatesPropertiesProviderModule
-} from '@kunpeng/bpmn-js-element-templates';
+} from '@kunpeng-js/bpmn-js-element-templates';
 import elementTemplateChooserModule from '@bpmn-io/element-template-chooser';
 import elementTemplateIconRendererModule from '@bpmn-io/element-template-icon-renderer';
 
-import camundaCloudBehaviors from '@kunpeng/bpmn-js-behaviors';
+import camundaCloudBehaviors from '@kunpeng-js/bpmn-js-behaviors';
 
 import { domify } from 'min-dom';
 
@@ -41,7 +41,7 @@ import diagramCSS from 'bpmn-js/dist/assets/diagram-js.css';
 import bpmnCSS from 'bpmn-js/dist/assets/bpmn-js.css';
 import bpmnFont from 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import propertiesPanelCSS from '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
-import elementTemplatesCSS from '@kunpeng/bpmn-js-element-templates/dist/assets/element-templates.css';
+import elementTemplatesCSS from '@kunpeng-js/bpmn-js-element-templates/dist/assets/element-templates.css';
 import elementTemplateChooserCSS from '@bpmn-io/element-template-chooser/dist/element-template-chooser.css';
 import lintingCSS from '../../../assets/linting.css';
 

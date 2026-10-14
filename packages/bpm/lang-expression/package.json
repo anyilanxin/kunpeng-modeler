@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/lang-expression",
+  "name": "@kunpeng-js/lang-expression",
   "version": "4.0.2",
   "description": "FEEL language support for the CodeMirror code editor",
   "scripts": {
@@ -32,7 +32,7 @@
   "dependencies": {
     "@codemirror/autocomplete": "catalog:",
     "@codemirror/language": "catalog:",
-    "@kunpeng/lezer-expression": "workspace:*",
+    "@kunpeng-js/lezer-expression": "workspace:*",
     "@lezer/common": "catalog:"
   },
   "devDependencies": {

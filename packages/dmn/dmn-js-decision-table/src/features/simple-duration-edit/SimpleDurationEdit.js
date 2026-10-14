@@ -1,7 +1,7 @@
 import InputDurationEdit from './components/InputDurationEdit';
 import OutputDurationEdit from './components/OutputDurationEdit';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 export default class SimpleDurationEdit {
   constructor(components, simpleMode) {

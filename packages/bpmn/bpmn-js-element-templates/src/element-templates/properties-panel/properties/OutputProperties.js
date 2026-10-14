@@ -1,6 +1,6 @@
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
-import { TextFieldEntry, ToggleSwitchEntry } from '@kunpeng/properties-panel';
+import { TextFieldEntry, ToggleSwitchEntry } from '@kunpeng-js/properties-panel';
 
 import { containsSpace } from '../../util/validationUtil';
 

@@ -6,7 +6,7 @@ import {
 
 import { waitFor } from '@testing-library/dom';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   bootstrapModeler,

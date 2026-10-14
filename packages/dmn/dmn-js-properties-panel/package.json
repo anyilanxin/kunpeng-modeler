@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/dmn-js-properties-panel",
+  "name": "@kunpeng-js/dmn-js-properties-panel",
   "version": "2026.0.0-alpha1",
   "description": "A properties panel for dmn-js",
   "files": [
@@ -49,13 +49,13 @@
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "catalog:",
     "@bpmn-io/cm-theme": "catalog:",
-    "@kunpeng/dmn-js": "workspace:*",
-    "@kunpeng/dmn-js-drd": "workspace:*",
-    "@kunpeng/dmn-js-shared": "workspace:*",
-    "@kunpeng/dmn-moddle": "workspace:*",
-    "@kunpeng/expression-lint": "workspace:*",
-    "@kunpeng/lang-expression": "workspace:*",
-    "@kunpeng/properties-panel": "workspace:*",
+    "@kunpeng-js/dmn-js": "workspace:*",
+    "@kunpeng-js/dmn-js-drd": "workspace:*",
+    "@kunpeng-js/dmn-js-shared": "workspace:*",
+    "@kunpeng-js/dmn-moddle": "workspace:*",
+    "@kunpeng-js/expression-lint": "workspace:*",
+    "@kunpeng-js/lang-expression": "workspace:*",
+    "@kunpeng-js/properties-panel": "workspace:*",
     "@rollup/plugin-alias": "catalog:",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
@@ -82,6 +82,6 @@
   },
   "peerDependencies": {
     "diagram-js": ">= 14.3.1",
-    "@kunpeng/dmn-js": ">=13"
+    "@kunpeng-js/dmn-js": ">=13"
   }
 }

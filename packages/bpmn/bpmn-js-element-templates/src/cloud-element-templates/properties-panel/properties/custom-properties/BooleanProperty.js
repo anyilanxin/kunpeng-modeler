@@ -1,7 +1,7 @@
 import { useService } from 'bpmn-js-properties-panel';
 import { PropertyDescription } from '../../../../components/PropertyDescription';
 import { PropertyTooltip } from '../../components/PropertyTooltip';
-import { CheckboxEntry, FeelCheckboxEntry } from '@kunpeng/properties-panel';
+import { CheckboxEntry, FeelCheckboxEntry } from '@kunpeng-js/properties-panel';
 import { usePropertyAccessors } from './util';
 
 export function BooleanProperty(props) {

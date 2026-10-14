@@ -11,7 +11,7 @@ import coreModule from 'src/core';
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 describe('features/replace - drd replace', function() {

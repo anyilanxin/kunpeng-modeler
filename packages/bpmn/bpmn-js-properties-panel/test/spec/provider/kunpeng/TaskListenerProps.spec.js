@@ -28,7 +28,7 @@ import BpmnPropertiesPanel from 'src/render';
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 import BehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 import diagramXML from './TaskListenerProps.bpmn';
 import { getExtensionElementsList } from 'src/utils/ExtensionElementsUtil';

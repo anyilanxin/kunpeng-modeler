@@ -14,7 +14,7 @@ import {
   insertCoreStyles
 } from 'test/TestHelper';
 
-import { Header } from '@kunpeng/properties-panel';
+import { Header } from '@kunpeng-js/properties-panel';
 
 import {
   PanelHeaderProvider,

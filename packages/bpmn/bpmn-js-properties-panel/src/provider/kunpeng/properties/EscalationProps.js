@@ -4,7 +4,7 @@ import {
 
 import {
   isFeelEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import {
   useService
@@ -18,7 +18,7 @@ import { BpmnFeelEntry } from '../../../entries/BpmnFeelEntry';
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

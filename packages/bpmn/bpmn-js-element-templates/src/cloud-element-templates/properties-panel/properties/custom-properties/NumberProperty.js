@@ -1,10 +1,10 @@
-import { FeelNumberEntry, NumberFieldEntry } from '@kunpeng/properties-panel';
+import { FeelNumberEntry, NumberFieldEntry } from '@kunpeng-js/properties-panel';
 import { useService } from 'bpmn-js-properties-panel';
 import { propertyValidator, usePropertyAccessors } from './util';
 import { shouldCastToFeel } from '../../../util/FeelUtil';
 import { PropertyDescription } from '../../../../components/PropertyDescription';
 import { PropertyTooltip } from '../../components/PropertyTooltip';
-import { useCallback } from '@kunpeng/properties-panel/preact/hooks';
+import { useCallback } from '@kunpeng-js/properties-panel/preact/hooks';
 import { isNumber } from 'min-dash';
 
 export function NumberProperty(props) {

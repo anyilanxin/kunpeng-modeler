@@ -14,7 +14,7 @@ import {
   validateKunpeng as validateAgainstSchema,
   getKunpengSchemaPackage as getTemplateSchemaPackage,
   getKunpengSchemaVersion as getTemplateSchemaVersion
-} from '@kunpeng/element-templates-validator';
+} from '@kunpeng-js/element-templates-validator';
 import { forEach } from 'min-dash';
 
 const SUPPORTED_SCHEMA_VERSION = getTemplateSchemaVersion();

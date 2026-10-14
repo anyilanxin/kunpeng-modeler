@@ -41,7 +41,7 @@ import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 import CamundaModdle from 'camunda-bpmn-moddle/resources/camunda';
 import ModelerModdle from 'modeler-moddle/resources/modeler';
-import ZeebeModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import ZeebeModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import CloudElementTemplatesPropertiesProviderModule from 'src/cloud-element-templates';
 import ElementTemplatesPropertiesProviderModule from 'src/element-templates';

@@ -152,7 +152,7 @@ export function inject(fn) {
     var view = getDrdJS();
 
     if (!view) {
-      throw new Error('@kunpeng/dmn-js-drd viewer not found');
+      throw new Error('@kunpeng-js/dmn-js-drd viewer not found');
     }
 
     view.invoke(fn);

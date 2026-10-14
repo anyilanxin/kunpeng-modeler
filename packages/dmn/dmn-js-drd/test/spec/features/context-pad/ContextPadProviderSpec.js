@@ -13,7 +13,7 @@ import {
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import autoPlaceModule from 'src/features/auto-place';
 import contextPadModule from 'src/features/context-pad';

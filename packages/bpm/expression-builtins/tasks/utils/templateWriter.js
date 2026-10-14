@@ -9,9 +9,9 @@ const RESERVED_NAME_BUILTINS_PLACEHOLDER = '/** RESERVED_NAME_BUILTINS_PLACEHOLD
  * @param {string} templatePath
  * @param {string} destinationPath
  * @param {Object} categorized
- * @param {import('@kunpeng/expression-builtins').Builtin[]} categorized.qlexpressionBuiltins
- * @param {import('@kunpeng/expression-builtins').Builtin[]} categorized.kunpengExtensions
- * @param {import('@kunpeng/expression-builtins').Builtin[]} categorized.kunpengReservedNameBuiltins
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} categorized.qlexpressionBuiltins
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} categorized.kunpengExtensions
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} categorized.kunpengReservedNameBuiltins
  */
 export async function writeBuiltinsFromTemplate(templatePath, destinationPath, categorized) {
   const { qlexpressionBuiltins, kunpengExtensions, kunpengReservedNameBuiltins } = categorized;

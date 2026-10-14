@@ -11,7 +11,7 @@ import {
   asTRBL,
   getMid
 } from 'diagram-js/lib/layout/LayoutUtil';
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 describe('features/modeling - layout connection', function() {

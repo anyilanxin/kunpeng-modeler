@@ -1,6 +1,6 @@
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
-import { TextFieldEntry } from '@kunpeng/properties-panel';
+import { TextFieldEntry } from '@kunpeng-js/properties-panel';
 
 import { createElement } from '../../../../utils/ElementUtil';
 

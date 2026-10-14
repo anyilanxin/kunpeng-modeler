@@ -1,5 +1,5 @@
 import { Compartment, EditorState, Facet } from '@codemirror/state';
-import { feel } from '@kunpeng/lang-expression';
+import { feel } from '@kunpeng-js/lang-expression';
 import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 import { syntaxTree } from '@codemirror/language';

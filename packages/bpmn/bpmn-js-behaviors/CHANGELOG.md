@@ -27,7 +27,7 @@ All notable changes to [camunda-bpmn-js-behaviors](https://github.com/camunda/ca
 ## 1.11.0
 
 - `FEAT`: clean up ad-hoc subprocess when implementation type is changed ([#104](https://github.com/camunda/camunda-bpmn-js-behaviors/pull/104))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.11.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.11.0`
 - `DEPS`: update to `min-dash@4.2.3`
 
 ## 1.10.2
@@ -45,7 +45,7 @@ All notable changes to [camunda-bpmn-js-behaviors](https://github.com/camunda/ca
 
 ## 1.9.1
 
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.9.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.9.0`
 
 ## 1.9.0
 
@@ -82,7 +82,7 @@ All notable changes to [camunda-bpmn-js-behaviors](https://github.com/camunda/ca
 ## 1.4.0
 
 - `FEAT`: support `kunpeng:ExecutionListener` ([#76](https://github.com/camunda/camunda-bpmn-js-behaviors/pull/76))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.2.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.2.0`
 
 ## 1.3.0
 

@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
-import Input from '@kunpeng/dmn-js-shared/lib/components/Input';
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+import Input from '@kunpeng-js/dmn-js-shared/lib/components/Input';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
 
 
 export default class LiteralExpressionPropertiesComponent extends Component {

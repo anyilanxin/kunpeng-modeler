@@ -15,7 +15,7 @@ import modelingModule from 'src/features/modeling';
 
 import { getLabel } from 'src/features/label-editing/LabelUtil';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   createCanvasEvent as canvasEvent

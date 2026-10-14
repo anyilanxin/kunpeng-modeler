@@ -11,7 +11,7 @@ from [camunda-docs](https://github.com/camunda/camunda-docs/tree/main/docs/compo
 Install via npm:
 
 ```sh
-npm install @kunpeng/expression-builtins
+npm install @kunpeng-js/expression-builtins
 ```
 
 ## Usage
@@ -34,8 +34,8 @@ In your [FEEL editor](https://github.com/bpmn-io/feel-editor) you can use these 
 establish the Camunda context:
 
 ```js
-import { kunpengBuiltins } from '@kunpeng/expression-builtins';
-import ExpressionEditor from '@kunpeng/expression-editor';
+import { kunpengBuiltins } from '@kunpeng-js/expression-builtins';
+import ExpressionEditor from '@kunpeng-js/expression-editor';
 
 const editor = new ExpressionEditor({
   container,
@@ -47,7 +47,7 @@ const editor = new ExpressionEditor({
 If you only want standard FEEL functions, use `qlexpressionBuiltins` instead:
 
 ```js
-import { qlexpressionBuiltins } from '@kunpeng/expression-builtins';
+import { qlexpressionBuiltins } from '@kunpeng-js/expression-builtins';
 
 const editor = new ExpressionEditor({
   container,
@@ -57,12 +57,12 @@ const editor = new ExpressionEditor({
 
 ### Feel Lint
 
-With [@kunpeng/expression-lint](https://github.com/bpmn-io/feel-lint) you can also use the builtins
+With [@kunpeng-js/expression-lint](https://github.com/bpmn-io/feel-lint) you can also use the builtins
 to lint expressions in the Camunda world:
 
 ```js
-import { kunpengBuiltins } from '@kunpeng/expression-builtins';
-import { lintExpression } from '@kunpeng/expression-lint';
+import { kunpengBuiltins } from '@kunpeng-js/expression-builtins';
+import { lintExpression } from '@kunpeng-js/expression-lint';
 
 lintExpression(expression, {
   builtins: kunpengBuiltins,
@@ -95,8 +95,8 @@ npm run update-builtins
 
 ## Related
 
-- [@kunpeng/expression-editor](https://github.com/bpmn-io/feel-editor): FEEL editor and playground
-- [@kunpeng/expression-lint](https://github.com/bpmn-io/feel-lint): A linter for FEEL expressions
+- [@kunpeng-js/expression-editor](https://github.com/bpmn-io/feel-editor): FEEL editor and playground
+- [@kunpeng-js/expression-lint](https://github.com/bpmn-io/feel-lint): A linter for FEEL expressions
 
 ## License
 

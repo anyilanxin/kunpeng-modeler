@@ -1,4 +1,4 @@
-import { PoweredByComponent } from '@kunpeng/dmn-js-shared/lib/util/PoweredByUtil';
+import { PoweredByComponent } from '@kunpeng-js/dmn-js-shared/lib/util/PoweredByUtil';
 
 export default class PoweredBy {
   constructor(components) {

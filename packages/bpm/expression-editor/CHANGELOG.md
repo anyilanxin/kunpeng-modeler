@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [@kunpeng/expression-editor](https://github.com/bpmn-io/feel-editor) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@kunpeng-js/expression-editor](https://github.com/bpmn-io/feel-editor) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 
@@ -13,8 +13,8 @@ _**Note:** Yet to be released changes appear here._
 - `FEAT`: enhance FEEL syntax highlighting ([#100](https://github.com/bpmn-io/feel-editor/pull/100))
 - `FIX`: correct snippet completions in path segment ([#105](https://github.com/bpmn-io/feel-editor/pull/105))
 - `FIX`: correct snippet completions from prefix ([#105](https://github.com/bpmn-io/feel-editor/pull/105))
-- `DEPS`: update to `@kunpeng/lang-expression@4.0.2`
-- `DEPS`: update to `@kunpeng/expression-builtins@1.2.0`
+- `DEPS`: update to `@kunpeng-js/lang-expression@4.0.2`
+- `DEPS`: update to `@kunpeng-js/expression-builtins@1.2.0`
 - `DEPS`: update to `min-dom@5.3.0`
 - `DEPS`: update `codemirror*` dependencies
 
@@ -28,7 +28,7 @@ _**Note:** Yet to be released changes appear here._
 
 ## 2.5.0
 
-- `DEPS`: update to `@kunpeng/expression-builtins@1.0.0`
+- `DEPS`: update to `@kunpeng-js/expression-builtins@1.0.0`
 
 ## 2.4.0
 
@@ -38,11 +38,11 @@ _**Note:** Yet to be released changes appear here._
 ## 2.3.0
 
 - `FEAT`: update builtins: include `number`, `from json`, `to json` functions ([camunda/feel-builtins#9](https://github.com/camunda/feel-builtins/pull/9))
-- `DEPS`: update to `@kunpeng/expression-builtins@0.3.0`
+- `DEPS`: update to `@kunpeng-js/expression-builtins@0.3.0`
 
 ## 2.2.0
 
-- `DEPS`: update to `@kunpeng/expression-lint@3.1.0`
+- `DEPS`: update to `@kunpeng-js/expression-lint@3.1.0`
 
 ## 2.1.0
 
@@ -54,8 +54,8 @@ _**Note:** Yet to be released changes appear here._
 - `CHORE`: turn into ES module ([#80](https://github.com/bpmn-io/feel-editor/pull/80))
 - `CHORE`: drop CJS distribution ([#80](https://github.com/bpmn-io/feel-editor/pull/80))
 - `DEPS`: update `codemirror` dependencies
-- `DEPS`: update to `@kunpeng/expression-lint@3.0.0`
-- `DEPS`: update to `@kunpeng/lang-expression@3.0.0`
+- `DEPS`: update to `@kunpeng-js/expression-lint@3.0.0`
+- `DEPS`: update to `@kunpeng-js/lang-expression@3.0.0`
 - `DEPS`: update to `@lezer/highlight@1.2.3`
 
 ### Breaking Changes
@@ -70,14 +70,14 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: support multiline strings in `camunda` dialect ([@bpmn-io/lezer-feel#2](https://github.com/bpmn-io/lezer-feel/pull/2))
 - `FIX`: recognize unclosed string literal as syntax error ([nikku/lezer-feel#52](https://github.com/nikku/lezer-feel/pull/52))
-- `DEPS`: update to `@kunpeng/lang-expression@2.4.0`, switch to fork of `lang-feel`
-- `DEPS`: update to `@kunpeng/expression-lint@2.1.0`
+- `DEPS`: update to `@kunpeng-js/lang-expression@2.4.0`, switch to fork of `lang-feel`
+- `DEPS`: update to `@kunpeng-js/expression-lint@2.1.0`
 
 ## 1.11.0
 
-- `FEAT`: update camunda built-ins (added `fromAi`) ([@kunpeng/expression-builtins#1](https://github.com/camunda/feel-builtins/pull/1))
-- `CHORE`: camunda built-ins are now provided by the dependency `@kunpeng/expression-builtins` ([#71](https://github.com/bpmn-io/feel-editor/pull/71))
-- `DEPS`: add `@kunpeng/expression-builtins@0.2.0` ([#71](https://github.com/bpmn-io/feel-editor/pull/71))
+- `FEAT`: update camunda built-ins (added `fromAi`) ([@kunpeng-js/expression-builtins#1](https://github.com/camunda/feel-builtins/pull/1))
+- `CHORE`: camunda built-ins are now provided by the dependency `@kunpeng-js/expression-builtins` ([#71](https://github.com/bpmn-io/feel-editor/pull/71))
+- `DEPS`: add `@kunpeng-js/expression-builtins@0.2.0` ([#71](https://github.com/bpmn-io/feel-editor/pull/71))
 
 ## 1.10.1
 
@@ -88,7 +88,7 @@ _**Note:** Yet to be released changes appear here._
 - `FEAT`: update `camunda` built-ins ([#65](https://github.com/bpmn-io/feel-editor/pull/65))
 - `FEAT`: support configuration of `parserDialect` ([#68](https://github.com/bpmn-io/feel-editor/pull/68), [nikku/lezer-feel#37](https://github.com/nikku/lezer-feel/pull/37))
 - `FEAT`: support backtick identifies in `camunda` mode ([#68](https://github.com/bpmn-io/feel-editor/pull/68))
-- `DEPS`: update to `@kunpeng/expression-lint@1.4.0`
+- `DEPS`: update to `@kunpeng-js/expression-lint@1.4.0`
 - `DEPS`: update to `lang-feel@2.3.0`
 - `DEPS`: update to `lezer-feel@1.7.0`
 - `DEPS`: update `codemirror*`
@@ -192,7 +192,7 @@ _**Note:** Yet to be released changes appear here._
 ## 0.7.0
 
 - `FEAT`: support nested variables ([#34](https://github.com/bpmn-io/feel-editor/pull/34))
-- `DEPS`: use `@kunpeng/expression-lint` for syntax validation ([#35](https://github.com/bpmn-io/feel-editor/pull/35))
+- `DEPS`: use `@kunpeng-js/expression-lint` for syntax validation ([#35](https://github.com/bpmn-io/feel-editor/pull/35))
 
 ## 0.6.0
 

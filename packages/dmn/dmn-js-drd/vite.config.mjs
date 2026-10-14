@@ -14,7 +14,7 @@ const nonbundledDependencies = Object.keys({
 
 // Collect src/**/*.js as individual entries so preserveModules outputs a
 // 1:1 mirror of src/ in lib/. This is required because consumers deep-import
-// paths like @kunpeng/dmn-js-drd/lib/Modeler.
+// paths like @kunpeng-js/dmn-js-drd/lib/Modeler.
 const entries = Object.fromEntries(
   glob
     .sync('src/**/*.js')

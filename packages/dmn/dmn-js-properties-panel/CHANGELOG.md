@@ -10,7 +10,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: save values on blur
 - `DEPS`: update to `dmn-js*@17.5.0`
-- `DEPS`: update to `@kunpeng/properties-panel@3.35.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.35.0`
 
 ## 3.8.3
 
@@ -29,7 +29,7 @@ _**Note:** Yet to be released changes appear here._
 - `FEAT`: trim whitespace in text inputs ([bpmn-io/properties-panel#404](https://github.com/bpmn-io/properties-panel/issues/404), [bpmn-io/properties-panel#309](https://github.com/bpmn-io/properties-panel/issues/309))
 - `FIX`: make tooltip persist when trying to copy from it ([bpmn-io/properties-panel#399](https://github.com/bpmn-io/properties-panel/pull/399))
 - `FIX`: remove input border from popups ([bpmn-io/properties-panel#398](https://github.com/bpmn-io/properties-panel/pull/398))
-- `DEPS`: update to `@kunpeng/properties-panel@3.23.2`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.23.2`
 
 ## 3.7.0
 
@@ -57,7 +57,7 @@ _**Note:** Yet to be released changes appear here._
 
 ## 3.4.0
 
-- `DEPS`: update to `@kunpeng/properties-panel@3.22.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.22.0`
 
 ## 3.3.2
 
@@ -81,17 +81,17 @@ _**Note:** Yet to be released changes appear here._
 
 ## 3.1.0
 
-- `DEPS`: update to `@kunpeng/properties-panel@3.7`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.7`
 
 ## 3.0.0
 
-- `DEPS`: update to `@kunpeng/properties-panel@3`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3`
 - `DEPS`: update to `diagram-js@12.2.0`
 
 ## 2.0.0
 
 - `FEAT`: do not handle properties panel open state
-- `DEPS`: update to `@kunpeng/properties-panel@2`
+- `DEPS`: update to `@kunpeng-js/properties-panel@2`
 - `DEPS`: update to `diagram-js@12`
 
 ### Breaking Changes
@@ -110,39 +110,39 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: support JQuery wrapper as parent element
 - `DEPS`: update to `diagram-js@11`
-- `DEPS`: require `@kunpeng/properties-panel@1`
+- `DEPS`: require `@kunpeng-js/properties-panel@1`
 
 ## 1.2.2
 
-- `DEPS`: support `@kunpeng/properties-panel@0.24.0`
+- `DEPS`: support `@kunpeng-js/properties-panel@0.24.0`
 - `CHORE`: relax peer dependency requirements
 
 ## 1.2.1
 
-- `DEPS`: support `@kunpeng/properties-panel@0.23.0`
+- `DEPS`: support `@kunpeng-js/properties-panel@0.23.0`
 
 ## 1.2.0
 
 - `DEPS`: support `dmn-js@13`
-- `DEPS`: support `@kunpeng/properties-panel@0.22.0`
+- `DEPS`: support `@kunpeng-js/properties-panel@0.22.0`
 
 ## 1.1.2
 
-- `DEPS`: update to `@kunpeng/properties-panel@0.20.1` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0201))
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.20.1` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0201))
 
 ## 1.1.1
 
 - `DEPS`: update to `dmn-js@12.3.0` ([changelog](https://github.com/bpmn-io/dmn-js/blob/develop/packages/dmn-js/CHANGELOG.md#1230))
-- `DEPS`: update to `@kunpeng/properties-panel@0.19.0` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0190))
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.19.0` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0190))
 
 ## 1.1.0
 
 - `FEAT`: add multi state + empty placeholders ([#42](https://github.com/bpmn-io/dmn-js-properties-panel/pull/42))
-- `DEPS`: update to `@kunpeng/properties-panel@0.15.0` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0150))
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.15.0` ([changelog](https://github.com/bpmn-io/properties-panel/blob/main/CHANGELOG.md#0150))
 
 ## 1.0.0
 
-- `FEAT`: rewrite project to new, [@kunpeng/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
+- `FEAT`: rewrite project to new, [@kunpeng-js/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
 - `FEAT`: replace tabs with flat structure where groups are basic building blocks
 - `FEAT`: add "dirty" markers to notify non-default value of entry/entries in group
 - `FEAT`: keep open/closed state of the groups between elements
@@ -150,7 +150,7 @@ _**Note:** Yet to be released changes appear here._
 ### Breaking Changes
 
 - `PropertiesProvider#getTabs` is no longer used. Migrate to the new `PropertiesProvider#getGroups` API instead. Check out [the example migration](https://github.com/bpmn-io/bpmn-js-examples/pull/142) for guidance.
-- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
+- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng-js/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
 - Adapters have been removed. The properties panel is now available only for DRD viewer.
 
 ## 0.7.0

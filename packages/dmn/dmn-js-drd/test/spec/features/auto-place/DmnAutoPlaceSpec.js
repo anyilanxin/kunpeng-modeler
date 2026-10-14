@@ -10,7 +10,7 @@ import labelEditingModule from 'src/features/label-editing';
 import modelingModule from 'src/features/modeling';
 import selectionModule from 'diagram-js/lib/features/selection';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 describe('features/auto-place', function() {

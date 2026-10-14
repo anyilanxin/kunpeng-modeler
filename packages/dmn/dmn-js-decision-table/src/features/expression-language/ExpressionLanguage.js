@@ -1,9 +1,9 @@
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
 
 import {
   getBusinessObject,
   isInput
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 export default class ExpressionLanguage {

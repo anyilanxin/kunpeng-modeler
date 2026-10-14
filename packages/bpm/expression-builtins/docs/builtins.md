@@ -6,7 +6,7 @@
 
 ## 模块导出（Exports）
 
-`@kunpeng/expression-builtins` 导出以下四个集合：
+`@kunpeng-js/expression-builtins` 导出以下四个集合：
 
 | 导出名                        | 说明                                                                                   |
 |-------------------------------|----------------------------------------------------------------------------------------|
@@ -1219,10 +1219,10 @@ import {
   qlexpressionBuiltins, // 仅标准 FEEL
   kunpengExtensions, // 仅 Kunpeng 扩展
   kunpengReservedNameBuiltins, // 保留关键字函数
-} from '@kunpeng/expression-builtins';
+} from '@kunpeng-js/expression-builtins';
 
 // 在 FEEL 编辑器中注入 Camunda 上下文
-import ExpressionEditor from '@kunpeng/expression-editor';
+import ExpressionEditor from '@kunpeng-js/expression-editor';
 
 const editor = new ExpressionEditor({
   container,

@@ -32,7 +32,7 @@ import BpmnPropertiesPanel from 'src/render';
 
 import KunpengPropertiesProvider from 'src/provider/kunpeng';
 
-import kunpengModdleExtension from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdleExtension from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 import diagramKunpengXML from './ExtensionPropertiesProps.kunpeng.bpmn';
 

@@ -10,7 +10,7 @@ import {
   TextFieldEntry,
   isSelectEntryEdited,
   isTextFieldEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import ReferenceSelect from '../../../entries/ReferenceSelect';
 
@@ -37,7 +37,7 @@ export const CREATE_NEW_OPTION = 'create-new';
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

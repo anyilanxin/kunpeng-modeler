@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [`@kunpeng/properties-panel`](https://github.com/bpmn-io/properties-panel) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [`@kunpeng-js/properties-panel`](https://github.com/bpmn-io/properties-panel) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 
@@ -14,7 +14,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FIX`: prevent racing blur for FEEL-optional ([#461](https://github.com/bpmn-io/properties-panel/pull/461))
 - `FIX`: keep focus in FEEL-optional field after pasting FEEL expression ([#461](https://github.com/bpmn-io/properties-panel/pull/461))
-- `DEPS`: update to `@kunpeng/expression-editor@2`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2`
 
 ## 3.34.0
 
@@ -34,7 +34,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: support multiline feel strings in `camunda` dialect ([@bpmn-io/lezer-feel#2](https://github.com/bpmn-io/lezer-feel/pull/2))
 - `FIX`: recognize unclosed feel string literal as syntax error ([nikku/lezer-feel#52](https://github.com/nikku/lezer-feel/pull/52))
-- `DEPS`: update to `@kunpeng/expression-editor@1.12.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.12.0`
 
 ## 3.32.0
 
@@ -46,8 +46,8 @@ _**Note:** Yet to be released changes appear here._
 
 ## 3.31.0
 
-- `FEAT`: update camunda built-ins (added `fromAi`) ([@kunpeng/expression-builtins#1](https://github.com/camunda/feel-builtins/pull/1))
-- `DEPS`: update to `@kunpeng/expression-editor@1.11.0`
+- `FEAT`: update camunda built-ins (added `fromAi`) ([@kunpeng-js/expression-builtins#1](https://github.com/camunda/feel-builtins/pull/1))
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.11.0`
 
 ## 3.30.2
 
@@ -109,7 +109,7 @@ _**Note:** Yet to be released changes appear here._
 ## 3.27.2
 
 - `FIX`: show literal values in FEEL suggestions
-- `DEPS`: update to `@kunpeng/expression-editor@1.10.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.10.1`
 
 ## 3.27.1
 
@@ -137,8 +137,8 @@ _**Note:** Yet to be released changes appear here._
 
 ## 3.26.0
 
-- `FEAT`: suggest latest Camunda FEEL built-ins ([@kunpeng/expression-editor#65](https://github.com/bpmn-io/feel-editor/pull/65))
-- `DEPS`: update to `@kunpeng/expression-editor@1.10.0`
+- `FEAT`: suggest latest Camunda FEEL built-ins ([@kunpeng-js/expression-editor#65](https://github.com/bpmn-io/feel-editor/pull/65))
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.10.0`
 
 ## 3.25.1
 
@@ -157,7 +157,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: lint first item access ([feel-lint#25](https://github.com/bpmn-io/feel-lint/issues/25)
 - `FEAT`: suggest Camunda 8.6 FEEL built-ins
-- `DEPS`: update to `@kunpeng/expression-editor@1.9.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.9.0`
 
 ## 3.23.0
 
@@ -182,7 +182,7 @@ _**Note:** Yet to be released changes appear here._
 ## 3.22.0
 
 - `FIX`: do not render `ListGroup` with outdated components ([#369](https://github.com/bpmn-io/properties-panel/pull/369))
-- `DEPS`: update to `@kunpeng/expression-editor@1.6.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.6.0`
 - `CHORE`: rework `ListGroup` auto open logic ([#369](https://github.com/bpmn-io/properties-panel/pull/369))
 
 ## 3.21.0
@@ -198,7 +198,7 @@ _**Note:** Yet to be released changes appear here._
 ## 3.20.0
 
 - `FEAT`: support `placeholder` property in text and FEEL text entries ([#363](https://github.com/bpmn-io/properties-panel/pull/363))
-- `DEPS`: update to `@kunpeng/expression-editor@1.5.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.5.0`
 
 ## 3.19.0
 
@@ -210,7 +210,7 @@ _**Note:** Yet to be released changes appear here._
 ## 3.18.2
 
 - `FIX`: provide accessible label to FEEL editor ([#349](https://github.com/bpmn-io/properties-panel/pull/349))
-- `DEPS`: update to `@kunpeng/expression-editor@1.3.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.3.0`
 
 ## 3.18.1
 
@@ -229,7 +229,7 @@ _**Note:** Yet to be released changes appear here._
 - `FIX`: correct re-validation of entries when validator changes ([`e93e986`](https://github.com/bpmn-io/properties-panel/commit/e93e986573d32adc361c64a1bc53cf1e38454715))
 - `CHORE`: remove unnecessary CSS nesting ([`42b59d8`](https://github.com/bpmn-io/properties-panel/commit/42b59d8e688de3d55eef6115dc3c53bc20bbe9b3))
 - `DEPS`: update to `feelers@1.3.0`
-- `DEPS`: update to `@kunpeng/expression-editor@1.2.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.2.0`
 
 ## 3.16.0
 
@@ -243,7 +243,7 @@ _**Note:** Yet to be released changes appear here._
 - `FIX`: correct parsing of nested lists
 - `FIX`: correct parsing of incomplete `QuantifiedExpression`
 - `FIX`: only allow legal `Name` start characters
-- `DEPS`: update to `@kunpeng/expression-editor@1.1.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.1.0`
 
 ## 3.14.0
 
@@ -256,7 +256,7 @@ _**Note:** Yet to be released changes appear here._
 
 ## 3.13.0
 
-- `DEPS`: update to `@kunpeng/expression-editor@1.0.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.0.0`
 
 ## 3.12.0
 
@@ -379,7 +379,7 @@ _**Note:** Yet to be released changes appear here._
 ## 1.8.2
 
 - `FIX`: do not break when propertiesPanel is initialized unmounted
-- `DEPS`: update to `@kunpeng/expression-editor@0.7.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.7.1`
 
 ## 1.8.1
 
@@ -442,7 +442,7 @@ _**Note:** Yet to be released changes appear here._
 
 ## 1.1.0
 
-- `DEPS`: update to `@kunpeng/expression-editor@0.7.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.7.0`
 
 ## 1.0.1
 
@@ -460,7 +460,7 @@ _Re-release of 0.25.0 as stable._
 
 - `FIX`: buffer all focus events for FEEL entries ([#197](https://github.com/bpmn-io/properties-panel/pull/197))
 - `FIX`: maintain focus when variables passed to FEEL entry change ([#196](https://github.com/bpmn-io/properties-panel/issues/196))
-- `DEPS`: update to `@kunpeng/expression-editor@0.6.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.6.0`
 
 ## 0.24.0
 
@@ -475,7 +475,7 @@ _Re-release of 0.25.0 as stable._
 ## 0.22.0
 
 - `FIX`: scope `.cm-` styles
-- `DEPS`: update to `@kunpeng/expression-editor@0.4.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.4.1`
 
 ## 0.21.0
 
@@ -504,7 +504,7 @@ _Re-release of 0.25.0 as stable._
 ## 0.20.0
 
 - `FEAT`: keep `FEEL` enabled state ([#174](https://github.com/bpmn-io/properties-panel/pull/174))
-- `DEPS`: update to `@kunpeng/expression-editor@0.3.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.3.0`
 
 ## 0.19.0
 
@@ -596,7 +596,7 @@ _Re-release of 0.25.0 as stable._
 ### BREAKING CHANGES
 
 - Internal structure of the library is no longer exposed. Use root exports instead. Note that names of some of the components have changed, e.g. `TextField` -> `TextFieldEntry`.
-- To extend the library, import the vendored instance of `preact`, i.e. `@kunpeng/properties-panel/preact`.
+- To extend the library, import the vendored instance of `preact`, i.e. `@kunpeng-js/properties-panel/preact`.
 
 ## 0.9.0
 

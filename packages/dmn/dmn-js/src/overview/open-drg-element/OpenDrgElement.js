@@ -11,7 +11,7 @@
 import {
   getBoxedExpression,
   isAny,
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { getBBox } from 'diagram-js/lib/util/Elements';
 

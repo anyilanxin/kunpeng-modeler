@@ -3,7 +3,7 @@ import { enginesByFunction } from '../engines.js';
 /**
  * @param { import('./markdownParser.js').BuiltinDescriptor[] } descriptors
  *
- * @returns {import('@kunpeng/expression-builtins').Builtin[] }
+ * @returns {import('@kunpeng-js/expression-builtins').Builtin[] }
  */
 export function parseBuiltins(descriptors) {
   return descriptors.map(parseBuiltin);
@@ -12,7 +12,7 @@ export function parseBuiltins(descriptors) {
 /**
  * @param { import('./markdownParser.js').BuiltinDescriptor } descriptor
  *
- * @returns { import('@kunpeng/expression-builtins').Builtin }
+ * @returns { import('@kunpeng-js/expression-builtins').Builtin }
  */
 export function parseBuiltin(descriptor) {
 

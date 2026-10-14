@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [@kunpeng/expression-builtins](https://github.com/camunda/feel-builtins) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@kunpeng-js/expression-builtins](https://github.com/camunda/feel-builtins) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 
@@ -37,4 +37,4 @@ _Stable release._
 
 ## 0.1.0
 
-- `FEAT`: initial release, import `kunpengBuiltins` from `@kunpeng/expression-editor` ([#1](https://github.com/camunda/feel-builtins/pull/1))
+- `FEAT`: initial release, import `kunpengBuiltins` from `@kunpeng-js/expression-editor` ([#1](https://github.com/camunda/feel-builtins/pull/1))

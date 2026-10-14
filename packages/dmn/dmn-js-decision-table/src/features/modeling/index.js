@@ -3,9 +3,9 @@ import DmnUpdater from './DmnUpdater';
 import DmnFactory from './DmnFactory';
 import ElementFactory from './ElementFactory';
 import IdChangeBehavior from
-  '@kunpeng/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior';
+  '@kunpeng-js/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior';
 import NameChangeBehavior from
-  '@kunpeng/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior';
+  '@kunpeng-js/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior';
 import Modeling from './Modeling';
 import Behavior from './behavior';
 

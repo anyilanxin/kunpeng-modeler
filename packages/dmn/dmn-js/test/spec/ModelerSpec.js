@@ -3,22 +3,22 @@ import Modeler from 'src/Modeler';
 
 import { expectToBeAccessible, insertCSS } from 'test/helper';
 
-insertCSS('@kunpeng/dmn-js-drd.css', require('@kunpeng/dmn-js-drd/assets/css/dmn-js-drd.css'));
+insertCSS('@kunpeng-js/dmn-js-drd.css', require('@kunpeng-js/dmn-js-drd/assets/css/dmn-js-drd.css'));
 
-insertCSS('@kunpeng/dmn-js-decision-table.css',
-  require('@kunpeng/dmn-js-decision-table/assets/css/dmn-js-decision-table.css')
+insertCSS('@kunpeng-js/dmn-js-decision-table.css',
+  require('@kunpeng-js/dmn-js-decision-table/assets/css/dmn-js-decision-table.css')
 );
 
-insertCSS('@kunpeng/dmn-js-literal-expression.css',
-  require('@kunpeng/dmn-js-literal-expression/assets/css/dmn-js-literal-expression.css')
+insertCSS('@kunpeng-js/dmn-js-literal-expression.css',
+  require('@kunpeng-js/dmn-js-literal-expression/assets/css/dmn-js-literal-expression.css')
 );
 
-insertCSS('@kunpeng/dmn-js-boxed-expression.css',
-  require('@kunpeng/dmn-js-boxed-expression/assets/css/dmn-js-boxed-expression.css')
+insertCSS('@kunpeng-js/dmn-js-boxed-expression.css',
+  require('@kunpeng-js/dmn-js-boxed-expression/assets/css/dmn-js-boxed-expression.css')
 );
 
-insertCSS('@kunpeng/dmn-js-boxed-expression-controls.css',
-  require('@kunpeng/dmn-js-boxed-expression/assets/css/dmn-js-boxed-expression-controls.css')
+insertCSS('@kunpeng-js/dmn-js-boxed-expression-controls.css',
+  require('@kunpeng-js/dmn-js-boxed-expression/assets/css/dmn-js-boxed-expression-controls.css')
 );
 
 insertCSS('diagram-js.css', require('diagram-js/assets/diagram-js.css'));

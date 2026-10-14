@@ -6,7 +6,7 @@ import {
 import {
   TextAreaEntry,
   isTextAreaEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import {
   useService
@@ -18,7 +18,7 @@ const DOCUMENTATION_TEXT_FORMAT = 'text/plain';
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

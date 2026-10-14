@@ -7,7 +7,7 @@ import { validRange as isSemverRangeValid } from 'semver';
 import {
   validateKunpeng as validateAgainstSchema,
   getKunpengSchemaVersion as getTemplateSchemaVersion,
-} from '@kunpeng/element-templates-validator';
+} from '@kunpeng-js/element-templates-validator';
 
 const SUPPORTED_SCHEMA_VERSION = getTemplateSchemaVersion();
 const MORPHABLE_TYPES = ['bpmn:Activity', 'bpmn:Event', 'bpmn:Gateway'];

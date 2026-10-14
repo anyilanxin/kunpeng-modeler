@@ -8,7 +8,7 @@ import {
 import {
   is,
   isAny
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   BUSINESS_KNOWLEDGE_MODEL_OUTLINE_PATH,

@@ -25,7 +25,7 @@ import diagramXML from './diagram.dmn';
 import {
   triggerKeyEvent,
   triggerMouseEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 describe('features/keyboard', function() {
 

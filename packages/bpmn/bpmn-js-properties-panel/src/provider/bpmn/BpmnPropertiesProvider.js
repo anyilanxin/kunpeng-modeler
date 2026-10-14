@@ -1,4 +1,4 @@
-import { Group } from '@kunpeng/properties-panel';
+import { Group } from '@kunpeng-js/properties-panel';
 
 import {
   AdHocCompletionProps,

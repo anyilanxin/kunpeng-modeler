@@ -1,5 +1,5 @@
 import { EditorState } from '@codemirror/state';
-import { feelLanguage } from '@kunpeng/lang-expression';
+import { feelLanguage } from '@kunpeng-js/lang-expression';
 import { ensureSyntaxTree } from '@codemirror/language';
 import { Tree } from '@lezer/common';
 

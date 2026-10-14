@@ -11,7 +11,7 @@ import CoreModule from 'bpmn-js/lib/core';
 import ModelingModule from 'bpmn-js/lib/features/modeling';
 import ReplaceModule from 'bpmn-js/lib/features/replace';
 
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 

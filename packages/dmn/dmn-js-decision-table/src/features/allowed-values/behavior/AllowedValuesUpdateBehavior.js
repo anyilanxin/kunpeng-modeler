@@ -1,6 +1,6 @@
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
-import { is, isInput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is, isInput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 /**
  * Makes sure allowed values are removed if type is set to

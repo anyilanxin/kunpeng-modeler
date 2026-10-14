@@ -1,4 +1,4 @@
-import { keywordCompletions } from '@kunpeng/lang-expression';
+import { keywordCompletions } from '@kunpeng-js/lang-expression';
 import { pathExpressionCompletion } from './pathExpression.js';
 import { variableCompletion } from './variable.js';
 import { snippetCompletions } from './snippets.js';

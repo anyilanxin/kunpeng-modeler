@@ -3,8 +3,8 @@ import createAjvInstance from './helper/createAjvInstance.js';
 import withErrorMessages from './helper/withErrors.js';
 
 
-import schema from '@kunpeng/element-templates-json-schema/resources/schema.json'  with { type: 'json' };;
-import errorMessages from '@kunpeng/element-templates-json-schema/resources/error-messages.json'  with { type: 'json' };;
+import schema from '@kunpeng-js/element-templates-json-schema/resources/schema.json'  with { type: 'json' };;
+import errorMessages from '@kunpeng-js/element-templates-json-schema/resources/error-messages.json'  with { type: 'json' };;
 
 const ajvInstance = createAjvInstance();
 

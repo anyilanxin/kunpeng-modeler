@@ -21,7 +21,7 @@ import {
   isTextAreaEntryEdited,
   TextFieldEntry,
   isTextFieldEntryEdited,
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { PropertyDescription } from '../../../components/PropertyDescription';
 

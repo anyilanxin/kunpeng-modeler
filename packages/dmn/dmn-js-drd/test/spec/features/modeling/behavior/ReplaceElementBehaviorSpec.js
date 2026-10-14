@@ -7,7 +7,7 @@ import {
 import coreModule from 'src/core';
 import modelingModule from 'src/features/modeling';
 import replaceModule from 'src/features/replace';
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import diagramXML from './replace-element-behavior.dmn';
 

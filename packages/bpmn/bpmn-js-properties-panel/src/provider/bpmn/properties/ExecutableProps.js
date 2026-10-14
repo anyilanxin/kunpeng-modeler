@@ -2,7 +2,7 @@ import {
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import { CheckboxEntry, isCheckboxEntryEdited } from '@kunpeng/properties-panel';
+import { CheckboxEntry, isCheckboxEntryEdited } from '@kunpeng-js/properties-panel';
 
 import {
   useService
@@ -10,7 +10,7 @@ import {
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

@@ -8,7 +8,7 @@ import TestContainerSupport from 'mocha-test-container-support';
 
 import {
   createInjector
-} from '@kunpeng/dmn-js-shared/test/util/InjectorUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/InjectorUtil';
 import { DiContainer } from 'table-js/lib/components';
 
 import Editor from 'src/features/decision-table-head/editor/components/InputEditor';

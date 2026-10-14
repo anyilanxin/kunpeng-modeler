@@ -4,13 +4,13 @@ import {
   CheckboxEntry,
   isTextFieldEntryEdited,
   TextFieldEntry,
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { useService } from '../../../hooks';
 import { createOrUpdateFormalExpression } from '../../../utils/FormalExpressionUtil';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

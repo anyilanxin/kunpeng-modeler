@@ -1,4 +1,4 @@
-import EditingManager from '@kunpeng/dmn-js-shared/lib/base/EditingManager';
+import EditingManager from '@kunpeng-js/dmn-js-shared/lib/base/EditingManager';
 
 import Editor from 'src/Editor';
 

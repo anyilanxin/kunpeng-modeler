@@ -9,7 +9,7 @@ import TestContainer from 'mocha-test-container-support';
 import {
   triggerInputEvent,
   triggerInputSelectChange
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import elXML from '../../expression-language.dmn';
 

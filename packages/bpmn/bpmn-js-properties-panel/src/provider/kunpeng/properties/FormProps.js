@@ -16,7 +16,7 @@ import {
   isSelectEntryEdited,
   isTextFieldEntryEdited,
   isTextAreaEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import Binding, { getBindingType } from './shared/Binding';
 import VersionTag from './shared/VersionTag';

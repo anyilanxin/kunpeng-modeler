@@ -12,7 +12,7 @@ import {
 import coreModule from 'bpmn-js/lib/core';
 import elementTemplatesModule from 'src/cloud-element-templates';
 import modelingModule from 'bpmn-js/lib/features/modeling';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
 
 import KunpengBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';

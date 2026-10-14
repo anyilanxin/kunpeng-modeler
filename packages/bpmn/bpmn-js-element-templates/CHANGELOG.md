@@ -10,7 +10,7 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 
 - `FEAT`: support timer event templates ([#208](https://github.com/bpmn-io/bpmn-js-element-templates/pull/208))
 - `FIX`: remove properties instead of replacing element on template removal ([#206](https://github.com/bpmn-io/bpmn-js-element-templates/pull/206))
-- `DEPS`: update `@kunpeng/element-templates-validator` to `v2.16.0`
+- `DEPS`: update `@kunpeng-js/element-templates-validator` to `v2.16.0`
 
 ## 2.17.0
 
@@ -23,7 +23,7 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 ## 2.16.0
 
 - `FEAT`: support signal events ([#201](https://github.com/bpmn-io/bpmn-js-element-templates/pull/201))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.14.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.14.0`
 
 ## 2.15.1
 
@@ -37,7 +37,7 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 ## 2.14.0
 
 - `FEAT`: support `activeElementsCollection` property on `kunpeng:adHoc` ([camunda/element-templates-json-schema#198](https://github.com/camunda/element-templates-json-schema/pull/198), [#186](https://github.com/bpmn-io/bpmn-js-element-templates/pull/186))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.13.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.13.0`
 
 ## 2.13.0
 
@@ -51,9 +51,9 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 
 - `FEAT`: support `kunpeng:adHoc` binding property ([#175](https://github.com/bpmn-io/bpmn-js-element-templates/pull/175))
 - `FEAT`: support `kunpeng:taskSchedule` binding property ([#173](https://github.com/bpmn-io/bpmn-js-element-templates/pull/173))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.12.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.12.0`
 - `DEPS`: update to `bpmn-moddle@9.0.3`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.11.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.11.0`
 
 ## 2.10.0
 
@@ -66,12 +66,12 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 ## 2.9.0
 
 - `FEAT`: support `kunpeng:assignmentDefinition` binding property
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.9.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.9.0`
 
 ## 2.8.0
 
 - `FEAT`: support `bindingType` property ([#165](https://github.com/bpmn-io/bpmn-js-element-templates/pull/165))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.7.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.7.0`
 
 ## 2.7.0
 
@@ -81,13 +81,13 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 - `FEAT`: support `kunpeng:scriptTask` binding property ([#156](https://github.com/bpmn-io/bpmn-js-element-templates/pull/156))
 - `FIX`: correctly handle numeric conditions ([#69](https://github.com/bpmn-io/bpmn-js-element-templates/issues/69))
 - `FIX`: keep groups closed when template is first applied ([#162](https://github.com/bpmn-io/bpmn-js-element-templates/pull/162))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.6.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.6.0`
 
 ## 2.6.0
 
 - `FEAT`: support `kunpeng:userTask` binding property ([#147](https://github.com/bpmn-io/bpmn-js-element-templates/pull/147))
 - `FIX`: correctly reuse `bpmn:Message` properties when changing templates ([#154](https://github.com/bpmn-io/bpmn-js-element-templates/pull/154))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.4.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.4.0`
 
 ## 2.5.4
 
@@ -106,24 +106,24 @@ All notable changes to [bpmn-js-element-templates](https://github.com/bpmn-io/bp
 _Reverts the breaking changes introduced via [camunda/element-templates-json-schema#156](https://github.com/camunda/element-templates-json-schema/pull/156). Any `feel` value out of the supported enum is allowed, but `static` is used if the property is missing._
 
 - `FIX`: make `feel` default value `static` for inputs and outputs ([#142](https://github.com/bpmn-io/bpmn-js-element-templates/pull/142))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.3.3`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.3.3`
 
 ## 2.5.1
 
 - `FIX`: require `feel` to be `optional` or `static` for `Boolean` and `Number` inputs and outputs ([camunda/element-templates-json-schema#156](https://github.com/camunda/element-templates-json-schema/pull/156))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.3.2`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.3.2`
 
 ## 2.5.0
 
 - `FEAT`: support binding type `kunpeng:linkedResource` ([#137](https://github.com/bpmn-io/bpmn-js-element-templates/issues/137))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.3.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.8.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.3.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.8.0`
 
 ## 2.4.0
 
 - `FEAT`: support element templates runtime compatibility ([#132](https://github.com/bpmn-io/bpmn-js-element-templates/pull/132))
 - `FIX`: move template selector right below documentation group ([#130](https://github.com/bpmn-io/bpmn-js-element-templates/pull/130))
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.2.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.2.0`
 - `DEPS`: update to `bpmnlint@10.3.1`
 
 ## 2.3.0
@@ -157,8 +157,8 @@ _No user visible changes._
 ## 1.16.0
 
 - `FEAT`: support placeholders on String and Text properties ([#92](https://github.com/bpmn-io/bpmn-js-element-templates/issues/92))
-- `DEPS`: update to `@kunpeng/properties-panel@3.20.0`
-- `DEPS`: update to `@kunpeng/element-templates-validator@2.1.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.20.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@2.1.0`
 
 ## 1.15.3
 
@@ -186,7 +186,7 @@ _No user visible changes._
 ## 1.14.1
 
 - `FIX`: disallow non-string values for `feel: required` properties ([#70](https://github.com/bpmn-io/bpmn-js-element-templates/issues/70))
-- `DEPS`: update to @kunpeng/element-templates-validator@2.0.1
+- `DEPS`: update to @kunpeng-js/element-templates-validator@2.0.1
 
 ## 1.14.0
 
@@ -232,18 +232,18 @@ _No user visible changes._
 ## 1.9.1
 
 - `FIX`: disallow subscription binding for `bpmn:SendTask`
-- `DEPS`: update to `@kunpeng/element-templates-validator@1.6.1`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@1.6.1`
 
 ## 1.9.0
 
 - `FEAT`: support `isActive` condition ([#19](https://github.com/bpmn-io/bpmn-js-element-templates/issues/19))
 - `FEAT`: add conditional correlationKey rendering ([#19](https://github.com/bpmn-io/bpmn-js-element-templates/issues/19))
-- `DEPS`: update to `@kunpeng/element-templates-validator@1.6.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@1.6.0`
 
 ## 1.8.0
 
 - `FEAT`: support receive and send task message templating ([#30](https://github.com/bpmn-io/bpmn-js-element-templates/pull/30))
-- `DEPS`: update to `@kunpeng/element-templates-validator@1.5.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@1.5.0`
 
 ## 1.7.0
 
@@ -263,18 +263,18 @@ _No user visible changes._
 
 - `FEAT`: support `camunda:executionListener` with `implementationType` ([#13](https://github.com/bpmn-io/bpmn-js-element-templates/issues/13))
 - `FIX`: set `$parent` property when creating non-primitive properties ([#22](https://github.com/bpmn-io/bpmn-js-element-templates/pull/22))
-- `DEPS`: update to `@kunpeng/element-templates-validator@1.2.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@1.2.0`
 
 ## 1.4.0
 
 - `FEAT`: visually show deprecated templates ([#11](https://github.com/bpmn-io/bpmn-js-element-templates/issues/11))
-- `DEPS`: update to `@kunpeng/element-templates-validator@1.0.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@1.0.0`
 
 ## 1.3.0
 
 - `FEAT`: support tooltips in template properties and groups ([#8](https://github.com/bpmn-io/bpmn-js-element-templates/issues/8))
 - `DEPS`: update to `bpmn-js-properties-panel@3.2.1`
-- `DEPS`: update to `@kunpeng/element-templates-validator@0.15.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@0.15.0`
 - `DEPS`: update to `@bpmn.io/properties-panel@3.0.0`
 
 ## 1.2.2

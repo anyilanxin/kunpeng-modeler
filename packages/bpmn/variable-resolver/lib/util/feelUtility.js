@@ -1,10 +1,10 @@
-import { parser, trackVariables } from '@kunpeng/lezer-expression';
+import { parser, trackVariables } from '@kunpeng-js/lezer-expression';
 import {
   ContextTracker,
 } from '@lezer/lr';
 
 import { has, isNil } from 'min-dash';
-import { FeelAnalyzer } from '@kunpeng/expression-analyzer';
+import { FeelAnalyzer } from '@kunpeng-js/expression-analyzer';
 
 import { EntriesContext } from './VariableContext';
 import { getExtensionElementsList } from '../base/util/ExtensionElementsUtil';
@@ -12,7 +12,7 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 import { getParents } from '../base/util/elementsUtil';
 import { mergeList } from '../base/util/listUtil';
 import { mergeEntries } from '../base/VariableResolver';
-import { kunpengBuiltins, kunpengReservedNameBuiltins } from '@kunpeng/expression-builtins';
+import { kunpengBuiltins, kunpengReservedNameBuiltins } from '@kunpeng-js/expression-builtins';
 
 const feelAnalyzer = new FeelAnalyzer({
   dialect: 'expression',

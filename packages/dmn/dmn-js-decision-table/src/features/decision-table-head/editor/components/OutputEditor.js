@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
-import ContentEditable from '@kunpeng/dmn-js-shared/lib/components/ContentEditable';
-import Input from '@kunpeng/dmn-js-shared/lib/components/Input';
+import ContentEditable from '@kunpeng-js/dmn-js-shared/lib/components/ContentEditable';
+import Input from '@kunpeng-js/dmn-js-shared/lib/components/Input';
 
 
 export default class OutputEditor extends Component {

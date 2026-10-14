@@ -1,6 +1,6 @@
 import {
   VariableContext
-} from '@kunpeng/lezer-expression';
+} from '@kunpeng-js/lezer-expression';
 
 
 /**

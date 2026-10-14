@@ -4,9 +4,9 @@ import {
 
 /**
  * @typedef { {
- *   parserDialect?: import('@kunpeng/expression-editor').ParserDialect,
- *   builtins?: import('@kunpeng/expression-editor').Variable[],
- *   dialect?: import('@kunpeng/expression-editor').Dialect
+ *   parserDialect?: import('@kunpeng-js/expression-editor').ParserDialect,
+ *   builtins?: import('@kunpeng-js/expression-editor').Variable[],
+ *   dialect?: import('@kunpeng-js/expression-editor').Dialect
  * } } FeelLanguageContextType
  */
 

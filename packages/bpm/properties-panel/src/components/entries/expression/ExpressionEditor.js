@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { forwardRef } from 'preact/compat';
 
-import Editor from '@kunpeng/expression-editor';
+import Editor from '@kunpeng-js/expression-editor';
 
 import { EditorView, lineNumbers } from '@codemirror/view';
 

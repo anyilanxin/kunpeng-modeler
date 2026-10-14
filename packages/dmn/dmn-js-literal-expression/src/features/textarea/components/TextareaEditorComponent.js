@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
-import EditableComponent from '@kunpeng/dmn-js-shared/lib/components/EditableComponent';
-import LiteralExpression from '@kunpeng/dmn-js-shared/lib/components/LiteralExpression';
+import EditableComponent from '@kunpeng-js/dmn-js-shared/lib/components/EditableComponent';
+import LiteralExpression from '@kunpeng-js/dmn-js-shared/lib/components/LiteralExpression';
 
 export default class TextareaEditorComponent extends Component {
   constructor(props, context) {

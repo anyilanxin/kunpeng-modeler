@@ -4,7 +4,7 @@ import {
 
 import { Refs } from 'object-refs';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 var diRefs = new Refs(

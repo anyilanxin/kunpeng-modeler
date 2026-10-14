@@ -1,10 +1,10 @@
 import { Component } from 'inferno';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import List from '@kunpeng/dmn-js-shared/lib/components/List';
+import List from '@kunpeng-js/dmn-js-shared/lib/components/List';
 
-import ValidatedInput from '@kunpeng/dmn-js-shared/lib/components/ValidatedInput';
+import ValidatedInput from '@kunpeng-js/dmn-js-shared/lib/components/ValidatedInput';
 
 import {
   getValuesArray,

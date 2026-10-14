@@ -7,7 +7,7 @@ import {
   isAny
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import { SelectEntry } from '@kunpeng/properties-panel';
+import { SelectEntry } from '@kunpeng-js/properties-panel';
 
 import {
   getExtensionElementsList, removeExtensionElements

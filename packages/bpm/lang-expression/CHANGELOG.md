@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [@kunpeng/lang-expression](https://github.com/bpmn-io/lang-feel) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@kunpeng-js/lang-expression](https://github.com/bpmn-io/lang-feel) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 Note: Versions prior to `2.4.0` were released in [nikku/lang-feel](https://github.com/nikku/lang-feel)
 
@@ -44,7 +44,7 @@ _Sync with upstream `lang-feel@4.0.1`_
 
 ## 2.4.0
 
-_Initial release of the fork as `@kunpeng/lang-expression`_
+_Initial release of the fork as `@kunpeng-js/lang-expression`_
 
 - `FEAT`: support multi-line strings in camunda dialect
 - `DEPS` update to `@bpmn-io/lezer-feel@1.9.0` (switch to fork from `lezer-feel`)

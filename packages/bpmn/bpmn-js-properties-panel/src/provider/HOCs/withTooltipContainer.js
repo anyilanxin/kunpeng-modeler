@@ -1,4 +1,4 @@
-import { useMemo } from '@kunpeng/properties-panel/preact/hooks';
+import { useMemo } from '@kunpeng-js/properties-panel/preact/hooks';
 import { useService } from '../../hooks';
 
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }

@@ -8,15 +8,15 @@ insertCSS('dmn-font.css',
   require('dmn-font/dist/css/dmn-embedded.css')
 );
 
-insertCSS('@kunpeng/dmn-js-shared.css',
-  require('@kunpeng/dmn-js-shared/assets/css/dmn-js-shared.css')
+insertCSS('@kunpeng-js/dmn-js-shared.css',
+  require('@kunpeng-js/dmn-js-shared/assets/css/dmn-js-shared.css')
 );
 
-insertCSS('@kunpeng/dmn-js-boxed-expression.css',
+insertCSS('@kunpeng-js/dmn-js-boxed-expression.css',
   require('../assets/css/dmn-js-boxed-expression.css')
 );
 
-insertCSS('@kunpeng/dmn-js-boxed-expression-controls.css',
+insertCSS('@kunpeng-js/dmn-js-boxed-expression-controls.css',
   require('../assets/css/dmn-js-boxed-expression-controls.css')
 );
 

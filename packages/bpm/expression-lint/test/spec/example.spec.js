@@ -2,7 +2,7 @@ import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
 import { Compartment, EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import { feel } from '@kunpeng/lang-expression';
+import { feel } from '@kunpeng-js/lang-expression';
 
 import { cmFeelLinter } from '../../lib/index.js';
 import TEMPLATE from './example.html';

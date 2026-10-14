@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/bpmn-js-properties-panel",
+  "name": "@kunpeng-js/bpmn-js-properties-panel",
   "version": "2026.0.0-alpha1",
   "description": "A simple properties panel for bpmn-js",
   "files": [
@@ -49,7 +49,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@kunpeng/extract-process-variables": "workspace:*",
+    "@kunpeng-js/extract-process-variables": "workspace:*",
     "array-move": "catalog:",
     "ids": "catalog:",
     "min-dash": "catalog:",
@@ -58,10 +58,10 @@
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "catalog:",
     "@bpmn-io/element-template-chooser": "catalog:",
-    "@kunpeng/bpmn-js-behaviors": "workspace:*",
-    "@kunpeng/bpmn-moddle": "workspace:*",
-    "@kunpeng/properties-panel": "workspace:*",
-    "@kunpeng/variable-resolver": "workspace:*",
+    "@kunpeng-js/bpmn-js-behaviors": "workspace:*",
+    "@kunpeng-js/bpmn-moddle": "workspace:*",
+    "@kunpeng-js/properties-panel": "workspace:*",
+    "@kunpeng-js/variable-resolver": "workspace:*",
     "@rollup/plugin-alias": "catalog:",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
@@ -92,7 +92,7 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "@kunpeng/properties-panel": ">= 3.7",
+    "@kunpeng-js/properties-panel": ">= 3.7",
     "bpmn-js": ">= 11.5",
     "camunda-bpmn-js-behaviors": ">= 0.4",
     "diagram-js": ">= 11.9"

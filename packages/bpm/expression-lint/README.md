@@ -1,4 +1,4 @@
-# @kunpeng/expression-lint
+# @kunpeng-js/expression-lint
 
 [![CI](https://github.com/bpmn-io/feel-lint/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/feel-lint/actions/workflows/CI.yml)
 
@@ -13,7 +13,7 @@ There are 2 ways to use this library:
 The `lintExpression` function takes a string expression and returns a list of linting errors.
 
 ```javascript
-import { lintExpression } from '@kunpeng/expression-lint';
+import { lintExpression } from '@kunpeng-js/expression-lint';
 
 lintExpression('foo = bar');
 ```
@@ -39,7 +39,7 @@ lintExpression('> 10, "yes", mike\'s name', {
 The `cmFeelLinter` function returns a [`LintSource`](https://codemirror.net/docs/ref/#lint.LintSource) that you can use to extend your [CodeMirror](https://codemirror.net/) instance.
 
 ```javascript
-import { cmFeelLinter } from '@kunpeng/expression-lint';
+import { cmFeelLinter } from '@kunpeng-js/expression-lint';
 import { linter } from '@codemirror/lint';
 
 // ...

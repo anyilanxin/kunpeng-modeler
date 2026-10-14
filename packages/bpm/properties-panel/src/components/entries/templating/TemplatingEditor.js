@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { forwardRef } from 'preact/compat';
 
-import { ExpressionEditor } from '@kunpeng/expression-editor';
+import { ExpressionEditor } from '@kunpeng-js/expression-editor';
 import { useStaticCallback } from '../../../hooks';
 
 import { OpenPopupButton } from '../../OpenPopupButton';

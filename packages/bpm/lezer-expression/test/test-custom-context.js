@@ -9,7 +9,7 @@ import {
 
 import { ContextTracker } from '@lezer/lr';
 
-import { trackVariables, parser } from '@kunpeng/lezer-expression';
+import { trackVariables, parser } from '@kunpeng-js/lezer-expression';
 
 
 describe('custom context', function() {

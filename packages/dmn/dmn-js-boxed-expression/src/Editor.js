@@ -1,8 +1,8 @@
 import { DmnVariableResolverModule } from '@bpmn-io/dmn-variable-resolver';
 
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
-import FeelLanguageContextModule from '@kunpeng/dmn-js-shared/lib/features/feel-language-context';
-import DataTypesModule from '@kunpeng/dmn-js-shared/lib/features/data-types';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
+import FeelLanguageContextModule from '@kunpeng-js/dmn-js-shared/lib/features/feel-language-context';
+import DataTypesModule from '@kunpeng-js/dmn-js-shared/lib/features/data-types';
 
 import { Viewer } from './Viewer';
 

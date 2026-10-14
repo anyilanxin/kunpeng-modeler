@@ -1,7 +1,7 @@
 import {
   parser,
   trackVariables
-} from '@kunpeng/lezer-expression';
+} from '@kunpeng-js/lezer-expression';
 
 import {
   LRLanguage,

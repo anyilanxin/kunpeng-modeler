@@ -2,7 +2,7 @@ import {
   parser,
   trackVariables,
   normalizeContextKey
-} from '@kunpeng/lezer-expression';
+} from '@kunpeng-js/lezer-expression';
 
 import {
   expect
@@ -18,7 +18,7 @@ import {
  */
 
 
-describe('@kunpeng/lezer-expression', function() {
+describe('@kunpeng-js/lezer-expression', function() {
 
   describe('should parse', function() {
 

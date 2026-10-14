@@ -1,4 +1,4 @@
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import InputNumberEdit from './components/InputNumberEdit';
 import OutputNumberEdit from './components/OutputNumberEdit';

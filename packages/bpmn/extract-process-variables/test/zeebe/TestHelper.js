@@ -4,7 +4,7 @@ import { map } from 'min-dash';
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import KunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json' with { type: 'json' };
+import KunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json' with { type: 'json' };
 
 import fs from 'node:fs';
 

@@ -15,7 +15,7 @@ import {
   useService
 } from '../../../hooks';
 
-import { isFeelEntryEdited } from '@kunpeng/properties-panel';
+import { isFeelEntryEdited } from '@kunpeng-js/properties-panel';
 
 import { BpmnFeelEntry } from '../../../entries/BpmnFeelEntry';
 

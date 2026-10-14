@@ -23,7 +23,7 @@ import simpleXML from './literal-expression.dmn';
 const singleStart = window.__env__ && window.__env__.SINGLE_START === 'viewer';
 
 if (singleStart) {
-  insertCSS('@kunpeng/dmn-js-literal-expression-single-start.css',
+  insertCSS('@kunpeng-js/dmn-js-literal-expression-single-start.css',
     'html, body, .test-container { margin: 0; height: 100%; }'
   );
 }

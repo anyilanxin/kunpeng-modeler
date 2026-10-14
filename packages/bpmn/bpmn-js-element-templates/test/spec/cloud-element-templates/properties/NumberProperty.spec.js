@@ -30,7 +30,7 @@ import {
 
 import coreModule from 'bpmn-js/lib/core';
 import modelingModule from 'bpmn-js/lib/features/modeling';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 

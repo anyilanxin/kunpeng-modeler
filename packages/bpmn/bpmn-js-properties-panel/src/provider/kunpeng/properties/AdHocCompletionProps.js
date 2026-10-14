@@ -2,14 +2,14 @@ import { is, getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
 import {
   isFeelEntryEdited,
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { useService } from '../../../hooks';
 import { BpmnFeelEntry } from '../../../entries/BpmnFeelEntry';
 import { createOrUpdateFormalExpression } from '../../../utils/FormalExpressionUtil';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

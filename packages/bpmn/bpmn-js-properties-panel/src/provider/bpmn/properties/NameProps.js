@@ -9,14 +9,14 @@ import {
   add as collectionAdd
 } from 'diagram-js/lib/util/Collections';
 
-import { TextAreaEntry, isTextAreaEntryEdited } from '@kunpeng/properties-panel';
+import { TextAreaEntry, isTextAreaEntryEdited } from '@kunpeng-js/properties-panel';
 
 import {
   useService
 } from '../../../hooks';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

@@ -10,7 +10,7 @@ import {
   getNodeById
 } from '../../cell-selection/CellSelectionUtil';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 const OFFSET = 4;
 

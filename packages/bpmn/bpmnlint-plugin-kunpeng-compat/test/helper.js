@@ -3,7 +3,7 @@ const { BpmnModdle } = require('bpmn-moddle');
 const { isArray } = require('min-dash');
 
 const modelerModdleSchema = require('modeler-moddle/resources/modeler.json'),
-      kunpengModdleSchema = require('@kunpeng/bpmn-moddle/resources/kunpeng.json');
+      kunpengModdleSchema = require('@kunpeng-js/bpmn-moddle/resources/kunpeng.json');
 
 const { readFileSync } = require('fs');
 

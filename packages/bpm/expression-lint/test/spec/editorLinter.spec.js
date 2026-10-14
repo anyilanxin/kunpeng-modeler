@@ -1,7 +1,7 @@
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { LanguageSupport } from '@codemirror/language';
-import { feelLanguage } from '@kunpeng/lang-expression';
+import { feelLanguage } from '@kunpeng-js/lang-expression';
 import { cmFeelLinter } from '../../lib/index.js';
 
 import { expect } from 'chai';

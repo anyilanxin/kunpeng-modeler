@@ -6,7 +6,7 @@ import Overview from './Overview';
  * Usage:
  *
  * ```js
- * import { OverviewModule } from '@kunpeng/dmn-js/lib/overview';
+ * import { OverviewModule } from '@kunpeng-js/dmn-js/lib/overview';
  *
  * new DmnModeler({
  *   drd: {

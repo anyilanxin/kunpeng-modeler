@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/properties-panel",
+  "name": "@kunpeng-js/properties-panel",
   "version": "2026.0.0-alpha1",
   "description": "Library for creating bpmn-io properties panels.",
   "main": "dist/index.js",
@@ -81,7 +81,7 @@
     "@codemirror/lint": "catalog:",
     "@codemirror/state": "catalog:",
     "@codemirror/view": "catalog:",
-    "@kunpeng/expression-editor": "workspace:*",
+    "@kunpeng-js/expression-editor": "workspace:*",
     "classnames": "catalog:",
     "focus-trap": "catalog:",
     "min-dash": "catalog:",

@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 
-import EditableComponent from '@kunpeng/dmn-js-shared/lib/components/EditableComponent';
+import EditableComponent from '@kunpeng-js/dmn-js-shared/lib/components/EditableComponent';
 
 
 export default class DecisionPropertiesEditorComponent extends Component {

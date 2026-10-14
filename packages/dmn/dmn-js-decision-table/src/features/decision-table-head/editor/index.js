@@ -1,7 +1,7 @@
 import ContextMenu from 'table-js/lib/features/context-menu';
-import DebounceInput from '@kunpeng/dmn-js-shared/lib/features/debounce-input';
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
-import FeelLanguageContextModule from '@kunpeng/dmn-js-shared/lib/features/feel-language-context';
+import DebounceInput from '@kunpeng-js/dmn-js-shared/lib/features/debounce-input';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
+import FeelLanguageContextModule from '@kunpeng-js/dmn-js-shared/lib/features/feel-language-context';
 
 import OutputEditingProvider from './OutputEditingProvider';
 import InputEditingProvider from './InputEditingProvider';

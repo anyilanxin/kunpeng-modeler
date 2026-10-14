@@ -1,6 +1,6 @@
 import {
   createContext
-} from '@kunpeng/properties-panel/preact';
+} from '@kunpeng-js/properties-panel/preact';
 
 const DmnPropertiesPanelContext = createContext({
   selectedElement: null,

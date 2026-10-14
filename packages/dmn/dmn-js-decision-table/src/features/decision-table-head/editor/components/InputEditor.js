@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
-import ContentEditable from '@kunpeng/dmn-js-shared/lib/components/ContentEditable';
-import LiteralExpression from '@kunpeng/dmn-js-shared/lib/components/LiteralExpression';
+import ContentEditable from '@kunpeng-js/dmn-js-shared/lib/components/ContentEditable';
+import LiteralExpression from '@kunpeng-js/dmn-js-shared/lib/components/LiteralExpression';
 
 export default class InputEditor extends Component {
 

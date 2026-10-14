@@ -30,7 +30,7 @@ import ModelingModule from 'bpmn-js/lib/features/modeling';
 import SelectionModule from 'diagram-js/lib/features/selection';
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import diagramXML from './ScriptProps.bpmn';
 

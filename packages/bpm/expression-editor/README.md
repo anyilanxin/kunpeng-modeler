@@ -1,4 +1,4 @@
-# @kunpeng/expression-editor
+# @kunpeng-js/expression-editor
 
 Embeddable Editor
 for [FEEL expressions](https://docs.camunda.io/docs/components/modeler/feel/what-is-feel/).
@@ -8,7 +8,7 @@ for [FEEL expressions](https://docs.camunda.io/docs/components/modeler/feel/what
 To get started, create a feel-editor instance:
 
 ```JavaScript
-import ExpressionEditor from '@kunpeng/expression-editor';
+import ExpressionEditor from '@kunpeng-js/expression-editor';
 
 const editor = new ExpressionEditor({
   container

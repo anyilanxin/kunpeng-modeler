@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/element-templates-json-schema",
+  "name": "@kunpeng-js/element-templates-json-schema",
   "version": "2026.0.0-alpha1",
   "description": "JSON Schema for (Kunpeng) Element Templates",
   "keywords": [

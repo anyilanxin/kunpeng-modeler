@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [@kunpeng/variable-resolver](https://github.com/bpmn-io/variable-resolver) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@kunpeng-js/variable-resolver](https://github.com/bpmn-io/variable-resolver) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 

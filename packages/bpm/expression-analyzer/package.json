@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/expression-analyzer",
+  "name": "@kunpeng-js/expression-analyzer",
   "version": "0.5.0",
   "description": "Static FEEL expression analyzer",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "prepare": "run-s build"
   },
   "dependencies": {
-    "@kunpeng/lezer-expression": "workspace:*",
+    "@kunpeng-js/lezer-expression": "workspace:*",
     "@lezer/common": "catalog:"
   },
   "devDependencies": {

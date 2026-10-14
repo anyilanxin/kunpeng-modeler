@@ -27,7 +27,7 @@ import BpmnPropertiesPanel from 'src/render';
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 import BpmnPropertiesProvider from 'src/provider/bpmn';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   getExtensionElementsList

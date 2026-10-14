@@ -8,7 +8,7 @@ import compatibilityRule from 'src/cloud-element-templates/linting/rules/element
 import templates from './LinterPlugin.json';
 
 import { BpmnModdle } from 'bpmn-moddle';
-import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 
 import { expect } from 'chai';

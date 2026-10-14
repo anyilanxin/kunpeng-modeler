@@ -283,7 +283,7 @@ font-family:
 | **UI 组件库** | naive-ui                             | ^2.44.1            |
 | **CSS 引擎**  | UnoCSS + Less                        | ^66.7.5            |
 | **图标**      | @iconify/json (Carbon)               | ^2.2.507           |
-| **建模内核**  | bpmn-js / @kunpeng/dmn-js            | ^18.22 / workspace |
+| **建模内核**  | bpmn-js / @kunpeng-js/dmn-js            | ^18.22 / workspace |
 | **工具链**    | pnpm workspace + ESLint 9 + Prettier | —                  |
 
 ### 5.2 Tauri 桌面配置
@@ -355,12 +355,12 @@ dists/kunpeng-modeler/
 | ----------------------------------- | -------------------------------- |
 | `@kunpeng/bpmn-design`              | BPMN 设计器源码参考              |
 | `@kunpeng/dmn-design`               | DMN 设计器源码参考               |
-| `@kunpeng/bpmn-js-properties-panel` | BPMN 属性面板模块                |
-| `@kunpeng/dmn-js-properties-panel`  | DMN 属性面板模块                 |
-| `@kunpeng/bpmn-moddle`              | BPMN 扩展模型定义 (kunpeng.json) |
-| `@kunpeng/dmn-moddle`               | DMN 扩展模型定义                 |
-| `@kunpeng/dmn-js`                   | DMN Modeler 核心                 |
-| `@kunpeng/properties-panel`         | 通用属性面板 UI                  |
+| `@kunpeng-js/bpmn-js-properties-panel` | BPMN 属性面板模块                |
+| `@kunpeng-js/dmn-js-properties-panel`  | DMN 属性面板模块                 |
+| `@kunpeng-js/bpmn-moddle`              | BPMN 扩展模型定义 (kunpeng.json) |
+| `@kunpeng-js/dmn-moddle`               | DMN 扩展模型定义                 |
+| `@kunpeng-js/dmn-js`                   | DMN Modeler 核心                 |
+| `@kunpeng-js/properties-panel`         | 通用属性面板 UI                  |
 | `bpmn-js`                           | BPMN Modeler 核心                |
 | `diagram-js`                        | 图形引擎                         |
 | `diagram-js-minimap`                | 小地图模块                       |
@@ -381,13 +381,13 @@ import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 import AddExporterModule from '@bpmn-io/add-exporter';
 import LintModule from 'bpmn-js-bpmnlint';
 import BpmnColorPickerModule from 'bpmn-js-color-picker/colors';
-import KunpengBehaviorModule from '@kunpeng/bpmn-js-behaviors';
+import KunpengBehaviorModule from '@kunpeng-js/bpmn-js-behaviors';
 import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng/bpmn-js-properties-panel';
-import KunpengBpmnModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+} from '@kunpeng-js/bpmn-js-properties-panel';
+import KunpengBpmnModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 const additionalModules = [
   gridModule, // 网格背景
@@ -419,8 +419,8 @@ const modeler = new BpmnModeler({
 ### 6.2 DMN Modeler 初始化
 
 ```typescript
-import DmnModeler from '@kunpeng/dmn-js/lib/Modeler';
-import { OverviewModule } from '@kunpeng/dmn-js/lib/overview';
+import DmnModeler from '@kunpeng-js/dmn-js/lib/Modeler';
+import { OverviewModule } from '@kunpeng-js/dmn-js/lib/overview';
 import { DrdLinting } from 'dmn-js-dmnlint';
 import AddExporterModule from '@bpmn-io/add-exporter';
 import gridModule from 'diagram-js-grid';
@@ -428,8 +428,8 @@ import {
   DmnPropertiesPanelModule,
   DmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng/dmn-js-properties-panel';
-import CamundaModdleDescriptor from '@kunpeng/dmn-moddle/resources/kunpeng.json';
+} from '@kunpeng-js/dmn-js-properties-panel';
+import CamundaModdleDescriptor from '@kunpeng-js/dmn-moddle/resources/kunpeng.json';
 
 const additionalModules = [
   DmnPropertiesPanelModule,

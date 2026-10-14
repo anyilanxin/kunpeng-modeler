@@ -9,24 +9,24 @@ import {
 
 
 import { insertCSS } from 'test/helper';
-import { translateModule } from '@kunpeng/dmn-js-shared/test/util/TranslateUtil';
+import { translateModule } from '@kunpeng-js/dmn-js-shared/test/util/TranslateUtil';
 
 insertCSS('diagram-js.css', require('diagram-js/assets/diagram-js.css'));
 
 insertCSS('dmn-font', require('dmn-font/dist/css/dmn-embedded.css'));
 
-insertCSS('@kunpeng/dmn-js-shared.css',
-  require('@kunpeng/dmn-js-shared/assets/css/dmn-js-shared.css')
+insertCSS('@kunpeng-js/dmn-js-shared.css',
+  require('@kunpeng-js/dmn-js-shared/assets/css/dmn-js-shared.css')
 );
 
-insertCSS('@kunpeng/dmn-js-drd.css', require('@kunpeng/dmn-js-drd/assets/css/dmn-js-drd.css'));
+insertCSS('@kunpeng-js/dmn-js-drd.css', require('@kunpeng-js/dmn-js-drd/assets/css/dmn-js-drd.css'));
 
-insertCSS('@kunpeng/dmn-js-literal-expression.css',
-  require('@kunpeng/dmn-js-literal-expression/assets/css/dmn-js-literal-expression.css')
+insertCSS('@kunpeng-js/dmn-js-literal-expression.css',
+  require('@kunpeng-js/dmn-js-literal-expression/assets/css/dmn-js-literal-expression.css')
 );
 
-insertCSS('@kunpeng/dmn-js-decision-table-controls.css',
-  require('@kunpeng/dmn-js-decision-table/assets/css/dmn-js-decision-table-controls.css')
+insertCSS('@kunpeng-js/dmn-js-decision-table-controls.css',
+  require('@kunpeng-js/dmn-js-decision-table/assets/css/dmn-js-decision-table-controls.css')
 );
 
 insertCSS('dmn-js-testing.css', `

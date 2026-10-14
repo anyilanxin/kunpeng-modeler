@@ -7,7 +7,7 @@ import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 import { BpmnPropertiesPanelModule as BpmnPropertiesPanel } from 'bpmn-js-properties-panel';
 import { query as domQuery } from 'min-dom';
 import TestContainer from 'mocha-test-container-support';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   bootstrapPropertiesPanel,

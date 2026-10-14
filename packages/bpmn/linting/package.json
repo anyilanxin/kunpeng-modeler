@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/linting",
+  "name": "@kunpeng-js/linting",
   "version": "3.54.0",
   "description": "Linting for Camunda",
   "main": "index.js",
@@ -26,8 +26,8 @@
   "license": "MIT",
   "dependencies": {
     "@bpmn-io/diagram-js-ui": "catalog:",
-    "@kunpeng/bpmn-moddle": "workspace:*",
-    "@kunpeng/bpmnlint-plugin-kunpeng-compat": "workspace:*",
+    "@kunpeng-js/bpmn-moddle": "workspace:*",
+    "@kunpeng-js/bpmnlint-plugin-kunpeng-compat": "workspace:*",
     "bpmn-moddle": "catalog:",
     "bpmnlint": "catalog:",
     "bpmnlint-utils": "catalog:",
@@ -40,9 +40,9 @@
   "devDependencies": {
     "@bpmn-io/element-template-chooser": "catalog:",
     "@bpmn-io/element-template-icon-renderer": "catalog:",
-    "@kunpeng/bpmn-js-behaviors": "workspace:*",
-    "@kunpeng/bpmn-js-element-templates": "workspace:*",
-    "@kunpeng/bpmn-js-properties-panel": "workspace:*",
+    "@kunpeng-js/bpmn-js-behaviors": "workspace:*",
+    "@kunpeng-js/bpmn-js-element-templates": "workspace:*",
+    "@kunpeng-js/bpmn-js-properties-panel": "workspace:*",
     "bpmn-js": "catalog:",
     "chai": "catalog:",
     "cross-env": "catalog:",

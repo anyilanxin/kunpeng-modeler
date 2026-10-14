@@ -4,7 +4,7 @@ import BaseModeling from 'table-js/lib/features/modeling/Modeling';
 
 import UpdateAllowedValuesHandler from './cmd/UpdateAllowedValuesHandler';
 import UpdatePropertiesHandler
-  from '@kunpeng/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler';
+  from '@kunpeng-js/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler';
 import IdClaimHandler from './cmd/IdClaimHandler';
 
 

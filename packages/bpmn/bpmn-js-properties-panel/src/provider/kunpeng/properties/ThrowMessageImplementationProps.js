@@ -2,7 +2,7 @@ import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 import { isMessageThrowEvent } from '../utils/KunpengServiceTaskUtil';
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 import { getMessageEventDefinition } from '../../bpmn/utils/EventDefinitionUtil';
-import { SelectEntry } from '@kunpeng/properties-panel';
+import { SelectEntry } from '@kunpeng-js/properties-panel';
 
 import {
   getExtensionElementsList,

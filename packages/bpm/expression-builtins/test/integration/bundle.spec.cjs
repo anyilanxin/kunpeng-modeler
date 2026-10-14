@@ -1,4 +1,4 @@
-const { kunpengBuiltins } = require('@kunpeng/expression-builtins');
+const { kunpengBuiltins } = require('@kunpeng-js/expression-builtins');
 
 const { expect } = require('chai');
 

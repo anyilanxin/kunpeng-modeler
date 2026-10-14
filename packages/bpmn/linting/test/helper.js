@@ -3,7 +3,7 @@ import { BpmnModdle } from 'bpmn-moddle';
 import { isArray } from 'min-dash';
 
 import modelerModdleSchema from 'modeler-moddle/resources/modeler.json';
-import kunpengModdleSchema from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdleSchema from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 export async function createModdle(xml, executionPlatform = 'camunda-cloud') {
   const moddle = createBpmnModdle(executionPlatform);

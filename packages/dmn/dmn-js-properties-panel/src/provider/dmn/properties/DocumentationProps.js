@@ -1,9 +1,9 @@
 import {
   TextAreaEntry,
   isTextAreaEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
-import { getBusinessObject, is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject, is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   useService
@@ -11,7 +11,7 @@ import {
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

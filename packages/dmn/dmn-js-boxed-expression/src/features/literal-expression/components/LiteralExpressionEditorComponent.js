@@ -1,9 +1,9 @@
 import { Component } from 'inferno';
 
-import { is, isFeel } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is, isFeel } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import EditableComponent from '@kunpeng/dmn-js-shared/lib/components/EditableComponent';
-import LiteralExpression from '@kunpeng/dmn-js-shared/lib/components/LiteralExpression';
+import EditableComponent from '@kunpeng-js/dmn-js-shared/lib/components/EditableComponent';
+import LiteralExpression from '@kunpeng-js/dmn-js-shared/lib/components/LiteralExpression';
 
 import { withChangeSupport } from '../../../util/withChangeSupport';
 

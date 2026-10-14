@@ -31,7 +31,7 @@ import ZeebePropertiesProvider from 'src/provider/kunpeng';
 
 import BehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import diagramXML from './UserTaskImplementationProps.bpmn';
 

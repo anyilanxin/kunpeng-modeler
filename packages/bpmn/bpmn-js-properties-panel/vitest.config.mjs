@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const preactBase = path.resolve(
   __dirname,
-  'node_modules/@kunpeng/properties-panel/preact'
+  'node_modules/@kunpeng-js/properties-panel/preact'
 );
 
 /**
@@ -82,7 +82,7 @@ export default defineConfig({
   esbuild: {
     loader: 'jsx',
     include: [/src\/.*\.js$/, /test\/.*\.js$/],
-    jsxImportSource: '@kunpeng/properties-panel/preact',
+    jsxImportSource: '@kunpeng-js/properties-panel/preact',
     jsx: 'automatic'
   },
   optimizeDeps: {

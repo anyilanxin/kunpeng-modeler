@@ -12,11 +12,11 @@ import {
 
 import {
   getBusinessObject
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   validateId
-} from '@kunpeng/dmn-js-shared/lib/util/IdsUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/IdsUtil';
 
 
 export default function DefinitionIdEdit(

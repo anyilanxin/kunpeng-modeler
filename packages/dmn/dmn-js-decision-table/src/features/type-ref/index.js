@@ -1,4 +1,4 @@
-import DataTypesModule from '@kunpeng/dmn-js-shared/lib/features/data-types';
+import DataTypesModule from '@kunpeng-js/dmn-js-shared/lib/features/data-types';
 import ContextMenu from 'table-js/lib/features/context-menu';
 import TypeRefEditingProvider from './TypeRefEditingProvider';
 

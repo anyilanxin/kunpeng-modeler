@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import coreModule from 'bpmn-js/lib/core';
 import modelingModule from 'bpmn-js/lib/features/modeling';
 import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 import KunpengBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 import {

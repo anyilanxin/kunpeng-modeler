@@ -1,10 +1,10 @@
 import {
   getBusinessObject
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng-js/properties-panel';
 
-import { useCallback } from '@kunpeng/properties-panel/preact/hooks';
+import { useCallback } from '@kunpeng-js/properties-panel/preact/hooks';
 
 import {
   useService
@@ -16,7 +16,7 @@ import {
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

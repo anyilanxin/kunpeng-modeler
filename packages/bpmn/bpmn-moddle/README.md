@@ -1,6 +1,6 @@
-# @kunpeng/bpmn-moddle
+# @kunpeng-js/bpmn-moddle
 
-[![CI](https://github.com/camunda/@kunpeng/bpmn-moddle/workflows/CI/badge.svg)](https://github.com/camunda/@kunpeng/bpmn-moddle/actions?query=workflow%3ACI)
+[![CI](https://github.com/camunda/@kunpeng-js/bpmn-moddle/workflows/CI/badge.svg)](https://github.com/camunda/@kunpeng-js/bpmn-moddle/actions?query=workflow%3ACI)
 
 This project defines the [Kunpeng](https://zeebe.io) namespace extensions for BPMN 2.0 as a [moddle](https://github.com/bpmn-io/moddle) descriptor.
 
@@ -11,7 +11,7 @@ Use it together with [bpmn-moddle](https://github.com/bpmn-io/bpmn-moddle) to va
 ```javascript
 const BpmnModdle = require('bpmn-moddle');
 
-const kunpengModdle = require('@kunpeng/bpmn-moddle/resources/kunpeng.json');
+const kunpengModdle = require('@kunpeng-js/bpmn-moddle/resources/kunpeng.json');
 
 const moddle = new BpmnModdle({ kunpeng: kunpengModdle });
 

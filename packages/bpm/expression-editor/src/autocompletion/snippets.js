@@ -1,4 +1,4 @@
-import { snippets, snippetCompletion } from '@kunpeng/lang-expression';
+import { snippets, snippetCompletion } from '@kunpeng-js/lang-expression';
 
 /**
  * A completion source for snippets, including:

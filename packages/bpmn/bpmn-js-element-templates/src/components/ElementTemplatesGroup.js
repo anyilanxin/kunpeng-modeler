@@ -4,7 +4,7 @@ import {
   DropdownButton,
   HeaderButton,
   useLayoutState
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import classnames from 'classnames';
 

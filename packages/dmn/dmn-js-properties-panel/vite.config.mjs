@@ -24,8 +24,8 @@ function svgComponentPlugin() {
       const escaped = svg.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
 
       const code = [
-        `import { h } from '@kunpeng/properties-panel/preact';`,
-        `import { useEffect, useRef } from '@kunpeng/properties-panel/preact/hooks';`,
+        `import { h } from '@kunpeng-js/properties-panel/preact';`,
+        `import { useEffect, useRef } from '@kunpeng-js/properties-panel/preact/hooks';`,
         ``,
         `const svgMarkup = \`${escaped}\`;`,
         ``,
@@ -62,7 +62,7 @@ function copyCssPlugin() {
 
       // Copy properties-panel CSS
       try {
-        const ppDir = 'node_modules/@kunpeng/properties-panel/dist/assets';
+        const ppDir = 'node_modules/@kunpeng-js/properties-panel/dist/assets';
         const entries = await fsp.readdir(ppDir);
         for (const entry of entries) {
           if (entry.endsWith('.css')) {
@@ -91,7 +91,7 @@ export default defineConfig({
       babelConfig: {
         plugins: [
           ['@babel/plugin-transform-react-jsx', {
-            importSource: '@kunpeng/properties-panel/preact',
+            importSource: '@kunpeng-js/properties-panel/preact',
             runtime: 'automatic'
           }]
         ]
@@ -101,8 +101,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      react: '@kunpeng/properties-panel/preact/compat',
-      preact: '@kunpeng/properties-panel/preact'
+      react: '@kunpeng-js/properties-panel/preact/compat',
+      preact: '@kunpeng-js/properties-panel/preact'
     }
   },
   build: {

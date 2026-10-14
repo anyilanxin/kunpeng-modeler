@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import ModelingModule from 'bpmn-js/lib/features/modeling';
 import ReplaceModule from 'bpmn-js/lib/features/replace';
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   bootstrapModeler,

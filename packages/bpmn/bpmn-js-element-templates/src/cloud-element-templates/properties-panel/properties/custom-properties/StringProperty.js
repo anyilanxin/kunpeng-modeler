@@ -1,7 +1,7 @@
 import { useService } from 'bpmn-js-properties-panel';
 import { PropertyDescription } from '../../../../components/PropertyDescription';
 import { PropertyTooltip } from '../../components/PropertyTooltip';
-import { TextFieldEntry } from '@kunpeng/properties-panel';
+import { TextFieldEntry } from '@kunpeng-js/properties-panel';
 import { propertyGetter, propertySetter, propertyValidator } from './util';
 
 export function StringProperty(props) {

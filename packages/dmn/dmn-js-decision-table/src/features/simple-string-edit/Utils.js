@@ -1,4 +1,4 @@
-import { isInput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 /**
  * Parse input/output entry string to unary tests and type of unary tests.

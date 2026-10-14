@@ -2,7 +2,7 @@ import {
   useState,
   useContext,
   useMemo
-} from '@kunpeng/properties-panel/preact/hooks';
+} from '@kunpeng-js/properties-panel/preact/hooks';
 
 import {
   useService
@@ -11,7 +11,7 @@ import {
 import {
   LayoutContext,
   TextFieldEntry
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import {
   is

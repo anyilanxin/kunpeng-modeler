@@ -40,7 +40,7 @@ function patchOverviewRenderer(id: string, source: string): string {
 }
 
 // bpmnlint-plugin-kunpeng-compat 是 CJS 源码包，其规则文件被
-// @kunpeng/linting/compiled-config.js 以 ESM import 加载。Vite 对 /@fs/ 下
+// @kunpeng-js/linting/compiled-config.js 以 ESM import 加载。Vite 对 /@fs/ 下
 // 纯 CJS 文件（只有 require、无 import）直接透传，浏览器原生 ESM 无法识别
 // module.exports / require。这里在 transform 阶段检测纯 CJS 规则文件并
 // 追加 ESM re-export，让 Vite 把它当混合模块处理，触发 CJS interop。
@@ -116,28 +116,28 @@ export default defineConfig(
           '@': resolve(__dirname, 'src'),
           // Map unscoped bpmn-io package names used in @kunpeng dist files
           // to their actual scoped package names (Rolldown requires explicit resolution).
-          'bpmn-js-properties-panel': '@kunpeng/bpmn-js-properties-panel',
+          'bpmn-js-properties-panel': '@kunpeng-js/bpmn-js-properties-panel',
         },
         dedupe: ['vue'],
       },
       optimizeDeps: {
-        // @kunpeng/bpmnlint-plugin-kunpeng-compat 是 CJS 源码包，其规则文件
-        // 被 @kunpeng/linting/compiled-config.js 以 ESM import 加载。esbuild
+        // @kunpeng-js/bpmnlint-plugin-kunpeng-compat 是 CJS 源码包，其规则文件
+        // 被 @kunpeng-js/linting/compiled-config.js 以 ESM import 加载。esbuild
         // 预打包会把 CJS require/module.exports 转成 ESM export。
         include: [
-          '@kunpeng/linting',
-          '@kunpeng/bpmnlint-plugin-kunpeng-compat',
+          '@kunpeng-js/linting',
+          '@kunpeng-js/bpmnlint-plugin-kunpeng-compat',
         ],
         // 排除 @kunpeng workspace 包，避免 dev 模式预打包时卡死
         // 这些包通过 kunpengPatchPlugin 按需处理即可
         exclude: [
-          '@kunpeng/bpmn-js-behaviors',
-          '@kunpeng/bpmn-js-properties-panel',
-          '@kunpeng/bpmn-moddle',
-          '@kunpeng/dmn-js',
-          '@kunpeng/dmn-js-properties-panel',
-          '@kunpeng/dmn-moddle',
-          '@kunpeng/properties-panel',
+          '@kunpeng-js/bpmn-js-behaviors',
+          '@kunpeng-js/bpmn-js-properties-panel',
+          '@kunpeng-js/bpmn-moddle',
+          '@kunpeng-js/dmn-js',
+          '@kunpeng-js/dmn-js-properties-panel',
+          '@kunpeng-js/dmn-moddle',
+          '@kunpeng-js/properties-panel',
           'bpmn-js',
           'bpmn-js-bpmnlint',
           'bpmn-js-create-append-anything',

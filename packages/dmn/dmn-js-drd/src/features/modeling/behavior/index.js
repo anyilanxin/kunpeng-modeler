@@ -3,9 +3,9 @@ import LayoutConnectionBehavior from './LayoutConnectionBehavior';
 import ReplaceConnectionBehavior from './ReplaceConnectionBehavior';
 import ReplaceElementBehavior from './ReplaceElementBehavior';
 import IdChangeBehavior from
-  '@kunpeng/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior';
+  '@kunpeng-js/dmn-js-shared/lib/features/modeling/behavior/IdChangeBehavior';
 import NameChangeBehavior from
-  '@kunpeng/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior';
+  '@kunpeng-js/dmn-js-shared/lib/features/modeling/behavior/NameChangeBehavior';
 export default {
   __init__: [
     'createConnectionBehavior',

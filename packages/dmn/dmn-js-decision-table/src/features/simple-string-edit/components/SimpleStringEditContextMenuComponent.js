@@ -1,7 +1,7 @@
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
-import List from '@kunpeng/dmn-js-shared/lib/components/List';
-import ValidatedInput from '@kunpeng/dmn-js-shared/lib/components/ValidatedInput';
-import { isInput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
+import List from '@kunpeng-js/dmn-js-shared/lib/components/List';
+import ValidatedInput from '@kunpeng-js/dmn-js-shared/lib/components/ValidatedInput';
+import { isInput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { Component } from 'inferno';
 

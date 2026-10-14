@@ -1,7 +1,7 @@
 import {
   getBusinessObject,
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 /**
  * Displays dropdown overlay that can be used to change element type.
@@ -12,7 +12,7 @@ export default class TypeRefDropdown {
    *
    * @param {import('diagram-js/lib/core/EventBus').default} eventBus
    * @param {import('diagram-js/lib/features/overlays/Overlays').default} overlays
-   * @param {import('@kunpeng/dmn-js-shared/lib/features/data-types/DataTypes').default} dataTypes
+   * @param {import('@kunpeng-js/dmn-js-shared/lib/features/data-types/DataTypes').default} dataTypes
    * @param {import('../modeling/DrdFactory').default} drdFactory
    * @param {import('../modeling/Modeling').default} modeling
    * @param {import('diagram-js/lib/i18n/translate/Translate').default} translate

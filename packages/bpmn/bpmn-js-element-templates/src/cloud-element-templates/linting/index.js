@@ -16,7 +16,7 @@ import compatibility from './rules/element-templates-compatibility';
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 import { Validator } from '../Validator';
 

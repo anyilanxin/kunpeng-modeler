@@ -1,7 +1,7 @@
 import BpmnPropertiesPanelRenderer from './BpmnPropertiesPanelRenderer';
 
 import Commands from '../cmd';
-import { DebounceInputModule, ExpressionPopupModule } from '@kunpeng/properties-panel';
+import { DebounceInputModule, ExpressionPopupModule } from '@kunpeng-js/properties-panel';
 
 export default {
   __depends__: [

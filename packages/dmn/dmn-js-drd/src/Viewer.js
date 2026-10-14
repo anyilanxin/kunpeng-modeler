@@ -25,19 +25,19 @@ import {
 
 import {
   wrapForCompatibility
-} from '@kunpeng/dmn-js-shared/lib/util/CompatibilityUtils';
+} from '@kunpeng-js/dmn-js-shared/lib/util/CompatibilityUtils';
 
 import {
   addProjectLogo
-} from '@kunpeng/dmn-js-shared/lib/util/PoweredByUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/PoweredByUtil';
 
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenResult} OpenResult
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenResult} OpenResult
  */
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenError} OpenError
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenError} OpenError
  */
 
 

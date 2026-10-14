@@ -1,4 +1,4 @@
-import { TextFieldEntry } from '@kunpeng/properties-panel';
+import { TextFieldEntry } from '@kunpeng-js/properties-panel';
 
 import {
   useService

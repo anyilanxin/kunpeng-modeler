@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 
-import ExpressionEditor from '@kunpeng/expression-editor';
+import ExpressionEditor from '@kunpeng-js/expression-editor';
 
 import { EditorView } from '@codemirror/view';
 

@@ -4,7 +4,7 @@ import { render } from '@testing-library/preact';
 import CoreModule from 'bpmn-js/lib/core';
 import { bootstrapModeler, inject } from 'bpmn-js/test/helper';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import { withTooltipContainer } from 'src/provider/HOCs';
 

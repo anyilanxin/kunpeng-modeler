@@ -4,7 +4,7 @@ import {
 
 import { Row, Col } from 'table-js/lib/model';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 

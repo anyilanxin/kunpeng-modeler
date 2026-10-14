@@ -4,11 +4,11 @@ import TestContainer from 'mocha-test-container-support';
 
 import DmnJS from 'dmn-js/lib/Modeler';
 
-import DrdModeler from '@kunpeng/dmn-js-drd/lib/Modeler';
-import DecisionTableViewer from '@kunpeng/dmn-js-decision-table/lib/Viewer';
-import DecisionTableEditor from '@kunpeng/dmn-js-decision-table/lib/Editor';
-import LiteralExpressionViewer from '@kunpeng/dmn-js-literal-expression/lib/Viewer';
-import LiteralExpressionEditor from '@kunpeng/dmn-js-literal-expression/lib/Editor';
+import DrdModeler from '@kunpeng-js/dmn-js-drd/lib/Modeler';
+import DecisionTableViewer from '@kunpeng-js/dmn-js-decision-table/lib/Viewer';
+import DecisionTableEditor from '@kunpeng-js/dmn-js-decision-table/lib/Editor';
+import LiteralExpressionViewer from '@kunpeng-js/dmn-js-literal-expression/lib/Viewer';
+import LiteralExpressionEditor from '@kunpeng-js/dmn-js-literal-expression/lib/Editor';
 
 let DMN_JS;
 

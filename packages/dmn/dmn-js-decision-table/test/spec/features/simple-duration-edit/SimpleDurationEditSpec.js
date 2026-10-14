@@ -12,7 +12,7 @@ import {
   triggerInputEvent,
   triggerInputSelectChange,
   triggerClick
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import simpleDurationEditXML from './simple-duration-edit.dmn';
 

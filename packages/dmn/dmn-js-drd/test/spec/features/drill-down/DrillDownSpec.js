@@ -21,7 +21,7 @@ import {
   triggerClick,
   triggerFocusIn,
   triggerKeyEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 var diagramXML = require('./DrillDown.dmn');
 

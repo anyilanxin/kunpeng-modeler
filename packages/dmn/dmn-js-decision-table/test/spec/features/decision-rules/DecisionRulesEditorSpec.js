@@ -5,9 +5,9 @@ import { query as domQuery } from 'min-dom';
 
 import { DmnVariableResolverModule } from '@bpmn-io/dmn-variable-resolver';
 
-import { triggerInputEvent } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+import { triggerInputEvent } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
-import { queryEditor } from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+import { queryEditor } from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
 import TestContainer from 'mocha-test-container-support';
 

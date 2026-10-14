@@ -1,4 +1,4 @@
-import { parser, trackVariables } from '@kunpeng/lezer-expression';
+import { parser, trackVariables } from '@kunpeng-js/lezer-expression';
 import lintAll from '../shared/index.js';
 import { createContext } from './util.js';
 

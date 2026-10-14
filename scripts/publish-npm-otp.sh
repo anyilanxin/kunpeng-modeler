@@ -13,7 +13,7 @@ cd "$(dirname "$0")/.."
 if [ "${SKIP_BUILD:-0}" != "1" ]; then
   echo '==> 构建全部库包与 dmn-js distro 产物'
   pnpm build:packages
-  pnpm -F '@kunpeng/dmn-js' run distro
+  pnpm -F '@kunpeng-js/dmn-js' run distro
 fi
 
 # 按依赖拓扑顺序枚举,拆出尚未发布的包

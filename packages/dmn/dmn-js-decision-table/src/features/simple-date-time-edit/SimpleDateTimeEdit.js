@@ -1,7 +1,7 @@
 import InputDateEdit from './components/InputDateTimeEdit';
 import OutputDateEdit from './components/OutputDateTimeEdit';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 export default class SimpleDateEdit {
   constructor(components, simpleMode) {

@@ -1,4 +1,4 @@
-import { ListGroup } from '@kunpeng/properties-panel';
+import { ListGroup } from '@kunpeng-js/properties-panel';
 
 import { createElementTemplatesGroup, TemplateProps } from '../../components';
 

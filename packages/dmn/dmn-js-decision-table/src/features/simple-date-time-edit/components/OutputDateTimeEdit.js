@@ -1,4 +1,4 @@
-import ValidatedInput from '@kunpeng/dmn-js-shared/lib/components/ValidatedInput';
+import ValidatedInput from '@kunpeng-js/dmn-js-shared/lib/components/ValidatedInput';
 
 import { Component } from 'inferno';
 

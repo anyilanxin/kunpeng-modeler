@@ -7,7 +7,7 @@ import {
 
 import {
   ComponentWithSlots
-} from '@kunpeng/dmn-js-shared/lib/components/mixins';
+} from '@kunpeng-js/dmn-js-shared/lib/components/mixins';
 
 
 const MIN_WIDTH = 400;

@@ -1,5 +1,5 @@
 import { EditorSelection, EditorState } from '@codemirror/state';
-import { feel, snippetCompletion } from '@kunpeng/lang-expression';
+import { feel, snippetCompletion } from '@kunpeng-js/lang-expression';
 import { CompletionSource, autocompletion, currentCompletions, startCompletion } from '@codemirror/autocomplete';
 import { EditorView } from '@codemirror/view';
 import { basicSetup } from 'codemirror';

@@ -1,4 +1,4 @@
-import { qlexpression } from '@kunpeng/lang-expression';
+import { qlexpression } from '@kunpeng-js/lang-expression';
 
 /**
  * @typedef { 'expression' | 'unaryTests' } Dialect

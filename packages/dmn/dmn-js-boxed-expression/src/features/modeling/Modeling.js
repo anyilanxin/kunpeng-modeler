@@ -3,7 +3,7 @@ import {
 } from 'min-dash';
 
 import UpdatePropertiesHandler
-  from '@kunpeng/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler';
+  from '@kunpeng-js/dmn-js-shared/lib/features/modeling/cmd/UpdatePropertiesHandler';
 
 
 export default class Modeling {

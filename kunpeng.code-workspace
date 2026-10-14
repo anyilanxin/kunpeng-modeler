@@ -37,103 +37,103 @@
       "path": "internal/vite-config",
     },
     {
-      "name": "@kunpeng/expression-analyzer",
+      "name": "@kunpeng-js/expression-analyzer",
       "path": "packages/bpm/expression-analyzer",
     },
     {
-      "name": "@kunpeng/expression-builtins",
+      "name": "@kunpeng-js/expression-builtins",
       "path": "packages/bpm/expression-builtins",
     },
     {
-      "name": "@kunpeng/expression-editor",
+      "name": "@kunpeng-js/expression-editor",
       "path": "packages/bpm/expression-editor",
     },
     {
-      "name": "@kunpeng/expression-lint",
+      "name": "@kunpeng-js/expression-lint",
       "path": "packages/bpm/expression-lint",
     },
     {
-      "name": "@kunpeng/lang-expression",
+      "name": "@kunpeng-js/lang-expression",
       "path": "packages/bpm/lang-expression",
     },
     {
-      "name": "@kunpeng/lezer-expression",
+      "name": "@kunpeng-js/lezer-expression",
       "path": "packages/bpm/lezer-expression",
     },
     {
-      "name": "@kunpeng/properties-panel",
+      "name": "@kunpeng-js/properties-panel",
       "path": "packages/bpm/properties-panel",
     },
     {
-      "name": "@kunpeng/bpmn-js-behaviors",
+      "name": "@kunpeng-js/bpmn-js-behaviors",
       "path": "packages/bpmn/bpmn-js-behaviors",
     },
     {
-      "name": "@kunpeng/bpmn-js-element-templates",
+      "name": "@kunpeng-js/bpmn-js-element-templates",
       "path": "packages/bpmn/bpmn-js-element-templates",
     },
     {
-      "name": "@kunpeng/bpmn-js-properties-panel",
+      "name": "@kunpeng-js/bpmn-js-properties-panel",
       "path": "packages/bpmn/bpmn-js-properties-panel",
     },
     {
-      "name": "@kunpeng/bpmn-moddle",
+      "name": "@kunpeng-js/bpmn-moddle",
       "path": "packages/bpmn/bpmn-moddle",
     },
     {
-      "name": "@kunpeng/bpmnlint-plugin-kunpeng-compat",
+      "name": "@kunpeng-js/bpmnlint-plugin-kunpeng-compat",
       "path": "packages/bpmn/bpmnlint-plugin-kunpeng-compat",
     },
     {
-      "name": "@kunpeng/element-templates-json-schema",
+      "name": "@kunpeng-js/element-templates-json-schema",
       "path": "packages/bpmn/element-templates-json-schema",
     },
     {
-      "name": "@kunpeng/element-templates-validator",
+      "name": "@kunpeng-js/element-templates-validator",
       "path": "packages/bpmn/element-templates-validator",
     },
     {
-      "name": "@kunpeng/extract-process-variables",
+      "name": "@kunpeng-js/extract-process-variables",
       "path": "packages/bpmn/extract-process-variables",
     },
     {
-      "name": "@kunpeng/linting",
+      "name": "@kunpeng-js/linting",
       "path": "packages/bpmn/linting",
     },
     {
-      "name": "@kunpeng/variable-resolver",
+      "name": "@kunpeng-js/variable-resolver",
       "path": "packages/bpmn/variable-resolver",
     },
     {
-      "name": "@kunpeng/dmn-js",
+      "name": "@kunpeng-js/dmn-js",
       "path": "packages/dmn/dmn-js",
     },
     {
-      "name": "@kunpeng/dmn-js-boxed-expression",
+      "name": "@kunpeng-js/dmn-js-boxed-expression",
       "path": "packages/dmn/dmn-js-boxed-expression",
     },
     {
-      "name": "@kunpeng/dmn-js-decision-table",
+      "name": "@kunpeng-js/dmn-js-decision-table",
       "path": "packages/dmn/dmn-js-decision-table",
     },
     {
-      "name": "@kunpeng/dmn-js-drd",
+      "name": "@kunpeng-js/dmn-js-drd",
       "path": "packages/dmn/dmn-js-drd",
     },
     {
-      "name": "@kunpeng/dmn-js-literal-expression",
+      "name": "@kunpeng-js/dmn-js-literal-expression",
       "path": "packages/dmn/dmn-js-literal-expression",
     },
     {
-      "name": "@kunpeng/dmn-js-properties-panel",
+      "name": "@kunpeng-js/dmn-js-properties-panel",
       "path": "packages/dmn/dmn-js-properties-panel",
     },
     {
-      "name": "@kunpeng/dmn-js-shared",
+      "name": "@kunpeng-js/dmn-js-shared",
       "path": "packages/dmn/dmn-js-shared",
     },
     {
-      "name": "@kunpeng/dmn-moddle",
+      "name": "@kunpeng-js/dmn-moddle",
       "path": "packages/dmn/dmn-moddle",
     },
     {

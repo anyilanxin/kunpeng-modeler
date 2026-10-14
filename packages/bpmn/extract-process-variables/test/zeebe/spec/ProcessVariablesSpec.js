@@ -13,7 +13,7 @@ import {
   getProcessVariables,
   getVariablesForElement,
   getVariablesForScope
-} from '@kunpeng/extract-process-variables';
+} from '@kunpeng-js/extract-process-variables';
 
 
 describe('zeebe / process variables module', function() {

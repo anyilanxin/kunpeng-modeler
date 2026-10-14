@@ -3,7 +3,7 @@ import {
   useMemo,
   useEffect,
   useCallback
-} from '@kunpeng/properties-panel/preact/hooks';
+} from '@kunpeng-js/properties-panel/preact/hooks';
 
 import {
   find,
@@ -11,7 +11,7 @@ import {
   reduce
 } from 'min-dash';
 
-import { FeelLanguageContext, PropertiesPanel } from '@kunpeng/properties-panel';
+import { FeelLanguageContext, PropertiesPanel } from '@kunpeng-js/properties-panel';
 
 import {
   BpmnPropertiesPanelContext

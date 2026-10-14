@@ -4,7 +4,7 @@ import { bootstrapModeler, inject, act } from 'test/helper';
 import {
   triggerInputEvent,
   triggerMouseEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import { DmnVariableResolverModule } from '@bpmn-io/dmn-variable-resolver';
 

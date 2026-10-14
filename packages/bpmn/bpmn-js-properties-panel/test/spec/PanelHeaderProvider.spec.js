@@ -10,13 +10,13 @@ import {
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import KunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import KunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   insertCoreStyles
 } from 'test/TestHelper';
 
-import { Header } from '@kunpeng/properties-panel';
+import { Header } from '@kunpeng-js/properties-panel';
 
 import {
   PanelHeaderProvider,

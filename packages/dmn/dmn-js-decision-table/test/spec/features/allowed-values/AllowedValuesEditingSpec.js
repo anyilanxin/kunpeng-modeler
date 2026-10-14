@@ -9,7 +9,7 @@ import {
   triggerInputSelectChange,
   triggerKeyEvent,
   triggerMouseEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import {
   classes as domClasses,

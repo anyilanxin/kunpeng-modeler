@@ -5,7 +5,7 @@ import {
   remove as domRemove
 } from 'min-dom';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { Row, Col } from 'table-js/lib/model';
 

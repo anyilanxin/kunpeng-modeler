@@ -2,7 +2,7 @@ import { Component } from 'inferno';
 
 import { Cell } from 'table-js/lib/components';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 export default class DecisionRulesCellComponent extends Component {

@@ -1,11 +1,11 @@
 import {
   getLabel
-} from '@kunpeng/dmn-js-drd/lib/features/label-editing/LabelUtil';
+} from '@kunpeng-js/dmn-js-drd/lib/features/label-editing/LabelUtil';
 
 import {
   getBusinessObject,
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 import iconsByType from '../icons';

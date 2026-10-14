@@ -1,4 +1,4 @@
-import Input from '@kunpeng/dmn-js-shared/lib/components/Input';
+import Input from '@kunpeng-js/dmn-js-shared/lib/components/Input';
 
 import { withChangeSupport } from '../../../util/withChangeSupport';
 

@@ -5,9 +5,9 @@ import { defineConfig } from 'vitest/config';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Resolve the preact shim shipped via @kunpeng/properties-panel so that the
+// Resolve the preact shim shipped via @kunpeng-js/properties-panel so that the
 // react/preact aliases point at real files on disk.
-const preactRoot = path.resolve(__dirname, 'node_modules/@kunpeng/properties-panel/preact');
+const preactRoot = path.resolve(__dirname, 'node_modules/@kunpeng-js/properties-panel/preact');
 
 export default defineConfig({
   resolve: {
@@ -25,7 +25,7 @@ export default defineConfig({
   esbuild: {
     loader: 'jsx',
     include: [ /src\/.*\.js$/, /test\/.*\.js$/ ],
-    jsxImportSource: '@kunpeng/properties-panel/preact',
+    jsxImportSource: '@kunpeng-js/properties-panel/preact',
     jsx: 'automatic'
   },
   optimizeDeps: {

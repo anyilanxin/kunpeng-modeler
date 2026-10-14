@@ -1,8 +1,8 @@
 import { Component } from 'inferno';
 
-import { is, isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is, isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
 
 
 export default class TypeRefCellContextMenu extends Component {

@@ -35,7 +35,7 @@ export default defineConfig({
       babelConfig: {
         plugins: [
           ['@babel/plugin-transform-react-jsx', {
-            importSource: '@kunpeng/properties-panel/preact',
+            importSource: '@kunpeng-js/properties-panel/preact',
             runtime: 'automatic'
           }]
         ]
@@ -48,8 +48,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      react: '@kunpeng/properties-panel/preact/compat',
-      preact: '@kunpeng/properties-panel/preact'
+      react: '@kunpeng-js/properties-panel/preact/compat',
+      preact: '@kunpeng-js/properties-panel/preact'
     }
   },
   build: {
@@ -66,8 +66,8 @@ export default defineConfig({
     },
     rollupOptions: {
       external: (id) => {
-        // Also match unscoped names (e.g. bpmn-js-properties-panel for @kunpeng/bpmn-js-properties-panel)
-        const unscopedDeps = nonbundledDependencies.map((d) => d.replace(/^@kunpeng\//, ''));
+        // Also match unscoped names (e.g. bpmn-js-properties-panel for @kunpeng-js/bpmn-js-properties-panel)
+        const unscopedDeps = nonbundledDependencies.map((d) => d.replace(/^@kunpeng-js\//, ''));
         const allDeps = [...nonbundledDependencies, ...unscopedDeps];
         const isExternal = allDeps.some((dep) => id === dep || id.startsWith(dep + '/'));
         const isForceBundle = nonExternalDependencies.some((dep) => id === dep || id.startsWith(dep + '/'));

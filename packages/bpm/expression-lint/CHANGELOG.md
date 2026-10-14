@@ -14,7 +14,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `CHORE`: turn into ES module ([#45](https://github.com/bpmn-io/feel-lint/pull/45))
 - `CHORE`: drop CJS distribution ([#45](https://github.com/bpmn-io/feel-lint/pull/45))
-- `DEPS`: update to `@kunpeng/lang-expression@3.0.0` ([#45](https://github.com/bpmn-io/feel-lint/pull/45))
+- `DEPS`: update to `@kunpeng-js/lang-expression@3.0.0` ([#45](https://github.com/bpmn-io/feel-lint/pull/45))
 
 ### Breaking Changes
 
@@ -23,7 +23,7 @@ _**Note:** Yet to be released changes appear here._
 ## 2.1.0
 
 - `FEAT`: support multi-line strings in camunda dialect ([@bpmn-io/lezer-feel#2](https://github.com/bpmn-io/lezer-feel/pull/2))
-- `DEPS`: update to `@kunpeng/lang-expression@2.4.0`
+- `DEPS`: update to `@kunpeng-js/lang-expression@2.4.0`
 - `DEPS`: update to `@bpmn-io/lezer-feel@1.9.0` fork of `lezer-feel`
 
 ## 2.0.1

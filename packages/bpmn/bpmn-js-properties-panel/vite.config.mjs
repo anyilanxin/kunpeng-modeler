@@ -232,7 +232,7 @@ export default defineConfig({
       babelConfig: {
         plugins: [
           ['@babel/plugin-transform-react-jsx', {
-            importSource: '@kunpeng/properties-panel/preact',
+            importSource: '@kunpeng-js/properties-panel/preact',
             runtime: 'automatic'
           }]
         ]
@@ -241,9 +241,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      react: '@kunpeng/properties-panel/preact/compat',
-      'react-dom': '@kunpeng/properties-panel/preact/compat',
-      preact: '@kunpeng/properties-panel/preact'
+      react: '@kunpeng-js/properties-panel/preact/compat',
+      'react-dom': '@kunpeng-js/properties-panel/preact/compat',
+      preact: '@kunpeng-js/properties-panel/preact'
     }
   },
   build: {

@@ -9,7 +9,7 @@ import simpleXML from './empty-literal-expression.dmn';
 const singleStart = window.__env__ && window.__env__.SINGLE_START === 'editor';
 
 if (singleStart) {
-  insertCSS('@kunpeng/dmn-js-literal-expression-single-start.css',
+  insertCSS('@kunpeng-js/dmn-js-literal-expression-single-start.css',
     'html, body, .test-container { margin: 0; height: 100%; }'
   );
 }

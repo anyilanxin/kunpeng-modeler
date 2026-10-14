@@ -1,4 +1,4 @@
-import { isFeelEntryEdited } from '@kunpeng/properties-panel';
+import { isFeelEntryEdited } from '@kunpeng-js/properties-panel';
 
 import { BpmnFeelEntry } from '../../../entries/BpmnFeelEntry';
 
@@ -12,7 +12,7 @@ import {
 } from '../../../utils/EventDefinitionUtil';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 export const EMPTY_OPTION = '';

@@ -4,7 +4,7 @@ import {
 
 import {
   isFeelEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { useService } from '../../../hooks';
 

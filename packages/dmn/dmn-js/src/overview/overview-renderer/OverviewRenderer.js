@@ -8,7 +8,7 @@
  * except in compliance with the MIT License.
  */
 
-import { getName, is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getName, is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { createLine } from 'diagram-js/lib/util/RenderUtil';

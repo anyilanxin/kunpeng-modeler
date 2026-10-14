@@ -2,7 +2,7 @@ import { find, groupBy } from 'min-dash';
 import { getPropertyValue, setPropertyValue, validateProperty } from '../../../util/propertyUtil';
 import { shouldCastToFeel, toFeelExpression } from '../../../util/FeelUtil';
 
-import { useCallback, useState } from '@kunpeng/properties-panel/preact/hooks';
+import { useCallback, useState } from '@kunpeng-js/properties-panel/preact/hooks';
 
 export function usePropertyAccessors(bpmnFactory, commandStack, element, property) {
   const directSet = useCallback(propertySetter(bpmnFactory, commandStack, element, property), [ bpmnFactory, commandStack, element, property ]);

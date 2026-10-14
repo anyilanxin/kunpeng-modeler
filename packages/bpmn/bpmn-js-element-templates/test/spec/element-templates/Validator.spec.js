@@ -1,6 +1,6 @@
 import { Validator } from 'src/element-templates/Validator';
 
-import { getSchemaVersion as getTemplateSchemaVersion } from '@kunpeng/element-templates-validator';
+import { getSchemaVersion as getTemplateSchemaVersion } from '@kunpeng-js/element-templates-validator';
 
 import { BpmnModdle } from 'bpmn-moddle';
 

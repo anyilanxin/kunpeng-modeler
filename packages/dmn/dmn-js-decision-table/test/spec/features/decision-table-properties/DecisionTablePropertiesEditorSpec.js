@@ -7,8 +7,8 @@ import {
 
 import TestContainer from 'mocha-test-container-support';
 
-import { triggerInputEvent } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
-import { queryEditor } from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+import { triggerInputEvent } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
+import { queryEditor } from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
 import twoDecisionsXML from '../../two-decisions.dmn';
 

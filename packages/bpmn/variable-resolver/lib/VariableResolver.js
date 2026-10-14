@@ -1,4 +1,4 @@
-import { getProcessVariables, getScope } from '@kunpeng/extract-process-variables';
+import { getProcessVariables, getScope } from '@kunpeng-js/extract-process-variables';
 import { BaseVariableResolver } from './base/VariableResolver';
 import {
   parseVariables,

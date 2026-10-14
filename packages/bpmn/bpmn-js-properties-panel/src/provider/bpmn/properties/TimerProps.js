@@ -17,13 +17,13 @@ import {
   isSelectEntryEdited,
   TextFieldEntry,
   isTextFieldEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

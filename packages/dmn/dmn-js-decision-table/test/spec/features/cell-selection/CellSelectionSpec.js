@@ -10,7 +10,7 @@ import {
 
 import {
   triggerClick
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import {
   getFocusableNode,

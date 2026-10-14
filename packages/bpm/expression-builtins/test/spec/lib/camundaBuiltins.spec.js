@@ -5,7 +5,7 @@ import {
   qlexpressionBuiltins,
   kunpengExtensions,
   kunpengReservedNameBuiltins
-} from '@kunpeng/expression-builtins';
+} from '@kunpeng-js/expression-builtins';
 
 
 describe('kunpengBuiltins', function() {
@@ -76,10 +76,10 @@ describe('kunpengBuiltins', function() {
 // helpers /////////
 
 /**
- * @param {import('@kunpeng/expression-builtins').Builtin[]} builtins
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} builtins
  * @param {string} name
  *
- * @return {import('@kunpeng/expression-builtins').Builtin}
+ * @return {import('@kunpeng-js/expression-builtins').Builtin}
  */
 function expectBuiltin(builtins, name) {
   const builtin = builtins.find(builtin => builtin.name === name);
@@ -92,7 +92,7 @@ function expectBuiltin(builtins, name) {
 }
 
 /**
- * @param {import('@kunpeng/expression-builtins').Builtin[]} builtins
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} builtins
  * @param {string} name
  *
  * @param {Record<string, any>} expectedProperties

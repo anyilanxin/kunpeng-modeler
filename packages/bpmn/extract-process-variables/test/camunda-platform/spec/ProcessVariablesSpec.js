@@ -11,7 +11,7 @@ import fs from 'fs';
 import {
   getProcessVariables,
   getVariablesForScope
-} from '@kunpeng/extract-process-variables';
+} from '@kunpeng-js/extract-process-variables';
 
 
 describe('camunda-platform / process variables module', function() {

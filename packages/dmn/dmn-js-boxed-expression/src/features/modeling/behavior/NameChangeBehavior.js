@@ -2,7 +2,7 @@ import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 export default class NameChangeBehavior extends CommandInterceptor {

@@ -26,7 +26,7 @@ import SelectionModule from 'diagram-js/lib/features/selection';
 import BpmnPropertiesProvider from 'src/provider/bpmn';
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import diagramXML from './TimerProps.bpmn';
 

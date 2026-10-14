@@ -73,7 +73,7 @@ export function clickInput(input) {
 export function insertCoreStyles() {
   insertCSS(
     'properties-panel.css',
-    require('@kunpeng/properties-panel/dist/assets/properties-panel.css').default
+    require('@kunpeng-js/properties-panel/dist/assets/properties-panel.css').default
   );
 
   insertCSS(
@@ -142,7 +142,7 @@ function bpmnJsSatisfies(versionRange) {
 }
 
 /**
- * Execute test only if currently installed @kunpeng/properties-panel is of given version.
+ * Execute test only if currently installed @kunpeng-js/properties-panel is of given version.
  *
  * @param {string} versionRange
  * @param {boolean} only
@@ -156,7 +156,7 @@ export function withPropertiesPanel(versionRange, only = false) {
 }
 
 function propertiesPanelSatisfies(versionRange) {
-  const version = require('@kunpeng/properties-panel/package.json').version;
+  const version = require('@kunpeng-js/properties-panel/package.json').version;
 
   return semver.satisfies(version, versionRange, { includePrerelease: true });
 }

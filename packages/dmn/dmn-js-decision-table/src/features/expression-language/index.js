@@ -1,4 +1,4 @@
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
 
 import ExpressionLanguage from './ExpressionLanguage';
 

@@ -1,8 +1,8 @@
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng-js/properties-panel';
 
-import { useCallback } from '@kunpeng/properties-panel/preact/hooks';
+import { useCallback } from '@kunpeng-js/properties-panel/preact/hooks';
 
 import {
   useService
@@ -13,7 +13,7 @@ import {
 } from '../../../utils/ValidationUtil';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

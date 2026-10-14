@@ -1,6 +1,6 @@
 
 
-import { version as schemaVersion, name as schemaPackage } from '@kunpeng/element-templates-json-schema/package.json';
+import { version as schemaVersion, name as schemaPackage } from '@kunpeng-js/element-templates-json-schema/package.json';
 
 import validateTemplate from './validateKunpeng';
 

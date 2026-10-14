@@ -16,7 +16,7 @@ const nonbundledDependencies = Object.keys({
 
 // Collect src/**/*.js as individual entries so preserveModules outputs a
 // 1:1 mirror of src/ in lib/. This is required because consumers deep-import
-// paths like @kunpeng/dmn-js/lib/Modeler.
+// paths like @kunpeng-js/dmn-js/lib/Modeler.
 const entries = Object.fromEntries(
   glob
     .sync('src/**/*.js')
@@ -28,7 +28,7 @@ const entries = Object.fromEntries(
 
 /**
  * Vite plugin: copy CSS/font assets from dmn-js sub-packages and dependencies
- * into dist/assets/ so consumers can import them via @kunpeng/dmn-js/dist/assets.
+ * into dist/assets/ so consumers can import them via @kunpeng-js/dmn-js/dist/assets.
  * Replaces the former scripts/copy-assets.mjs post-build step.
  */
 function copyAssetsPlugin() {
@@ -75,11 +75,11 @@ function copyAssetsPlugin() {
 
       // dmn-js sub-package CSS
       for (const sub of [
-        '@kunpeng/dmn-js-shared',
-        '@kunpeng/dmn-js-drd',
-        '@kunpeng/dmn-js-decision-table',
-        '@kunpeng/dmn-js-literal-expression',
-        '@kunpeng/dmn-js-boxed-expression',
+        '@kunpeng-js/dmn-js-shared',
+        '@kunpeng-js/dmn-js-drd',
+        '@kunpeng-js/dmn-js-decision-table',
+        '@kunpeng-js/dmn-js-literal-expression',
+        '@kunpeng-js/dmn-js-boxed-expression',
       ]) {
         await copyDir(resolvePkg(sub, '/assets/css'), dest);
       }

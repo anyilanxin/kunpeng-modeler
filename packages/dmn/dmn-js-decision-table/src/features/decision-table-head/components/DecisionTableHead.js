@@ -1,7 +1,7 @@
 import {
   is,
   getBusinessObject
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { Component } from 'inferno';
 
@@ -11,7 +11,7 @@ import {
 
 import {
   ComponentWithSlots
-} from '@kunpeng/dmn-js-shared/lib/components/mixins';
+} from '@kunpeng-js/dmn-js-shared/lib/components/mixins';
 
 
 export default class DecisionTableHead extends Component {

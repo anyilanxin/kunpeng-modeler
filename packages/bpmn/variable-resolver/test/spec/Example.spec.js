@@ -6,17 +6,17 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
   ZeebePropertiesProviderModule
-} from '@kunpeng/bpmn-js-properties-panel';
+} from '@kunpeng-js/bpmn-js-properties-panel';
 
 import {
   CloudElementTemplatesPropertiesProviderModule
-} from '@kunpeng/bpmn-js-element-templates';
+} from '@kunpeng-js/bpmn-js-element-templates';
 
 import ElementTemplateChooserModule from '@bpmn-io/element-template-chooser';
 
 import connectorTemplates from 'test/fixtures/zeebe/connectors.json';
 
-import ZeebeBehaviorsModule from '@kunpeng/bpmn-js-behaviors';
+import ZeebeBehaviorsModule from '@kunpeng-js/bpmn-js-behaviors';
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import { KunpengVariableResolverModule } from 'lib/';

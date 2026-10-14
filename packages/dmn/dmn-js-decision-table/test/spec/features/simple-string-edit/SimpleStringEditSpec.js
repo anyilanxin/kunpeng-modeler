@@ -14,7 +14,7 @@ import {
   triggerKeyEvent,
   triggerMouseEvent,
   triggerClick
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import simpleStringEditXML from './simple-string-edit.dmn';
 

@@ -16,7 +16,7 @@ import {
   query as domQuery
 } from 'min-dom';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import DmnPropertiesPanel from 'src/render';
 

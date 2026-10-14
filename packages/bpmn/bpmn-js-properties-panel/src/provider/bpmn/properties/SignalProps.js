@@ -6,7 +6,7 @@ import {
   sortBy
 } from 'min-dash';
 
-import { TextFieldEntry, isSelectEntryEdited, isTextFieldEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isSelectEntryEdited, isTextFieldEntryEdited } from '@kunpeng-js/properties-panel';
 import ReferenceSelect from '../../../entries/ReferenceSelect';
 
 import {
@@ -30,7 +30,7 @@ import {
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 export const EMPTY_OPTION = '';

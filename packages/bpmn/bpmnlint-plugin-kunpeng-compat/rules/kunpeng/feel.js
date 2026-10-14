@@ -2,9 +2,9 @@ const { is } = require('bpmnlint-utils');
 
 const { getPath, pathConcat } = require('@bpmn-io/moddle-utils');
 
-const { FeelAnalyzer } = require('@kunpeng/expression-analyzer');
+const { FeelAnalyzer } = require('@kunpeng-js/expression-analyzer');
 
-const { kunpengReservedNameBuiltins } = require('@kunpeng/expression-builtins');
+const { kunpengReservedNameBuiltins } = require('@kunpeng-js/expression-builtins');
 
 const { reportErrors } = require('../utils/reporter');
 

@@ -1,8 +1,8 @@
 import { Component } from 'inferno';
 
-import ValidatedInput from '@kunpeng/dmn-js-shared/lib/components/ValidatedInput';
+import ValidatedInput from '@kunpeng-js/dmn-js-shared/lib/components/ValidatedInput';
 
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
 
 import {
   getTimeString,

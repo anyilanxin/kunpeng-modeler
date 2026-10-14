@@ -1,4 +1,4 @@
-import { CheckboxGroup, isFeelEntryEdited } from '@kunpeng/properties-panel';
+import { CheckboxGroup, isFeelEntryEdited } from '@kunpeng-js/properties-panel';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 

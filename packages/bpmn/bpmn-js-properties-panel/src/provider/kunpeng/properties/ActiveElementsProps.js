@@ -3,7 +3,7 @@ import {
   getBusinessObject
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import { isFeelEntryEdited } from '@kunpeng/properties-panel';
+import { isFeelEntryEdited } from '@kunpeng-js/properties-panel';
 
 import { isKunpengServiceTask } from '../utils/KunpengServiceTaskUtil';
 

@@ -1,7 +1,7 @@
 import { forEach } from 'min-dash';
 
-import { containsDi } from '@kunpeng/dmn-js-shared/lib/util/DiUtil';
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { containsDi } from '@kunpeng-js/dmn-js-shared/lib/util/DiUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 /**

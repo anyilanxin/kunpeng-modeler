@@ -4,10 +4,10 @@ import { bootstrapModeler, inject } from 'test/helper';
 import {
   triggerInputEvent,
   triggerInputSelectChange
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
-import DataTypesModule from '@kunpeng/dmn-js-shared/lib/features/data-types';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
+import DataTypesModule from '@kunpeng-js/dmn-js-shared/lib/features/data-types';
 
 import {
   query as domQuery

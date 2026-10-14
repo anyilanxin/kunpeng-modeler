@@ -1,4 +1,4 @@
-import Manager from '@kunpeng/dmn-js-shared/lib/base/Manager';
+import Manager from '@kunpeng-js/dmn-js-shared/lib/base/Manager';
 
 import DrdReadOnlyView from 'src/Viewer';
 

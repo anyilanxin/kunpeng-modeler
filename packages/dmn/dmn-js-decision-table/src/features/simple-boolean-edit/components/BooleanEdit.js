@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 
-import InputSelect from '@kunpeng/dmn-js-shared/lib/components/InputSelect';
+import InputSelect from '@kunpeng-js/dmn-js-shared/lib/components/InputSelect';
 
 import { parseString } from '../Utils';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/dmn-js-literal-expression",
+  "name": "@kunpeng-js/dmn-js-literal-expression",
   "version": "17.8.1",
   "description": "A literal expression view for dmn-js",
   "keywords": [
@@ -31,7 +31,7 @@
   "main": "./lib/index.js",
   "dependencies": {
     "@bpmn-io/dmn-variable-resolver": "catalog:",
-    "@kunpeng/dmn-js-shared": "workspace:*",
+    "@kunpeng-js/dmn-js-shared": "workspace:*",
     "diagram-js": "catalog:",
     "escape-html": "catalog:",
     "inferno": "catalog:",

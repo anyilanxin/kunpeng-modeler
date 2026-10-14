@@ -55,7 +55,7 @@ const modelerRef = computed(() => modelerRefs[activeId.value] ?? null);
 
 /**
  * 处理 modeler 校验结果
- * @kunpeng/linting 返回扁平的 reports 数组，每项 { id, message, category, rule }
+ * @kunpeng-js/linting 返回扁平的 reports 数组，每项 { id, message, category, rule }
  * 这里映射为 ProblemItem[] 写入 store
  */
 function handleLint(tabId: string, reports: any[]) {

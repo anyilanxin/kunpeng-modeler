@@ -25,7 +25,7 @@ import dmnJsDecisionTableCss from 'dmn-js/dist/assets/dmn-js-decision-table.css?
 import dmnDecisionTableControlsCss from 'dmn-js/dist/assets/dmn-js-decision-table-controls.css?raw';
 import dmnJsLiteralExpressionCss from 'dmn-js/dist/assets/dmn-js-literal-expression.css?raw';
 
-import propertiesPanelPkg from '@kunpeng/properties-panel/package.json' with { type: 'json' };
+import propertiesPanelPkg from '@kunpeng-js/properties-panel/package.json' with { type: 'json' };
 
 let PROPERTIES_PANEL_CONTAINER;
 
@@ -92,7 +92,7 @@ export function insertCoreStyles() {
 }
 
 /**
- * Execute test only if currently installed @kunpeng/properties-panel is of given version.
+ * Execute test only if currently installed @kunpeng-js/properties-panel is of given version.
  *
  * @param {string} versionRange
  * @param {boolean} only
@@ -126,15 +126,15 @@ export function insertDmnStyles() {
     dmnFontEmbeddedCss
   );
 
-  insertCSS('@kunpeng/dmn-js-shared.css',
+  insertCSS('@kunpeng-js/dmn-js-shared.css',
     dmnJsSharedCss
   );
 
-  insertCSS('@kunpeng/dmn-js-drd.css',
+  insertCSS('@kunpeng-js/dmn-js-drd.css',
     dmnJsDrdCss
   );
 
-  insertCSS('@kunpeng/dmn-js-decision-table.css',
+  insertCSS('@kunpeng-js/dmn-js-decision-table.css',
     dmnJsDecisionTableCss
   );
 
@@ -142,7 +142,7 @@ export function insertDmnStyles() {
     dmnDecisionTableControlsCss
   );
 
-  insertCSS('@kunpeng/dmn-js-literal-expression.css',
+  insertCSS('@kunpeng-js/dmn-js-literal-expression.css',
     dmnJsLiteralExpressionCss
   );
 }

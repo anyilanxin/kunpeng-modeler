@@ -1,4 +1,4 @@
-# @kunpeng/properties-panel
+# @kunpeng-js/properties-panel
 
 [![CI](https://github.com/bpmn-io/properties-panel/workflows/CI/badge.svg)](https://github.com/bpmn-io/properties-panel/actions?query=workflow%3ACI)
 

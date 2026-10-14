@@ -9,10 +9,10 @@ insertCSS('dmn-font.css',
 );
 
 insertCSS(
-  '@kunpeng/dmn-js-shared.css',
-  require('@kunpeng/dmn-js-shared/assets/css/dmn-js-shared.css')
+  '@kunpeng-js/dmn-js-shared.css',
+  require('@kunpeng-js/dmn-js-shared/assets/css/dmn-js-shared.css')
 );
-insertCSS('@kunpeng/dmn-js-drd.css', require('../assets/css/dmn-js-drd.css'));
+insertCSS('@kunpeng-js/dmn-js-drd.css', require('../assets/css/dmn-js-drd.css'));
 
 insertCSS('diagram-js.css', require('diagram-js/assets/diagram-js.css'));
 

@@ -22,11 +22,11 @@ import viewDrdModule from './features/view-drd';
 import PoweredByModule from './features/powered-by';
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenResult} OpenResult
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenResult} OpenResult
  */
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenError} OpenError
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenError} OpenError
  */
 
 

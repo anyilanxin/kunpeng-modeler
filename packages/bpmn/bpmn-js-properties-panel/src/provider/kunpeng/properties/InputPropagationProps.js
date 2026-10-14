@@ -19,7 +19,7 @@ import {
   useService
 } from '../../../hooks';
 
-import { ToggleSwitchEntry, isToggleSwitchEntryEdited } from '@kunpeng/properties-panel';
+import { ToggleSwitchEntry, isToggleSwitchEntryEdited } from '@kunpeng-js/properties-panel';
 
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }
 

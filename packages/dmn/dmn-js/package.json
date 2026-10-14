@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/dmn-js",
+  "name": "@kunpeng-js/dmn-js",
   "version": "17.8.1",
   "description": "A dmn toolkit and web modeler",
   "keywords": [
@@ -47,11 +47,11 @@
   ],
   "main": "./lib/index.js",
   "dependencies": {
-    "@kunpeng/dmn-js-boxed-expression": "workspace:*",
-    "@kunpeng/dmn-js-decision-table": "workspace:*",
-    "@kunpeng/dmn-js-drd": "workspace:*",
-    "@kunpeng/dmn-js-literal-expression": "workspace:*",
-    "@kunpeng/dmn-js-shared": "workspace:*",
+    "@kunpeng-js/dmn-js-boxed-expression": "workspace:*",
+    "@kunpeng-js/dmn-js-decision-table": "workspace:*",
+    "@kunpeng-js/dmn-js-drd": "workspace:*",
+    "@kunpeng-js/dmn-js-literal-expression": "workspace:*",
+    "@kunpeng-js/dmn-js-shared": "workspace:*",
     "diagram-js": "catalog:",
     "inherits-browser": "catalog:",
     "min-dash": "catalog:",

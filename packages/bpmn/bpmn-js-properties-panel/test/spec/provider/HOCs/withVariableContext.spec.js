@@ -8,13 +8,13 @@ import {
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   ZeebeVariableResolverModule
-} from '@kunpeng/variable-resolver';
+} from '@kunpeng-js/variable-resolver';
 
-import VariableProvider from '@kunpeng/variable-resolver/lib/VariableProvider';
+import VariableProvider from '@kunpeng-js/variable-resolver/lib/VariableProvider';
 
 import { withVariableContext } from 'src/provider/HOCs';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/dmn-js-decision-table",
+  "name": "@kunpeng-js/dmn-js-decision-table",
   "version": "17.8.1",
   "description": "A decision table view for dmn-js",
   "keywords": [
@@ -31,7 +31,7 @@
   "main": "./lib/index.js",
   "dependencies": {
     "@bpmn-io/dmn-variable-resolver": "catalog:",
-    "@kunpeng/dmn-js-shared": "workspace:*",
+    "@kunpeng-js/dmn-js-shared": "workspace:*",
     "css.escape": "catalog:",
     "diagram-js": "catalog:",
     "escape-html": "catalog:",

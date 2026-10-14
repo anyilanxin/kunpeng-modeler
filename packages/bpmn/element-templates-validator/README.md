@@ -7,7 +7,7 @@ Validate element templates based on [JSON Schema](https://github.com/camunda/ele
 ## Installation
 
 ```sh
-npm i --save @kunpeng/element-templates-validator
+npm i --save @kunpeng-js/element-templates-validator
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm i --save @kunpeng/element-templates-validator
 Given an [example element template](./test/fixtures/rpa-broken.json):
 
 ```js
-import { validate } from '@kunpeng/element-templates-validator';
+import { validate } from '@kunpeng-js/element-templates-validator';
 
 import sample from './test/fixtures/rpa-broken.json';
 
@@ -58,7 +58,7 @@ This will print detailed information about errors inside the sample:
 You can also pass a stringified template to ensure that the `dataPointers` of the errors reflect the correct position in the original string.
 
 ```js
-import { validate } from '@kunpeng/element-templates-validator';
+import { validate } from '@kunpeng-js/element-templates-validator';
 
 import { readFileSync } from 'node:fs';
 
@@ -76,7 +76,7 @@ If a parsed JSON object is passed, the `dataPointers` will assume that the sourc
 It's also possible to validate multiple objects at once. In this case, the list of templates supports only objects, not strings.
 
 ```js
-import { validateAll } from '@kunpeng/element-templates-validator';
+import { validateAll } from '@kunpeng-js/element-templates-validator';
 
 import samples from './test/fixtures/multiple-errors.json';
 

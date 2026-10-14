@@ -13,7 +13,7 @@ import BpmnPropertiesProvider from 'src/provider/bpmn';
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 import TooltipProvider from 'src/contextProvider/TooltipProvider';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import diagramXML from './AdHocSubProcessImplementationProps.bpmn';
 

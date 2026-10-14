@@ -13,7 +13,7 @@ import {
 import {
   isFeelEntryEdited,
   SelectEntry, isSelectEntryEdited,
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { BpmnFeelEntry } from '../../../entries/BpmnFeelEntry';
 
@@ -23,7 +23,7 @@ import { isTimerExpressionTypeSupportedOpen } from '../utils/TimerUtil';
 
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 /**

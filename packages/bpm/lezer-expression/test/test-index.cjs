@@ -2,7 +2,7 @@ const {
   parser,
   trackVariables,
   normalizeContextKey
-} = require('@kunpeng/lezer-expression');
+} = require('@kunpeng-js/lezer-expression');
 
 const {
   expect

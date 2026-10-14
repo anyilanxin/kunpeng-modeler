@@ -9,7 +9,7 @@ import TestContainer from 'mocha-test-container-support';
 
 import { query as domQuery, queryAll as domQueryAll } from 'min-dom';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import coreModule from 'src/core';
 import modelingModule from 'src/features/modeling';

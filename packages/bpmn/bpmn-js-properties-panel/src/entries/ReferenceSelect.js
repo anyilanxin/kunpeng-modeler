@@ -1,6 +1,6 @@
 import {
   useEffect
-} from '@kunpeng/properties-panel/preact/hooks';
+} from '@kunpeng-js/properties-panel/preact/hooks';
 
 import {
   query as domQuery
@@ -9,7 +9,7 @@ import {
 import {
   SelectEntry,
   usePrevious
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }
 

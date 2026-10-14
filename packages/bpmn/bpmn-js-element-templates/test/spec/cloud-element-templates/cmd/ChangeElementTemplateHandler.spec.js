@@ -16,7 +16,7 @@ import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
 import KunpengBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   getBusinessObject, is

@@ -1,4 +1,4 @@
-import { VariableContext } from '@kunpeng/lezer-expression';
+import { VariableContext } from '@kunpeng-js/lezer-expression';
 
 
 /**

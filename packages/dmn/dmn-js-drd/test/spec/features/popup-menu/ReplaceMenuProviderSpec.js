@@ -7,7 +7,7 @@ import {
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import coreModule from 'src/core';
 import modelingModule from 'src/features/modeling';

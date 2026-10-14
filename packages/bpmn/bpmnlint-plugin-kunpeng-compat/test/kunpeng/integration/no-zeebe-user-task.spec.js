@@ -27,7 +27,7 @@ describe('integration - no-zeebe-user-task', function() {
     beforeEach(function() {
       linter = new Linter({
         config: {
-          extends: `plugin:@kunpeng/bpmnlint-plugin-kunpeng-compat/camunda-cloud-${ version.replace('.', '-') }`
+          extends: `plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-${ version.replace('.', '-') }`
         },
         resolver: new NodeResolver()
       });

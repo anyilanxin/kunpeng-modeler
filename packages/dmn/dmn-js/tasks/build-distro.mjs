@@ -38,19 +38,19 @@ async function run() {
   await cp('./assets/*.css', dest + '/assets');
 
   console.log('copy dmn-js-shared assets to ' + dest);
-  await cp(resolve('@kunpeng/dmn-js-shared', '/assets/css/**'), dest + '/assets');
+  await cp(resolve('@kunpeng-js/dmn-js-shared', '/assets/css/**'), dest + '/assets');
 
   console.log('copy dmn-js-drd assets to ' + dest);
-  await cp(resolve('@kunpeng/dmn-js-drd', '/assets/css/**'), dest + '/assets');
+  await cp(resolve('@kunpeng-js/dmn-js-drd', '/assets/css/**'), dest + '/assets');
 
   console.log('copy dmn-js-decision-table assets to ' + dest);
-  await cp(resolve('@kunpeng/dmn-js-decision-table', '/assets/css/**'), dest + '/assets');
+  await cp(resolve('@kunpeng-js/dmn-js-decision-table', '/assets/css/**'), dest + '/assets');
 
   console.log('copy dmn-js-literal-expression assets to ' + dest);
-  await cp(resolve('@kunpeng/dmn-js-literal-expression', '/assets/css/**'), dest + '/assets');
+  await cp(resolve('@kunpeng-js/dmn-js-literal-expression', '/assets/css/**'), dest + '/assets');
 
   console.log('copy dmn-js-boxed-expression assets to ' + dest);
-  await cp(resolve('@kunpeng/dmn-js-boxed-expression', '/assets/css/**'), dest + '/assets');
+  await cp(resolve('@kunpeng-js/dmn-js-boxed-expression', '/assets/css/**'), dest + '/assets');
 
   console.log('building pre-packaged distributions');
 

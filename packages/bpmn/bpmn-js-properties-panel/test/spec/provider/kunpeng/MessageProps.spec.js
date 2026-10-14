@@ -29,7 +29,7 @@ import ZeebePropertiesProvider from 'src/provider/kunpeng';
 
 import TooltipProvider from 'src/contextProvider/TooltipProvider';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import BehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 

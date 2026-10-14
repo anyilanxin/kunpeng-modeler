@@ -2,7 +2,7 @@ import { getLabel } from './LabelUtil';
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   assign,

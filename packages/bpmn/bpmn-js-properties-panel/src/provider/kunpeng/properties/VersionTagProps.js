@@ -3,7 +3,7 @@ import {
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng-js/properties-panel';
 
 import {
   useService

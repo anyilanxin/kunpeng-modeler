@@ -1,4 +1,4 @@
-import { parser } from '@kunpeng/lezer-expression';
+import { parser } from '@kunpeng-js/lezer-expression';
 import firstItem from '../../../rules/first-item.js';
 
 import { expect } from 'chai';

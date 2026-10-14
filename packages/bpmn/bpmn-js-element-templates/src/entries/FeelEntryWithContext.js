@@ -1,4 +1,4 @@
-import { FeelEntry as BaseFeelEntry, FeelTextAreaEntry as BaseFeelTextAreaEntry } from '@kunpeng/properties-panel';
+import { FeelEntry as BaseFeelEntry, FeelTextAreaEntry as BaseFeelTextAreaEntry } from '@kunpeng-js/properties-panel';
 import { withTooltipContainer, withVariableContext } from './HOCs';
 
 export const FeelEntry = withTooltipContainer(BaseFeelEntry);

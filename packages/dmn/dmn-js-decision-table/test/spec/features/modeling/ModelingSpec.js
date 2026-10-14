@@ -6,7 +6,7 @@ import modelingXML from './modeling.dmn';
 import CoreModule from 'src/core';
 import ModelingModule from 'src/features/modeling';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 describe('Modeling', function() {

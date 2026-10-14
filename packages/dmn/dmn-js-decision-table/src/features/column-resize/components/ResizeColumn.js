@@ -6,7 +6,7 @@ import {
   closest as domClosest
 } from 'min-dom';
 
-import { is, getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is, getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 
 export default class ResizeColumn extends Component {

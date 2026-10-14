@@ -6,7 +6,7 @@ import {
 
 import {
   queryEditor
-} from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
 import {
   query as domQuery
@@ -18,7 +18,7 @@ import {
   triggerClick,
   triggerInputEvent,
   triggerMouseEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import simpleBooleanEditXML from './description.dmn';
 

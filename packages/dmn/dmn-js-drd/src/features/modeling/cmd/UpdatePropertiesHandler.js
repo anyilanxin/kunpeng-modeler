@@ -4,7 +4,7 @@ import {
   forEach
 } from 'min-dash';
 
-import { getBusinessObject } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { getBusinessObject } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 const NAME = 'name',
       ID = 'id';

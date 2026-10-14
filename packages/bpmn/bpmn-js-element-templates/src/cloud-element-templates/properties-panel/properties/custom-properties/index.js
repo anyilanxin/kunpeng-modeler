@@ -11,7 +11,7 @@ import {
   isTextFieldEntryEdited,
   isFeelEntryEdited,
   isNumberFieldEntryEdited
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import {
   PROPERTY_TYPE,

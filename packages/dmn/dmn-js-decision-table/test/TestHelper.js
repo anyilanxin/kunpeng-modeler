@@ -12,15 +12,15 @@ insertCSS('diagram-js.css',
   require('diagram-js/assets/diagram-js.css')
 );
 
-insertCSS('@kunpeng/dmn-js-shared.css',
-  require('@kunpeng/dmn-js-shared/assets/css/dmn-js-shared.css')
+insertCSS('@kunpeng-js/dmn-js-shared.css',
+  require('@kunpeng-js/dmn-js-shared/assets/css/dmn-js-shared.css')
 );
 
-insertCSS('@kunpeng/dmn-js-decision-table.css',
+insertCSS('@kunpeng-js/dmn-js-decision-table.css',
   require('../assets/css/dmn-js-decision-table.css')
 );
 
-insertCSS('@kunpeng/dmn-js-decision-table-controls.css',
+insertCSS('@kunpeng-js/dmn-js-decision-table-controls.css',
   require('../assets/css/dmn-js-decision-table-controls.css')
 );
 

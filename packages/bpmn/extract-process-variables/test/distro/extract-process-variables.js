@@ -6,7 +6,7 @@ describe('extract-process-variables - distribution', function() {
   it('should expose ESM bundle', async function() {
 
     // when
-    const { getProcessVariables, getScope } = await import('@kunpeng/extract-process-variables');
+    const { getProcessVariables, getScope } = await import('@kunpeng-js/extract-process-variables');
 
     // then
     expect(getProcessVariables).to.exist;
@@ -17,7 +17,7 @@ describe('extract-process-variables - distribution', function() {
   it('should expose ESM bundle / zeebe', async function() {
 
     // when
-    const { getProcessVariables, getScope } = await import('@kunpeng/extract-process-variables');
+    const { getProcessVariables, getScope } = await import('@kunpeng-js/extract-process-variables');
 
     // then
     expect(getProcessVariables).to.exist;

@@ -1,5 +1,5 @@
 import AnnotationsEditingProvider from './AnnotationsEditingProvider';
-import DebounceInput from '@kunpeng/dmn-js-shared/lib/features/debounce-input';
+import DebounceInput from '@kunpeng-js/dmn-js-shared/lib/features/debounce-input';
 
 export default {
   __depends__: [ DebounceInput ],

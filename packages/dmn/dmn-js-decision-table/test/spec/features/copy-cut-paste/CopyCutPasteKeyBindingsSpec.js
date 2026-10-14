@@ -12,7 +12,7 @@ import TestContainer from 'mocha-test-container-support';
 
 import {
   queryEditor
-} from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
 import {
   query as domQuery

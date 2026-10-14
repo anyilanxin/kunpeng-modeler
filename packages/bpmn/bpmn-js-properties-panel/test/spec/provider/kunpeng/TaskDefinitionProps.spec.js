@@ -28,7 +28,7 @@ import BpmnPropertiesPanel from 'src/render';
 
 import ZeebePropertiesProvider from 'src/provider/kunpeng';
 
-import kunpengModdleExtensions from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdleExtensions from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import TooltipProvider from 'src/contextProvider/TooltipProvider';
 

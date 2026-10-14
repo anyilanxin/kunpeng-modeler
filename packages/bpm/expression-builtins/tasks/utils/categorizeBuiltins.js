@@ -2,7 +2,7 @@ import { parser } from '@bpmn-io/lezer-feel';
 
 /**
  * Test if a function is parsable
- * @param {import('@kunpeng/expression-builtins').Builtin} builtin
+ * @param {import('@kunpeng-js/expression-builtins').Builtin} builtin
  * @returns {boolean}
  */
 function isParsable(builtin) {
@@ -28,7 +28,7 @@ function isParsable(builtin) {
 
 /**
  * Check if a builtin is a Camunda extension
- * @param {import('@kunpeng/expression-builtins').Builtin} builtin
+ * @param {import('@kunpeng-js/expression-builtins').Builtin} builtin
  * @returns {boolean}
  */
 function isCamundaExtension(builtin) {
@@ -37,11 +37,11 @@ function isCamundaExtension(builtin) {
 
 /**
  * Categorize builtins into FEEL standard functions Camunda extensions and list ones using reserved keywords.
- * @param {import('@kunpeng/expression-builtins').Builtin[]} builtins
+ * @param {import('@kunpeng-js/expression-builtins').Builtin[]} builtins
  * @returns {{
- *   qlexpressionBuiltins: import('@kunpeng/expression-builtins').Builtin[],
- *   kunpengExtensions: import('@kunpeng/expression-builtins').Builtin[],
- *   kunpengReservedNameBuiltins: import('@kunpeng/expression-builtins').Builtin[]
+ *   qlexpressionBuiltins: import('@kunpeng-js/expression-builtins').Builtin[],
+ *   kunpengExtensions: import('@kunpeng-js/expression-builtins').Builtin[],
+ *   kunpengReservedNameBuiltins: import('@kunpeng-js/expression-builtins').Builtin[]
  * }}
  */
 export function categorizeBuiltins(builtins) {
@@ -71,9 +71,9 @@ export function categorizeBuiltins(builtins) {
 /**
  * Log categorization statistics
  * @param {{
- *   qlexpressionBuiltins: import('@kunpeng/expression-builtins').Builtin[],
- *   kunpengExtensions: import('@kunpeng/expression-builtins').Builtin[],
- *   kunpengReservedNameBuiltins: import('@kunpeng/expression-builtins').Builtin[]
+ *   qlexpressionBuiltins: import('@kunpeng-js/expression-builtins').Builtin[],
+ *   kunpengExtensions: import('@kunpeng-js/expression-builtins').Builtin[],
+ *   kunpengReservedNameBuiltins: import('@kunpeng-js/expression-builtins').Builtin[]
  * }} categorized
  */
 export function logStatistics(categorized) {

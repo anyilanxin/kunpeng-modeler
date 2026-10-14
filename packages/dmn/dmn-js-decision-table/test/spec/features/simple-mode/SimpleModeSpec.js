@@ -5,7 +5,7 @@ import { query as domQuery } from 'min-dom';
 
 import TestContainer from 'mocha-test-container-support';
 
-import { triggerClick } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+import { triggerClick } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import simpleStringEditXML from './simple-mode.dmn';
 

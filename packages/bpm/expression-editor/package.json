@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/expression-editor",
+  "name": "@kunpeng-js/expression-editor",
   "version": "2.6.0",
   "description": "Editor for FEEL expressions.",
   "type": "module",
@@ -60,9 +60,9 @@
     "@codemirror/lint": "catalog:",
     "@codemirror/state": "catalog:",
     "@codemirror/view": "catalog:",
-    "@kunpeng/expression-builtins": "workspace:*",
-    "@kunpeng/expression-lint": "workspace:*",
-    "@kunpeng/lang-expression": "workspace:*",
+    "@kunpeng-js/expression-builtins": "workspace:*",
+    "@kunpeng-js/expression-lint": "workspace:*",
+    "@kunpeng-js/lang-expression": "workspace:*",
     "@lezer/highlight": "catalog:",
     "min-dom": "catalog:",
     "mitt": "catalog:"

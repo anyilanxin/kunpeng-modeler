@@ -1,5 +1,5 @@
-import Manager from '@kunpeng/dmn-js-shared/lib/base/Manager';
-import { isAny } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import Manager from '@kunpeng-js/dmn-js-shared/lib/base/Manager';
+import { isAny } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { Viewer } from 'src';
 

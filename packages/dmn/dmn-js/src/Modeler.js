@@ -1,13 +1,13 @@
-import { Editor as BoxedExpressionEditor } from '@kunpeng/dmn-js-boxed-expression';
-import DecisionTableEditor from '@kunpeng/dmn-js-decision-table/lib/Editor';
-import DrdModeler from '@kunpeng/dmn-js-drd/lib/Modeler';
-import LiteralExpressionEditor from '@kunpeng/dmn-js-literal-expression/lib/Editor';
-import EditingManager from '@kunpeng/dmn-js-shared/lib/base/EditingManager';
-import { containsDi } from '@kunpeng/dmn-js-shared/lib/util/DiUtil';
+import { Editor as BoxedExpressionEditor } from '@kunpeng-js/dmn-js-boxed-expression';
+import DecisionTableEditor from '@kunpeng-js/dmn-js-decision-table/lib/Editor';
+import DrdModeler from '@kunpeng-js/dmn-js-drd/lib/Modeler';
+import LiteralExpressionEditor from '@kunpeng-js/dmn-js-literal-expression/lib/Editor';
+import EditingManager from '@kunpeng-js/dmn-js-shared/lib/base/EditingManager';
+import { containsDi } from '@kunpeng-js/dmn-js-shared/lib/util/DiUtil';
 import {
   getBoxedExpression,
   is,
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { find } from 'min-dash';
 

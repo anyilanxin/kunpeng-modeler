@@ -7,7 +7,7 @@ import {
 
 import TestContainer from 'mocha-test-container-support';
 
-import { triggerMouseEvent } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+import { triggerMouseEvent } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import simpleXML from '../../simple.dmn';
 

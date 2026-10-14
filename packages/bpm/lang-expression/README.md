@@ -1,4 +1,4 @@
-# @kunpeng/lang-expression
+# @kunpeng-js/lang-expression
 
 [![CI](https://github.com/bpmn-io/lang-feel/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/lang-feel/actions/workflows/CI.yml)
 

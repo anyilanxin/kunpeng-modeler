@@ -1,9 +1,9 @@
 import {
   getBusinessObject,
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng/properties-panel';
+import { TextFieldEntry, isTextFieldEntryEdited } from '@kunpeng-js/properties-panel';
 
 import {
   useService

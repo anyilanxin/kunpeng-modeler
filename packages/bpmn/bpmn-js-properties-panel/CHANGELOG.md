@@ -10,7 +10,7 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 
 - `FIX`: prevent racing blur for FEEL-optional ([bpmn-io/properties-panel#461](https://github.com/bpmn-io/properties-panel/pull/461))
 - `FIX`: keep focus in FEEL-optional field after pasting FEEL expression ([bpmn-io/properties-panel#461](https://github.com/bpmn-io/properties-panel/pull/461))
-- `DEPS`: update to `@kunpeng/properties-panel@3.35.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.35.0`
 
 ## 5.44.0
 
@@ -25,7 +25,7 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 - `FEAT`: remove title attribute when unnecessary ([bpmn-io/properties-panel#455](https://github.com/bpmn-io/properties-panel/pull/455))
 - `FIX`: improve tooltip behavior ([bpmn-io/properties-panel#451](https://github.com/bpmn-io/properties-panel/pull/451))
 - `FIX`: correctly handle trimming and debouncing ([bpmn-io/properties-panel#450](https://github.com/bpmn-io/properties-panel/pull/450), [bpmn-io/properties-panel#309](https://github.com/bpmn-io/properties-panel/issues/309))
-- `DEPS`: update to `@kunpeng/properties-panel@3.34.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.34.0`
 
 ## 5.42.3
 
@@ -34,9 +34,9 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 ## 5.42.2
 
 - `FIX`: keep selected element in sync with canvas state ([#1131](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/1131))
-- `FIX`: use maximize icon in open popup button ([@kunpeng/properties-panel#438](https://github.com/bpmn-io/properties-panel/pull/444))
+- `FIX`: use maximize icon in open popup button ([@kunpeng-js/properties-panel#438](https://github.com/bpmn-io/properties-panel/pull/444))
 - `CHORE`: link to stable version of docs ([#1160](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1160))
-- `DEPS`: update to `@kunpeng/properties-panel@3.33.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.33.1`
 - `DEPS`: update to `bpmn-js@18.8.0`
 - `DEPS`: update to `diagram-js@15.4.0`
 
@@ -50,7 +50,7 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 
 - `FEAT`: support multiline feel strings in `camunda` dialect ([@bpmn-io/lezer-feel#2](https://github.com/bpmn-io/lezer-feel/pull/2))
 - `FIX`: recognize unclosed feel string literal as syntax error ([nikku/lezer-feel#52](https://github.com/nikku/lezer-feel/pull/52))
-- `DEPS`: update to `@kunpeng/properties-panel@3.33.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.33.0`
 
 ## 5.41.3
 
@@ -67,19 +67,19 @@ _Re-release of `v5.41.0` with fixed changelog._
 ## 5.41.0
 
 - `FEAT`: support job worker implementation of `bpmn:AdHocSubProcess` ([#1144](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1144))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.11.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.11.0`
 - `DEPS`: update to `min-dash@4.2.3`
 
 ## 5.40.0
 
 - `FEAT`: add output collection props for `bpmn:AdHocSubProcess` ([#1143](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1143))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.10.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.10.0`
 
 ## 5.39.0
 
 - `FEAT`: update `camunda` built-ins
 - `FIX`: show tooltip on number fields
-- `DEPS`: update to `@kunpeng/properties-panel@3.31.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.31.0`
 
 ## 5.38.1
 
@@ -90,24 +90,24 @@ _Re-release of `v5.41.0` with fixed changelog._
 - `FEAT`: set FEEL parser dialect to Camunda by default ([#1128](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1128))
 - `FEAT`: allow to provide custom FEEL popup
 - `FEAT`: make list headers sticky ([bpmn-io/properties-panel#397](https://github.com/bpmn-io/properties-panel/pull/397))
-- `DEPS`: update to `@kunpeng/properties-panel@3.30.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.30.0`
 
 ## 5.37.0
 
 - `FEAT`: support `creating` and `canceling` task listeners
 - `FIX`: correctly update condition entry
-- `DEPS`: update to `@kunpeng/properties-panel@3.27.3`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.27.3`
 
 ## 5.36.1
 
 - `FIX`: show literal values in FEEL suggestions
-- `DEPS`: update to `@kunpeng/expression-editor@1.10.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.10.1`
 
 ## 5.36.0
 
 - `FEAT`: trim whitespace in entries
 - `FIX`: add empty alt attribute for icons
-- `DEPS`: update to `@kunpeng/properties-panel@3.27.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.27.1`
 
 ## 5.35.0
 
@@ -115,7 +115,7 @@ _Re-release of `v5.41.0` with fixed changelog._
 
 ## 5.34.2
 
-- `DEPS`: update to `@kunpeng/properties-panel@3.26.4`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.26.4`
 - `FIX`: reverts trim trailing whitespaces from all input fields except expressions ([bpmn-io/properties-panel#309](https://github.com/bpmn-io/properties-panel/issues/309)) added in `5.33.0`
 
 ## 5.34.1
@@ -129,7 +129,7 @@ _Re-release of `v5.41.0` with fixed changelog._
 ## 5.33.0
 
 - `FEAT`: trim trailing whitespaces from all input fields except expressions ([bpmn-io/properties-panel#309](https://github.com/bpmn-io/properties-panel/issues/309))
-- `DEPS`: update to `@kunpeng/properties-panel@3.26.3`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.26.3`
 
 ## 5.32.1
 
@@ -137,7 +137,7 @@ _Re-release of `v5.41.0` with fixed changelog._
 - `FIX`: add focus to checkboxes and buttons ([bpmn-io/properties-panel#390](https://github.com/bpmn-io/properties-panel/pull/390))
 - `FIX`: remove input border from popups ([bpmn-io/properties-panel#398](https://github.com/bpmn-io/properties-panel/pull/398))
 - `FIX`: make tooltip persist when trying to copy from it ([bpmn-io/properties-panel#399](https://github.com/bpmn-io/properties-panel/pull/399))
-- `DEPS`: update to `@kunpeng/properties-panel@3.26.2`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.26.2`
 
 ## 5.32.0
 
@@ -150,7 +150,7 @@ _Re-release of `v5.41.0` with fixed changelog._
 ## 5.31.0
 
 - `FEAT`: support ad-hoc subprocess ([#1105](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1105))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.9.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.9.0`
 
 ## 5.30.1
 
@@ -171,7 +171,7 @@ _Re-release of `v5.41.0` with fixed changelog._
 ## 5.27.0
 
 - `FEAT`: support Zeebe task listeners ([#1088](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1088))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.7.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.7.0`
 - `DEPS`: update to `camunda-bpmn-js-behaviors@1.7.1`
 
 ## 5.26.0
@@ -188,7 +188,7 @@ _No functional changes._
 
 - `FEAT`: lint first item access ([bpmn-io/feel-lint#25](https://github.com/bpmn-io/feel-lint/issues/25))
 - `FEAT`: suggest Camunda 8.6 FEEL built-ins
-- `DEPS`: update to `@kunpeng/properties-panel@3.24.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.24.1`
 
 ## 5.23.2
 
@@ -202,42 +202,42 @@ _No functional changes._
 
 - `FEAT`: support maintaning `Version Tag` for Camunda 8 diagrams ([#1062](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/1062))
 - `DEPS`: update to `camunda-bpmn-js-behaviors@1.6.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.6.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.6.0`
 
 ## 5.22.0
 
 - `FEAT`: support maintaining `kunpeng:priorityDefinition:priority` for user task ([#1072](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1072))
 - `FIX`: rename task definition type label ([#1070](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1070))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.5.1`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.5.1`
 
 ## 5.21.0
 
 - `FEAT`: automatically resize text areas ([#713](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/713))
-- `DEPS`: update to `@kunpeng/properties-panel@3.23.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.23.0`
 
 ## 5.20.0
 
 - `FEAT`: add `Binding` entry to busines rule task, call activity and user task ([#1067](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1067))
-- `DEPS`: update to `@kunpeng/properties-panel@3.22.4`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.22.4`
 - `DEPS`: update to `camunda-bpmn-js-behaviors@1.5.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.4.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.4.0`
 
 ## 5.19.0
 
 - `FEAT`: support Zeebe execution listeners ([#1048](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1048))
 - `DEPS`: update to `camunda-bpmn-js-behaviors@1.4.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.2.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.2.0`
 
 ## 5.18.1
 
 - `FEAT`: change Header value and Field Injection value fields to text areas ([bpmn-io/bpmn-js-properties-panel#1065](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1065))
-- `DEPS`: update to `@kunpeng/properties-panel@3.22.3`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.22.3`
 
 ## 5.18.0
 
 - `FEAT`: move popup editor close button ([bpmn-io/properties-panel#368](https://github.com/bpmn-io/properties-panel/pull/368))
 - `FIX`: prevent list group rendering with outdated components ([bpmn-io/properties-panel#369](https://github.com/bpmn-io/properties-panel/pull/369))
-- `DEPS`: update to `@kunpeng/properties-panel@3.21.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.21.0`
 
 ## 5.17.1
 
@@ -246,7 +246,7 @@ _No functional changes._
 ## 5.17.0
 
 - `FEAT`: drop alphabetic sorting of list entries ([#1047](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1047))
-- `DEPS`: update to `@kunpeng/properties-panel@3.19.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.19.0`
 
 ## 5.16.0
 
@@ -256,8 +256,8 @@ _No functional changes._
 
 - `FEAT`: add tooltip for `Called decision` group ([#1039](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/1039))
 - `FIX`: add missing translations ([#1044](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1044))
-- `DEPS`: update to `@kunpeng/variable-resolver@1.2.2`
-- `DEPS`: update to `@kunpeng/properties-panel@3.18.2`
+- `DEPS`: update to `@kunpeng-js/variable-resolver@1.2.2`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.18.2`
 
 ## 5.14.0
 
@@ -267,7 +267,7 @@ _No functional changes._
 ## 5.13.0
 
 - `FEAT`: support `kunpeng:userTask` ([#1026](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1026))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@1.1.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@1.1.0`
 - `DEPS`: update to `camunda-bpmn-js-behaviors@1.3.0`
 
 ## 5.12.0
@@ -282,7 +282,7 @@ _No functional changes._
 ## 5.11.1
 
 - `FIX`: correct `id` validation ([#1022](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1022))
-- `DEPS`: update to `@kunpeng/properties-panel@3.18.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.18.1`
 
 ## 5.11.0
 
@@ -292,7 +292,7 @@ _No functional changes._
 - `FIX`: close popup editor when properties panel gets detached ([bpmn-io/properties-panel@`7defc52`](https://github.com/bpmn-io/properties-panel/commit/7defc525400c62f253651cda589fe2f5058518a6))
 - `FIX`: close popup editor when source component gets unmounted ([bpmn-io/properties-panel@`1fa3330`](https://github.com/bpmn-io/properties-panel/commit/1fa3330ebdcbc7c0ac405a49eb510817fc3aa71c))
 - `FIX`: correct re-validation of entries when validator changes ([bpmn-io/properties-panel@`e93e986`](https://github.com/bpmn-io/properties-panel/commit/e93e986573d32adc361c64a1bc53cf1e38454715))
-- `DEPS`: update to `@kunpeng/properties-panel@3.18.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.18.0`
 
 ## 5.10.0
 
@@ -300,21 +300,21 @@ _No functional changes._
 
 ## 5.9.0
 
-- `DEPS`: update to `@kunpeng/variable-resolver@1.2.1`
+- `DEPS`: update to `@kunpeng-js/variable-resolver@1.2.1`
 
 ## 5.8.0
 
 - `FEAT`: header displays element template icon found in XML ([#1012](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1012))
 - `FEAT`: automatically add line-breaks for FEEL expressions ([bpmn-io/properties-panel#319](https://github.com/bpmn-io/properties-panel/pull/319))
 - `FIX`: show scroll bars in FEEL popup editor ([bpmn-io/properties-panel#319](https://github.com/bpmn-io/properties-panel/pull/319))
-- `DEPS`: update to `@kunpeng/properties-panel@3.16.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.16.0`
 
 ## 5.7.0
 
 - `FEAT`: capitalize `Camunda Form` ([#1005](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1005))
 - `FEAT`: improve FEEL popup editor icon ([bpmn-io/properties-panel#310](https://github.com/bpmn-io/properties-panel/issues/310))
 - `FIX`: prevent error inside web component ([bpmn-io/properties-panel#313](https://github.com/bpmn-io/properties-panel/issues/313))
-- `DEPS`: update to `@kunpeng/properties-panel@3.14.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.14.0`
 
 ## 5.6.1
 
@@ -329,7 +329,7 @@ _No functional changes._
 - `FIX`: add error style to popup editor opened fields ([bpmn-io/properties-panel#298](https://github.com/bpmn-io/properties-panel/pull/298))
 - `FIX`: allow value `0` in FEEL number fields ([bpmn-io/properties-panel#297](https://github.com/bpmn-io/properties-panel/pull/297))
 - `FIX`: keep undo/redo stack when editing Camunda input/output properties ([#983](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/983))
-- `DEPS`: update to `@kunpeng/properties-panel@3.11.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.11.0`
 
 ## 5.5.0
 
@@ -341,7 +341,7 @@ _No functional changes._
 
 - `FEAT`: allow listen to `feelPopup.opened` and `feelPopup.closed` events ([#974](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/974))
 - `FEAT`: provide `feelPopup` module to interact with FEEL popup ([#974](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/974))
-- `DEPS`: update to `@kunpeng/properties-panel@3.7.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.7.0`
 
 ## 5.3.0
 
@@ -349,8 +349,8 @@ _No functional changes._
 - `FEAT`: specify FEEL popup container via `propertiesPanel.feelPopupContainer` ([bpmn-io/properties-panel#970](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/970))
 - `FIX`: correct FEEL popup editor closing during auto-suggest ([bpmn-io/properties-panel#279](https://github.com/bpmn-io/properties-panel/issues/279))
 - `FIX`: contain keyboard events within the FEEL popup editor ([bpmn-io/properties-panel@`a8dd384`](https://github.com/bpmn-io/properties-panel/commit/a8dd384ad625adb03272a9bc2e25fc4aab7bb284))
-- `DEPS`: update to `@kunpeng/variable-resolver@1.2.0`
-- `DEPS`: update to `@kunpeng/properties-panel@3.6.0`
+- `DEPS`: update to `@kunpeng-js/variable-resolver@1.2.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.6.0`
 
 ## 5.2.0
 
@@ -359,7 +359,7 @@ _No functional changes._
 ## 5.1.0
 
 - `FEAT`: add _Input propagation_ group ([#954](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/954))
-- `DEPS`: update to `@kunpeng/properties-panel@3.4.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.4.0`
 
 ## 5.0.0
 
@@ -367,20 +367,20 @@ _No functional changes._
 - `CHORE`: remove `properties-panel.css` ([#958](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/958))
 - `CHORE`: remove `element-template.css` ([#956](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/956))
 - `FIX`: remove output group from error end events ([#952](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/952))
-- `DEPS`: update to `@kunpeng/properties-panel@3.3.2` ([#958](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/958))
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.3.2` ([#958](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/958))
 
 ### Breaking Changes
 
 - `dist/assets/properties-panel.css` is no longer published from this package. Please use [`bpmn-js-element-templates/dist/assets/properties-panel.css`](https://github.com/bpmn-io/bpmn-js-element-templates) instead.
-- `dist/assets/properties-panel.css` is no longer published from this package. Please use [`@kunpeng/properties-panel/dist/assets/properties-panel.css`](https://github.com/bpmn-io/properties-panel) instead.
+- `dist/assets/properties-panel.css` is no longer published from this package. Please use [`@kunpeng-js/properties-panel/dist/assets/properties-panel.css`](https://github.com/bpmn-io/properties-panel) instead.
 
 ## 4.0.2
 
-- `DEPS`: update to `@kunpeng/properties-panel@3.2.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.2.1`
 
 ## 4.0.1
 
-- `DEPS`: update to `@kunpeng/properties-panel@3.2.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.2.0`
 
 ## 4.0.0
 
@@ -395,7 +395,7 @@ _No functional changes._
 
 - `FEAT`: support line breaks in FEEL statements ([#879](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/879))
 - `CHORE`: remove element templates ([#937](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/937))
-- `DEPS`: update to `@kunpeng/properties-panel@3.0.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@3.0.0`
 
 ### Breaking Changes
 
@@ -416,8 +416,8 @@ _No functional changes._
 
 ## 1.26.0
 
-- `FEAT`: change FEEL toggle ([@kunpeng/properties-panel#240](https://github.com/bpmn-io/properties-panel/issues/240))
-- `DEPS`: update to `@kunpeng/properties-panel@2.2.0`
+- `FEAT`: change FEEL toggle ([@kunpeng-js/properties-panel#240](https://github.com/bpmn-io/properties-panel/issues/240))
+- `DEPS`: update to `@kunpeng-js/properties-panel@2.2.0`
 
 ## 1.25.0
 
@@ -432,7 +432,7 @@ _No functional changes._
 - `FEAT`: validate custom dropdown and textArea entries ([#922](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/922))
 - `FIX`: allow to configure variable events for conditional start event in event subprocess ([#925](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/925))
 - `FIX`: unlink templated message instead of removing ([#914](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/914))
-- `DEPS`: update to `@kunpeng/properties-panel@2.0.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@2.0.0`
 
 ## 1.23.0
 
@@ -449,8 +449,8 @@ _No functional changes._
 - `FEAT`: support `generatedValue` in templates ([#890](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/890))
 - `FEAT`: suggest variables for templates properties ([#904](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/904))
 - `FIX`: separate Camunda 7 and BPMN concerns in Timer Props ([#910](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/910))
-- `DEPS`: update to `@kunpeng/element-templates-validator@0.14.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@0.19.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@0.14.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@0.19.0`
 - `DEPS`: support bpmn-js >=11.5 and diagram-js >=11.9
 
 ## 1.21.0
@@ -463,7 +463,7 @@ _No functional changes._
 
 ## 1.20.2
 
-- `DEPS`: update to `@kunpeng/variable-resolver@0.1.3`
+- `DEPS`: update to `@kunpeng-js/variable-resolver@0.1.3`
 
 ## 1.20.1
 
@@ -473,7 +473,7 @@ _No functional changes._
 
 - `FEAT`: add Due date and Follow up date properties ([#889](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/889))
 - `CHORE`: update to `camunda-bpmn-js-behaviors@0.5.0`
-- `CHORE`: update to `@kunpeng/bpmn-moddle@0.18.0`
+- `CHORE`: update to `@kunpeng-js/bpmn-moddle@0.18.0`
 
 ## 1.19.1
 
@@ -495,7 +495,7 @@ _No functional changes._
 
 ## 1.17.1
 
-- `DEPS`: update to `@kunpeng/properties-panel@1.3.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@1.3.1`
 
 ## 1.17.0
 
@@ -507,7 +507,7 @@ _No functional changes._
 - `FIX`: _Extension properties_ and _Headers_ are not sorted alphabetically ([#867](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/867))
 - `FIX`: result variables of script tasks are shown in FEEL suggestions ([extract-process-variables#25](https://github.com/bpmn-io/extract-process-variables/issues/25))
 - `DEPS`: update to `@bpmn-io/extract-process-variables@0.8.0`
-- `DEPS`: update to `@kunpeng/properties-panel@1.3.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@1.3.0`
 
 ## 1.16.0
 
@@ -533,18 +533,18 @@ _No functional changes._
 ## 1.13.1
 
 - `FIX`: correct element template defined `Dropdown` showing incorrect value ([`b3248fea`](https://github.com/bpmn-io/bpmn-js-properties-panel/commit/b3248fea0a19dabca7a9b969121cf07fba7a8f0a))
-- `DEPS`: update to `@kunpeng/properties-panel@1.1.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@1.1.1`
 
 ## 1.13.0
 
 - `FEAT`: add FEEL expression implementation for Script Task ([#825](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/825))
-- `DEPS`: update to `@kunpeng/properties-panel@1.0.1` ([#810](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/810))
+- `DEPS`: update to `@kunpeng-js/properties-panel@1.0.1` ([#810](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/810))
 
 ## 1.12.0
 
 - `FEAT`: update available variables on commandstack changes ([#393](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/814))
 - `FEAT`: configure feel tooltip placement using the properties panel configuration ([#393](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/814))
-- `DEPS`: update to `@kunpeng/properties-panel@1.0.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@1.0.0`
 
 ## 1.11.3
 
@@ -561,7 +561,7 @@ _No functional changes._
 ## 1.11.0
 
 - `FEAT`: add candidate users entry to assignment group ([#776](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/776))
-- `DEPS`: update to `@kunpeng/properties-panel@0.24.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.24.0`
 - `DEPS`: update to `diagram-js@10.0.0`
 
 ## 1.10.0
@@ -571,7 +571,7 @@ _No functional changes._
 
 ## 1.9.0
 
-- `DEPS`: update to `@kunpeng/element-templates-validator@0.11.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@0.11.0`
 - `DEPS`: update to `@bpmn-io/extract-process-variables@0.6.0`
 - `CHORE`: relax peer dependency ranges
 
@@ -582,13 +582,13 @@ _No functional changes._
 ## 1.8.1
 
 - `DEPS`: mark as `bpmn-js@10` compatible
-- `FIX`: include `@kunpeng/properties-panel@0.22.0` in peer dependency range
+- `FIX`: include `@kunpeng-js/properties-panel@0.22.0` in peer dependency range
 
 ## 1.8.0
 
 - `FEAT`: support cron expressions for timer cycle ([#772](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/772))
 - `FIX`: unset timer type correctly ([#775](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/775))
-- `DEPS`: update to `@kunpeng/properties-panel@0.22.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.22.0`
 
 ## 1.7.0
 
@@ -598,11 +598,11 @@ _No functional changes._
 - `FIX`: support `kunpeng:property` binding for creation of elements from element templates ([#762](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/762))
 - `FIX`: support conditional properties for creation of elements from element templates ([#762](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/762))
 - `CHORE`: remove default values from _Variable assignment value_ of _Input_ and _Output_ ([#757](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/757))
-- `DEPS`: update to `@kunpeng/properties-panel@0.21.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.21.0`
 
 ## 1.6.1
 
-- `DEPS`: update to `@kunpeng/properties-panel@0.20.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.20.1`
 - `DEPS`: update to `@bpmn-io/element-templates-icons-renderer@0.2.0`
 - `DEPS`: update to `diagram-js@8.9.0`
 - `DEPS`: update to `bpmn-js@9.4.1`
@@ -612,7 +612,7 @@ _No functional changes._
 - `FEAT`: support `kunpeng:property` ([#731](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/731))
 - `FIX`: copy full `FEEL` expression ([#728](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/728))
 - `FIX`: don't serialize `kunpeng:taskHeader` template bindings without a value ([#684](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/684))
-- `DEPS`: update to `@kunpeng/properties-panel@0.20.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.20.0`
 
 ## 1.5.0
 
@@ -621,22 +621,22 @@ _No functional changes._
 - `FIX`: prevent undo events from affecting the wrong element ([#712](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/712))
 - `CHORE`: set `bpmn:Group` label in a side-effect free manner ([#739](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/739))
 - `CHORE`: update formType documentation link ([cb627c4](https://github.com/bpmn-io/bpmn-js-properties-panel/commit/cb627c4e2c21aef5f37c4723f2cdb219a66ee310))
-- `DEPS`: update to `@kunpeng/properties-panel@0.19.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.19.0`
 - `DEPS`: update to `bpmn-js@9.3.2`
 - `DEPS`: update to `diagram-js@8.8.0`
-- `DEPS`: update to `@kunpeng/bpmn-moddle@0.12.2`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@0.12.2`
 
 ## 1.4.0
 
 - `FEAT`: use FEEL editor for FEEL expressions ([#706](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/706))
 - `FIX`: support jQuery as parent node ([#729](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/729))
-- `DEPS`: update to `@kunpeng/properties-panel@0.18.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.18.0`
 - `DEPS`: update to `@bpmn-io/extract-process-variables@0.5.0`
 
 ## 1.3.0
 
 - `FEAT`: set errors through context ([#160](https://github.com/bpmn-io/properties-panel/pull/160))
-- `DEPS`: update to `@kunpeng/properties-panel@0.16.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.16.0`
 - `DEPS`: update to `bpmn-js@9.3.0`
 
 ## 1.2.0
@@ -670,7 +670,7 @@ _No functional changes._
 
 _A complete rewrite of the library, based on modern foundations._
 
-- `FEAT`: rewrite project to new, [@kunpeng/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
+- `FEAT`: rewrite project to new, [@kunpeng-js/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
 - `FEAT`: replace tabs with flat structure where groups are basic building blocks
 - `FEAT`: add "dirty" markers to notify non-default value of entry/entries in group
 - `FEAT`: keep open/closed state of the groups between elements
@@ -682,12 +682,12 @@ For more changes, read the alpha releases entries below.
 ### Breaking Changes
 
 - `PropertiesProvider#getTabs` is no longer used. Migrate to the new `PropertiesProvider#getGroups` API instead. Check out [the example migration](https://github.com/bpmn-io/bpmn-js-examples/pull/142) and [this pull request](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/590) for guidance.
-- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
+- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng-js/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
 - Element templates select has been removed. Handle [`elementTemplates.select` event](https://github.com/bpmn-io/bpmn-js-properties-panel/blob/v1.0.0-alpha.0/src/provider/element-templates/components/ElementTemplatesGroup.js#L132) or use [the element template chooser](https://github.com/bpmn-io/element-template-chooser) to implement template selection.
 
 ## 1.0.0-alpha.13
 
-- `DEPS`: update to `@kunpeng/properties-panel@0.13.2` ([#660](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/660))
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.13.2` ([#660](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/660))
 - `FIX`: only keep defined mappings (cloud-templates) ([#659](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/659))
 - `FEAT`: rearrange process props by relevance ([#656](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/656))
 
@@ -718,7 +718,7 @@ For more changes, read the alpha releases entries below.
 - `FIX`: use correct business object ([#634](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/634))
 - `FIX`: mark called decision ID as optionally FEEL ([#643](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/643))
 - `DEPS`: update to `@bpmn-io/extract-process-variables@v0.4.5`
-- `DEPS`: update to `@kunpeng/properties-panel@0.13.1`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.13.1`
 
 ## 1.0.0-alpha.8
 
@@ -746,8 +746,8 @@ For more changes, read the alpha releases entries below.
 - `FEAT`: validate cloud element templates against JSON Schema ([#561](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/561))
 - `FEAT`: use components instead of elements for all entries ([#590](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/590))
 - `FIX`: set correct title to element templates select ([#591](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/591))
-- `DEPS`: update to `@kunpeng/properties-panel@0.11.0`
-- `DEPS`: update to `@kunpeng/element-templates-validator@0.5.0`
+- `DEPS`: update to `@kunpeng-js/properties-panel@0.11.0`
+- `DEPS`: update to `@kunpeng-js/element-templates-validator@0.5.0`
 
 ### Breaking Changes
 
@@ -765,7 +765,7 @@ For more changes, read the alpha releases entries below.
 - `FEAT`: add templates property groups ([#563](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/563), [#564](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/564))
 - `FEAT`: add element templates support ([#540](https://github.com/bpmn-io/bpmn-js-properties-panel/issues/540))
 - `FIX`: remove name property on associations ([#566](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/566), [#579](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/566))
-- `DEPS`: update to `@kunpeng/bpmn-moddle@0.11.0`
+- `DEPS`: update to `@kunpeng-js/bpmn-moddle@0.11.0`
 - `DEPS`: update to `bpmn-js@9.0.0-alpha.2`
 
 ## 1.0.0-alpha.1
@@ -781,7 +781,7 @@ For more changes, read the alpha releases entries below.
 
 ## 1.0.0-alpha.0
 
-- `FEAT`: rewrite project to new, [@kunpeng/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
+- `FEAT`: rewrite project to new, [@kunpeng-js/properties-panel](https://github.com/bpmn-io/properties-panel)-based architecture
 - `FEAT`: replace tabs with flat structure where groups are basic building blocks
 - `FEAT`: add "dirty" markers to notify non-default value of entry/entries in group
 - `FEAT`: keep open/closed state of the groups between elements
@@ -789,7 +789,7 @@ For more changes, read the alpha releases entries below.
 ### Breaking Changes
 
 - `PropertiesProvider#getTabs` is no longer used. Migrate to the new `PropertiesProvider#getGroups` API instead. Check out [the example migration](https://github.com/bpmn-io/bpmn-js-examples/pull/142) for guidance.
-- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
+- Previously exported entry factory functions are no longer available. Use components exported from [`@kunpeng-js/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
 - Element templates select has been removed. Handle [`elementTemplates.select` event](https://github.com/bpmn-io/bpmn-js-properties-panel/blob/v1.0.0-alpha.0/src/provider/element-templates/components/ElementTemplatesGroup.js#L132) to implement template selection.
 
 ## 0.46.0

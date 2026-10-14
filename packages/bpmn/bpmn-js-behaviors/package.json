@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/bpmn-js-behaviors",
+  "name": "@kunpeng-js/bpmn-js-behaviors",
   "version": "2026.0.0-alpha1",
   "description": "Camunda Platform 7 and 8 behaviors for bpmn-js",
   "type": "module",
@@ -45,7 +45,7 @@
     "min-dash": "catalog:"
   },
   "devDependencies": {
-    "@kunpeng/bpmn-moddle": "workspace:*",
+    "@kunpeng-js/bpmn-moddle": "workspace:*",
     "@rollup/plugin-commonjs": "catalog:",
     "bpmn-js": "catalog:",
     "chai": "catalog:",

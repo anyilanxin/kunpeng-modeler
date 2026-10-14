@@ -1,7 +1,7 @@
 /**
  * @typedef {object} FeelLanguageContextConfig
  * @property {string} [parserDialect] - The parser dialect for FEEL, e.g. `camunda`
- * @property {import('@kunpeng/expression-editor').Variable[]} [builtins] - The built-in functions for FEEL
+ * @property {import('@kunpeng-js/expression-editor').Variable[]} [builtins] - The built-in functions for FEEL
  */
 
 export default class FeelLanguageContext {

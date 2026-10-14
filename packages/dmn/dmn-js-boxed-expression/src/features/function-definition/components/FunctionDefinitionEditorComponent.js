@@ -1,4 +1,4 @@
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { withChangeSupport } from '../../../util/withChangeSupport';
 import { EditButton } from '../../../components/EditButton';

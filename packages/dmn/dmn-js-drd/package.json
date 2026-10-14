@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/dmn-js-drd",
+  "name": "@kunpeng-js/dmn-js-drd",
   "version": "17.8.1",
   "description": "A decision requirements diagram view for dmn-js",
   "keywords": [
@@ -30,7 +30,7 @@
   ],
   "main": "./lib/index.js",
   "dependencies": {
-    "@kunpeng/dmn-js-shared": "workspace:*",
+    "@kunpeng-js/dmn-js-shared": "workspace:*",
     "diagram-js": "catalog:",
     "diagram-js-direct-editing": "catalog:",
     "ids": "catalog:",

@@ -7,7 +7,7 @@ import {
   getOrientation
 } from 'diagram-js/lib/layout/LayoutUtil';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { assign } from 'min-dash';
 

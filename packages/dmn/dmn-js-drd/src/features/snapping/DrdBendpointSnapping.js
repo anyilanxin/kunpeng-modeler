@@ -6,7 +6,7 @@ import {
 
 import {
   isAny
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 var RECONNECT_START = 'reconnectStart',
     RECONNECT_END = 'reconnectEnd';

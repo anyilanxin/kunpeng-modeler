@@ -12,24 +12,24 @@ import {
   DmnPropertiesPanelModule,
   DmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng/dmn-js-properties-panel';
+} from '@kunpeng-js/dmn-js-properties-panel';
 // CSS
-import '@kunpeng/dmn-js/dist/assets/diagram-js.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-font/css/dmn-codes.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-font/css/dmn-embedded.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-font/css/dmn.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-boxed-expression-controls.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-boxed-expression.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-decision-table-controls.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-decision-table.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-drd.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-literal-expression.css';
-import '@kunpeng/dmn-js/dist/assets/dmn-js-shared.css';
+import '@kunpeng-js/dmn-js/dist/assets/diagram-js.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn-codes.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn-embedded.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-boxed-expression-controls.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-boxed-expression.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-decision-table-controls.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-decision-table.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-drd.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-literal-expression.css';
+import '@kunpeng-js/dmn-js/dist/assets/dmn-js-shared.css';
 // DMN 核心（鲲鹏二次开发包）
-import DmnModeler from '@kunpeng/dmn-js/lib/Modeler';
-import { OverviewModule } from '@kunpeng/dmn-js/lib/overview';
-import KunpengModdleDescriptor from '@kunpeng/dmn-moddle/resources/kunpeng.json';
-import '@kunpeng/properties-panel/assets/properties-panel.css';
+import DmnModeler from '@kunpeng-js/dmn-js/lib/Modeler';
+import { OverviewModule } from '@kunpeng-js/dmn-js/lib/overview';
+import KunpengModdleDescriptor from '@kunpeng-js/dmn-moddle/resources/kunpeng.json';
+import '@kunpeng-js/properties-panel/assets/properties-panel.css';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具

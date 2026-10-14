@@ -1,6 +1,6 @@
 import {
   useContext
-} from '@kunpeng/properties-panel/preact/hooks';
+} from '@kunpeng-js/properties-panel/preact/hooks';
 
 import { BpmnPropertiesPanelContext } from '../context';
 

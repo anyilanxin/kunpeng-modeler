@@ -1,5 +1,5 @@
-import { getVariablesForElement } from '@kunpeng/extract-process-variables';
-import { useEffect, useState } from '@kunpeng/properties-panel/preact/hooks';
+import { getVariablesForElement } from '@kunpeng-js/extract-process-variables';
+import { useEffect, useState } from '@kunpeng-js/properties-panel/preact/hooks';
 import { useService } from '../../hooks';
 
 { /* Required to break up imports, see https://github.com/babel/babel/issues/15156 */ }

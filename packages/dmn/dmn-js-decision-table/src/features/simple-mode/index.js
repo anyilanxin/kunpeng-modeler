@@ -1,6 +1,6 @@
 import ContextMenu from 'table-js/lib/features/context-menu';
 import CellSelection from '../cell-selection';
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
 
 import SimpleMode from './SimpleMode';
 

@@ -15,7 +15,7 @@ describe('integration - custom config', function() {
       // given
       const linter = new Linter({
         config: {
-          extends: 'plugin:@kunpeng/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
+          extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
             '@kunpeng/kunpeng-compat/timer': 'warn',
           }
@@ -41,7 +41,7 @@ describe('integration - custom config', function() {
       // given
       const linter = new Linter({
         config: {
-          extends: 'plugin:@kunpeng/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
+          extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
             '@kunpeng/kunpeng-compat/called-element': 'warn'
           }
@@ -68,7 +68,7 @@ describe('integration - custom config', function() {
       // given
       const linter = new Linter({
         config: {
-          extends: 'plugin:@kunpeng/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
+          extends: 'plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/camunda-cloud-8-0',
           rules: {
             '@kunpeng/kunpeng-compat/timer': [ 'warn', { version: '8.0' } ]
           }

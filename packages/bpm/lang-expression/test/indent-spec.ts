@@ -1,6 +1,6 @@
 import { EditorState } from '@codemirror/state';
 import { getIndentation } from '@codemirror/language';
-import { feel, FeelConfig } from '@kunpeng/lang-expression';
+import { feel, FeelConfig } from '@kunpeng-js/lang-expression';
 
 import { expect } from 'chai';
 

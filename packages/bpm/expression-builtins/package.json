@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/expression-builtins",
+  "name": "@kunpeng-js/expression-builtins",
   "version": "1.3.0",
   "description": "Collection of builtin Camunda extensions for FEEL",
   "type": "module",
@@ -16,7 +16,7 @@
     "compile-builtins": "node tasks/compileBuiltins.js"
   },
   "devDependencies": {
-    "@kunpeng/lezer-expression": "workspace:*",
+    "@kunpeng-js/lezer-expression": "workspace:*",
     "@rollup/plugin-commonjs": "catalog:",
     "@types/chai": "catalog:",
     "@types/node": "catalog:",

@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/variable-resolver",
+  "name": "@kunpeng-js/variable-resolver",
   "version": "3.2.0",
   "description": "bpmn-js plugin for handling external variable providers",
   "type": "module",
@@ -28,10 +28,10 @@
   "author": "bpmn.io contributors",
   "license": "MIT",
   "dependencies": {
-    "@kunpeng/expression-analyzer": "workspace:*",
-    "@kunpeng/expression-builtins": "workspace:*",
-    "@kunpeng/extract-process-variables": "workspace:*",
-    "@kunpeng/lezer-expression": "workspace:*",
+    "@kunpeng-js/expression-analyzer": "workspace:*",
+    "@kunpeng-js/expression-builtins": "workspace:*",
+    "@kunpeng-js/extract-process-variables": "workspace:*",
+    "@kunpeng-js/lezer-expression": "workspace:*",
     "@lezer/common": "catalog:",
     "@lezer/lr": "catalog:",
     "min-dash": "catalog:"

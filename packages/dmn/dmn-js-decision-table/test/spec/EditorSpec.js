@@ -10,7 +10,7 @@ import complexDiagramXML from './complex.dmn';
 const singleStart = window.__env__ && window.__env__.SINGLE_START === 'editor';
 
 if (singleStart) {
-  insertCSS('@kunpeng/dmn-js-decision-table-single-start.css',
+  insertCSS('@kunpeng-js/dmn-js-decision-table-single-start.css',
     'html, body, .test-container { margin: 0; height: 100%; }'
   );
 }

@@ -1,6 +1,6 @@
 const { isString } = require('min-dash');
 
-const { parser } = require('@kunpeng/lezer-expression');
+const { parser } = require('@kunpeng-js/lezer-expression');
 
 // Properties ignored globally
 const IGNORED_PROPERTIES = [

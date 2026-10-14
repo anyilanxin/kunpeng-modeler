@@ -1,5 +1,5 @@
 import { highlightTree, tagHighlighter, tags as t } from '@lezer/highlight';
-import { parser } from '@kunpeng/lezer-expression';
+import { parser } from '@kunpeng-js/lezer-expression';
 import { expect } from 'chai';
 
 const highlighter = tagHighlighter([

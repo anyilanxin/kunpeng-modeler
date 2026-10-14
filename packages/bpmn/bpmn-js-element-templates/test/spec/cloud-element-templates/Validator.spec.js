@@ -1,6 +1,6 @@
 import { Validator } from 'src/cloud-element-templates/Validator';
 
-import { getZeebeSchemaVersion as getTemplateSchemaVersion } from '@kunpeng/element-templates-validator';
+import { getZeebeSchemaVersion as getTemplateSchemaVersion } from '@kunpeng-js/element-templates-validator';
 import { BpmnModdle } from 'bpmn-moddle';
 
 

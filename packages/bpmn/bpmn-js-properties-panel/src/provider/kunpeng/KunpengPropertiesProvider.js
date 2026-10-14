@@ -1,4 +1,4 @@
-import { Group, ListGroup } from '@kunpeng/properties-panel';
+import { Group, ListGroup } from '@kunpeng-js/properties-panel';
 
 import { findIndex } from 'min-dash';
 
@@ -47,7 +47,7 @@ import {
 } from './utils/KunpengServiceTaskUtil';
 
 /**
- * @typedef { import('@kunpeng/properties-panel').EntryDefinition } Entry
+ * @typedef { import('@kunpeng-js/properties-panel').EntryDefinition } Entry
  */
 
 const LOW_PRIORITY = 500;

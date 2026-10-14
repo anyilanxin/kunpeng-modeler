@@ -1,7 +1,7 @@
 import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
 
-import { isFeelEntryEdited } from '@kunpeng/properties-panel';
-import { isSelectEntryEdited } from '@kunpeng/properties-panel';
+import { isFeelEntryEdited } from '@kunpeng-js/properties-panel';
+import { isSelectEntryEdited } from '@kunpeng-js/properties-panel';
 import ReferenceSelect from '../../../entries/ReferenceSelect';
 import {
   sortBy

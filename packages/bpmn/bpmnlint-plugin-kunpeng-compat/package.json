@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/bpmnlint-plugin-kunpeng-compat",
+  "name": "@kunpeng-js/bpmnlint-plugin-kunpeng-compat",
   "version": "2.59.0",
   "description": "A bpmnlint plug-in for Camunda compatibility",
   "main": "index.js",
@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@kunpeng/bpmn-moddle": "workspace:*",
+    "@kunpeng-js/bpmn-moddle": "workspace:*",
     "bpmn-moddle": "catalog:",
     "bpmnlint": "catalog:",
     "chai": "catalog:",
@@ -38,9 +38,9 @@
   "dependencies": {
     "@bpmn-io/moddle-utils": "^0.3.0",
     "@bpmn-io/semver-compat": "^0.1.0",
-    "@kunpeng/expression-analyzer": "workspace:*",
-    "@kunpeng/expression-builtins": "workspace:*",
-    "@kunpeng/lezer-expression": "workspace:*",
+    "@kunpeng-js/expression-analyzer": "workspace:*",
+    "@kunpeng-js/expression-builtins": "workspace:*",
+    "@kunpeng-js/lezer-expression": "workspace:*",
     "bpmnlint-utils": "catalog:",
     "min-dash": "catalog:",
     "semver-compare": "catalog:"

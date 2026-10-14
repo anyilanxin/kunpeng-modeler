@@ -20,7 +20,7 @@ import { BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel';
 import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
 
 import zeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
-import kunpengModdlePackage from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdlePackage from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import {
   setPropertyValue

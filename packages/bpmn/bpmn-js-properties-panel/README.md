@@ -52,7 +52,7 @@ For proper styling include the necessary stylesheets:
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@kunpeng/properties-panel/dist/assets/properties-panel.css"
+  href="https://unpkg.com/@kunpeng-js/properties-panel/dist/assets/properties-panel.css"
 />
 ```
 
@@ -74,7 +74,7 @@ propertiesPanel.attachTo('#other-properties');
 
 To edit [Camunda](https://camunda.com) properties, you have to use a [moddle extension](https://github.com/bpmn-io/moddle) so bpmn-js is can read and write Camunda properties and use a provider so these properties are shown in the properties panel.
 
-For example, to edit [Camunda 8](https://camunda.com/platform/) properties, use the [Camunda 8 moddle extension](https://github.com/camunda/@kunpeng/bpmn-moddle) and the [Camunda 8 provider](https://github.com/bpmn-io/bpmn-js-properties-panel/tree/master/src/provider/kunpeng). Additionally, you should use [behaviors specific to Camunda 8](https://github.com/camunda/camunda-bpmn-js-behaviors?tab=readme-ov-file#camunda-8) to ensure parts of the model that are specific to Camunda 8 are maintained correctly.
+For example, to edit [Camunda 8](https://camunda.com/platform/) properties, use the [Camunda 8 moddle extension](https://github.com/camunda/@kunpeng-js/bpmn-moddle) and the [Camunda 8 provider](https://github.com/bpmn-io/bpmn-js-properties-panel/tree/master/src/provider/kunpeng). Additionally, you should use [behaviors specific to Camunda 8](https://github.com/camunda/camunda-bpmn-js-behaviors?tab=readme-ov-file#camunda-8) to ensure parts of the model that are specific to Camunda 8 are maintained correctly.
 
 ```javascript
 import BpmnModeler from 'bpmn-js/lib/Modeler';
@@ -85,7 +85,7 @@ import {
 } from 'bpmn-js-properties-panel';
 
 // Camunda 8 moddle extension
-import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import kunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 // Camunda 8 behaviors
 import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';

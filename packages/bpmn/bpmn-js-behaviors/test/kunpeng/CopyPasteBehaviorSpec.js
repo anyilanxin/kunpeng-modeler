@@ -2,7 +2,7 @@ import CopyPasteBehavior from '../../lib/camunda-cloud/CopyPasteBehavior';
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import kunpengDescriptor from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengDescriptor from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 
 

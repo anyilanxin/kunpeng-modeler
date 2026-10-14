@@ -2,7 +2,7 @@ import {
   getBoxedExpression,
   getBusinessObject,
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   classes as domClasses,

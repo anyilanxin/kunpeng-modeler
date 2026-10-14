@@ -1,6 +1,6 @@
 import { isString } from 'min-dash';
 
-import { isAny } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isAny } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import {
   getNodeById

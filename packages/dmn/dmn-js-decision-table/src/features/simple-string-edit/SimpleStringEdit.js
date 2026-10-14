@@ -1,6 +1,6 @@
 import ContextMenuComponent from './components/SimpleStringEditContextMenuComponent';
 
-import { isInput, isOutput } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { isInput, isOutput } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 export default class SimpleStringEdit {
   constructor(components, simpleMode) {

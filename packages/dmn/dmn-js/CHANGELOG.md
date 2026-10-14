@@ -8,7 +8,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `DEPS`: update to `diagram-js@15.18.0`
 - `DEPS`: update to `diagram-js-direct-editing@3.4.0`
-- `DEPS`: update to `@kunpeng/expression-editor@2.6.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2.6.0`
 
 ## 17.8.1
 
@@ -20,13 +20,13 @@ _**Note:** Yet to be released changes appear here._
 - `FIX`: fix error on keyboard navigation in popups without menu entries ([#991](https://github.com/bpmn-io/dmn-js/pull/991))
 - `DEPS`: update to `diagram-js@15.13.0`
 - `DEPS`: update to `ids@3.0.2`
-- `DEPS`: update to `@kunpeng/expression-editor@2.5.2`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2.5.2`
 
 ## 17.7.0
 
 - `DEPS`: update to `ids@3.0.1`
 - `DEPS`: update to `min-dom@5.3.0`
-- `DEPS`: update to `@kunpeng/expression-editor@2.5.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2.5.0`
 
 ## 17.6.0
 
@@ -41,19 +41,19 @@ _**Note:** Yet to be released changes appear here._
 - `DEPS`: update to `selection-update@1.1.1`
 - `DEPS`: update to `table-js@9.4.0`
 - `DEPS`: update to `ids@3.0.0`
-- `DEPS`: update to `@kunpeng/expression-editor@2.1.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2.1.0`
 - `DEPS`: update to `diagram-js-direct-editing@3.3.0`
 
 ## 17.5.0
 
-- `DEPS`: update to `@kunpeng/expression-editor@2`
+- `DEPS`: update to `@kunpeng-js/expression-editor@2`
 
 ## 17.4.0
 
-- `FEAT`: suggest latest Camunda FEEL built-ins, now loaded from `feel-builtins` ([@kunpeng/expression-editor#71](https://github.com/bpmn-io/feel-editor/pull/71))
+- `FEAT`: suggest latest Camunda FEEL built-ins, now loaded from `feel-builtins` ([@kunpeng-js/expression-editor#71](https://github.com/bpmn-io/feel-editor/pull/71))
 - `FEAT`: allow multiline strings in camunda dialect ([@bpmn-io/lezer-feel#2](https://github.com/bpmn-io/lezer-feel/pull/2))
 - `FIX`: detect unclosed string literals ([nikku/lezer-feel#52](https://github.com/nikku/lezer-feel/pull/52))
-- `DEPS`: update to `@kunpeng/expression-editor@1.12.0` ([#960](https://github.com/bpmn-io/dmn-js/pull/960))
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.12.0` ([#960](https://github.com/bpmn-io/dmn-js/pull/960))
 - `DEPS`: update to `dmn-moddle@11` ([#952](https://github.com/bpmn-io/dmn-js/pull/952))
 - `CHORE`: require `Node >= 20` ([#952](https://github.com/bpmn-io/dmn-js/pull/952))
 
@@ -68,8 +68,8 @@ _**Note:** Yet to be released changes appear here._
 
 ## 17.2.1
 
-- `FIX`: correct completion of lang-feel snippets ([@kunpeng/expression-editor#70](https://github.com/bpmn-io/feel-editor/pull/75))
-- `DEPS`: update to `@kunpeng/expression-editor@1.10.1`
+- `FIX`: correct completion of lang-feel snippets ([@kunpeng-js/expression-editor#70](https://github.com/bpmn-io/feel-editor/pull/75))
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.10.1`
 
 ## 17.2.0
 
@@ -77,8 +77,8 @@ _**Note:** Yet to be released changes appear here._
 
 ## 17.1.0
 
-- `FEAT`: suggest latest Camunda FEEL built-ins ([@kunpeng/expression-editor#65](https://github.com/bpmn-io/feel-editor/pull/65))
-- `DEPS`: update to `@kunpeng/expression-editor@1.10.0`
+- `FEAT`: suggest latest Camunda FEEL built-ins ([@kunpeng-js/expression-editor#65](https://github.com/bpmn-io/feel-editor/pull/65))
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.10.0`
 
 ## 17.0.3
 
@@ -117,18 +117,18 @@ _**Note:** Yet to be released changes appear here._
 - `FIX`: display parameterless functions suggestion correctly ([#898](https://github.com/bpmn-io/dmn-js/issues/898))
 - `FIX`: improve validation of `first-item` FEEL rule
 - `FIX`: variable name changes when element name\label changes ([#863](https://github.com/bpmn-io/dmn-js/issues/863))
-- `DEPS`: update to `@kunpeng/expression-editor@1.9.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.9.1`
 
 ## 16.7.1
 
 - `FIX`: make literal expression focus hitbox larger ([camunda/camunda-modeler#4342](https://github.com/camunda/camunda-modeler/issues/4342))
-- `DEPS`: update to `@kunpeng/expression-editor@1.8.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.8.0`
 
 ## 16.7.0
 
 - `FEAT`: lint first item access ([feel-lint#25](https://github.com/bpmn-io/feel-lint/issues/25))
 - `FEAT`: decision table context menu keyboard navigation ([#848](https://github.com/bpmn-io/dmn-js/issues/848))
-- `DEPS`: update to `@kunpeng/expression-editor@1.7.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.7.0`
 
 ## 16.6.2
 
@@ -211,7 +211,7 @@ _**Note:** Yet to be released changes appear here._
 - `CHORE`: remove broken touch interaction from DRD editor ([bpmn-io/diagram-js#796](https://github.com/bpmn-io/diagram-js/issues/796))
 - `DEPS`: update to `diagram-js@14.3.1`
 - `DEPS`: update to `table-js@9.1.0`
-- `DEPS`: update to `@kunpeng/expression-editor@1.3.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.3.0`
 - `DEPS`: update to `diagram-js-direct-editing@2.1.2`
 - `DEPS`: update to `ids@1.0.5`
 
@@ -223,7 +223,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: user friendly context pad entries' titles ([#818](https://github.com/bpmn-io/dmn-js/pull/818))
 - `DEPS`: update to `diagram-js@13.4.0`
-- `DEPS`: update to `@kunpeng/expression-editor@1.1.0`
+- `DEPS`: update to `@kunpeng-js/expression-editor@1.1.0`
 
 ## 15.0.0
 
@@ -242,7 +242,7 @@ _**Note:** Yet to be released changes appear here._
 
 - `FEAT`: adjust selection outline to shapes ([#799](https://github.com/bpmn-io/dmn-js/issues/799))
 - `FIX`: make literal expression box grow with content ([#789](https://github.com/bpmn-io/dmn-js/issues/789))
-- `DEPS`: update dependency @kunpeng/expression-editor to v1
+- `DEPS`: update dependency @kunpeng-js/expression-editor to v1
 - `DEPS`: update to `diagram-js@12.7.1`
 
 ## 14.6.0
@@ -264,7 +264,7 @@ _**Note:** Yet to be released changes appear here._
 
 ## 14.4.1
 
-- `DEPS`: update to `@kunpeng/expression-editor@0.9.1`
+- `DEPS`: update to `@kunpeng-js/expression-editor@0.9.1`
 
 ## 14.4.0
 

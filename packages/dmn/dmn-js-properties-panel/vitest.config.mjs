@@ -25,9 +25,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: 'react', replacement: '@kunpeng/properties-panel/preact/compat' },
-      { find: 'react-dom', replacement: '@kunpeng/properties-panel/preact/compat' },
-      { find: 'preact', replacement: '@kunpeng/properties-panel/preact' },
+      { find: 'react', replacement: '@kunpeng-js/properties-panel/preact/compat' },
+      { find: 'react-dom', replacement: '@kunpeng-js/properties-panel/preact/compat' },
+      { find: 'preact', replacement: '@kunpeng-js/properties-panel/preact' },
       { find: /^src\//, replacement: path.resolve(__dirname, 'src') + '/' },
       { find: /^test\//, replacement: path.resolve(__dirname, 'test') + '/' }
     ]
@@ -35,7 +35,7 @@ export default defineConfig({
   esbuild: {
     loader: 'jsx',
     include: [/src\/.*\.js$/, /test\/.*\.js$/],
-    jsxImportSource: '@kunpeng/properties-panel/preact',
+    jsxImportSource: '@kunpeng-js/properties-panel/preact',
     jsx: 'automatic'
   },
   optimizeDeps: {

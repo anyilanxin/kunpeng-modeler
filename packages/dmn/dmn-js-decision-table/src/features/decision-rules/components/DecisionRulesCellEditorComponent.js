@@ -2,10 +2,10 @@ import { Component } from 'inferno';
 
 import { isString } from 'min-dash';
 
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
-import ContentEditable from '@kunpeng/dmn-js-shared/lib/components/ContentEditable';
-import LiteralExpression from '@kunpeng/dmn-js-shared/lib/components/LiteralExpression';
+import ContentEditable from '@kunpeng-js/dmn-js-shared/lib/components/ContentEditable';
+import LiteralExpression from '@kunpeng-js/dmn-js-shared/lib/components/LiteralExpression';
 
 import { Cell } from 'table-js/lib/components';
 

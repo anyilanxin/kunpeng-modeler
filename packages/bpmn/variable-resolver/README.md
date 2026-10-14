@@ -1,4 +1,4 @@
-# @kunpeng/variable-resolver
+# @kunpeng-js/variable-resolver
 
 [![CI](https://github.com/bpmn-io/variable-resolver/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/variable-resolver/actions/workflows/CI.yml)
 
@@ -17,7 +17,7 @@ import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 import {
   ZeebeVariableResolverModule,     // For Camunda 8 diagrams
   // CamundaVariableResolverModule // for Camunda 7 diagrams
-} from '@kunpeng/variable-resolver';
+} from '@kunpeng-js/variable-resolver';
 
 const modeler = new BpmnModeler({
   container: '#canvas',
@@ -91,7 +91,7 @@ To add your own variables, extend the `variableProvider` class in your extension
 
 ```javascript
 // MyExtension.js
-import VariableProvider from '@kunpeng/variable-resolver/lib/VariableProvider';
+import VariableProvider from '@kunpeng-js/variable-resolver/lib/VariableProvider';
 
 class MyCustomProvider extends VariableProvider {
   getVariables(element) {

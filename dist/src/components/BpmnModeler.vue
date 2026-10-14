@@ -2,22 +2,22 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 
 // 鲲鹏私有模块
-import KunpengBehaviorModule from '@kunpeng/bpmn-js-behaviors';
+import KunpengBehaviorModule from '@kunpeng-js/bpmn-js-behaviors';
 import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng/bpmn-js-properties-panel';
-import KunpengBpmnModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
-import '@kunpeng/properties-panel/assets/properties-panel.css';
+} from '@kunpeng-js/bpmn-js-properties-panel';
+import KunpengBpmnModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
+import '@kunpeng-js/properties-panel/assets/properties-panel.css';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具
 import { createEmptyBpmn } from '@/utils/bpmn-templates';
 import { createI18nOptions } from '@/utils/modeler-i18n';
-// BPMN 校验（@kunpeng/linting：含 camunda-compat 规则 + 画布标注）
-import lintingModule from '@kunpeng/linting/modeler';
-import { Linter } from '@kunpeng/linting';
+// BPMN 校验（@kunpeng-js/linting：含 camunda-compat 规则 + 画布标注）
+import lintingModule from '@kunpeng-js/linting/modeler';
+import { Linter } from '@kunpeng-js/linting';
 // 第三方扩展模块
 import AddExporterModule from '@bpmn-io/add-exporter';
 import BpmnColorPickerModule from 'bpmn-js-color-picker/colors';
@@ -34,8 +34,8 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js-color-picker/colors/color-picker.css';
-// @kunpeng/linting 画布错误标注样式
-import '@kunpeng/linting/assets/linting.css';
+// @kunpeng-js/linting 画布错误标注样式
+import '@kunpeng-js/linting/assets/linting.css';
 
 const props = withDefaults(
   defineProps<{
@@ -147,7 +147,7 @@ async function initModeler() {
 
   modeler.value = new BpmnModeler(config);
 
-  // 创建 @kunpeng/linting 的 Linter 实例（desktop modeler + cloud 规则）
+  // 创建 @kunpeng-js/linting 的 Linter 实例（desktop modeler + cloud 规则）
   linterInstance = new Linter({ modeler: 'desktop', type: 'cloud' });
 
   // 注册事件
@@ -175,7 +175,7 @@ async function initModeler() {
 }
 
 let saveTimer: null | ReturnType<typeof setTimeout> = null;
-// @kunpeng/linting 的 Linter 实例
+// @kunpeng-js/linting 的 Linter 实例
 let linterInstance: Linter | null = null;
 
 async function saveAndEmit() {
@@ -197,7 +197,7 @@ async function saveAndEmit() {
 }
 
 /**
- * 运行 BPMN 校验：调 @kunpeng/linting 拿到扁平 reports，
+ * 运行 BPMN 校验：调 @kunpeng-js/linting 拿到扁平 reports，
  * 推送到画布标注 + emit 给 ProblemsPanel
  */
 async function runLint(xml: string) {

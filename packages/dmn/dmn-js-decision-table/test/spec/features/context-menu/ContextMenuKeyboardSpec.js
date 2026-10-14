@@ -4,7 +4,7 @@ import { bootstrapModeler, inject } from 'test/helper';
 import {
   triggerMouseEvent,
   triggerKeyEvent
-} from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+} from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import { query, classes, queryAll } from 'min-dom';
 

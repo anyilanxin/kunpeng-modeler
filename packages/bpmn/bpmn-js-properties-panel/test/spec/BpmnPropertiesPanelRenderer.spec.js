@@ -40,11 +40,11 @@ import {
 
 import {
   ZeebeVariableResolverModule
-} from '@kunpeng/variable-resolver';
+} from '@kunpeng-js/variable-resolver';
 
-import KunpengBehaviorsModule from '@kunpeng/bpmn-js-behaviors';
+import KunpengBehaviorsModule from '@kunpeng-js/bpmn-js-behaviors';
 
-import KunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng';
+import KunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng';
 
 import ExamplePropertiesProvider from './extension/ExamplePropertiesProvider';
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { bootstrapModeler, inject } from 'test/helper';
 
-import { triggerInputEvent } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+import { triggerInputEvent } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
-import { queryEditor } from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+import { queryEditor } from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
 import { query as domQuery } from 'min-dom';
 

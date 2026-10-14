@@ -1,5 +1,5 @@
-import EditingManager from '@kunpeng/dmn-js-shared/lib/base/EditingManager';
-import { isAny } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import EditingManager from '@kunpeng-js/dmn-js-shared/lib/base/EditingManager';
+import { isAny } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import { Editor } from 'src';
 

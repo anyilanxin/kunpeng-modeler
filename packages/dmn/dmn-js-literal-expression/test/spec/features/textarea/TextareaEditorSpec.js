@@ -8,12 +8,12 @@ import { waitFor } from '@testing-library/dom';
 
 import { query as domQuery } from 'min-dom';
 
-import { queryEditor } from '@kunpeng/dmn-js-shared/test/util/EditorUtil';
+import { queryEditor } from '@kunpeng-js/dmn-js-shared/test/util/EditorUtil';
 
-import ExpressionLanguagesModule from '@kunpeng/dmn-js-shared/lib/features/expression-languages';
-import FeelLanguageContext from '@kunpeng/dmn-js-shared/lib/features/feel-language-context';
+import ExpressionLanguagesModule from '@kunpeng-js/dmn-js-shared/lib/features/expression-languages';
+import FeelLanguageContext from '@kunpeng-js/dmn-js-shared/lib/features/feel-language-context';
 
-import { triggerInputEvent } from '@kunpeng/dmn-js-shared/test/util/EventUtil';
+import { triggerInputEvent } from '@kunpeng-js/dmn-js-shared/test/util/EventUtil';
 
 import TestContainer from 'mocha-test-container-support';
 

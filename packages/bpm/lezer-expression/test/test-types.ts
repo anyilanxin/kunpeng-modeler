@@ -3,7 +3,7 @@ import {
   trackVariables,
   normalizeContextKey,
   VariableContext
-} from '@kunpeng/lezer-expression';
+} from '@kunpeng-js/lezer-expression';
 
 import {
   expect

@@ -1,4 +1,4 @@
-import BaseViewer from '@kunpeng/dmn-js-shared/lib/base/viewer/Viewer';
+import BaseViewer from '@kunpeng-js/dmn-js-shared/lib/base/viewer/Viewer';
 
 import {
   assign
@@ -21,11 +21,11 @@ import ElementLogicModule from './features/element-logic';
 import ElementVariableModule from './features/element-variable';
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenResult} OpenResult
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenResult} OpenResult
  */
 
 /**
- * @typedef {import('@kunpeng/dmn-js-shared/lib/base/View).OpenError} OpenError
+ * @typedef {import('@kunpeng-js/dmn-js-shared/lib/base/View).OpenError} OpenError
  */
 
 

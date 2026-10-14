@@ -7,7 +7,7 @@ import {
   isFeelEntryEdited,
   isTextFieldEntryEdited,
   TextFieldEntry
-} from '@kunpeng/properties-panel';
+} from '@kunpeng-js/properties-panel';
 
 import { useService } from '../../../hooks';
 

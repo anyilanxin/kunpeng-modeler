@@ -14,7 +14,7 @@ import { is } from 'bpmnlint-utils';
 import { resolver as RulesResolver } from './compiled-config';
 
 import modelerModdle from 'modeler-moddle/resources/modeler.json';
-import kunpengModdle from '@kunpeng/bpmn-moddle/resources/kunpeng.json';
+import kunpengModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
 
 import { getErrorMessage } from './utils/error-messages';
 import { getEntryIds } from './utils/properties-panel';
@@ -118,7 +118,7 @@ export class Linter {
   _createConfig(configName) {
     const configs = [
       {
-        extends: `plugin:@kunpeng/bpmnlint-plugin-kunpeng-compat/${ configName }`
+        extends: `plugin:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/${ configName }`
       },
       {
         extends: 'bpmnlint:correctness'
@@ -150,7 +150,7 @@ export class Linter {
   }
 
   async _createResolver(configName) {
-    const { configs } = await import('@kunpeng/bpmnlint-plugin-kunpeng-compat');
+    const { configs } = await import('@kunpeng-js/bpmnlint-plugin-kunpeng-compat');
 
     let { [ configName ]: config } = configs;
 
@@ -165,7 +165,7 @@ export class Linter {
     });
 
     const ConfigResolver = new StaticResolver({
-      [ `config:@kunpeng/bpmnlint-plugin-kunpeng-compat/${ configName }` ]: config,
+      [ `config:@kunpeng-js/bpmnlint-plugin-kunpeng-compat/${ configName }` ]: config,
       'config:bpmnlint/correctness': bpmnlintConfig
     });
 

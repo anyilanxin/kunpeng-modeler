@@ -6,7 +6,7 @@ import inherits from 'inherits-browser';
 
 import {
   is
-} from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+} from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 import BaseElementFactory from 'diagram-js/lib/core/ElementFactory';
 

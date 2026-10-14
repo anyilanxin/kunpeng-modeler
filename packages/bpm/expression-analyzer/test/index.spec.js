@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { FeelAnalyzer } from '@kunpeng/expression-analyzer';
+import { FeelAnalyzer } from '@kunpeng-js/expression-analyzer';
 
 describe('expression-analyzer - use from package', function() {
 

@@ -1,5 +1,5 @@
 {
-  "name": "@kunpeng/lezer-expression",
+  "name": "@kunpeng-js/lezer-expression",
   "version": "3.0.1",
   "description": "Lezer-based FEEL grammar",
   "type": "module",

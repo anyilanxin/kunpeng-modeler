@@ -30,9 +30,9 @@ declare module 'diagram-js-grid';
 declare module 'diagram-js-minimap';
 declare module 'dmn-js-dmnlint';
 
-// ===== @kunpeng/linting 校验模块 =====
-declare module '@kunpeng/linting';
-declare module '@kunpeng/linting/modeler';
+// ===== @kunpeng-js/linting 校验模块 =====
+declare module '@kunpeng-js/linting';
+declare module '@kunpeng-js/linting/modeler';
 
 // ===== 本地 JS 工具模块 =====
 declare module '@/utils/dmnlint-config';

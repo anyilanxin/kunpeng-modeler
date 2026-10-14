@@ -1,6 +1,6 @@
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
-import { ToggleSwitchEntry } from '@kunpeng/properties-panel';
+import { ToggleSwitchEntry } from '@kunpeng-js/properties-panel';
 
 import { findExtension, findInputParameter } from '../../Helper';
 

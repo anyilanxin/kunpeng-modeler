@@ -1,7 +1,7 @@
-import NavigatedDrdViewer from '@kunpeng/dmn-js-drd/lib/NavigatedViewer';
-import Manager from '@kunpeng/dmn-js-shared/lib/base/Manager';
-import { containsDi } from '@kunpeng/dmn-js-shared/lib/util/DiUtil';
-import { is } from '@kunpeng/dmn-js-shared/lib/util/ModelUtil';
+import NavigatedDrdViewer from '@kunpeng-js/dmn-js-drd/lib/NavigatedViewer';
+import Manager from '@kunpeng-js/dmn-js-shared/lib/base/Manager';
+import { containsDi } from '@kunpeng-js/dmn-js-shared/lib/util/DiUtil';
+import { is } from '@kunpeng-js/dmn-js-shared/lib/util/ModelUtil';
 
 /**
  * DRD-only viewer used as the DMN overview.
