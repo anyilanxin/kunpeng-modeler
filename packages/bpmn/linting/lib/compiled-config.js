@@ -17,10 +17,6 @@ Resolver.prototype.resolveRule = function(pkg, ruleName) {
     throw new Error('cannot resolve rule <' + pkg + '/' + ruleName + '>: not bundled');
   }
 
-  if (!rule) {
-    throw new Error('cannot resolve rule <' + pkg + '/' + ruleName + '>: not bundled');
-  }
-
   return rule;
 };
 
