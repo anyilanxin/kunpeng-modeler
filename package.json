@@ -60,6 +60,7 @@
     "publint": "vsh publint",
     "publish:npm": "pnpm run build:packages && pnpm -r -F './packages/bpm/*' -F './packages/bpmn/*' -F './packages/dmn/*' publish --access public --publish-branch main",
     "publish:npm:dry": "pnpm -r -F './packages/bpm/*' -F './packages/bpmn/*' -F './packages/dmn/*' publish --access public --publish-branch main --dry-run",
+    "publish:npm:otp": "./scripts/publish-npm-otp.sh",
     "reinstall": "pnpm clean --del-lock && pnpm install",
     "test:unit": "vitest run --dom",
     "test:e2e": "turbo run test:e2e",

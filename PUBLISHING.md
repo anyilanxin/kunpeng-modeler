@@ -21,26 +21,29 @@
 
 4. **(推荐)配置免 OTP 的发布凭证**:如果账号开启了 2FA,逐个发布 25 个包会反复要求输入动态口令。两种方式任选其一:
 
-   **方式 A(推荐):账号 2FA 设为 auth-only**
+   **方式 A(优先确认):网页上把 2FA 切为 auth-only(仅登录验证)**
+
+   登录 npmjs.com 打开 Settings → Two-Factor Authentication(`https://www.npmjs.com/settings/<用户名>/tfa`),若提供"仅登录验证 / login only"之类的模式选项则切换之;之后现有登录 token 即可直接发布。注意:CLI 命令 `npm profile enable-2fa auth-only` 走的是已被 npm 移除的 TOTP 注册接口,对已有 TOTP 的账号会报 404("Adding a new TOTP 2FA is no longer supported"),此路不通,只能看网页设置。
+
+   **方式 B(随时可用,不改动账号设置):OTP 直发脚本**
 
    ```bash
-   npm profile enable-2fa auth-only
+   pnpm publish:npm:otp                # 先构建全部产物,再提示输入当前动态口令
+   SKIP_BUILD=1 pnpm publish:npm:otp   # 若中途口令过期,输新口令续传(自动跳过已发布的包)
    ```
 
-   登录 npmjs.com 仍需 2FA,但发布不再触发 2FA 校验;现有的登录 token 即可直接发布,无需新建 token,也不受 npm 2027 年 1 月 bypass token 直发下线的影响。
-
-   **方式 B(临时方案,2027 年 1 月失效):Granular Access Token(Bypass 2FA)**
+   **方式 C(临时方案,2027 年 1 月失效):Granular Access Token(Bypass 2FA)**
 
    1. npmjs.com → 头像 → **Access Tokens** → Generate New Token → Granular Access Token
    2. Permissions 选 **Read and write**,范围限定 **@kunpeng** scope(org 必须已创建,否则列表里选不到)
-   3. 拉到底,把 **Bypass 2FA** 开关打开(默认关闭;不开则发布时照样要 OTP)。注意:npm 创建页已提示该直发模式将于 2027 年 1 月移除,官方建议改用 stage-only(上传暂存 + 网页 2FA 批准的两步发布);单人本地批量发 25 个包用 stage-only 每次都要去网页逐个批准,不划算,推荐方式 A
+   3. 拉到底,把 **Bypass 2FA** 开关打开(默认关闭;不开则发布时照样要 OTP)。注意:npm 创建页已提示该直发模式将于 2027 年 1 月移除,官方建议改用 stage-only(上传暂存 + 网页 2FA 批准的两步发布);单人本地批量发 25 个包用 stage-only 每次都要去网页逐个批准,不划算
    4. 生成后立即复制 `npm_` 开头的 token(只显示一次),然后:
 
       ```bash
       npm config set //registry.npmjs.org/:_authToken <你的token>
       ```
 
-   无论哪种方式,都建议统一 registry 为官方 `.org` 拼写并验证(若 `~/.npmrc` 里 registry 是 `registry.npmjs.com`,发布请求会经重定向打到 `.org`,可能与 `.com` 下的旧 token 错配导致 403/401):
+   方式 A/C 涉及 token 时,建议统一 registry 为官方 `.org` 拼写并验证(若 `~/.npmrc` 里 registry 是 `registry.npmjs.com`,发布请求会经重定向打到 `.org`,可能与 `.com` 下的旧 token 错配导致 403/401):
 
    ```bash
    npm config set registry https://registry.npmjs.org/
