@@ -21,35 +21,33 @@
 
 4. **(推荐)配置免 OTP 的发布凭证**:如果账号开启了 2FA,逐个发布 25 个包会反复要求输入动态口令。两种方式任选其一:
 
-   **方式 A:Granular Access Token(打开 Bypass 2FA)**
+   **方式 A(推荐):账号 2FA 设为 auth-only**
 
-   1. npmjs.com → 头像 → **Access Tokens** → Generate New Token → **Granular Access Token**
+   ```bash
+   npm profile enable-2fa auth-only
+   ```
+
+   登录 npmjs.com 仍需 2FA,但发布不再触发 2FA 校验;现有的登录 token 即可直接发布,无需新建 token,也不受 npm 2027 年 1 月 bypass token 直发下线的影响。
+
+   **方式 B(临时方案,2027 年 1 月失效):Granular Access Token(Bypass 2FA)**
+
+   1. npmjs.com → 头像 → **Access Tokens** → Generate New Token → Granular Access Token
    2. Permissions 选 **Read and write**,范围限定 **@kunpeng** scope(org 必须已创建,否则列表里选不到)
-   3. 拉到底,把 **Bypass 2FA** 开关打开(默认关闭;不开则发布时照样要 OTP)
+   3. 拉到底,把 **Bypass 2FA** 开关打开(默认关闭;不开则发布时照样要 OTP)。注意:npm 创建页已提示该直发模式将于 2027 年 1 月移除,官方建议改用 stage-only(上传暂存 + 网页 2FA 批准的两步发布);单人本地批量发 25 个包用 stage-only 每次都要去网页逐个批准,不划算,推荐方式 A
    4. 生成后立即复制 `npm_` 开头的 token(只显示一次),然后:
 
       ```bash
       npm config set //registry.npmjs.org/:_authToken <你的token>
       ```
 
-   5. 统一 registry 为官方 `.org` 拼写并验证(若 `~/.npmrc` 里 registry 是 `registry.npmjs.com`,发布请求会经重定向打到 `.org`,可能与 `.com` 下的旧 token 错配导致 403/401):
-
-      ```bash
-      npm config set registry https://registry.npmjs.org/
-      npm whoami   # 必须能打印用户名
-      ```
-
-   ⚠️ 时效提醒:npm 正在收紧 bypass-2FA token——2026-07-31 起已不能用于账号管理,**2027 年 1 月起将不能直接发布**(官方替代为 trusted publishing / stage-only token)。届时需改用方式 B 或按 npm 新流程调整。
-
-   **方式 B:账号 2FA 设为 auth-only(更长久)**
+   无论哪种方式,都建议统一 registry 为官方 `.org` 拼写并验证(若 `~/.npmrc` 里 registry 是 `registry.npmjs.com`,发布请求会经重定向打到 `.org`,可能与 `.com` 下的旧 token 错配导致 403/401):
 
    ```bash
-   npm profile enable-2fa auth-only
+   npm config set registry https://registry.npmjs.org/
+   npm whoami   # 必须能打印用户名
    ```
 
-   登录仍需 OTP,但发布不再触发 2FA 校验;之后用普通 granular token(不开 Bypass 2FA)或 `npm login` 的默认 token 发布均可,不受 2027 年 bypass token 收紧的影响。
-
-   两种方式的 token 都只写入全局 `~/.npmrc`,**不要**放进仓库的 `.npmrc`(会随 git 提交泄露)。都不配置也可以发布,只是中途可能多次要求输入 OTP。
+   token 只写入全局 `~/.npmrc`,**不要**放进仓库的 `.npmrc`(会随 git 提交泄露)。什么都不配置也可以发布,只是中途可能多次要求输入 OTP。
 
 ## 日常发布流程
 
