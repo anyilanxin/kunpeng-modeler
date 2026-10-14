@@ -32,6 +32,13 @@
       npm config set //registry.npmjs.org/:_authToken <你的token>
       ```
 
+   5. 统一 registry 为官方 `.org` 拼写并验证(若 `~/.npmrc` 里 registry 是 `registry.npmjs.com`,发布请求会经重定向打到 `.org`,可能与 `.com` 下的旧 token 错配导致 403/401):
+
+      ```bash
+      npm config set registry https://registry.npmjs.org/
+      npm whoami   # 必须能打印用户名
+      ```
+
    ⚠️ 时效提醒:npm 正在收紧 bypass-2FA token——2026-07-31 起已不能用于账号管理,**2027 年 1 月起将不能直接发布**(官方替代为 trusted publishing / stage-only token)。届时需改用方式 B 或按 npm 新流程调整。
 
    **方式 B:账号 2FA 设为 auth-only(更长久)**
