@@ -193,27 +193,31 @@ const hasErrors = computed(() => problems.value.length > 0);
   box-shadow: inset 0 -2px 0 #165DFF;
 }
 
-/* 校验项：图标 + 数字，无背景色块，与状态栏其他项风格一致 */
+/* 校验项：图标 + 数字，柔和胶囊底色便于扫读 */
 .lint-item {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  padding: 1px 7px;
+  border-radius: 999px;
   font-weight: 500;
+  line-height: 16px;
 }
 
 .lint-item .i-carbon-close-outline,
-.lint-item .i-carbon-warning,
-.lint-ok .i-carbon-checkmark-outline {
-  font-size: 13px;
+.lint-item .i-carbon-warning {
+  font-size: 12px;
 }
 
-/* 图标本身着色（不再用背景色块） */
+/* 图标+文字同色调胶囊 */
 .lint-error {
   color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .lint-warn {
   color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
 }
 
 /* 无错误时绿色图标提示 */
@@ -222,6 +226,10 @@ const hasErrors = computed(() => problems.value.length > 0);
   align-items: center;
   gap: 3px;
   color: #10b981;
+}
+
+.lint-ok .i-carbon-checkmark-outline {
+  font-size: 13px;
 }
 
 /* 版本信息：可点击，选中时底部蓝色高亮条 */

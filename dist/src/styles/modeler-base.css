@@ -3,6 +3,47 @@
  * 在 main.ts 中引入，作用于所有主题。
  */
 
+/* ===== 全局字体渲染（Tauri WebView 下更细腻）===== */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== 全局文本选区色（品牌蓝）===== */
+::selection {
+  background: rgba(22, 93, 255, 0.22);
+}
+
+/* ===== 统一细滚动条（应用级容器；画布内部不滚动不受影响）===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-color: rgba(128, 128, 128, 0.35);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(128, 128, 128, 0.55);
+}
+
+/* ===== 键盘导航焦点环（品牌蓝，仅 focus-visible 不干扰鼠标操作）===== */
+button:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid rgba(22, 93, 255, 0.55);
+  outline-offset: 1px;
+}
+
 /* ===== BPMN replace popup 宽度 ===== */
 /* 控制「扳手」切换元素类型弹窗的宽度，默认 250px 偏窄，加宽到 350px */
 .djs-popup {

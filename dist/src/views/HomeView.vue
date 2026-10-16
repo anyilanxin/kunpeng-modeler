@@ -79,15 +79,15 @@ function createDmn() {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
   background: var(--naive-body-color);
   background-image: radial-gradient(
     ellipse at 50% 0%,
-    rgb(22 93 255 / 6%) 0%,
-    transparent 60%
+    rgb(22 93 255 / 5%) 0%,
+    transparent 55%
   );
 }
 
@@ -97,64 +97,66 @@ function createDmn() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .welcome-title {
   margin: 0;
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 800;
   letter-spacing: -1px;
-  background: linear-gradient(90deg, #165DFF, #4080FF, #8b5cf6, #165DFF);
-  background-size: 200% auto;
+  background: linear-gradient(90deg, #165DFF, #4080FF, #8b5cf6);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientFlow 6s linear infinite, fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
-}
-
-@keyframes gradientFlow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
 }
 
 .welcome-subtitle {
   margin: 0;
   font-size: 14px;
-  color: var(--naive-text-color-3);
+  color: var(--naive-text-color-2);
+  letter-spacing: 0.2px;
 }
 
 .hero-flow {
-  margin: 4px 0;
+  margin: 6px 0;
+  opacity: 0.9;
 }
 
 /* ===== 操作卡片 ===== */
 .welcome-actions {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
   max-width: 460px;
 }
 
 .create-card {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   align-items: center;
   width: 100%;
-  padding: 20px 24px;
+  padding: 18px 22px;
   text-align: left;
   cursor: pointer;
   background: var(--naive-card-color);
   border: 1px solid var(--naive-border-color);
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 6%);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .create-card:hover {
-  border-color: #165DFF;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 12%);
-  transform: translateY(-3px);
+  border-color: rgb(22 93 255 / 55%);
+  box-shadow: 0 8px 24px rgb(22 93 255 / 10%);
+  transform: translateY(-2px);
+}
+
+.create-card:active {
+  transform: translateY(0);
 }
 
 .card-icon {
@@ -162,10 +164,15 @@ function createDmn() {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   font-size: 26px;
-  border-radius: 12px;
+  border-radius: 13px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.create-card:hover .card-icon {
+  transform: scale(1.06);
 }
 
 .create-card.bpmn .card-icon {
@@ -196,19 +203,21 @@ function createDmn() {
 
 .card-desc {
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--naive-text-color-3);
 }
 
 .card-arrow {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--naive-text-color-3);
+  opacity: 0.7;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .create-card:hover .card-arrow {
   color: #165DFF;
-  transform: translateX(6px);
+  opacity: 1;
+  transform: translateX(4px);
 }
 
 /* ===== 入场动画 ===== */
@@ -221,7 +230,7 @@ function createDmn() {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;

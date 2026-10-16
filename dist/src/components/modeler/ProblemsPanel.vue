@@ -687,8 +687,8 @@ function onCollapsedDragEnd() {
 .pp-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 12px;
+  gap: 7px;
+  padding: 4px 12px;
   font-size: 12px;
   color: var(--naive-text-color-2);
   cursor: pointer;

@@ -465,7 +465,7 @@ function closeTab(id: string, e: Event) {
 
 <style scoped>
 .titlebar {
-  height: 31px;
+  height: 38px;
   display: flex;
   align-items: stretch;
   background: var(--naive-card-color);
@@ -477,7 +477,7 @@ function closeTab(id: string, e: Event) {
 .titlebar-left {
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 12px;
   flex-shrink: 0;
 }
 
@@ -486,12 +486,20 @@ function closeTab(id: string, e: Event) {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  border-radius: 6px;
+  padding: 3px 6px;
+  margin-left: -6px;
+  transition: background 0.15s;
+}
+
+.brand:hover {
+  background: var(--naive-hover-color);
 }
 
 .brand-dot {
   width: 22px;
   height: 22px;
-  border-radius: 6px;
+  border-radius: 7px;
   background: linear-gradient(135deg, #4080FF, #165DFF);
   display: flex;
   align-items: center;
@@ -511,61 +519,58 @@ function closeTab(id: string, e: Event) {
 .titlebar-tabs {
   flex: 1;
   display: flex;
-  align-items: stretch;
-  gap: 0;
-  padding: 0;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
   overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--naive-border-color) transparent;
+  scrollbar-width: none;
   min-width: 0;
 }
 
 .titlebar-tabs::-webkit-scrollbar {
-  height: 3px;
-}
-
-.titlebar-tabs::-webkit-scrollbar-thumb {
-  background: var(--naive-border-color);
-  border-radius: 2px;
+  display: none;
 }
 
 .doc-tab {
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 100%;
+  height: 26px;
   padding: 0 8px;
-  border-radius: 0;
+  border-radius: 7px;
   font-size: 12px;
   color: var(--naive-text-color-3);
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s;
   white-space: nowrap;
   overflow: hidden;
   border: none;
-  border-right: 1px solid var(--naive-border-color);
   box-sizing: border-box;
   position: relative;
+  flex-shrink: 0;
 }
 
 .doc-tab:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--naive-hover-color);
   color: var(--naive-text-color);
 }
 
 .doc-tab.active {
-  background: rgba(0, 0, 0, 0.09);
+  background: var(--naive-hover-color);
   color: var(--naive-text-color);
   font-weight: 500;
 }
 
-.dark .doc-tab:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.dark .doc-tab.active {
-  background: rgba(255, 255, 255, 0.1);
+.doc-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 1px;
+  background: #165DFF;
 }
 
 .dt-icon {
@@ -596,13 +601,13 @@ function closeTab(id: string, e: Event) {
 .dt-close {
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   color: inherit;
-  opacity: 0.4;
+  opacity: 0;
   flex-shrink: 0;
   transition: all 0.15s;
   background: none;
@@ -610,15 +615,24 @@ function closeTab(id: string, e: Event) {
   cursor: pointer;
 }
 
+.doc-tab:hover .dt-close,
+.dt-close:focus-visible {
+  opacity: 0.55;
+}
+
 .dt-close:hover {
   background: rgba(0, 0, 0, 0.1);
   opacity: 1;
 }
 
+.dark .dt-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .doc-tab-add {
-  width: 32px;
-  height: 100%;
-  border-radius: 0;
+  width: 28px;
+  height: 26px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -628,6 +642,7 @@ function closeTab(id: string, e: Event) {
   transition: all 0.15s;
   background: none;
   border: none;
+  flex-shrink: 0;
 }
 
 .doc-tab-add:hover {
@@ -643,8 +658,8 @@ function closeTab(id: string, e: Event) {
 .titlebar-right {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 0 6px;
+  gap: 4px;
+  padding: 0 10px;
   margin-left: auto;
   flex-shrink: 0;
 }
@@ -652,8 +667,8 @@ function closeTab(id: string, e: Event) {
 /* 右侧操作按钮 */
 .icon-action {
   width: 30px;
-  height: 24px;
-  border-radius: 5px;
+  height: 26px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -677,28 +692,19 @@ function closeTab(id: string, e: Event) {
 }
 
 .icon-action:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--naive-hover-color);
   color: var(--naive-text-color);
 }
 
 .icon-action:active {
-  background: rgba(0, 0, 0, 0.09);
+  background: var(--naive-hover-color);
   color: var(--naive-text-color);
 }
 
 /* 属性面板按钮激活态（面板展开时） */
 .icon-action.active {
-  background: rgba(0, 0, 0, 0.09);
+  background: var(--naive-hover-color);
   color: var(--naive-text-color);
-}
-
-.dark .icon-action:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.dark .icon-action:active,
-.dark .icon-action.active {
-  background: rgba(255, 255, 255, 0.1);
 }
 </style>
 

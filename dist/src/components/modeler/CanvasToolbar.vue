@@ -161,18 +161,18 @@ function updateZoom() {
 <style scoped>
 .canvas-toolbar {
   position: absolute;
-  top: 16px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
   display: flex;
   align-items: center;
   gap: 2px;
-  padding: 5px 7px;
+  padding: 4px 6px;
   background: var(--naive-card-color);
   border: 1px solid var(--naive-border-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 10%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -185,15 +185,15 @@ function updateZoom() {
 
 .ct-sep {
   width: 1px;
-  height: 20px;
+  height: 18px;
   background: var(--naive-border-color);
   margin: 0 4px;
 }
 
 .ct-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
