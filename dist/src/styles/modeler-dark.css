@@ -329,6 +329,55 @@
   --view-drd-button-hover-background-color: rgba(255, 255, 255, 0.12);
 }
 
+/* ===== DMN overview 工具栏与缩略图面板（Edit DRD / Open overview）=====
+ * 这两个元素直接挂在 .dmn-js-parent 下（.djs-container 之外），
+ * 继承不到上面 .djs-container 作用域的暗色变量，需要单独覆盖。
+ * 缩略图节点由 OverviewRenderer 以 SVG 属性硬编码浅色（#fafafa 填充 /
+ * #666 描边），CSS 规则优先级高于 presentation attribute，可直接覆盖；
+ * 基础规则的特异度刻意低于包内 .open / .can-open:hover 高亮规则
+ * （.dmn-overview-panel .dmn-overview-viewer .dmn-drd-container … = 0,6,1），
+ * 保证选中/悬停高亮不被暗色基础样式吞掉。 */
+
+/* 工具栏按钮：暗底浅字 */
+.dark .dmn-overview-toolbar button {
+  background: var(--color-bg-3) !important;
+  color: var(--color-text-1) !important;
+  border-color: var(--color-border-2) !important;
+}
+
+.dark .dmn-overview-toolbar button:hover {
+  background: var(--color-bg-5) !important;
+}
+
+/* 缩略图面板：暗底、暗边框 */
+.dark .dmn-overview-panel {
+  background-color: var(--color-bg-2) !important;
+  border-color: var(--color-border-2) !important;
+}
+
+/* 面板右上角关闭按钮 × */
+.dark .dmn-overview-panel .dmn-overview-close {
+  color: var(--color-text-2) !important;
+}
+
+/* 缩略图节点（shape）：暗色填充 + 浅描边 */
+.dark .dmn-overview-panel .djs-shape .djs-visual rect,
+.dark .dmn-overview-panel .djs-shape .djs-visual path {
+  fill: var(--color-bg-4) !important;
+  stroke: var(--color-text-3) !important;
+}
+
+/* 缩略图连线（connection）：只改描边，保持无填充 */
+.dark .dmn-overview-panel .djs-connection .djs-visual path {
+  stroke: var(--color-text-3) !important;
+}
+
+/* 缩略图节点文字 */
+.dark .dmn-overview-panel .djs-label,
+.dark .dmn-overview-panel .djs-label tspan {
+  fill: var(--color-text-1) !important;
+}
+
 
 /* ===== 属性面板拖拽时的全局禁选状态 ===== */
 body.panel-resizing {
