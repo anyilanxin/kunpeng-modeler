@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, type Ref } from 'vue';
+import { computed, inject, nextTick, onMounted, ref, watch, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { createEmptyBpmn } from '@/utils/bpmn-templates';
@@ -47,6 +47,7 @@ async function restart() {
       const canvas = modeler.getActiveViewer?.()?.get('canvas') ?? modeler.get('canvas');
       canvas?.zoom(1, 'auto');
       updateZoom();
+      updateOrientation();
     });
     // 同步到 tab store
     const activeTab = tabsStore.activeTab;
@@ -92,6 +93,49 @@ function updateZoom() {
     zoomLevel.value = Math.round((canvas?.zoom?.() ?? 1) * 100);
   } catch { /* noop */ }
 }
+
+/** 当前布局方向（无模型标记时库默认水平） */
+const orientation = ref<'horizontal' | 'vertical'>('horizontal');
+
+let wiredViewer: any = null;
+let orientationRetries = 0;
+
+function updateOrientation() {
+  const modeler = getModeler();
+  try {
+    const viewer = modeler?.getActiveViewer?.() ?? modeler;
+    if (!viewer) {
+      // 模型器异步创建：稍后重试，直到能挂上 commandStack.changed 同步
+      if (orientationRetries++ < 10) setTimeout(updateOrientation, 300);
+      return;
+    }
+    orientationRetries = 0;
+    orientation.value = viewer?.get('orientationService')?.getOrientation?.() ?? 'horizontal';
+    // 实例首次可用（或主题切换重建后）挂 commandStack.changed：切换/撤销/重做/重绘
+    // 都会触发，保证按钮态跟随命令栈而非仅点击路径
+    if (viewer !== wiredViewer) {
+      wiredViewer = viewer;
+      viewer.get('eventBus')?.on?.('commandStack.changed', updateOrientation);
+    }
+  } catch { /* noop */ }
+}
+
+/** 切换水平/纵向布局（以服务端实读值为准，避免本地状态过期） */
+function toggleOrientation() {
+  const modeler = getModeler();
+  try {
+    const viewer = modeler?.getActiveViewer?.() ?? modeler;
+    const svc = viewer?.get('orientationService');
+    if (!svc) return;
+    const current = svc.getOrientation();
+    viewer.get('modeling').setOrientation(current === 'vertical' ? 'horizontal' : 'vertical');
+    orientation.value = svc.getOrientation();
+    updateZoom();
+  } catch { /* noop */ }
+}
+
+onMounted(updateOrientation);
+watch(() => tabsStore.activeTab?.id, () => nextTick(updateOrientation));
 </script>
 
 <template>
@@ -145,6 +189,24 @@ function updateZoom() {
       <button class="ct-btn" :title="t('toolbar.zoomIn')" @click="zoomIn">
         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" class="ct-svg-icon">
           <path d="M32.607 32.607A14.953 14.953 0 0 0 37 22c0-8.284-6.716-15-15-15-8.284 0-15 6.716-15 15 0 8.284 6.716 15 15 15 4.142 0 7.892-1.679 10.607-4.393Zm0 0L41.5 41.5M29 22H15m7 7V15"></path>
+        </svg>
+      </button>
+      <button
+        v-if="!isDmn"
+        class="ct-btn"
+        :title="orientation === 'vertical' ? t('toolbar.toHorizontal') : t('toolbar.toVertical')"
+        @click="toggleOrientation"
+      >
+        <!-- 布局方向：画布框内实心箭头指向流向，图形反映当前布局（水平 → / 纵向 ↓） -->
+        <svg v-if="orientation === 'vertical'" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" class="ct-svg-icon">
+          <rect x="6" y="6" width="36" height="36" rx="4"></rect>
+          <path d="M24 13v17"></path>
+          <path d="M24 36l-6.5-8.5h13z" fill="currentColor" stroke="none"></path>
+        </svg>
+        <svg v-else viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" class="ct-svg-icon">
+          <rect x="6" y="6" width="36" height="36" rx="4"></rect>
+          <path d="M13 24h17"></path>
+          <path d="M36 24l-8.5-6.5v13z" fill="currentColor" stroke="none"></path>
         </svg>
       </button>
       <button class="ct-btn" :title="t('toolbar.fitView')" @click="fitView">

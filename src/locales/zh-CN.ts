@@ -47,6 +47,8 @@ export default {
     zoomOut: '缩小',
     zoomIn: '放大',
     fitView: '适应屏幕',
+    toVertical: '切换为纵向布局',
+    toHorizontal: '切换为水平布局',
     validate: '校验',
     simulate: '模拟运行',
     alignLeft: '向左对齐',

@@ -47,6 +47,8 @@ export default {
     zoomOut: 'Zoom out',
     zoomIn: 'Zoom in',
     fitView: 'Fit to screen',
+    toVertical: 'Switch to vertical layout',
+    toHorizontal: 'Switch to horizontal layout',
     validate: 'Validate',
     simulate: 'Simulate',
     alignLeft: 'Align left',

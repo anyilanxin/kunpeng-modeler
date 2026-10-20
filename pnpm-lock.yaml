@@ -27,20 +27,20 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-js/bpmn-js':
-        specifier: link:../kunpeng-bpm/packages/bpmn/bpmn-js
-        version: link:../kunpeng-bpm/packages/bpmn/bpmn-js
+        specifier: 2026.10.7
+        version: 2026.10.7
       '@kunpeng-js/bpmn-js-behaviors':
         specifier: 2026.10.4
         version: 2026.10.4
       '@kunpeng-js/bpmn-js-element-templates':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(diagram-js@15.28.1)(preact@10.29.8)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(diagram-js@15.28.1)(preact@10.29.8)
       '@kunpeng-js/bpmn-js-properties-panel':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
       '@kunpeng-js/bpmn-moddle':
-        specifier: 2026.10.4
-        version: 2026.10.4
+        specifier: 2026.10.6
+        version: 2026.10.6
       '@kunpeng-js/bpmnlint-plugin-kunpeng-compat':
         specifier: 2.59.0
         version: 2.59.0(bpmnlint@11.15.0)
@@ -788,8 +788,15 @@ packages:
     resolution: {integrity: sha512-CTe8dkLwLCP0vY+iUqT+bBxWvSe4fNePQyVC3EIxSTlV5P+wRdsaWvOoGxgZJvDHCX/zM1wPrZu5JySNaaTk0A==}
     engines: {node: '>=18'}
 
+  '@kunpeng-js/bpmn-js@2026.10.7':
+    resolution: {integrity: sha512-DyZ+9HlqwO90uqNiShmQ7FqeA82x+BJC5DOPo+FGZDUc6F4KYKaWTHqx13el1fUl47jM9/eBZKp8OkIJ3uDNsg==}
+    engines: {node: '>=18'}
+
   '@kunpeng-js/bpmn-moddle@2026.10.4':
     resolution: {integrity: sha512-xzXZWhnG0yMFIcLxf/RVuDiuODsR6Mg+BfvF/AqRQKKUFSc3fdF3K41+2uhoWkd7gVwhRyh74qQFzQ0cwlATuQ==}
+
+  '@kunpeng-js/bpmn-moddle@2026.10.6':
+    resolution: {integrity: sha512-IvDfWGCWFN1b8971X2e6m0ILCVpHW+I5403iC7QBEqWXp3vLwVwIPhGPMEM56BZhK+Pskg0/V6joi7WiRwGR8A==}
 
   '@kunpeng-js/bpmnlint-plugin-kunpeng-compat@2.59.0':
     resolution: {integrity: sha512-vCZzNsHC03ASWxVAAh3XT8mUO8S1KIh6HwiIdnwuBGF80HzaxCFZq8rYWakidYIEJSD3JQmtsWD7Qt9cGTs3tA==}
@@ -6318,9 +6325,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(diagram-js@15.28.1)(preact@10.29.8)':
+  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(diagram-js@15.28.1)(preact@10.29.8)':
     dependencies:
-      '@kunpeng-js/bpmn-js': link:../kunpeng-bpm/packages/bpmn/bpmn-js
+      '@kunpeng-js/bpmn-js': 2026.10.7
       '@kunpeng-js/element-templates-validator': 2026.10.4
       '@kunpeng-js/extract-process-variables': 2026.10.4
       bpmn-moddle: 10.3.1
@@ -6337,9 +6344,9 @@ snapshots:
     transitivePeerDependencies:
       - preact
 
-  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
+  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-js/bpmn-js': link:../kunpeng-bpm/packages/bpmn/bpmn-js
+      '@kunpeng-js/bpmn-js': 2026.10.7
       '@kunpeng-js/extract-process-variables': 2026.10.4
       '@kunpeng-js/properties-panel': 2026.10.5
       array-move: 4.0.0
@@ -6362,7 +6369,24 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
+  '@kunpeng-js/bpmn-js@2026.10.7':
+    dependencies:
+      '@kunpeng-js/bpmn-moddle': 2026.10.6
+      bpmn-font: 0.13.0
+      bpmn-moddle: 10.3.1
+      diagram-js: 15.28.1
+      diagram-js-direct-editing: 3.6.0(diagram-js@15.28.1)
+      didi: 10.2.2
+      ids: 3.0.2
+      min-dash: 5.1.0
+      min-dom: 5.3.0
+      tiny-svg: 4.1.4
+    transitivePeerDependencies:
+      - preact-render-to-string
+
   '@kunpeng-js/bpmn-moddle@2026.10.4': {}
+
+  '@kunpeng-js/bpmn-moddle@2026.10.6': {}
 
   '@kunpeng-js/bpmnlint-plugin-kunpeng-compat@2.59.0(bpmnlint@11.15.0)':
     dependencies:
