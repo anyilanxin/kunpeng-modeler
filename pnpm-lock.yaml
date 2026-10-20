@@ -27,17 +27,17 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-js/bpmn-js':
-        specifier: 2026.10.7
-        version: 2026.10.7
+        specifier: 2026.10.8
+        version: 2026.10.8
       '@kunpeng-js/bpmn-js-behaviors':
         specifier: 2026.10.4
         version: 2026.10.4
       '@kunpeng-js/bpmn-js-element-templates':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(diagram-js@15.28.1)(preact@10.29.8)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.8)(diagram-js@15.28.1)(preact@10.29.8)
       '@kunpeng-js/bpmn-js-properties-panel':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.8)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
       '@kunpeng-js/bpmn-moddle':
         specifier: 2026.10.6
         version: 2026.10.6
@@ -788,8 +788,8 @@ packages:
     resolution: {integrity: sha512-CTe8dkLwLCP0vY+iUqT+bBxWvSe4fNePQyVC3EIxSTlV5P+wRdsaWvOoGxgZJvDHCX/zM1wPrZu5JySNaaTk0A==}
     engines: {node: '>=18'}
 
-  '@kunpeng-js/bpmn-js@2026.10.7':
-    resolution: {integrity: sha512-DyZ+9HlqwO90uqNiShmQ7FqeA82x+BJC5DOPo+FGZDUc6F4KYKaWTHqx13el1fUl47jM9/eBZKp8OkIJ3uDNsg==}
+  '@kunpeng-js/bpmn-js@2026.10.8':
+    resolution: {integrity: sha512-SCnP0OG6e99Yc/Ig1+g7MKnDM3HZ1iep/8DcB68hvzgEYGick4VtULuUFwMjZs3qjcrEOrG+x5lnkQeBfncv3Q==}
     engines: {node: '>=18'}
 
   '@kunpeng-js/bpmn-moddle@2026.10.4':
@@ -6325,9 +6325,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(diagram-js@15.28.1)(preact@10.29.8)':
+  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@2026.10.8)(diagram-js@15.28.1)(preact@10.29.8)':
     dependencies:
-      '@kunpeng-js/bpmn-js': 2026.10.7
+      '@kunpeng-js/bpmn-js': 2026.10.8
       '@kunpeng-js/element-templates-validator': 2026.10.4
       '@kunpeng-js/extract-process-variables': 2026.10.4
       bpmn-moddle: 10.3.1
@@ -6344,9 +6344,9 @@ snapshots:
     transitivePeerDependencies:
       - preact
 
-  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@2026.10.7)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
+  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@2026.10.8)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-js/bpmn-js': 2026.10.7
+      '@kunpeng-js/bpmn-js': 2026.10.8
       '@kunpeng-js/extract-process-variables': 2026.10.4
       '@kunpeng-js/properties-panel': 2026.10.5
       array-move: 4.0.0
@@ -6369,7 +6369,7 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-js/bpmn-js@2026.10.7':
+  '@kunpeng-js/bpmn-js@2026.10.8':
     dependencies:
       '@kunpeng-js/bpmn-moddle': 2026.10.6
       bpmn-font: 0.13.0
