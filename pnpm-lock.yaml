@@ -27,17 +27,17 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-js/bpmn-js':
-        specifier: 2026.10.4
-        version: 2026.10.4
+        specifier: link:../kunpeng-bpm/packages/bpmn/bpmn-js
+        version: link:../kunpeng-bpm/packages/bpmn/bpmn-js
       '@kunpeng-js/bpmn-js-behaviors':
         specifier: 2026.10.4
         version: 2026.10.4
       '@kunpeng-js/bpmn-js-element-templates':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.4)(diagram-js@15.28.1)(preact@10.29.8)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(diagram-js@15.28.1)(preact@10.29.8)
       '@kunpeng-js/bpmn-js-properties-panel':
         specifier: 2026.10.4
-        version: 2026.10.4(@kunpeng-js/bpmn-js@2026.10.4)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
+        version: 2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)
       '@kunpeng-js/bpmn-moddle':
         specifier: 2026.10.4
         version: 2026.10.4
@@ -6318,9 +6318,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@2026.10.4)(diagram-js@15.28.1)(preact@10.29.8)':
+  '@kunpeng-js/bpmn-js-element-templates@2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(diagram-js@15.28.1)(preact@10.29.8)':
     dependencies:
-      '@kunpeng-js/bpmn-js': 2026.10.4
+      '@kunpeng-js/bpmn-js': link:../kunpeng-bpm/packages/bpmn/bpmn-js
       '@kunpeng-js/element-templates-validator': 2026.10.4
       '@kunpeng-js/extract-process-variables': 2026.10.4
       bpmn-moddle: 10.3.1
@@ -6337,9 +6337,9 @@ snapshots:
     transitivePeerDependencies:
       - preact
 
-  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@2026.10.4)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
+  '@kunpeng-js/bpmn-js-properties-panel@2026.10.4(@kunpeng-js/bpmn-js@kunpeng-bpm+packages+bpmn+bpmn-js)(@kunpeng-js/properties-panel@2026.10.5)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-js/bpmn-js': 2026.10.4
+      '@kunpeng-js/bpmn-js': link:../kunpeng-bpm/packages/bpmn/bpmn-js
       '@kunpeng-js/extract-process-variables': 2026.10.4
       '@kunpeng-js/properties-panel': 2026.10.5
       array-move: 4.0.0
