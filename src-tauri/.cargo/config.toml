@@ -1,3 +1,10 @@
+# index.crates.io 在当前网络不可达，走 rsproxy.cn 镜像（sparse 协议）
+[source.crates-io]
+replace-with = 'rsproxy-sparse'
+
+[source.rsproxy-sparse]
+registry = "sparse+https://rsproxy.cn/index/"
+
 [target.x86_64-pc-windows-msvc]
 linker = "lld"
 rustflags = [
