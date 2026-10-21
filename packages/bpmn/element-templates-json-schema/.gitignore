@@ -1,7 +1,0 @@
-node_modules/
-dist/
-coverage/
-.idea
-*.iml
-.DS_Store
-packages/**/test/integration/*.json

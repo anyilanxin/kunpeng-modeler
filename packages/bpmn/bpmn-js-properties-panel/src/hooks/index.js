@@ -1,1 +1,0 @@
-export { useService } from './useService';
