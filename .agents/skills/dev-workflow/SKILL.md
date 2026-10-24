@@ -36,7 +36,7 @@ description: MANDATORY closed-loop development workflow for ANY change in this r
 
 ## 完成定义(DoD)
 
-开发完成的判据 = 验证全绿 + 提交落盘并 push + **知识同步完成**(第 8 步)。凡产生新契约/新陷阱/新流程而未同步技能,一律视为未完成。
+开发完成的判据 = 验证全绿 + 提交落盘 + **知识同步完成**(第 8 步)。push 时机遵循 commit-standards(用户明确要求或分支收尾时执行)。凡产生新契约/新陷阱/新流程而未同步技能,一律视为未完成。
 
 ## 与其他技能的关系
 

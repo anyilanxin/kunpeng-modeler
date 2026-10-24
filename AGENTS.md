@@ -22,7 +22,7 @@ Kunpeng Modeler：鲲鹏 BPMN 2.0 / DMN 1.6 桌面建模应用（**Tauri 2.0 + V
 | 任务 | 技能入口 |
 |------|----------|
 | **任何开发/需求更改**（功能/缺陷/重构/行为变更，开工第一步） | [dev-workflow](.agents/skills/dev-workflow/SKILL.md)（八步闭环 + 评审门，硬性流程总闸，先于一切开发类技能；含宿主层/内核归属判定） |
-| 改动收尾提交 / 编写 commit message / 决定是否 push | [commit-standards](.agents/skills/commit-standards/SKILL.md)（本地技能：门禁 `pnpm build`，涉桌面端另跑 tauri 打包，完成即提交并 push） |
+| 改动收尾提交 / 编写 commit message / 决定是否 push | [commit-standards](.agents/skills/commit-standards/SKILL.md)（本地技能：门禁 `pnpm build`，涉桌面端另跑 tauri 打包） |
 | 建模器内核开发 / 调试 / bug 修复 | [bpmn-js](../kunpeng-bpm/.agents/skills/bpmn-js/SKILL.md) / [dmn-js](../kunpeng-bpm/.agents/skills/dmn-js/SKILL.md)（内核仓技能，切到 `../kunpeng-bpm` 工作） |
 | `@kunpeng-js/*` 版本升级、跨仓契约同步、npm 发版协调 | [iteration](../kunpeng-bpm/.agents/skills/iteration/SKILL.md)（内核仓技能） |
 | BPMN / DMN 规范语义与结构争议仲裁 | [bpm](../kunpeng-bpm/.agents/skills/bpm/SKILL.md) / [dmn](../kunpeng-bpm/.agents/skills/dmn/SKILL.md)（内核仓技能） |
