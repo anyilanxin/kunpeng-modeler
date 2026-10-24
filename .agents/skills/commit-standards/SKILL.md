@@ -1,6 +1,6 @@
 ---
 name: commit-standards
-description: kunpeng-modeler 仓库的提交与推送规范：提交前构建验证门禁（pnpm build，涉桌面端另跑 tauri 构建）、commit message 规范（type(scope) 前缀 + 中文摘要 + 分条正文、无 AI 署名）、先审核再提交、多主题拆分。改动准备提交、写 commit message、决定是否 push 时使用。
+description: kunpeng-modeler 仓库的提交与推送规范：提交前构建验证门禁（pnpm build，涉桌面端另跑 tauri 构建）、commit message 规范（type(scope) 前缀 + 中文摘要 + 分条正文、无 AI 署名）、先审核再提交、多主题拆分、完成即提交并 push 的 DoD。改动准备提交、写 commit message、决定是否 push 时使用。
 ---
 
 # 提交规范（构建门禁 + git commit / push）
@@ -31,7 +31,7 @@ pnpm build        # 前端构建验证（vite build）
 2. 涉**行为、依赖版本、构建配置**的改动，提交前向用户展示变更说明（diff 或摘要）再提交；纯文档类可直接提交；
 3. 多个不相关改动拆成多个 commit，**每个 commit 只讲一个主题**；
 4. commit message 按下方规范书写；
-5. 改动收尾即提交；push 在用户明确要求或分支收尾时执行。
+5. DoD：改动收尾**即提交并 push**（2026-10-24 与 kunpeng 系仓库同步对齐：换机恢复只依赖 git，未提交的工作在另一台电脑上不存在）。
 
 ## commit message 规范
 

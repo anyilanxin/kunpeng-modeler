@@ -13,7 +13,7 @@ Kunpeng Modeler：鲲鹏 BPMN 2.0 / DMN 1.6 桌面建模应用（**Tauri 2.0 + V
 
 ## 恢复开发现场（每次新会话的固定动作）
 
-1. 本仓无本地计划文档机制，**进度以 git 历史为准**：`git log --oneline -15` 看最近在做什么、遗留什么；
+1. 需求/开发计划文档在 `docs/`（dev-workflow 闭环产物，2026-10-24 起），先看有无进行中条目；**进度辅以 git 历史**：`git log --oneline -15` 看最近在做什么、遗留什么；
 2. 按下方「技能路由」按需加载技能（ZCode 按 SKILL.md 的 description 自动触发；其他工具手动通读）；
 3. 有长期价值的结论写入 ZCode 长期记忆（跨会话自动可用）。
 
@@ -21,7 +21,8 @@ Kunpeng Modeler：鲲鹏 BPMN 2.0 / DMN 1.6 桌面建模应用（**Tauri 2.0 + V
 
 | 任务 | 技能入口 |
 |------|----------|
-| 改动收尾提交 / 编写 commit message / 决定是否 push | [commit-standards](.agents/skills/commit-standards/SKILL.md)（本仓唯一本地技能：门禁 `pnpm build`，涉桌面端另跑 tauri 打包） |
+| **任何开发/需求更改**（功能/缺陷/重构/行为变更，开工第一步） | [dev-workflow](.agents/skills/dev-workflow/SKILL.md)（八步闭环 + 评审门，硬性流程总闸，先于一切开发类技能；含宿主层/内核归属判定） |
+| 改动收尾提交 / 编写 commit message / 决定是否 push | [commit-standards](.agents/skills/commit-standards/SKILL.md)（本地技能：门禁 `pnpm build`，涉桌面端另跑 tauri 打包，完成即提交并 push） |
 | 建模器内核开发 / 调试 / bug 修复 | [bpmn-js](../kunpeng-bpm/.agents/skills/bpmn-js/SKILL.md) / [dmn-js](../kunpeng-bpm/.agents/skills/dmn-js/SKILL.md)（内核仓技能，切到 `../kunpeng-bpm` 工作） |
 | `@kunpeng-js/*` 版本升级、跨仓契约同步、npm 发版协调 | [iteration](../kunpeng-bpm/.agents/skills/iteration/SKILL.md)（内核仓技能） |
 | BPMN / DMN 规范语义与结构争议仲裁 | [bpm](../kunpeng-bpm/.agents/skills/bpm/SKILL.md) / [dmn](../kunpeng-bpm/.agents/skills/dmn/SKILL.md)（内核仓技能） |
@@ -31,6 +32,8 @@ Kunpeng Modeler：鲲鹏 BPMN 2.0 / DMN 1.6 桌面建模应用（**Tauri 2.0 + V
 > 跨仓技能路径按「兄弟目录检出」书写（`../kunpeng-bpm`）；克隆布局不同时按仓库名定位。本仓任务大多落在应用层 + commit-standards；一旦要动内核源码，就整体切换到内核仓的工作方式（以其 AGENTS.md 为准）。
 
 ## 开发与验证流程
+
+**一切开发与需求更改走 [dev-workflow](.agents/skills/dev-workflow/SKILL.md) 八步闭环（硬性，2026-10-24 定）**：分支 → 需求文档（`docs/`）→ 开发计划 + **用户评审门** → 编码 → 验证 → 总结 → 迭代 → 同步技能。跳步直改代码、无评审先开工均为违规；唯一豁免：用户明示"此件一步完成、无需评审"。以下 1-5 条为该闭环在编码/验证/收尾阶段的本仓细则。
 
 1. 动手前先判问题归属：宿主层（布局 / 面板 / 文件 IO / 主题 / 标签页 / 打包）在本仓修；内核行为问题去内核仓修（见技能路由）；
 2. 只用文件编辑工具改源码（Mimosa 拦截 sed 等命令直写）；
