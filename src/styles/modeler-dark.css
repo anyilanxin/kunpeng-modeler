@@ -186,9 +186,14 @@
   color: var(--color-neutral-10) !important;
 }
 
-/* ===== 弹出层边框 ===== */
+/* ===== 弹出层 ===== */
 .dark .djs-popup-backdrop {
   border: none !important;
+}
+
+/* 弹框标题：内核样式按亮色固定深色标题，暗色下黑字黑底不可见 */
+.dark .djs-popup .djs-popup-title {
+  color: var(--color-neutral-10) !important;
 }
 
 /* ===== lint issues 提示 ===== */
