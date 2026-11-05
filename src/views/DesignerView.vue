@@ -55,14 +55,14 @@ const modelerRef = computed(() => modelerRefs[activeId.value] ?? null);
 
 /**
  * 处理 modeler 校验结果
- * @kunpeng-js/linting 返回扁平的 reports 数组，每项 { id, message, category, rule }
+ * @kunpeng-io/linting 返回扁平的 reports 数组，每项 { id, message, category, rule }
  * 这里映射为 ProblemItem[] 写入 store
  */
 function handleLint(tabId: string, reports: any[]) {
   const items = (reports || []).map((report) => {
     const category = report.category || report.severity || 'error';
     return {
-      severity: category === 'warn' || category === 'warning' ? 'warning' : 'error',
+      severity: category === 'warn' || category === 'warning' ? ('warning' as const) : ('error' as const),
       message: report.message || report.name || String(report.rule || '未知问题'),
       source: report.rule,
       id: report.id,

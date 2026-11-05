@@ -68,7 +68,7 @@
   --color-black-opacity-10: hsla(0, 0%, 0%, 10%) !important;
   --popup-background-color: var(--color-bg-2) !important;
 
-  /* ===== @kunpeng-js/bpmn-js 语义令牌层（palette/context-pad/popup 均由此取色）===== */
+  /* ===== @kunpeng-io/bpmn-js 语义令牌层（diagram-js --bio-* 令牌）（palette/context-pad/popup 均由此取色）===== */
   --bio-surface-subtle: #22242a !important; /* palette 背景与属性面板同色系 */
   --bio-surface: #2a2d34 !important;
   --bio-surface-medium: #363a43 !important; /* 悬停面 */
@@ -186,9 +186,14 @@
   color: var(--color-neutral-10) !important;
 }
 
-/* ===== 弹出层边框 ===== */
+/* ===== 弹出层 ===== */
 .dark .djs-popup-backdrop {
   border: none !important;
+}
+
+/* 弹框标题：内核样式按亮色固定深色标题，暗色下黑字黑底不可见 */
+.dark .djs-popup .djs-popup-title {
+  color: var(--color-neutral-10) !important;
 }
 
 /* ===== lint issues 提示 ===== */
