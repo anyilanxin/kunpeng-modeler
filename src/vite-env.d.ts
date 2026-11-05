@@ -23,16 +23,10 @@ declare module '*.vue' {
 }
 
 // ===== 第三方包类型声明（JS 包无 .d.ts） =====
-declare module '@bpmn-io/add-exporter';
+// @kunpeng-io 内核（bpmn-js/dmn-js）与 linting/behaviors 自带类型声明；
+// 两个属性面板家族包无 d.ts，按运行时契约声明
+declare module '@kunpeng-io/bpmn-js-properties-panel';
+declare module '@kunpeng-io/dmn-js-properties-panel';
 declare module 'bpmn-js-color-picker/colors';
-declare module 'bpmn-js-create-append-anything';
 declare module 'diagram-js-grid';
 declare module 'diagram-js-minimap';
-declare module 'dmn-js-dmnlint';
-
-// ===== @kunpeng-js/linting 校验模块 =====
-declare module '@kunpeng-js/linting';
-declare module '@kunpeng-js/linting/modeler';
-
-// ===== 本地 JS 工具模块 =====
-declare module '@/utils/dmnlint-config';

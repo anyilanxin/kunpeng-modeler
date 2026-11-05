@@ -12,34 +12,19 @@ import {
   DmnPropertiesPanelModule,
   DmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng-js/dmn-js-properties-panel';
-// CSS
-import '@kunpeng-js/dmn-js/dist/assets/diagram-js.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn-codes.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn-embedded.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-font/css/dmn.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-boxed-expression-controls.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-boxed-expression.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-decision-table-controls.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-decision-table.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-drd.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-literal-expression.css';
-import '@kunpeng-js/dmn-js/dist/assets/dmn-js-shared.css';
-// DMN 核心（鲲鹏二次开发包）
-import DmnModeler from '@kunpeng-js/dmn-js/lib/Modeler';
-import { OverviewModule } from '@kunpeng-js/dmn-js/lib/overview';
-import KunpengModdleDescriptor from '@kunpeng-js/dmn-moddle/resources/kunpeng.json';
-import '@kunpeng-js/properties-panel/assets/properties-panel.css';
+} from '@kunpeng-io/dmn-js-properties-panel';
+// CSS（diagram-js 表面 + 组件皮肤，须在 diagram-js.css 之后引入；图标全部内联 SVG 无字体图标）
+import 'diagram-js/assets/diagram-js.css';
+import '@kunpeng-io/dmn-js/styles';
+import '@kunpeng-io/dmn-js-properties-panel/dist/assets/properties-panel.css';
+// DMN 核心（@kunpeng-io 新内核：根命名导出 Modeler；kunpeng 扩展内置、下钻 overview 自带）
+import { Modeler as DmnModeler } from '@kunpeng-io/dmn-js';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具
 import { createEmptyDmn } from '@/utils/dmn-templates';
-import dmnlintConfig from '@/utils/dmnlint-config';
-import { createI18nOptions } from '@/utils/modeler-i18n';
 // 第三方扩展模块
-import AddExporterModule from '@bpmn-io/add-exporter';
 import gridModule from 'diagram-js-grid';
-import { DrdLinting } from 'dmn-js-dmnlint';
 
 const props = withDefaults(
   defineProps<{
@@ -76,56 +61,35 @@ const currentXml = ref(props.xml || createEmptyDmn());
 // 属性面板挂载 ID
 const panelId = `dmn-properties-${Math.random().toString(36).slice(2, 8)}`;
 
-// 当前激活的视图类型（drd / decisionTable / literalExpression）
-const activeViewType = ref('drd');
+// 下钻视图（决策表/字面/Boxed）是否打开：编辑器层盖画布，属性面板让位
+const drillOpen = ref(false);
 // 属性面板仅在 DRD 视图下显示
 const showProperty = ref(true);
 
 async function initModeler() {
   if (modeler.value || !canvasRef.value) return;
 
-  const CustomTranslateModule = createI18nOptions(props.lang);
-
+  // 注：新内核词典默认 zh-CN 单语（lang prop 暂不生效，与 anyi 迁移同款登记）
   const additionalModules = [
     DmnPropertiesPanelModule,
     DmnPropertiesProviderModule,
     KunpengPropertiesProviderModule,
-    AddExporterModule,
-    OverviewModule,
     gridModule,
-    DrdLinting,
-    CustomTranslateModule,
   ];
 
-  const config: Record<string, any> = {
+  // 新内核单画布门面：DRD 常驻，决策表/字面/Boxed 经 DmnViews 内部下钻，
+  // config 平铺（不再按 drd/decisionTable/literalExpression/common 分视图装配）
+  const config: any = {
     container: canvasRef.value,
-    drd: {
-      propertiesPanel: {
-        parent: `#${panelId}`,
-      },
-      additionalModules,
-      exporter: {
-        name: 'kunpeng-modeler',
-        version: __APP_VERSION__,
-      },
-    },
-    decisionTable: {
-      additionalModules: [CustomTranslateModule],
-    },
-    literalExpression: {
-      additionalModules: [CustomTranslateModule],
-    },
-    common: {
-      linting: dmnlintConfig,
-    },
-    moddleExtensions: {
-      kunpeng: KunpengModdleDescriptor,
+    additionalModules,
+    propertiesPanel: {
+      parent: `#${panelId}`,
     },
   };
 
   // 暗色主题渲染配置
   if (props.theme === 'dark') {
-    config.drd.drdRenderer = {
+    config.dmnRenderer = {
       defaultFillColor: '#1a1a1a',
       defaultStrokeColor: '#FFF',
     };
@@ -133,31 +97,19 @@ async function initModeler() {
 
   modeler.value = new DmnModeler(config);
 
-  // 监听视图变化：跟踪当前视图类型，控制属性面板显隐
-  modeler.value.on('views.changed', (event: any) => {
-    const { type } = event.activeView;
-    activeViewType.value = type;
-    showProperty.value = type === 'drd';
+  // 命令栈变化 → 序列化上抛（DRD 与下钻视图编辑统一入口）
+  modeler.value.on('commandStack.changed', () => {
     saveAndEmit();
   });
 
-  // 监听元素变化 + 视图激活切换
-  modeler.value.on('import.done', () => {
-    const activeView = modeler.value?.getActiveView?.();
-    if (activeView) {
-      activeViewType.value = activeView.type;
-      showProperty.value = activeView.type === 'drd';
-    }
-    const activeViewer = modeler.value?.getActiveViewer?.();
-    if (activeViewer) {
-      const eventBus = activeViewer.get('eventBus');
-      eventBus.on('elements.changed', () => {
-        saveAndEmit();
-      });
-      eventBus.on('activate.change', () => {
-        saveAndEmit();
-      });
-    }
+  // 下钻视图开合：编辑器层盖画布，属性面板同步让位/复位（anyi 迁移同款）
+  modeler.value.on('dmnViews.opened', () => {
+    drillOpen.value = true;
+    showProperty.value = false;
+  });
+  modeler.value.on('dmnViews.closed', () => {
+    drillOpen.value = false;
+    showProperty.value = true;
   });
 
   // 加载初始内容
@@ -182,9 +134,8 @@ function fitViewport() {
   if (!modeler.value) return;
   setTimeout(() => {
     try {
-      const activeViewer = modeler.value?.getActiveViewer?.();
-      if (!activeViewer) return;
-      const canvas = activeViewer.get('canvas');
+      const canvas = modeler.value?.get('canvas') as any;
+      if (!canvas) return;
       canvas.resized();
       canvas.zoom('fit-viewport', 'auto');
     } catch {
@@ -200,7 +151,7 @@ async function saveAndEmit() {
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try {
-      const result = await modeler.value!.saveXML({ format: true });
+      const result = await modeler.value!.saveXML();
       currentXml.value = result.xml;
       emit('change', result.xml);
     } catch (error) {
@@ -221,7 +172,7 @@ async function importXML(xml: string) {
 async function saveXML(): Promise<string | undefined> {
   if (!modeler.value) return;
   try {
-    const result = await modeler.value.saveXML({ format: true });
+    const result = await modeler.value.saveXML();
     currentXml.value = result.xml;
     return result.xml;
   } catch (error) {
@@ -234,7 +185,7 @@ async function saveXML(): Promise<string | undefined> {
 async function syncXmlFromModeler() {
   if (!modeler.value) return;
   try {
-    const result = await modeler.value.saveXML({ format: true });
+    const result = await modeler.value.saveXML();
     currentXml.value = result.xml;
   } catch (error) {
     console.error('[DmnModeler] syncXmlFromModeler failed', error);
@@ -276,12 +227,11 @@ function resizeCanvas() {
   if (container && container.offsetParent === null) return;
   if (resizeTimer) clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
-    // 仅在 DRD 视图下调整画布尺寸
-    if (activeViewType.value !== 'drd') return;
+    // 下钻视图打开时编辑器层盖画布，无需调整画布尺寸
+    if (drillOpen.value) return;
     try {
-      const activeViewer = modeler.value?.getActiveViewer?.();
-      if (!activeViewer) return;
-      const canvas = activeViewer.get('canvas');
+      const canvas = modeler.value?.get('canvas') as any;
+      if (!canvas) return;
       canvas.resized();
     } catch {
       // ignore

@@ -1,41 +1,34 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 
-// 鲲鹏私有模块
-import KunpengBehaviorModule from '@kunpeng-js/bpmn-js-behaviors';
+// 鲲鹏私有模块（@kunpeng-io 新内核：kunpeng 扩展已内置，无需注册 moddleExtensions）
+import KunpengBehaviorModule from '@kunpeng-io/bpmn-js-behaviors';
 import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
   KunpengPropertiesProviderModule,
-} from '@kunpeng-js/bpmn-js-properties-panel';
-import KunpengBpmnModdle from '@kunpeng-js/bpmn-moddle/resources/kunpeng.json';
-import '@kunpeng-js/properties-panel/assets/properties-panel.css';
+} from '@kunpeng-io/bpmn-js-properties-panel';
+import '@kunpeng-io/properties-panel/assets/properties-panel.css';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具
 import { createEmptyBpmn } from '@/utils/bpmn-templates';
-import { createI18nOptions } from '@/utils/modeler-i18n';
-// BPMN 校验（@kunpeng-js/linting：含 camunda-compat 规则 + 画布标注）
-import lintingModule from '@kunpeng-js/linting/modeler';
-import { Linter } from '@kunpeng-js/linting';
+// BPMN 校验（@kunpeng-io/linting：kunpeng-compat 规则构建期内联 + 画布标注）
+import lintingModule from '@kunpeng-io/linting/modeler';
+import { Linter } from '@kunpeng-io/linting';
 // 第三方扩展模块
-import AddExporterModule from '@bpmn-io/add-exporter';
 import BpmnColorPickerModule from 'bpmn-js-color-picker/colors';
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
-// bpmn-js 核心
-import BpmnModeler from '@kunpeng-js/bpmn-js/lib/Modeler';
+// bpmn-js 核心（根命名导出 Modeler；全量追加/创建弹框内核自带，无需 create-append-anything）
+import { Modeler as BpmnModeler } from '@kunpeng-io/bpmn-js';
 import gridModule from 'diagram-js-grid';
 import MinimapModule from 'diagram-js-minimap';
 
-// CSS（确保 bpmn-js 正确渲染）
-import '@kunpeng-js/bpmn-js/dist/assets/diagram-js.css';
-import '@kunpeng-js/bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
-import '@kunpeng-js/bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
-import '@kunpeng-js/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-import '@kunpeng-js/bpmn-js/dist/assets/bpmn-js.css';
+// CSS（diagram-js 表面 + 组件皮肤，须在 diagram-js.css 之后引入；图标全部内联 SVG 无字体图标）
+import 'diagram-js/assets/diagram-js.css';
+import '@kunpeng-io/bpmn-js/styles';
 import 'bpmn-js-color-picker/colors/color-picker.css';
-// @kunpeng-js/linting 画布错误标注样式
-import '@kunpeng-js/linting/assets/linting.css';
+// @kunpeng-io/linting 画布错误标注样式
+import '@kunpeng-io/linting/assets/linting.css';
 
 const props = withDefaults(
   defineProps<{
@@ -76,23 +69,19 @@ const panelId = `bpmn-properties-${Math.random().toString(36).slice(2, 8)}`;
 async function initModeler() {
   if (modeler.value || !canvasRef.value) return;
 
-  const CustomTranslateModule = createI18nOptions(props.lang);
-
+  // 注：新内核词典默认 zh-CN 单语（lang prop 暂不生效，与 anyi 迁移同款登记）
   const additionalModules = [
     gridModule,
-    CreateAppendAnythingModule,
-    AddExporterModule,
     BpmnColorPickerModule,
     KunpengBehaviorModule,
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
     KunpengPropertiesProviderModule,
     MinimapModule,
-    CustomTranslateModule,
     lintingModule,
   ];
 
-  const config: Record<string, any> = {
+  const config: any = {
     container: canvasRef.value,
     propertiesPanel: {
       parent: `#${panelId}`,
@@ -128,13 +117,6 @@ async function initModeler() {
         { label: 'ExtendColorFour', fill: '#f3ae57', stroke: '#ed742e' },
       ],
     },
-    moddleExtensions: {
-      kunpeng: KunpengBpmnModdle,
-    },
-    exporter: {
-      name: 'kunpeng-modeler',
-      version: __APP_VERSION__,
-    },
   };
 
   // 暗色主题渲染配置
@@ -147,7 +129,7 @@ async function initModeler() {
 
   modeler.value = new BpmnModeler(config);
 
-  // 创建 @kunpeng-js/linting 的 Linter 实例（desktop modeler + cloud 规则）
+  // 创建 @kunpeng-io/linting 的 Linter 实例（desktop modeler + cloud 规则）
   linterInstance = new Linter({ modeler: 'desktop', type: 'cloud' });
 
   // 注册事件
@@ -175,7 +157,7 @@ async function initModeler() {
 }
 
 let saveTimer: null | ReturnType<typeof setTimeout> = null;
-// @kunpeng-js/linting 的 Linter 实例
+// @kunpeng-io/linting 的 Linter 实例
 let linterInstance: Linter | null = null;
 
 async function saveAndEmit() {
@@ -184,7 +166,7 @@ async function saveAndEmit() {
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try {
-      const result = await modeler.value!.saveXML({ format: true });
+      const result = await modeler.value!.saveXML();
       const xml = result.xml as string;
       currentXml.value = xml;
       emit('change', xml);
@@ -197,7 +179,7 @@ async function saveAndEmit() {
 }
 
 /**
- * 运行 BPMN 校验：调 @kunpeng-js/linting 拿到扁平 reports，
+ * 运行 BPMN 校验：调 @kunpeng-io/linting 拿到扁平 reports，
  * 推送到画布标注 + emit 给 ProblemsPanel
  */
 async function runLint(xml: string) {
@@ -230,7 +212,7 @@ async function importXML(xml: string) {
 async function saveXML(): Promise<string | undefined> {
   if (!modeler.value) return;
   try {
-    const result = await modeler.value.saveXML({ format: true });
+    const result = await modeler.value.saveXML();
     const xml = result.xml as string;
     currentXml.value = xml;
     return xml;
@@ -244,7 +226,7 @@ async function saveXML(): Promise<string | undefined> {
 async function syncXmlFromModeler() {
   if (!modeler.value) return;
   try {
-    const result = await modeler.value.saveXML({ format: true });
+    const result = await modeler.value.saveXML();
     currentXml.value = result.xml as string;
   } catch (error) {
     console.error('[BpmnModeler] syncXmlFromModeler failed', error);

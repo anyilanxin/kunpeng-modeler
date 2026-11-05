@@ -68,7 +68,7 @@
   --color-black-opacity-10: hsla(0, 0%, 0%, 10%) !important;
   --popup-background-color: var(--color-bg-2) !important;
 
-  /* ===== @kunpeng-js/bpmn-js 语义令牌层（palette/context-pad/popup 均由此取色）===== */
+  /* ===== @kunpeng-io/bpmn-js 语义令牌层（diagram-js --bio-* 令牌）（palette/context-pad/popup 均由此取色）===== */
   --bio-surface-subtle: #22242a !important; /* palette 背景与属性面板同色系 */
   --bio-surface: #2a2d34 !important;
   --bio-surface-medium: #363a43 !important; /* 悬停面 */
