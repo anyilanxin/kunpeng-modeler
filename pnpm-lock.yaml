@@ -21,20 +21,20 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-io/bpmn-js':
-        specifier: 2026.11.2
-        version: 2026.11.2
+        specifier: 2026.11.3
+        version: 2026.11.3
       '@kunpeng-io/bpmn-js-behaviors':
         specifier: 2026.10.4
         version: 2026.10.4
       '@kunpeng-io/bpmn-js-properties-panel':
         specifier: 2026.11.1
-        version: 2026.11.1(@kunpeng-io/bpmn-js@2026.11.2)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
+        version: 2026.11.1(@kunpeng-io/bpmn-js@2026.11.3)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
       '@kunpeng-io/dmn-js':
-        specifier: 2026.10.5
-        version: 2026.10.5
+        specifier: 2026.10.7
+        version: 2026.10.7
       '@kunpeng-io/dmn-js-properties-panel':
         specifier: 2026.10.3
-        version: 2026.10.3(@kunpeng-io/dmn-js@2026.10.5)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
+        version: 2026.10.3(@kunpeng-io/dmn-js@2026.10.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
       '@kunpeng-io/linting':
         specifier: 2026.10.4
         version: 2026.10.4
@@ -745,8 +745,8 @@ packages:
   '@kunpeng-io/bpmn-js@2026.10.4':
     resolution: {integrity: sha512-V2sPvvGDziHVPjwbw3Z+rRfvE74mukqzr5xLEBW8zExAS1HL4WsiUJRDzNTdGgNfkxnBdK7jUki0dQ5ZKWNEeQ==}
 
-  '@kunpeng-io/bpmn-js@2026.11.2':
-    resolution: {integrity: sha512-FqHbIRawOPdpyCOE88BA+SrkrJHHyhudzcJqTVEDAB2/iW/LESnEBGFnDOXBzNE0yj7vKRMB6mQMr9EcTwJL0Q==}
+  '@kunpeng-io/bpmn-js@2026.11.3':
+    resolution: {integrity: sha512-zRGydacoYTfmArMgUB67u2AyyModev8ZapUYU0zPGO2+yNtG5sfVyiIeEmex1YVQPUXnDQPBuMsO2cAwWI5ZWA==}
 
   '@kunpeng-io/bpmnlint-plugin-kunpeng-compat@2026.10.4':
     resolution: {integrity: sha512-MS8QsaZg9Kr7xfjdWyj608/WmllPj8YU1dP+i80HAmCywe9Rc9CEfQWl3Q63GOSTUyxch7DG4Jmu0spDyfSLGg==}
@@ -761,8 +761,8 @@ packages:
       '@kunpeng-io/properties-panel': '*'
       diagram-js: '*'
 
-  '@kunpeng-io/dmn-js@2026.10.5':
-    resolution: {integrity: sha512-ntSzORVc+k1Jv4q+4BdBkvne4MZdRRNjPem/753MfqFB45zJdTBxMMopWP5LDXZQh2/oy06AeGjR93VBMeCFtg==}
+  '@kunpeng-io/dmn-js@2026.10.7':
+    resolution: {integrity: sha512-erKIEQwQ2AzZiucGV+XjfcOiFDe8+0N4PxoZ38i0slYUlMAQdJIUgdBOrumxFC8B1/kY6sVfg7v0pq7WZ00mHg==}
 
   '@kunpeng-io/expression-analyzer@2026.10.3':
     resolution: {integrity: sha512-PeSVU3k5Q9U5PULnsgt+AfuZb+iaDTQJXeAleD0zQtPdZtjJIR9pdS5HObVxBMsd9SvWly7ZYjq3ppuTKUhNyg==}
@@ -5977,9 +5977,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.1(@kunpeng-io/bpmn-js@2026.11.2)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.1(@kunpeng-io/bpmn-js@2026.11.3)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/bpmn-js': 2026.11.2
+      '@kunpeng-io/bpmn-js': 2026.11.3
       '@kunpeng-io/extract-process-variables': 2026.10.3
       '@kunpeng-io/properties-panel': 2026.10.3
       array-move: 4.0.0
@@ -6007,7 +6007,7 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js@2026.11.2':
+  '@kunpeng-io/bpmn-js@2026.11.3':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
       '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.1
@@ -6038,15 +6038,15 @@ snapshots:
       min-dash: 5.1.0
       semver-compare: 1.0.0
 
-  '@kunpeng-io/dmn-js-properties-panel@2026.10.3(@kunpeng-io/dmn-js@2026.10.5)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
+  '@kunpeng-io/dmn-js-properties-panel@2026.10.3(@kunpeng-io/dmn-js@2026.10.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/dmn-js': 2026.10.5
+      '@kunpeng-io/dmn-js': 2026.10.7
       '@kunpeng-io/properties-panel': 2026.10.3
       diagram-js: 15.28.1
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  '@kunpeng-io/dmn-js@2026.10.5':
+  '@kunpeng-io/dmn-js@2026.10.7':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
       '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.1
