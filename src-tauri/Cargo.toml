@@ -1,6 +1,6 @@
 [package]
 name = "kunpeng-modeler"
-version = "2026.9.0"
+version = "2026.11.1"
 description = "Kunpeng Modeler"
 authors = ["you"]
 edition = "2021"
