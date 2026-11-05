@@ -21,6 +21,9 @@ ManifestDPIAwareness PerMonitorV2
 !include "FileAssociation.nsh"
 !include "Win\COM.nsh"
 !include "Win\Propkey.nsh"
+; CLI 2.12.x 的 utils.nsh 在 CheckIfAppIsRunning 里使用 RestartManager_* 宏，
+; 本模板拷贝自旧版缺少此 include（重构后首次打 exe 暴露，2026-11-05）
+!include "Win\RestartManager.nsh"
 !include "StrFunc.nsh"
 ${StrCase}
 ${StrLoc}
