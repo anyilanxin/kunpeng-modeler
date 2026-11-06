@@ -21,14 +21,14 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-io/bpmn-js':
-        specifier: 2026.11.6
-        version: 2026.11.6
+        specifier: 2026.11.7
+        version: 2026.11.7
       '@kunpeng-io/bpmn-js-behaviors':
         specifier: 2026.10.4
         version: 2026.10.4
       '@kunpeng-io/bpmn-js-properties-panel':
-        specifier: 2026.11.4
-        version: 2026.11.4(@kunpeng-io/bpmn-js@2026.11.6)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
+        specifier: 2026.11.5
+        version: 2026.11.5(@kunpeng-io/bpmn-js@2026.11.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
       '@kunpeng-io/dmn-js':
         specifier: 2026.10.7
         version: 2026.10.7
@@ -735,8 +735,8 @@ packages:
   '@kunpeng-io/bpmn-js-behaviors@2026.10.4':
     resolution: {integrity: sha512-TBHM1xhgzx2ggczypB5zlHCSNShjBVKdwlyfhypmoBJficGBDUFXdSxcjSkK0JPknafM+o7nG28Xsq3tD/dWsg==}
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.4':
-    resolution: {integrity: sha512-pONCCvFVr6zwGVUaoznstDMrZIeS4h+KI9PuEd0DLXG/pI4hg7eA3uYMWT1h2cKebsOr8t4XwFKLCnBPnnOcMg==}
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.5':
+    resolution: {integrity: sha512-rBK1c91/0CU2KXXc2boX6YJUTpRQ1zLjtzPpNDpDIw2qZlgQ4UxAlbNWPTmXGGKdwINi71YgGwQvb47TyGR7JQ==}
     peerDependencies:
       '@kunpeng-io/bpmn-js': '*'
       '@kunpeng-io/properties-panel': '*'
@@ -745,8 +745,8 @@ packages:
   '@kunpeng-io/bpmn-js@2026.10.4':
     resolution: {integrity: sha512-V2sPvvGDziHVPjwbw3Z+rRfvE74mukqzr5xLEBW8zExAS1HL4WsiUJRDzNTdGgNfkxnBdK7jUki0dQ5ZKWNEeQ==}
 
-  '@kunpeng-io/bpmn-js@2026.11.6':
-    resolution: {integrity: sha512-5NPll1XrR/ohYsUUzO+FIbhpiY5UoHKxwfhv9NzUBO3Upa5bhLZPAYkdMK6AC5UckN0xo+3cYTus3Ntn/SVJLw==}
+  '@kunpeng-io/bpmn-js@2026.11.7':
+    resolution: {integrity: sha512-3L+tX5no9RmfST7uKyz701c68mDjTRObN+Dhz3UEDkYuqZr6wYiQqcurr+ZZUGdYVSuC6myD6PpI85kjMTdrUw==}
 
   '@kunpeng-io/bpmnlint-plugin-kunpeng-compat@2026.10.4':
     resolution: {integrity: sha512-MS8QsaZg9Kr7xfjdWyj608/WmllPj8YU1dP+i80HAmCywe9Rc9CEfQWl3Q63GOSTUyxch7DG4Jmu0spDyfSLGg==}
@@ -790,8 +790,8 @@ packages:
   '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.1':
     resolution: {integrity: sha512-OUPrrO4FiNt0gu2AGPqJccE4MFPCi2KM8ZPiv6WcVq4Tb38mGcBVHmZJ8AAYcatFVFgWixR8/NmGlxuSGJKkXQ==}
 
-  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.2':
-    resolution: {integrity: sha512-jQ5S3jaGly19iJIj+p8T//Qwy423Q3YYWoS2B+BlGqXeGGziyjF8TBpkF9C8eP92qeK3ho9uwuxEesmbaF+jtg==}
+  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.3':
+    resolution: {integrity: sha512-sbPnHTVQ1cE3UxMUbvi8K8Fo5slCM/ifVJxpwdiZMeY9YtkxLcchFdvXyuBcX5IZSeaJHbfhzVq5VHzwlMA9Lg==}
 
   '@kunpeng-io/kunpeng-dmn-moddle@2026.10.4':
     resolution: {integrity: sha512-+mtueIrZewx9i74JpcwaRvG0tUc7zZ9DznUWj1KTW8HvCcZvAlnBMlcaXWCEN0JuahDnWh0Qp2o2nfXunTd/ig==}
@@ -5980,9 +5980,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.4(@kunpeng-io/bpmn-js@2026.11.6)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.5(@kunpeng-io/bpmn-js@2026.11.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/bpmn-js': 2026.11.6
+      '@kunpeng-io/bpmn-js': 2026.11.7
       '@kunpeng-io/extract-process-variables': 2026.10.3
       '@kunpeng-io/properties-panel': 2026.10.3
       array-move: 4.0.0
@@ -6010,10 +6010,10 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js@2026.11.6':
+  '@kunpeng-io/bpmn-js@2026.11.7':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
-      '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.2
+      '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.3
       bpmn-moddle: 10.3.1
       diagram-js: 15.28.1
       diagram-js-direct-editing: 3.6.0(diagram-js@15.28.1)
@@ -6111,7 +6111,7 @@ snapshots:
 
   '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.1': {}
 
-  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.2': {}
+  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.3': {}
 
   '@kunpeng-io/kunpeng-dmn-moddle@2026.10.4': {}
 
