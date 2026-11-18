@@ -42,8 +42,8 @@ importers:
         specifier: 2026.11.19
         version: 2026.11.19
       '@kunpeng-io/i18n':
-        specifier: 2026.11.19
-        version: 2026.11.19
+        specifier: 2026.11.20
+        version: 2026.11.20
       '@kunpeng-io/linting':
         specifier: 2026.11.1
         version: 2026.11.1
@@ -796,8 +796,8 @@ packages:
   '@kunpeng-io/extract-process-variables@2026.10.3':
     resolution: {integrity: sha512-rNZ13YVnEYvGNcKV4kLXm4LpRoBNSY8zpQQr5Rbf49KoM0d+dbcAc49zwfseUlxvViveiRkLgHS1hVefgbfF1Q==}
 
-  '@kunpeng-io/i18n@2026.11.19':
-    resolution: {integrity: sha512-BJz6KJIz9b5ZkHU8o2IreQg/xAScP1PfwaDbmf2FS3XEDUfUIFljPtdK6NwWo3LLqNUNlytgBcNhk9bV056Rbg==}
+  '@kunpeng-io/i18n@2026.11.20':
+    resolution: {integrity: sha512-xFEfAwyFXKTuiEG13XxoaFKDgddaVaEu4m94o0YLDv/DtDdzU1O59JzOD8F7fjEBFmTeyYL3bXwj+m531KrxPg==}
 
   '@kunpeng-io/kernel-shared@2026.10.4':
     resolution: {integrity: sha512-2XyWkuRfA62p9fXBVKGzf8c8aYjw9O14Uge/zOiXUnvEMjJZyqrezrMv/SQCDOwE8aJCLHOeoJy4A52uNFuEGg==}
@@ -6115,7 +6115,7 @@ snapshots:
     dependencies:
       min-dash: 5.1.0
 
-  '@kunpeng-io/i18n@2026.11.19': {}
+  '@kunpeng-io/i18n@2026.11.20': {}
 
   '@kunpeng-io/kernel-shared@2026.10.4': {}
 

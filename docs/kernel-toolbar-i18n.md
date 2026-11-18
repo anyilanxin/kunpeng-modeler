@@ -76,3 +76,10 @@
 
 - 内核契约翻转（用户裁定）：key=英文、缺省英文透传、中文为词典语言包（新语言=en→xx 词典）。宿主**零代码改动**，仅升依赖 bpmn-js/dmn-js/两 toolbar/i18n → 2026.11.19（面板三包留 2026.11.13；bpmn-js 基线含并行批次 2026.11.14）。
 - 验证：`pnpm build` 绿；zh 态 palette/工具栏/面板分组头/列表钮全中文逐字回归（含 '新建列表项'）；en 态零词典透传（Create Start event/Reset canvas/General/History cleanup），画布重建存活。语言切换与 import.done 同步等 S1-S3 接线复用不变。
+
+### S5 语言目录规范化 + 繁體中文接入（2026-11-19 完成）
+
+- 内核 `@kunpeng-io/i18n@2026.11.20`：目录约定 `src/<locale>/{bpmn,dmn,panel}.ts`（en=源码 key 透传无目录），新增 `zh-TW/`（OpenCC s2twp 由 zh-CN 生成：網關→閘道器/資料庫/訊息 台正词组）。
+- 宿主：`locales/zh-TW.ts`（OpenCC 转换 70 条 UI 词条：儲存/支援/視覺化）+ supportLanguages 增繁體中文 + naive-ui zhTW/dateZhTW + 两 Modeler locale 映射增 'zh-TW' 直传。
+- 验证：zh-CN 基线 → 切繁體：宿主 UI（屬性面板）/内核 palette（建立中間/邊界事件）/工具栏（重置畫布/適應畫布/開啟校驗）/面板（常規/歷史清理/執行監聽器）三层全繁体，画布重建存活。
+- 排障记录：切换后内核英文假象 = 旧 dev server 未死（`pkill -f "vite.*1420"` 不匹配进程 cmdline `…/vite.js`，新 server 启动即端口冲突退出，响应的是装 .20 前的旧进程缓存 .19 无 zh-TW）——按 `项目路径/node_modules.*vite` 模式杀净重启后全绿。教训：重启 dev 必查 pgrep 实际进程。

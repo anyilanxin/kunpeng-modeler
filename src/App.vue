@@ -5,16 +5,18 @@ import { useI18n } from 'vue-i18n';
 import CssVarsBridge from '@/components/CssVarsBridge.vue';
 import ModelerLayout from '@/layouts/ModelerLayout.vue';
 import { useThemeStore } from '@/stores/theme';
-import { darkTheme, dateEnUS, dateZhCN, enUS, zhCN } from 'naive-ui';
+import { darkTheme, dateEnUS, dateZhCN, dateZhTW, enUS, zhCN, zhTW } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
 
 const themeStore = useThemeStore();
 const { locale } = useI18n();
 
 const theme = computed(() => (themeStore.isDark ? darkTheme : null));
-const naiveLocale = computed(() => (locale.value === 'zh-CN' ? zhCN : enUS));
+const naiveLocale = computed(() =>
+  locale.value === 'zh-CN' ? zhCN : locale.value === 'zh-TW' ? zhTW : enUS,
+);
 const naiveDateLocale = computed(() =>
-  locale.value === 'zh-CN' ? dateZhCN : dateEnUS,
+  locale.value === 'zh-CN' ? dateZhCN : locale.value === 'zh-TW' ? dateZhTW : dateEnUS,
 );
 
 /**

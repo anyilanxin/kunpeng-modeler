@@ -2,6 +2,7 @@ import { createI18n, useI18n } from 'vue-i18n';
 
 import en from './en';
 import zhCN from './zh-CN';
+import zhTW from './zh-TW';
 
 const i18n = createI18n({
   legacy: false, // 使用 Composition API
@@ -9,6 +10,7 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     'zh-CN': zhCN,
+    'zh-TW': zhTW,
     en,
   },
 });
@@ -17,6 +19,7 @@ export default i18n;
 
 export const supportLanguages = [
   { label: '简体中文', key: 'zh-CN' },
+  { label: '繁體中文', key: 'zh-TW' },
   { label: 'English', key: 'en' },
 ];
 

@@ -74,8 +74,8 @@ const showProperty = ref(true);
 async function initModeler() {
   if (modeler.value || !canvasRef.value) return;
 
-  // 内核词典 config：zh-CN=面板英文 key 汉化（内核中文透传）；en-US=内核 UI 英文
-  const kernelLocale = props.lang === 'en' ? 'en-US' : 'zh-CN';
+  // 内核词典 config：zh-CN/zh-TW=内核 UI + 面板词典命中；en/其他=英文透传
+  const kernelLocale = props.lang === 'en' ? 'en-US' : props.lang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
 
   const additionalModules = [
     DmnPropertiesPanelModule,
