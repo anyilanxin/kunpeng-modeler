@@ -71,3 +71,8 @@
 - **对照验证**：`git worktree` main（旧工具栏）复测——新 tab 初始 undo 非禁用属**存量行为**（宿主模块组合在 import 后有命令入栈，非本次回归；DMN 线无此现象，指向 BPMN behaviors/linting 组合，登记遗留观察项）。
 - **未竟项**：DMN 决策表下钻在宿主浏览器会话未直接实测（IAB 焦点墙，双击/坐标点击均不可达；该路径为内核 2026.11.12 已验证逻辑 + 宿主 dmnViews 监听未改动，风险低）；导入导出对话框属 Tauri 能力需 dmg 实测（计划内可选项）。宿主 IAB 页面受并行会话干扰多次整页复位，实测以单格脚本完成。
 - 门禁：`pnpm build` 绿（5.8s）。
+
+### S4 i18n key 英文化翻转消费（2026-11-19 完成，内核 P6 联动）
+
+- 内核契约翻转（用户裁定）：key=英文、缺省英文透传、中文为词典语言包（新语言=en→xx 词典）。宿主**零代码改动**，仅升依赖 bpmn-js/dmn-js/两 toolbar/i18n → 2026.11.19（面板三包留 2026.11.13；bpmn-js 基线含并行批次 2026.11.14）。
+- 验证：`pnpm build` 绿；zh 态 palette/工具栏/面板分组头/列表钮全中文逐字回归（含 '新建列表项'）；en 态零词典透传（Create Start event/Reset canvas/General/History cleanup），画布重建存活。语言切换与 import.done 同步等 S1-S3 接线复用不变。
