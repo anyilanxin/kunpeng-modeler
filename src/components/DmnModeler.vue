@@ -23,7 +23,7 @@ import { Modeler as DmnModeler } from '@kunpeng-io/dmn-js';
 // 内核悬浮工具栏插件（撤销/重做/重置/缩放；宿主动作经 dmnToolbar.actions）
 import { DmnToolbarModule } from '@kunpeng-io/dmn-js-toolbar';
 // 内核双语词典（config 通道——构造期语言装配，见包头条注释；DI 整替被默认模块 __init__ 早捕获否决）
-import { dmnI18nConfig } from '@kunpeng-io/i18n';
+import { dmnI18nConfig } from '@kunpeng-io/bpm-i18n';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具

@@ -23,7 +23,7 @@ import { Modeler as BpmnModeler } from '@kunpeng-io/bpmn-js';
 // 内核悬浮工具栏插件（撤销/重做/重置/缩放/横纵切换/颜色/校验开关；宿主动作经 bpmnToolbar.actions）
 import { BpmnToolbarModule } from '@kunpeng-io/bpmn-js-toolbar';
 // 内核双语词典（config 通道——构造期语言装配，见包头条注释；DI 整替被默认模块 __init__ 早捕获否决）
-import { bpmnI18nConfig } from '@kunpeng-io/i18n';
+import { bpmnI18nConfig } from '@kunpeng-io/bpm-i18n';
 import gridModule from 'diagram-js-grid';
 import MinimapModule from 'diagram-js-minimap';
 

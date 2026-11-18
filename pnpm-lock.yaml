@@ -20,6 +20,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.43.12
         version: 6.43.15
+      '@kunpeng-io/bpm-i18n':
+        specifier: 2026.11.20
+        version: 2026.11.20
       '@kunpeng-io/bpmn-js':
         specifier: 2026.11.19
         version: 2026.11.19
@@ -41,9 +44,6 @@ importers:
       '@kunpeng-io/dmn-js-toolbar':
         specifier: 2026.11.19
         version: 2026.11.19
-      '@kunpeng-io/i18n':
-        specifier: 2026.11.20
-        version: 2026.11.20
       '@kunpeng-io/linting':
         specifier: 2026.11.1
         version: 2026.11.1
@@ -741,6 +741,9 @@ packages:
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
+  '@kunpeng-io/bpm-i18n@2026.11.20':
+    resolution: {integrity: sha512-W+0I5ie2S4vwFblXfwPe7sQ1yVF3IqmJjGq9mEa6by+/hB88u4o4acUOEvmHVIgqIVNHJUZsgO825JBykRXLjg==}
+
   '@kunpeng-io/bpmn-js-behaviors@2026.11.2':
     resolution: {integrity: sha512-stbaccLrJBsTRfOKlB5L6Sn44ZlpnxvEdZGv6OFnh5jIE7aNboXU9goxXrzstwTB4jjtTxiSWUE9XuKNLfk4bA==}
 
@@ -795,9 +798,6 @@ packages:
 
   '@kunpeng-io/extract-process-variables@2026.10.3':
     resolution: {integrity: sha512-rNZ13YVnEYvGNcKV4kLXm4LpRoBNSY8zpQQr5Rbf49KoM0d+dbcAc49zwfseUlxvViveiRkLgHS1hVefgbfF1Q==}
-
-  '@kunpeng-io/i18n@2026.11.20':
-    resolution: {integrity: sha512-xFEfAwyFXKTuiEG13XxoaFKDgddaVaEu4m94o0YLDv/DtDdzU1O59JzOD8F7fjEBFmTeyYL3bXwj+m531KrxPg==}
 
   '@kunpeng-io/kernel-shared@2026.10.4':
     resolution: {integrity: sha512-2XyWkuRfA62p9fXBVKGzf8c8aYjw9O14Uge/zOiXUnvEMjJZyqrezrMv/SQCDOwE8aJCLHOeoJy4A52uNFuEGg==}
@@ -5977,6 +5977,8 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
+  '@kunpeng-io/bpm-i18n@2026.11.20': {}
+
   '@kunpeng-io/bpmn-js-behaviors@2026.11.2':
     dependencies:
       '@kunpeng-io/bpmn-js': 2026.11.9
@@ -6114,8 +6116,6 @@ snapshots:
   '@kunpeng-io/extract-process-variables@2026.10.3':
     dependencies:
       min-dash: 5.1.0
-
-  '@kunpeng-io/i18n@2026.11.20': {}
 
   '@kunpeng-io/kernel-shared@2026.10.4': {}
 

@@ -28,7 +28,7 @@
     "@kunpeng-io/dmn-js": "2026.11.19",
     "@kunpeng-io/dmn-js-properties-panel": "2026.11.13",
     "@kunpeng-io/dmn-js-toolbar": "2026.11.19",
-    "@kunpeng-io/i18n": "2026.11.20",
+    "@kunpeng-io/bpm-i18n": "2026.11.20",
     "@kunpeng-io/linting": "2026.11.1",
     "@kunpeng-io/properties-panel": "2026.11.13",
     "@tauri-apps/api": "^2.11.1",
