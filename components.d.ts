@@ -12,7 +12,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BpmnModeler: typeof import('./src/components/BpmnModeler.vue')['default']
-    CanvasToolbar: typeof import('./src/components/modeler/CanvasToolbar.vue')['default']
     CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
     CssVarsBridge: typeof import('./src/components/CssVarsBridge.vue')['default']
     DmnModeler: typeof import('./src/components/DmnModeler.vue')['default']

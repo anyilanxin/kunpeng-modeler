@@ -21,26 +21,35 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-io/bpmn-js':
-        specifier: 2026.11.11
-        version: 2026.11.11
+        specifier: 2026.11.12
+        version: 2026.11.12
       '@kunpeng-io/bpmn-js-behaviors':
         specifier: 2026.11.2
         version: 2026.11.2
       '@kunpeng-io/bpmn-js-properties-panel':
-        specifier: 2026.11.8
-        version: 2026.11.8(@kunpeng-io/bpmn-js@2026.11.11)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
+        specifier: 2026.11.13
+        version: 2026.11.13(@kunpeng-io/bpmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)
+      '@kunpeng-io/bpmn-js-toolbar':
+        specifier: 2026.11.12
+        version: 2026.11.12
       '@kunpeng-io/dmn-js':
-        specifier: 2026.10.7
-        version: 2026.10.7
+        specifier: 2026.11.12
+        version: 2026.11.12
       '@kunpeng-io/dmn-js-properties-panel':
-        specifier: 2026.10.3
-        version: 2026.10.3(@kunpeng-io/dmn-js@2026.10.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)
+        specifier: 2026.11.13
+        version: 2026.11.13(@kunpeng-io/dmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)
+      '@kunpeng-io/dmn-js-toolbar':
+        specifier: 2026.11.12
+        version: 2026.11.12
+      '@kunpeng-io/i18n':
+        specifier: 2026.11.13
+        version: 2026.11.13
       '@kunpeng-io/linting':
         specifier: 2026.11.1
         version: 2026.11.1
       '@kunpeng-io/properties-panel':
-        specifier: 2026.10.3
-        version: 2026.10.3
+        specifier: 2026.11.13
+        version: 2026.11.13
       '@tauri-apps/api':
         specifier: ^2.11.1
         version: 2.12.4
@@ -381,8 +390,8 @@ packages:
   '@bpmn-io/semver-compat@0.1.0':
     resolution: {integrity: sha512-hIcW42Ku92MUioL6aknDbRoW1jK8ZEqIe8qZZ+d3cjitDO+PMEFFXj/sezJYIHMe8elu4CBz9qpjkV8WIVG9qw==}
 
-  '@carbon/icons@11.90.0':
-    resolution: {integrity: sha512-lTCB5fPb8xaaOjFmLlHv7dZsAvDmMYoxdQGtgRxLc+0uKEvad0749YcOkTcuozEgTB48ki3RaxvL63DIOXj6fw==}
+  '@carbon/icons@11.92.0':
+    resolution: {integrity: sha512-Xtb4IH/huGjbk25Un6ugDuBC4CtbbNndUGZoc4qjv2cyPAy75VwKQ802gskur/R1+ZOs+aWFK+Vqve6LntIEfg==}
 
   '@codemirror/autocomplete@6.20.4':
     resolution: {integrity: sha512-yF8RhOf2SXlg00+qtupzLhrglcas61boqaONiNcbPIebHCpJocpqTBA6dyrtUrQO47hqyTdeob/3XnYilT7TaQ==}
@@ -735,15 +744,18 @@ packages:
   '@kunpeng-io/bpmn-js-behaviors@2026.11.2':
     resolution: {integrity: sha512-stbaccLrJBsTRfOKlB5L6Sn44ZlpnxvEdZGv6OFnh5jIE7aNboXU9goxXrzstwTB4jjtTxiSWUE9XuKNLfk4bA==}
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.8':
-    resolution: {integrity: sha512-JCbysAqpemGW7QwV5Bm3Sl/uXgsTays8JM+vvJPzzXLHfELQJlWkd7sQXjCyGgFk6HV2GWI5yZX4H6hhqBaRyg==}
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.13':
+    resolution: {integrity: sha512-l1jQwVR0QydgMM76TRXbSXdZP+i7pVbo9i7I9+g963xnYM7266/EIyXTWuhhnAJc074Eisrwlc1An+Xp9vS6SQ==}
     peerDependencies:
       '@kunpeng-io/bpmn-js': '*'
       '@kunpeng-io/properties-panel': '*'
       diagram-js: '*'
 
-  '@kunpeng-io/bpmn-js@2026.11.11':
-    resolution: {integrity: sha512-v0PZ/M+s2PMR2kKe/A3WPGswclMRQDcvRJmPLbADJuG5KeQMjLTfI6R367321fotQum+mWD5g91Hr//T3hbkug==}
+  '@kunpeng-io/bpmn-js-toolbar@2026.11.12':
+    resolution: {integrity: sha512-qG1DzFPmJXIHtsafotn+tRyXFZk8P5m3Q/pKWhuguNEP3K1wRW6Rwo0iKzcXFr5IPJVmguQIaDTyBooDYwtahQ==}
+
+  '@kunpeng-io/bpmn-js@2026.11.12':
+    resolution: {integrity: sha512-mBkyGOpqqc0OQD/u9TUH+/aBhvxaMuo5f4vjjfA1m8LBxapB3bK3n/oDggWtZko0TG/1hli6FMDr/lD75J+znA==}
 
   '@kunpeng-io/bpmn-js@2026.11.9':
     resolution: {integrity: sha512-56ArcsvPIiCPmnRGefJY2gw4+TqOoouZ0mzSjxfaABTU/tWPM1gx3/C3UaPf4dDbw4i1U1HNCQMrufIRNQSD2g==}
@@ -754,15 +766,18 @@ packages:
     peerDependencies:
       bpmnlint: '>= 11.6.0'
 
-  '@kunpeng-io/dmn-js-properties-panel@2026.10.3':
-    resolution: {integrity: sha512-3r0nWw5kSQbH7ymhc7IGeuup8HLYszL53ek6KHlP0U6BAI7+J7oiB7PD//PINBDPXLNo1FVFuK3VuxorRujWeQ==}
+  '@kunpeng-io/dmn-js-properties-panel@2026.11.13':
+    resolution: {integrity: sha512-Kh4uBUjuNvJ76Idc2w1FBPK+gCDsrhmMj7M06w2d8IiHHv67EH78CKU830HtHADkjhnLzCFSqkjQ0SwjLSiFcQ==}
     peerDependencies:
       '@kunpeng-io/dmn-js': '*'
       '@kunpeng-io/properties-panel': '*'
       diagram-js: '*'
 
-  '@kunpeng-io/dmn-js@2026.10.7':
-    resolution: {integrity: sha512-erKIEQwQ2AzZiucGV+XjfcOiFDe8+0N4PxoZ38i0slYUlMAQdJIUgdBOrumxFC8B1/kY6sVfg7v0pq7WZ00mHg==}
+  '@kunpeng-io/dmn-js-toolbar@2026.11.12':
+    resolution: {integrity: sha512-k405+xYykvaqQjnVHjIFra1W9/bwuhRuqhP7+AmlaCm/VqDdB8X9PDj8rGFncRlbOHQN4IO2eJjrxrGxuOKOAw==}
+
+  '@kunpeng-io/dmn-js@2026.11.12':
+    resolution: {integrity: sha512-lvbGh8iZDgNXwCQUv68pCPn+zqHDEUZPZKLSazDMidIekvPHA9sGuTHiV4PvHX4RnFzUffVbGypSbWI44w1TSg==}
 
   '@kunpeng-io/expression-analyzer@2026.10.3':
     resolution: {integrity: sha512-PeSVU3k5Q9U5PULnsgt+AfuZb+iaDTQJXeAleD0zQtPdZtjJIR9pdS5HObVxBMsd9SvWly7ZYjq3ppuTKUhNyg==}
@@ -781,11 +796,11 @@ packages:
   '@kunpeng-io/extract-process-variables@2026.10.3':
     resolution: {integrity: sha512-rNZ13YVnEYvGNcKV4kLXm4LpRoBNSY8zpQQr5Rbf49KoM0d+dbcAc49zwfseUlxvViveiRkLgHS1hVefgbfF1Q==}
 
+  '@kunpeng-io/i18n@2026.11.13':
+    resolution: {integrity: sha512-7u4JVYsDWLUZT3PneLkun2Z96Mc4huCcPFsLmLRjuCpthvnWf5PCDTn1VlMK6mc4UEakWSmZK5UOCl9kTsgbZg==}
+
   '@kunpeng-io/kernel-shared@2026.10.4':
     resolution: {integrity: sha512-2XyWkuRfA62p9fXBVKGzf8c8aYjw9O14Uge/zOiXUnvEMjJZyqrezrMv/SQCDOwE8aJCLHOeoJy4A52uNFuEGg==}
-
-  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.1':
-    resolution: {integrity: sha512-OUPrrO4FiNt0gu2AGPqJccE4MFPCi2KM8ZPiv6WcVq4Tb38mGcBVHmZJ8AAYcatFVFgWixR8/NmGlxuSGJKkXQ==}
 
   '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.4':
     resolution: {integrity: sha512-2FC9XCUAWj/O/KHr7U8TJZf8r/iywhIfW3PhIzNET3BPcU6/tRINAlHGDtNmTVPByUXnZOBJIidukcm6hlpJwA==}
@@ -804,8 +819,8 @@ packages:
   '@kunpeng-io/linting@2026.11.1':
     resolution: {integrity: sha512-iqivBZ6M1HlOVC1AmnvKl3KcVz6cDMnDFpREx2TzMi2ux4IT5Ww5zBwvO0vEvz4P5ZAu/wv+qhEiL7bvQ/3wqw==}
 
-  '@kunpeng-io/properties-panel@2026.10.3':
-    resolution: {integrity: sha512-9AxsHuox1dlB76SKMnexMPiRpcRrynSUvRudPB6mTSzTht37MdNFmU+ewbcGb7clKKjcWCwAeUJc1uWnOGalSQ==}
+  '@kunpeng-io/properties-panel@2026.11.13':
+    resolution: {integrity: sha512-XRkRrpGoD1uqAnbJIyqYnZbyY3XmI0co4qHdFKLlpF3ZwtixfxohaCCMrR0/x7IRcxhtO5X2bU/k1odqGxUJ8Q==}
 
   '@lezer/common@1.5.3':
     resolution: {integrity: sha512-H0iErY4e43LpXbYDyBci5W4v/RwTgGV3YzYOlJPiGZ8RY8w51kVE+xLn1tg3Z6UmSfyETvtsUK3r7YsgDQEI7Q==}
@@ -3140,8 +3155,8 @@ packages:
   flatted@3.4.4:
     resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
 
-  focus-trap@8.2.3:
-    resolution: {integrity: sha512-LTNHZwcFM7bSdU1cG1ExoaTEzoGmdjw+EzDotolZmLTCbm0ll2k6J3NL+WfqP14nGLxAp+XDJgwlT2DtNhcukA==}
+  focus-trap@8.2.5:
+    resolution: {integrity: sha512-VrqfyRXaHZ0EkhXlfyalszmhnSN9yjdYXwlwLSRoJrDJ0/eswY5J5Avj/Hcd/PrOHCMnsMhwx7+7+s1kmv9Asg==}
 
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
@@ -4828,8 +4843,8 @@ packages:
     resolution: {integrity: sha512-U+/AXT6LWsxnj2vz9HeUuPWBNgdWxjyIEjEPdbJARC9txmgPzo2VEdqnFo4hHaNyMPtycyVJrSaQYeQv/PoyyA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tabbable@6.5.0:
-    resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
+  tabbable@6.5.2:
+    resolution: {integrity: sha512-XgdnB1nGU6KU4VgMnZPaZCx7M1hBrLyEiZYau2G2gq9UT0d7d4FUBlNX7vvPlm/B1vk1PjrzJBx9Lbv4fsqS9g==}
 
   table-js@9.4.0:
     resolution: {integrity: sha512-m7G/yfFnP2pniz+NMT9QnrYko8MUVBbWsFD+zHY808VBmVZqIHPR68VzCtvWXDF1oCLG4c96BM0nOA4ILzqK+w==}
@@ -5629,7 +5644,7 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
-  '@carbon/icons@11.90.0':
+  '@carbon/icons@11.92.0':
     dependencies:
       '@ibm/telemetry-js': 1.12.0
 
@@ -5971,18 +5986,20 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.8(@kunpeng-io/bpmn-js@2026.11.11)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.13(@kunpeng-io/bpmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/bpmn-js': 2026.11.11
+      '@kunpeng-io/bpmn-js': 2026.11.12
       '@kunpeng-io/extract-process-variables': 2026.10.3
-      '@kunpeng-io/properties-panel': 2026.10.3
+      '@kunpeng-io/properties-panel': 2026.11.13
       array-move: 4.0.0
       diagram-js: 15.28.1
       ids: 3.0.2
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  '@kunpeng-io/bpmn-js@2026.11.11':
+  '@kunpeng-io/bpmn-js-toolbar@2026.11.12': {}
+
+  '@kunpeng-io/bpmn-js@2026.11.12':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
       '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.4
@@ -6032,18 +6049,20 @@ snapshots:
       min-dash: 5.1.0
       semver-compare: 1.0.0
 
-  '@kunpeng-io/dmn-js-properties-panel@2026.10.3(@kunpeng-io/dmn-js@2026.10.7)(@kunpeng-io/properties-panel@2026.10.3)(diagram-js@15.28.1)':
+  '@kunpeng-io/dmn-js-properties-panel@2026.11.13(@kunpeng-io/dmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/dmn-js': 2026.10.7
-      '@kunpeng-io/properties-panel': 2026.10.3
+      '@kunpeng-io/dmn-js': 2026.11.12
+      '@kunpeng-io/properties-panel': 2026.11.13
       diagram-js: 15.28.1
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  '@kunpeng-io/dmn-js@2026.10.7':
+  '@kunpeng-io/dmn-js-toolbar@2026.11.12': {}
+
+  '@kunpeng-io/dmn-js@2026.11.12':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
-      '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.1
+      '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.4
       '@kunpeng-io/kunpeng-dmn-moddle': 2026.10.4
       bpmn-moddle: 10.3.1
       diagram-js: 15.28.1
@@ -6096,9 +6115,9 @@ snapshots:
     dependencies:
       min-dash: 5.1.0
 
-  '@kunpeng-io/kernel-shared@2026.10.4': {}
+  '@kunpeng-io/i18n@2026.11.13': {}
 
-  '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.1': {}
+  '@kunpeng-io/kernel-shared@2026.10.4': {}
 
   '@kunpeng-io/kunpeng-bpmn-moddle@2026.11.4': {}
 
@@ -6134,9 +6153,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/properties-panel@2026.10.3':
+  '@kunpeng-io/properties-panel@2026.11.13':
     dependencies:
-      '@carbon/icons': 11.90.0
+      '@carbon/icons': 11.92.0
       '@codemirror/autocomplete': 6.20.4
       '@codemirror/commands': 6.11.1
       '@codemirror/lang-json': 6.0.2
@@ -6146,7 +6165,7 @@ snapshots:
       '@codemirror/view': 6.43.15
       '@kunpeng-io/expression-editor': 2026.10.3
       classnames: 2.5.1
-      focus-trap: 8.2.3
+      focus-trap: 8.2.5
       min-dash: 5.1.0
       min-dom: 5.3.0
       preact: 11.0.1
@@ -8646,9 +8665,9 @@ snapshots:
 
   flatted@3.4.4: {}
 
-  focus-trap@8.2.3:
+  focus-trap@8.2.5:
     dependencies:
-      tabbable: 6.5.0
+      tabbable: 6.5.2
 
   for-each@0.3.5:
     dependencies:
@@ -10524,7 +10543,7 @@ snapshots:
       '@dual-bundle/import-meta-resolve': 4.2.1
       '@pkgr/core': 0.3.6
 
-  tabbable@6.5.0: {}
+  tabbable@6.5.2: {}
 
   table-js@9.4.0(diagram-js@15.28.1)(inferno@5.6.3):
     dependencies:

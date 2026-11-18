@@ -23,8 +23,8 @@
 ## 三、改动面
 
 1. **依赖**：+ `@kunpeng-io/bpmn-js-toolbar` / `@kunpeng-io/dmn-js-toolbar` / `@kunpeng-io/i18n`；按内核发版升级受影响包（bpmn-js / dmn-js / dmn-js-properties-panel 等）。
-2. **BpmnModeler.vue**：`additionalModules` += `BpmnToolbarModule` + `createBpmnI18nModule(locale)`；构造项 `bpmnToolbar: { resetXml: () => createEmptyBpmn() }`（保 kunpeng/modeler 命名空间与版本标记）；import `@kunpeng-io/bpmn-js-toolbar/styles`。
-3. **DmnModeler.vue**：同款 `DmnToolbarModule` + `createDmnI18nModule(locale)` + `dmnToolbar: { resetXml: () => createEmptyDmn() }` + styles。
+2. **BpmnModeler.vue**：`additionalModules` += `BpmnToolbarModule`；构造项 `bpmnToolbar: { resetXml: () => createEmptyBpmn() }`（保 kunpeng/modeler 命名空间与版本标记）+ `bpmnI18n: bpmnI18nConfig(locale)`（内核契约 pivot 后为 **config 词典通道**，非 DI 模块——palette 等默认模块 `__init__` 急切构造先于 additionalModules 覆盖，DI 替换对早捕获消费者不生效）；import `@kunpeng-io/bpmn-js-toolbar/styles`。
+3. **DmnModeler.vue**：同款 `DmnToolbarModule` + `dmnToolbar: { resetXml: () => createEmptyDmn() }` + `dmnI18n: dmnI18nConfig(locale)` + styles。
 4. **删除**：`CanvasToolbar.vue`、DesignerView 挂载与 `modelerRef` inject 链、`locales/*/toolbar.*` 词条。
 5. **重置后状态同步**：内核重置走 importXML → 挂 `import.done` 监听 saveXML→`tabsStore.updateXml`（现有 `commandStack.changed` 同步不覆盖 import 路径；tab 切换导入也会触发，hash 判脏幂等无害）。
 6. **语言切换**：`setLanguage()` 变更 locale → 重建当前 tab 的 modeler 实例（每 tab 独立实例天然支持；复用主题切换既有重建/恢复路径）——内核 i18n v1 为构造期语言，热切换属内核缓执行项。
@@ -57,4 +57,17 @@
 
 ## 执行记录
 
-（随阶段回填）
+### S1-S3 一次落齐（2026-11-18 完成）
+
+- **依赖**（2026.11.12 批 + 2026.11.13 面板补丁批）：bpmn-js / dmn-js / 两 toolbar / i18n 新增，bpmn-js-properties-panel / dmn-js-properties-panel / properties-panel / i18n 升 2026.11.13（内核 P5：基础面板 translate 线程补全——'切换分组'/'新建列表项'/分组圆点汉化）。
+- **装配**：两 Modeler additionalModules += 工具栏模块；`bpmnToolbar/dmnToolbar.resetXml` 用宿主模板工厂；`bpmnI18n/dmnI18n` = i18n 包 config 词典（locale 映射 `en→en-US` 余 zh-CN）；两 styles 导入；`import.done` 监听统一序列化同步 tab xml（commandStack.changed 不覆盖 import 路径）；`watch(props.lang)` 重建 modeler（与主题重建同款路径，props.xml 由 tab.xml 驱动始终最新）。
+- **清理**：删 `CanvasToolbar.vue`（~300 行）与 DesignerView 挂载/`modelerRef` provide 链/`activeViewMode`；`locales/*/toolbar.*` 两语 21 词条整块删（消费方仅退役组件）；`git grep CanvasToolbar` 零残留。
+- **浏览器实测**（IAB@1420，1600×900；合成事件被 diagram-js 交互层吞，DOM 级 evaluate 点击 + 真实坐标 cua 双轨）：
+  - BPMN：工具栏全钮在位（校验开关/颜色组[禁用态正确]/撤销重做/重置/缩放族/横纵切换/适应）；「更多元素」弹框建任务 2→3、撤销 3→2 禁用、重做复原、**重置 3→2 回模板**；palette 全中文。
+  - 语言：zh→en palette（Create Task/Hand tool…）/工具栏（Reset canvas/Fit viewport/Enable linting…）全切 + 面板 en 透传（General/Documentation）；en→zh 回切 + 面板分组头汉化（常规/文档/历史清理/附加/执行监听器/扩展属性）+ 列表钮汉化（切换分组/新建列表项）；两向重建后画布均存活。
+  - 主题：暗色画布 #131316/palette 深色/工具栏在位，切回亮色往返画布存活（陷阱 4 无回归）。
+  - DMN：工具栏正确面（无校验/无横纵钮）；palette 创建决策族；重置 1→1 回模板且 undo 禁用。
+  - 多 tab：BPMN+DMN 并存，v-show 容器切换正常。
+- **对照验证**：`git worktree` main（旧工具栏）复测——新 tab 初始 undo 非禁用属**存量行为**（宿主模块组合在 import 后有命令入栈，非本次回归；DMN 线无此现象，指向 BPMN behaviors/linting 组合，登记遗留观察项）。
+- **未竟项**：DMN 决策表下钻在宿主浏览器会话未直接实测（IAB 焦点墙，双击/坐标点击均不可达；该路径为内核 2026.11.12 已验证逻辑 + 宿主 dmnViews 监听未改动，风险低）；导入导出对话框属 Tauri 能力需 dmg 实测（计划内可选项）。宿主 IAB 页面受并行会话干扰多次整页复位，实测以单格脚本完成。
+- 门禁：`pnpm build` 绿（5.8s）。

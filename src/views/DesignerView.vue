@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Ref } from 'vue';
 
-import { computed, inject, nextTick, provide, reactive, ref, watch } from 'vue';
+import { computed, inject, nextTick, reactive, ref, watch } from 'vue';
 
 import BpmnModeler from '@/components/BpmnModeler.vue';
 import DmnModeler from '@/components/DmnModeler.vue';
-import CanvasToolbar from '@/components/modeler/CanvasToolbar.vue';
+import { useAppI18n } from '@/locales';
 import { useLintIssuesStore } from '@/stores/lintIssues';
 import { usePanelLayoutStore } from '@/stores/panelLayout';
 import { useTabsStore } from '@/stores/tabs';
@@ -16,6 +16,9 @@ const tabsStore = useTabsStore();
 const themeStore = useThemeStore();
 const panelLayoutStore = usePanelLayoutStore();
 const lintIssuesStore = useLintIssuesStore();
+
+// 应用语言（传给 modeler 组装内核 i18n 词典；语言切换=内核构造期重建，组件内 watch 处理）
+const { locale: appLang } = useAppI18n();
 
 const tabs = computed(() => tabsStore.tabs);
 const activeId = computed(() => tabsStore.activeId);
@@ -41,15 +44,9 @@ function handleUpdateShowPanel(val: boolean) {
   }
 }
 
-// CanvasToolbar 根据当前激活 tab 的 viewMode 决定显隐
-const activeViewMode = computed(() => tabsStore.activeViewMode);
-
 // 收集每个 tab 的 modeler 实例引用（key = tab.id）
-// 同步写入 lintIssuesStore，供 ProblemsPanel 跨层级访问（点击错误项跳转画布）
+// 同步写入 lintIssuesStore，供 ProblemsPanel / TitleBar 跨层级访问（点击错误项跳转画布等）
 const modelerRefs = reactive<Record<string, any>>({});
-
-// 当前激活 tab 的 modeler 引用（computed，随 activeId 切换）
-const modelerRef = computed(() => modelerRefs[activeId.value] ?? null);
 
 // 每个 tab 的校验问题统一由 lintIssuesStore 管理（跨 ModelerLayout / DesignerView 兄弟层级共享）
 
@@ -91,10 +88,9 @@ function setModelerRef(tabId: string) {
   };
 }
 
-// CanvasToolbar 在 DesignerView 子树内，仍可通过 inject 拿到当前激活 modeler
-provide('modelerRef', modelerRef);
 // modelerRefs 已同步写入 lintIssuesStore，供 TitleBar / ProblemsPanel 跨层级访问
 // 校验问题列表也由 lintIssuesStore 全局共享，避免 provide/inject 跨兄弟层级失效
+// （顶部工具栏已由内核 @kunpeng-io/*-toolbar 插件随画布容器渲染，无宿主组件）
 
 /**
  * tab 切换时刷新画布
@@ -117,10 +113,8 @@ lintIssuesStore.setActiveTab(activeId.value);
 <template>
   <template v-if="hasTabs">
     <div class="designer-view">
-      <!-- 中间画布 + 悬浮条 -->
+      <!-- 中间画布（工具栏由内核插件随画布容器渲染，XML 视图态随画布隐藏） -->
       <div class="canvas-wrapper">
-        <CanvasToolbar v-show="activeViewMode === 'model'" />
-
         <!-- 每个 tab 独立挂载一个 modeler 实例，v-show 控制可见性 -->
         <template v-for="tab in tabs" :key="tab.id">
           <BpmnModeler
@@ -128,6 +122,7 @@ lintIssuesStore.setActiveTab(activeId.value);
             :ref="setModelerRef(tab.id)"
             v-show="tab.id === activeId"
             :xml="tab.xml"
+            :lang="appLang"
             :theme="theme"
             :show-panel="showPanel"
             :panel-width="panelWidth"
@@ -142,6 +137,7 @@ lintIssuesStore.setActiveTab(activeId.value);
             :ref="setModelerRef(tab.id)"
             v-show="tab.id === activeId"
             :xml="tab.xml"
+            :lang="appLang"
             :theme="theme"
             :show-panel="showPanel"
             :panel-width="panelWidth"
