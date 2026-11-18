@@ -21,14 +21,14 @@ importers:
         specifier: ^6.43.12
         version: 6.43.15
       '@kunpeng-io/bpmn-js':
-        specifier: 2026.11.12
-        version: 2026.11.12
+        specifier: 2026.11.14
+        version: 2026.11.14
       '@kunpeng-io/bpmn-js-behaviors':
         specifier: 2026.11.2
         version: 2026.11.2
       '@kunpeng-io/bpmn-js-properties-panel':
         specifier: 2026.11.13
-        version: 2026.11.13(@kunpeng-io/bpmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)
+        version: 2026.11.13(@kunpeng-io/bpmn-js@2026.11.14)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)
       '@kunpeng-io/bpmn-js-toolbar':
         specifier: 2026.11.12
         version: 2026.11.12
@@ -754,8 +754,8 @@ packages:
   '@kunpeng-io/bpmn-js-toolbar@2026.11.12':
     resolution: {integrity: sha512-qG1DzFPmJXIHtsafotn+tRyXFZk8P5m3Q/pKWhuguNEP3K1wRW6Rwo0iKzcXFr5IPJVmguQIaDTyBooDYwtahQ==}
 
-  '@kunpeng-io/bpmn-js@2026.11.12':
-    resolution: {integrity: sha512-mBkyGOpqqc0OQD/u9TUH+/aBhvxaMuo5f4vjjfA1m8LBxapB3bK3n/oDggWtZko0TG/1hli6FMDr/lD75J+znA==}
+  '@kunpeng-io/bpmn-js@2026.11.14':
+    resolution: {integrity: sha512-qVIer1bzXBnD0XRHfdgsSL8vw0pKMWqemzVyoHYYNe18sqxK0prQyIhPVi8duuj8EyBFbqJ9zuELMgy8LsbshA==}
 
   '@kunpeng-io/bpmn-js@2026.11.9':
     resolution: {integrity: sha512-56ArcsvPIiCPmnRGefJY2gw4+TqOoouZ0mzSjxfaABTU/tWPM1gx3/C3UaPf4dDbw4i1U1HNCQMrufIRNQSD2g==}
@@ -5986,9 +5986,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@kunpeng-io/bpmn-js-properties-panel@2026.11.13(@kunpeng-io/bpmn-js@2026.11.12)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)':
+  '@kunpeng-io/bpmn-js-properties-panel@2026.11.13(@kunpeng-io/bpmn-js@2026.11.14)(@kunpeng-io/properties-panel@2026.11.13)(diagram-js@15.28.1)':
     dependencies:
-      '@kunpeng-io/bpmn-js': 2026.11.12
+      '@kunpeng-io/bpmn-js': 2026.11.14
       '@kunpeng-io/extract-process-variables': 2026.10.3
       '@kunpeng-io/properties-panel': 2026.11.13
       array-move: 4.0.0
@@ -5999,7 +5999,7 @@ snapshots:
 
   '@kunpeng-io/bpmn-js-toolbar@2026.11.12': {}
 
-  '@kunpeng-io/bpmn-js@2026.11.12':
+  '@kunpeng-io/bpmn-js@2026.11.14':
     dependencies:
       '@kunpeng-io/kernel-shared': 2026.10.4
       '@kunpeng-io/kunpeng-bpmn-moddle': 2026.11.4
