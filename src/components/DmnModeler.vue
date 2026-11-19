@@ -16,9 +16,14 @@ import {
 // CSS（diagram-js 表面 + 组件皮肤，须在 diagram-js.css 之后引入；图标全部内联 SVG 无字体图标）
 import 'diagram-js/assets/diagram-js.css';
 import '@kunpeng-io/dmn-js/styles';
+import '@kunpeng-io/dmn-js-toolbar/styles';
 import '@kunpeng-io/dmn-js-properties-panel/dist/assets/properties-panel.css';
 // DMN 核心（@kunpeng-io 新内核：根命名导出 Modeler；kunpeng 扩展内置、下钻 overview 自带）
 import { Modeler as DmnModeler } from '@kunpeng-io/dmn-js';
+// 内核悬浮工具栏插件（撤销/重做/重置/缩放；宿主动作经 dmnToolbar.actions）
+import { DmnToolbarModule } from '@kunpeng-io/dmn-js-toolbar';
+// 内核双语词典（config 通道——构造期语言装配，见包头条注释；DI 整替被默认模块 __init__ 早捕获否决）
+import { dmnI18nConfig } from '@kunpeng-io/i18n';
 
 import CodeEditor from '@/components/CodeEditor.vue';
 // 本地工具
@@ -69,18 +74,26 @@ const showProperty = ref(true);
 async function initModeler() {
   if (modeler.value || !canvasRef.value) return;
 
-  // 注：新内核词典默认 zh-CN 单语（lang prop 暂不生效，与 anyi 迁移同款登记）
+  // 内核词典 config：zh-CN=面板英文 key 汉化（内核中文透传）；en-US=内核 UI 英文
+  const kernelLocale = props.lang === 'en' ? 'en-US' : 'zh-CN';
+
   const additionalModules = [
     DmnPropertiesPanelModule,
     DmnPropertiesProviderModule,
     KunpengPropertiesProviderModule,
     gridModule,
+    DmnToolbarModule,
   ];
 
   // 新内核单画布门面：DRD 常驻，决策表/字面/Boxed 经 DmnViews 内部下钻，
   // config 平铺（不再按 drd/decisionTable/literalExpression/common 分视图装配）
   const config: any = {
     container: canvasRef.value,
+    // 工具栏插件：重置画布用宿主模板（保 kunpeng 扩展命名空间标记）
+    dmnToolbar: {
+      resetXml: () => createEmptyDmn(),
+    },
+    dmnI18n: dmnI18nConfig(kernelLocale),
     additionalModules,
     propertiesPanel: {
       parent: `#${panelId}`,
@@ -99,6 +112,11 @@ async function initModeler() {
 
   // 命令栈变化 → 序列化上抛（DRD 与下钻视图编辑统一入口）
   modeler.value.on('commandStack.changed', () => {
+    saveAndEmit();
+  });
+  // import 路径（工具栏重置/程序导入）不在 commandStack.changed 覆盖内，
+  // 挂 import.done 统一序列化同步 tab xml（初始导入触发一次，幂等无害）
+  modeler.value.on('import.done', () => {
     saveAndEmit();
   });
 
@@ -312,6 +330,16 @@ onBeforeUnmount(() => {
 
 watch(
   () => props.theme,
+  async () => {
+    destroyModeler();
+    await initModeler();
+  },
+);
+
+// 语言切换时重建 Modeler（内核 i18n 为构造期装配词典，热切换属内核缓执行项；
+// props.xml 由 tab.xml 变更驱动始终为最新内容，重建无丢失）
+watch(
+  () => props.lang,
   async () => {
     destroyModeler();
     await initModeler();

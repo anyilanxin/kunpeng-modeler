@@ -20,12 +20,17 @@ import { Linter } from '@kunpeng-io/linting';
 import BpmnColorPickerModule from 'bpmn-js-color-picker/colors';
 // bpmn-js 核心（根命名导出 Modeler；全量追加/创建弹框内核自带，无需 create-append-anything）
 import { Modeler as BpmnModeler } from '@kunpeng-io/bpmn-js';
+// 内核悬浮工具栏插件（撤销/重做/重置/缩放/横纵切换/颜色/校验开关；宿主动作经 bpmnToolbar.actions）
+import { BpmnToolbarModule } from '@kunpeng-io/bpmn-js-toolbar';
+// 内核双语词典（config 通道——构造期语言装配，见包头条注释；DI 整替被默认模块 __init__ 早捕获否决）
+import { bpmnI18nConfig } from '@kunpeng-io/i18n';
 import gridModule from 'diagram-js-grid';
 import MinimapModule from 'diagram-js-minimap';
 
 // CSS（diagram-js 表面 + 组件皮肤，须在 diagram-js.css 之后引入；图标全部内联 SVG 无字体图标）
 import 'diagram-js/assets/diagram-js.css';
 import '@kunpeng-io/bpmn-js/styles';
+import '@kunpeng-io/bpmn-js-toolbar/styles';
 import 'bpmn-js-color-picker/colors/color-picker.css';
 // @kunpeng-io/linting 画布错误标注样式
 import '@kunpeng-io/linting/assets/linting.css';
@@ -69,7 +74,9 @@ const panelId = `bpmn-properties-${Math.random().toString(36).slice(2, 8)}`;
 async function initModeler() {
   if (modeler.value || !canvasRef.value) return;
 
-  // 注：新内核词典默认 zh-CN 单语（lang prop 暂不生效，与 anyi 迁移同款登记）
+  // 内核词典 config：zh-CN=面板英文 key 汉化（内核中文透传）；en-US=内核 UI 英文
+  const kernelLocale = props.lang === 'en' ? 'en-US' : 'zh-CN';
+
   const additionalModules = [
     gridModule,
     BpmnColorPickerModule,
@@ -79,10 +86,16 @@ async function initModeler() {
     KunpengPropertiesProviderModule,
     MinimapModule,
     lintingModule,
+    BpmnToolbarModule,
   ];
 
   const config: any = {
     container: canvasRef.value,
+    // 工具栏插件：重置画布用宿主模板（保 kunpeng/modeler 扩展命名空间与版本标记）
+    bpmnToolbar: {
+      resetXml: () => createEmptyBpmn(),
+    },
+    bpmnI18n: bpmnI18nConfig(kernelLocale),
     propertiesPanel: {
       parent: `#${panelId}`,
     },
@@ -138,6 +151,11 @@ async function initModeler() {
     saveAndEmit();
   });
   eventBus.on('commandStack.changed', () => {
+    saveAndEmit();
+  });
+  // import 路径（工具栏重置/程序导入）不在 commandStack.changed 覆盖内，
+  // 挂 import.done 统一序列化同步 tab xml（初始导入触发一次，幂等无害）
+  eventBus.on('import.done', () => {
     saveAndEmit();
   });
 
@@ -369,6 +387,16 @@ onBeforeUnmount(() => {
 // 主题切换时重建 Modeler
 watch(
   () => props.theme,
+  async () => {
+    destroyModeler();
+    await initModeler();
+  },
+);
+
+// 语言切换时重建 Modeler（内核 i18n 为构造期装配词典，热切换属内核缓执行项；
+// props.xml 由 tab.xml 变更驱动始终为最新内容，重建无丢失）
+watch(
+  () => props.lang,
   async () => {
     destroyModeler();
     await initModeler();
