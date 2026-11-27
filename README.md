@@ -174,3 +174,21 @@ tvta-ui/
 ---
 
 **Happy Coding! 祝你开发愉快！** 🚀
+
+---
+
+## 📄 License
+
+本项目基于 [Apache License 2.0](./LICENSE) 开源：
+
+- 完整协议文本见 [LICENSE](./LICENSE)，版权与署名信息见 [NOTICE](./NOTICE)；
+- 源码文件头部均带 Apache-2.0 协议头（格式与 [kunpeng-engine](https://github.com/anyilanxin/kunpeng-engine) 对齐）。
+
+### 协议合规反馈
+
+本仓库在合规上尽力完整遵循各上游依赖的开源协议（建模器内核来自 npm 包 `@kunpeng-io/*`，其自身协议义务由对应包承载）。如发现协议违反、版权署名错误或其他合规问题，请通过以下方式反馈：
+
+1. 提交 [GitHub Issue](https://github.com/anyilanxin/kunpeng-modeler/issues/new)
+2. 邮件 anyilanxin@aliyun.com
+
+我们承诺及时核实每一份报告，确认后在合理时间内修复（补署名、修正协议标注或移除代码），并在 issue 上公布结果。
