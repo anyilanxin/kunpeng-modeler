@@ -9,6 +9,7 @@ Kunpeng Modeler：鲲鹏 BPMN 2.0 / DMN 1.6 桌面建模应用（**Tauri 2.0 + V
 - **本仓只做宿主层**：建模器内核全部来自 npm 已发布包 `@kunpeng-js/*`（bpmn-js / dmn-js / properties-panel / moddle / linting / behaviors / element-templates 等，2026.10.x），内核开发在兄弟仓库 `kunpeng-bpm`（turbo + pnpm monorepo）——画布行为、渲染、建模 API、规范语义类问题去内核仓修复、发版，再回本仓升级依赖，不在本仓改内核。
 - 关键代码：`src/components/BpmnModeler.vue` / `DmnModeler.vue`（两线建模器宿主组件）、`src/components/modeler/`（画布工具栏 / 问题面板 / 状态栏 / 标题栏 / 版本弹层）、`src/views/`（HomeView / DesignerView）、`src/stores/`（tabs / theme / panelLayout / lintIssues）、`src/services/modelFile.ts`（文件打开保存，走 Tauri fs/dialog）、`src-tauri/`（Rust 薄壳，仅 main.rs / lib.rs，加打包配置）。
 - 版本唯一来源：根 `package.json` 的 `version`（编译期注入 `__APP_VERSION__`，`tauri.conf.json` 引用 `../package.json`）。
+- **开源协议（2026-11-27 起）**：本仓整体 **Apache-2.0**——根 `LICENSE` 全文 + `NOTICE` 署名 + 源码协议头（格式对齐 kunpeng-engine，版权行 `Copyright © 2026 anyilanxin zxh (anyilanxin@aliyun.com)`）。**新建源码文件（ts/vue/css/rs/sh/nsi/html/xml/plist）必须带同款协议头**；不加头的范围：自动生成文件（auto-imports.d.ts / components.d.ts / 图标）、JSON、锁文件、docs/。头样例与完整排除清单见 [docs/2026-11-27-apache-license.md](docs/2026-11-27-apache-license.md)。
 - 仓库：github.com/anyilanxin/kunpeng-modeler；三平台打包指南见 [docs/build-guide.md](docs/build-guide.md)（其 `cd dists/kunpeng-modeler` 是 monorepo 时代旧路径，本仓直接在根目录执行）。
 
 ## 恢复开发现场（每次新会话的固定动作）
